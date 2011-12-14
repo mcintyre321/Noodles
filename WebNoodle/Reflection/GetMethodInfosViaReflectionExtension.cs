@@ -11,7 +11,6 @@ namespace WebNoodle.Reflection
         {
             MethodFilters = new List<Func<object, MethodInfo, bool>>()
             {
-                (o, mi) => Harden.Allow.Call(o, mi)
             };
         }
 
@@ -29,7 +28,6 @@ namespace WebNoodle.Reflection
                 .Where(mi => mi.Name != "GetBehavioursFor")
                 .Where(mi => mi.Name != "Children")
                 .Where(mi => mi.Name != "GetEnumerator")
-                .Where(mi => !mi.Name.StartsWith("Allow")) //hide 'Allow' methods
                 .Where(mi => MethodFilters.All(mf => mf(o, mi)))
                 .Select(mi => new ObjectMethod(o, mi))
                 .ToArray();

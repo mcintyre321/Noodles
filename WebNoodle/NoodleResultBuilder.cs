@@ -4,7 +4,6 @@ using System.Linq;
 using System.Web;
 using System.Web.Helpers;
 using System.Web.Mvc;
-using MvcMiniProfiler;
 using WebNoodle.Reflection;
 
 namespace WebNoodle
@@ -39,7 +38,7 @@ namespace WebNoodle
             }
             else //must be a post
             {
-                using (MiniProfiler.Current.Step("Post"))
+                using (Profiler.Step("Post"))
                 {
                     {
                         var methodInstance = node.NodeMethods().Single(m => m.Name == cc.HttpContext.Request.QueryString["action"]);
