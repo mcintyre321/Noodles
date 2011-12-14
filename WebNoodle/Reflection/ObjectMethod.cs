@@ -28,14 +28,6 @@ namespace WebNoodle.Reflection
             get { return _methodInfo.GetParameters().Select(p => new ObjectMethodParameter(this, _target, _methodInfo, p)).ToArray(); }
         }
 
-        public bool Allowed
-        {
-            get
-            {
-                return true;// Harden.Allow.Call(_target, _methodInfo); 
-            }
-        }
-
         public void Invoke(object[] parameters)
         {
             var methodParameterInfos = _methodInfo.GetParameters();
@@ -108,7 +100,6 @@ namespace WebNoodle.Reflection
 
     public interface IObjectMethod
     {
-        bool Allowed { get; }
         string Name { get; }
         string DisplayName { get; }
         IEnumerable<ObjectMethodParameter> Parameters { get; }

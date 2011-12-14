@@ -4,18 +4,18 @@
 @using System.Linq
 @model INode
  
-@if (Model.NodeMethods().Where(c => c.Allowed).Any())
+@if (Model.NodeMethods().Any())
 {
     <div id="actions-@Model.Id">
         <ul>
-            @foreach (var action in Model.NodeMethods().Where(c => c.Allowed))
+            @foreach (var action in Model.NodeMethods())
             {
                 <li style="display: block;"><a class="nodeActionsPanelLink" id="@(Model.Id)__@(action.Name)_actionlink">@action.DisplayName</a> </li>
             }
         </ul>
     </div>
 
-            foreach (var command in Model.NodeMethods().Where(c => c.Allowed))
+            foreach (var command in Model.NodeMethods())
             {
     <div id="@(Model.Id)__@(command.Name)_actionlinkpanel" class="modal hide fade"   >
         <form action="@Model.Path?action=@command.Name" method="post" enctype="multipart/form-data" encoding="multipart/form-data">
