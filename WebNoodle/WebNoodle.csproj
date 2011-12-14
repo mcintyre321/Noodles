@@ -1,0 +1,142 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{3F8BA73C-2F1C-4F24-A5D9-B3243FA6A495}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>WebNoodle</RootNamespace>
+    <AssemblyName>WebNoodle</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Castle.Core">
+      <HintPath>..\packages\Castle.Core.2.5.2\lib\NET35\Castle.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="FormFactory, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\FormFactory.1.1.39\lib\net40\FormFactory.dll</HintPath>
+    </Reference>
+    <Reference Include="Harden">
+      <HintPath>..\packages\Harden.1.0.4324.31097\lib\net40\Harden.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Web.Mvc">
+      <HintPath>..\packages\Mvc3Futures.3.0.20105.0\lib\Microsoft.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="MvcMiniProfiler">
+      <HintPath>..\packages\MiniProfiler.1.9\lib\net40\MvcMiniProfiler.dll</HintPath>
+    </Reference>
+    <Reference Include="RazorGenerator.Mvc">
+      <HintPath>..\packages\RazorGenerator.Mvc.1.3\lib\net40\RazorGenerator.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Mvc, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="System.Web.WebPages, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="WebActivator">
+      <HintPath>..\packages\WebActivator.1.4.4\lib\net40\WebActivator.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="App_Start\RazorGeneratorMvcStart.cs" />
+    <Compile Include="NodeHelper.cs" />
+    <Compile Include="Reflection\GetMethodInfosViaReflectionExtension.cs" />
+    <Compile Include="INode.cs" />
+    <Compile Include="INoodleTarget.cs" />
+    <Compile Include="IPage.cs" />
+    <Compile Include="NoodleResultBuilder.cs" />
+    <Compile Include="Reflection\ObjectMethod.cs" />
+    <Compile Include="Reflection\ObjectMethodParameter.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UserException.cs" />
+    <Compile Include="Views\Shared\WebNoodle\NodeActions.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>NodeActions.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Shared\WebNoodle\NodeActionsLink.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>NodeActionsLink.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Shared\WebNoodle\NodeActionsLinkScript.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>NodeActionsLinkScript.cshtml</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Shared\FormFactory\_README.txt" />
+    <Content Include="Views\Shared\WebNoodle\NodeActionsLinkScript.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>NodeActionsLinkScript.generated.cs</LastGenOutput>
+    </Content>
+    <Content Include="Views\Shared\WebNoodle\_README.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Shared\WebNoodle\NodeActions.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>NodeActions.generated.cs</LastGenOutput>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Shared\WebNoodle\NodeActionsLink.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>NodeActionsLink.generated.cs</LastGenOutput>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+    <None Include="Views\Shared\FormFactory\Form.Actions.cshtml" />
+    <None Include="Views\Shared\FormFactory\Form.Close.cshtml" />
+    <None Include="Views\Shared\FormFactory\Form.Property.cshtml" />
+    <None Include="Views\Shared\FormFactory\Form.Start.cshtml" />
+    <None Include="Views\Shared\FormFactory\Property.System.Boolean.cshtml" />
+    <None Include="Views\Shared\FormFactory\Property.System.DateTime.cshtml" />
+    <None Include="Views\Shared\FormFactory\Property.System.Double.cshtml" />
+    <None Include="Views\Shared\FormFactory\Property.System.Enum.cshtml" />
+    <None Include="Views\Shared\FormFactory\Property.System.Int32.cshtml" />
+    <None Include="Views\Shared\FormFactory\Property.System.Int64.cshtml" />
+    <None Include="Views\Shared\FormFactory\Property.System.Object.cshtml" />
+    <None Include="Views\Shared\FormFactory\Property.System.String.cshtml" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
