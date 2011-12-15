@@ -122,6 +122,7 @@
     <None Include="Views\Shared\FormFactory\Property.System.Int64.cshtml" />
     <None Include="Views\Shared\FormFactory\Property.System.Object.cshtml" />
     <None Include="Views\Shared\FormFactory\Property.System.String.cshtml" />
+    <None Include="Views\Shared\WebNoodle\Page.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

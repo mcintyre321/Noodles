@@ -27,7 +27,7 @@ namespace WebNoodle
                 }
                 if (node is IPage)
                 {
-                    var vr = new ViewResult() {ViewName = "Page"};
+                    var vr = new ViewResult() { ViewName = "WebNoodle/Page" };
                     vr.ViewData.Model = node;
                     return vr;
                 }
