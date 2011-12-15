@@ -28,7 +28,7 @@ namespace WebNoodle.Reflection
                 .Where(mi => mi.Name != "GetBehavioursFor")
                 .Where(mi => mi.Name != "Children")
                 .Where(mi => mi.Name != "GetEnumerator")
-                .Where(mi => mi.Name.StartsWith("_"))
+                .Where(mi => !mi.Name.StartsWith("_"))
                 .Where(mi => MethodFilters.All(mf => mf(o, mi)))
                 .Select(mi => new ObjectMethod(o, mi))
                 .ToArray();
