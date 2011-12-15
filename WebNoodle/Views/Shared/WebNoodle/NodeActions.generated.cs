@@ -215,7 +215,6 @@ WriteLiteral("</h3>\r\n        </div>\r\n        <div class=\"modal-body\">\r\n"
                     Suggestions = parameter.Suggestions
                     
                 };
-                if (vm.Choices != null && vm.Choices.Cast<object>().Any() == false) {continue;} //no point rendering if there are no choices
                 
                 Html.RenderPartial("FormFactory/Form.Property", vm);
 
@@ -229,7 +228,7 @@ WriteLiteral("        </div>\r\n        <div class=\"modal-footer\">\r\n        
 
 
             
-            #line 45 "..\..\Views\Shared\WebNoodle\NodeActions.cshtml"
+            #line 44 "..\..\Views\Shared\WebNoodle\NodeActions.cshtml"
                                                        Write(command.DisplayName);
 
             
@@ -243,7 +242,7 @@ WriteLiteral("    <script type=\"text/javascript\">\r\n//        $(\'#");
 
 
             
-            #line 50 "..\..\Views\Shared\WebNoodle\NodeActions.cshtml"
+            #line 49 "..\..\Views\Shared\WebNoodle\NodeActions.cshtml"
           Write(Model.Id);
 
             
@@ -253,7 +252,7 @@ WriteLiteral("__");
 
 
             
-            #line 50 "..\..\Views\Shared\WebNoodle\NodeActions.cshtml"
+            #line 49 "..\..\Views\Shared\WebNoodle\NodeActions.cshtml"
                        Write(command.Name);
 
             
@@ -263,7 +262,7 @@ WriteLiteral("_panel\').modal({ keyboard: true, backdrop: true })\r\n    </scrip
 
 
             
-            #line 52 "..\..\Views\Shared\WebNoodle\NodeActions.cshtml"
+            #line 51 "..\..\Views\Shared\WebNoodle\NodeActions.cshtml"
             }
 }
 

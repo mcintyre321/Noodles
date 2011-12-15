@@ -35,7 +35,6 @@
                     Suggestions = parameter.Suggestions
                     
                 };
-                if (vm.Choices != null && vm.Choices.Cast<object>().Any() == false) {continue;} //no point rendering if there are no choices
                 
                 Html.RenderPartial("FormFactory/Form.Property", vm);
 
