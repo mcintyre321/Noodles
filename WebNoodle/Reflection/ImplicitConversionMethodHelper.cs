@@ -7,11 +7,14 @@ namespace WebNoodle.Reflection
 {
     public static class ImplicitConversionMethodHelper
     {
-        
+        static ConcurrentDictionary<Type, ConcurrentDictionary<Type, MethodInfo>> cache = new
+            ConcurrentDictionary<Type, ConcurrentDictionary<Type, MethodInfo>>();
         public static MethodInfo ImplicitConversionMethod(Type from, Type to)
         {
-            return UncachedGetImplicitConversionMethod(from, to);
+            var inner = cache.GetOrAdd(to, (t) => new ConcurrentDictionary<Type, MethodInfo>());
+            return inner.GetOrAdd(from, t => UncachedGetImplicitConversionMethod(from, to));
         }
+
 
         public static MethodInfo UncachedGetImplicitConversionMethod(Type from, Type to)
         {
