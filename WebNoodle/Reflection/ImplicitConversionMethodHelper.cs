@@ -7,18 +7,18 @@ namespace WebNoodle.Reflection
 {
     public static class ImplicitConversionMethodHelper
     {
-        static readonly ConcurrentDictionary<Type, MethodInfo> cache = new ConcurrentDictionary<Type, MethodInfo>();
-        public static MethodInfo ImplicitStringConversionMethod(this Type modelType)
+        
+        public static MethodInfo ImplicitConversionMethod(Type from, Type to)
         {
-            return cache.GetOrAdd(modelType, UncachedGetImplicitConversionMethod);
+            return UncachedGetImplicitConversionMethod(from, to);
         }
 
-        private static MethodInfo UncachedGetImplicitConversionMethod(Type modelType)
+        public static MethodInfo UncachedGetImplicitConversionMethod(Type from, Type to)
         {
-            return modelType.GetMethods(BindingFlags.Public | BindingFlags.DeclaredOnly | BindingFlags.Static)
+            return to.GetMethods(BindingFlags.Public | BindingFlags.DeclaredOnly | BindingFlags.Static)
                 .Where(x => x.Name == "op_Implicit")
-                .Where(x => modelType.IsAssignableFrom(x.ReturnType))
-                .Where(x => x.GetParameters().Single().ParameterType == typeof (string))
+                .Where(x => to.IsAssignableFrom(x.ReturnType))
+                .Where(x => x.GetParameters().Single().ParameterType == from)
                 .FirstOrDefault();
         }
 

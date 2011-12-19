@@ -58,14 +58,19 @@ namespace WebNoodle.Reflection
                 return value; 
             }
 
-            if(value is string)
             {
-                var convert = parameterInfo.ParameterType.ImplicitStringConversionMethod();
-                if (convert != null)
+                var implicitConverter = ImplicitConversionMethodHelper.ImplicitConversionMethod(value.GetType(), parameterInfo.ParameterType);
+                if (implicitConverter != null)
                 {
-                    return convert.Invoke(null, new object[] {value});
+                    return implicitConverter.Invoke(null, new object[] { value });
                 }
             }
+
+            if (value is DateTime && parameterInfo.ParameterType == typeof(DateTimeOffset))
+            {
+                
+            }
+
             //if (value.GetType() == typeof (JObject)) //maybe its a chunk of json
             //{
             //    var jsonObject = (JObject) value; //so deserialize as the expected type
