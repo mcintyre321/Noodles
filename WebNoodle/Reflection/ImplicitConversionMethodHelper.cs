@@ -18,8 +18,9 @@ namespace WebNoodle.Reflection
 
         public static MethodInfo UncachedGetImplicitConversionMethod(Type from, Type to)
         {
-            return to.GetMethods(BindingFlags.Public | BindingFlags.DeclaredOnly | BindingFlags.Static)
+            return to.GetMethods(BindingFlags.Public | BindingFlags.Static)
                 .Where(x => x.Name == "op_Implicit")
+                .Where(x => x.DeclaringType != typeof(object))
                 .Where(x => to.IsAssignableFrom(x.ReturnType))
                 .Where(x => x.GetParameters().Single().ParameterType == from)
                 .FirstOrDefault();
