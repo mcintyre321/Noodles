@@ -66,6 +66,7 @@
     <Compile Include="INoodleTarget.cs" />
     <Compile Include="IPage.cs" />
     <Compile Include="NoodleResultBuilder.cs" />
+    <Compile Include="Reflection\ImplicitConversionMethodHelper.cs" />
     <Compile Include="Reflection\IObjectMethod.cs" />
     <Compile Include="Reflection\ObjectMethod.cs" />
     <Compile Include="Reflection\ObjectMethodParameter.cs" />

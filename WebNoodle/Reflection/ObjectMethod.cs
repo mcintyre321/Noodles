@@ -58,6 +58,14 @@ namespace WebNoodle.Reflection
                 return value; 
             }
 
+            if(value is string)
+            {
+                var convert = parameterInfo.ParameterType.ImplicitStringConversionMethod();
+                if (convert != null)
+                {
+                    return convert.Invoke(null, new object[] {value});
+                }
+            }
             //if (value.GetType() == typeof (JObject)) //maybe its a chunk of json
             //{
             //    var jsonObject = (JObject) value; //so deserialize as the expected type
