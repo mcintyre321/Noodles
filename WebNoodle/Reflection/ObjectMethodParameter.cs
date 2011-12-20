@@ -12,6 +12,11 @@ namespace WebNoodle.Reflection
         private readonly MethodInfo _mi;
         private readonly ParameterInfo _parameter;
 
+        private BindingFlags looseBindingFlags = BindingFlags.IgnoreCase | BindingFlags.FlattenHierarchy |
+                                                 BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic;
+
+        private object _value;
+
         internal ObjectMethodParameter(ObjectMethod objectMethod, object target, MethodInfo mi, ParameterInfo parameter)
         {
             _objectMethod = objectMethod;
@@ -42,16 +47,16 @@ namespace WebNoodle.Reflection
         {
             get
             {
+                if (_value != null) return _value;
                 if (_mi.Name.StartsWith("set_"))
                 {
-                    var property = _target.GetType().GetProperty(_mi.Name.Substring(4),
-                                                                    BindingFlags.Public | BindingFlags.Instance |
-                                                                    BindingFlags.FlattenHierarchy);
+                    var property = _target.GetType().GetProperty(_mi.Name.Substring(4), looseBindingFlags);
                     var getter = property.GetGetMethod(true);
                     return getter.Invoke(_target, null);
                 }
                 return null;
             }
+            set { _value = value; }
         }
 
         public IEnumerable Choices
@@ -61,8 +66,7 @@ namespace WebNoodle.Reflection
                 var methodName = _objectMethod.Name.StartsWith("set_") ? _objectMethod.Name.Substring(4) : _objectMethod.Name;
                 
                 var choices = _target.GetType().GetMethod(methodName + "_" + Name + "_choices",
-                                                                BindingFlags.IgnoreCase | BindingFlags.FlattenHierarchy |
-                                                                BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
+                                                                looseBindingFlags);
                 if (choices != null)
                 {
                     return  (IEnumerable)choices.Invoke(_target, null);
@@ -82,8 +86,7 @@ namespace WebNoodle.Reflection
             {
                 var methodName = _objectMethod.Name.StartsWith("set_") ? _objectMethod.Name.Substring(4) : _objectMethod.Name;
                 var suggestions = _target.GetType().GetMethod(methodName + "_" + Name + "_suggestions",
-                                                              BindingFlags.IgnoreCase | BindingFlags.FlattenHierarchy |
-                                                              BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
+                                                              looseBindingFlags);
                 if (suggestions != null)
                 {
                     return (IEnumerable)suggestions.Invoke(_target, null);

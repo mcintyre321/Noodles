@@ -21,11 +21,28 @@ namespace WebNoodle.Reflection
             _target = target;
         }
 
+        private BindingFlags looseBindingFlags = BindingFlags.IgnoreCase | BindingFlags.FlattenHierarchy |
+                                                BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic;
+
         public string Name { get { return _methodInfo.Name; } }
         public string DisplayName { get { return Name.Replace("_", "").Sentencise(); } }
         public IEnumerable<ObjectMethodParameter> Parameters
         {
-            get { return _methodInfo.GetParameters().Select(p => new ObjectMethodParameter(this, _target, _methodInfo, p)).ToArray(); }
+            get
+            {
+                var parameters = _methodInfo.GetParameters().Select(p => new ObjectMethodParameter(this, _target, _methodInfo, p)).ToArray();
+                var methodName = this._methodInfo.Name.StartsWith("set_") ? _methodInfo.Name.Substring(4) : _methodInfo.Name;
+                var valuesMethod = _target.GetType().GetMethod(methodName + "_values", looseBindingFlags);
+                if (valuesMethod != null)
+                {
+                    var parameterValues = ((IEnumerable<object>) valuesMethod.Invoke(_target, new object[] {})).ToArray();
+                    for (int i = 0; i < parameterValues.Length; i++)
+                    {
+                        parameters[i].Value = parameterValues[i];
+                    }
+                }
+                return parameters;
+            }
         }
 
         public void Invoke(object[] parameters)

@@ -22,6 +22,8 @@ namespace WebNoodle.Reflection
             return methods
                 .Where(mi => !mi.Name.StartsWith("get_"))
                 .Where(mi => mi.DeclaringType != typeof(System.Object))
+                .Where(mi => !mi.Name.EndsWith("_value", StringComparison.InvariantCultureIgnoreCase)) //choices should be hidden
+                .Where(mi => !mi.Name.EndsWith("_values", StringComparison.InvariantCultureIgnoreCase)) //choices should be hidden
                 .Where(mi => !mi.Name.EndsWith("_choices", StringComparison.InvariantCultureIgnoreCase)) //choices should be hidden
                 .Where(mi => !mi.Name.EndsWith("_suggestions", StringComparison.InvariantCultureIgnoreCase)) //suggestions should be hidden
                 .Where(mi => mi.Name != "NodeMethods")
