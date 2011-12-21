@@ -9,7 +9,7 @@ namespace WebNoodle
         string Path { get; }
         string Name { get; }
         string Id { get; }
-        Type NodeType { get; set; }
+        Type NodeType { get; }
         INode GetChild(string name);
     }
 
