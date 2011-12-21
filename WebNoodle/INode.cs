@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using WebNoodle.Reflection;
 
@@ -8,6 +9,7 @@ namespace WebNoodle
         string Path { get; }
         string Name { get; }
         string Id { get; }
+        Type NodeType { get; set; }
         INode GetChild(string name);
     }
 

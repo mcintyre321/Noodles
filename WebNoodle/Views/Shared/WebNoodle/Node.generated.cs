@@ -22,7 +22,7 @@ namespace WebNoodle.Views.Shared.WebNoodle
     using System.Web.Mvc;
     using System.Web.Mvc.Ajax;
     
-    #line 1 "..\..\Views\Shared\WebNoodle\Page.cshtml"
+    #line 1 "..\..\Views\Shared\WebNoodle\Node.cshtml"
     using System.Web.Mvc.Html;
     
     #line default
@@ -32,17 +32,17 @@ namespace WebNoodle.Views.Shared.WebNoodle
     using System.Web.UI;
     using System.Web.WebPages;
     
-    #line 2 "..\..\Views\Shared\WebNoodle\Page.cshtml"
+    #line 2 "..\..\Views\Shared\WebNoodle\Node.cshtml"
     using WebNoodle;
     
     #line default
     #line hidden
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("RazorGenerator", "1.2.0.0")]
-    [System.Web.WebPages.PageVirtualPathAttribute("~/Views/Shared/WebNoodle/Page.cshtml")]
-    public class Page : System.Web.Mvc.WebViewPage<IPage>
+    [System.Web.WebPages.PageVirtualPathAttribute("~/Views/Shared/WebNoodle/Node.cshtml")]
+    public class Node : System.Web.Mvc.WebViewPage<INode>
     {
-        public Page()
+        public Node()
         {
         }
         public override void Execute()
@@ -54,8 +54,8 @@ WriteLiteral("\r\n");
 
 
             
-            #line 5 "..\..\Views\Shared\WebNoodle\Page.cshtml"
-Write(Html.Partial(Model.GetType().Name, Model));
+            #line 5 "..\..\Views\Shared\WebNoodle\Node.cshtml"
+Write(Html.Partial(Model.NodeType.Name, Model));
 
             
             #line default

@@ -64,7 +64,6 @@
     <Compile Include="Reflection\GetMethodInfosViaReflectionExtension.cs" />
     <Compile Include="INode.cs" />
     <Compile Include="INoodleTarget.cs" />
-    <Compile Include="IPage.cs" />
     <Compile Include="NoodleResultBuilder.cs" />
     <Compile Include="Reflection\ImplicitConversionMethodHelper.cs" />
     <Compile Include="Reflection\IObjectMethod.cs" />
@@ -88,10 +87,10 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>NodeActionsLinkScript.cshtml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Shared\WebNoodle\Page.generated.cs">
+    <Compile Include="Views\Shared\WebNoodle\Node.generated.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>Page.cshtml</DependentUpon>
+      <DependentUpon>Node.cshtml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -128,9 +127,9 @@
     <None Include="Views\Shared\FormFactory\Property.System.Int64.cshtml" />
     <None Include="Views\Shared\FormFactory\Property.System.Object.cshtml" />
     <None Include="Views\Shared\FormFactory\Property.System.String.cshtml" />
-    <Content Include="Views\Shared\WebNoodle\Page.cshtml">
+    <Content Include="Views\Shared\WebNoodle\Node.cshtml">
       <Generator>RazorGenerator</Generator>
-      <LastGenOutput>Page.generated.cs</LastGenOutput>
+      <LastGenOutput>Node.generated.cs</LastGenOutput>
     </Content>
   </ItemGroup>
   <ItemGroup />

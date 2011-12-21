@@ -12,29 +12,22 @@ namespace WebNoodle
     {
 
 
-        public ActionResult Execute(ControllerContext cc, INode root, string path, Action<INode, IObjectMethod, object[]> doInvoke = null)
+        public ActionResult Execute(ControllerContext cc, INode node, Action<INode, IObjectMethod, object[]> doInvoke = null)
         {
             doInvoke = doInvoke ?? (DoInvoke);
-            var node = root.YieldChildren(path).Last();
-                
+
             if (cc.HttpContext.Request.HttpMethod.ToLower() == "get")
             {
                 if (cc.HttpContext.Request.QueryString["action"] == "getNodeActions")
                 {
-                    var result = new PartialViewResult(){ ViewName = @"WebNoodle/NodeActions"};
+                    var result = new PartialViewResult() {ViewName = @"WebNoodle/NodeActions"};
                     result.ViewData.Model = node;
                     return result;
                 }
-                if (node is IPage)
-                {
-                    var vr = new ViewResult() { ViewName = "WebNoodle/Page" };
-                    vr.ViewData.Model = node;
-                    return vr;
-                }
-                else
-                {
-                    throw new NotImplementedException("No need for this yet, but probably could be a partial view of the element");
-                }
+
+                var vr = new ViewResult() {ViewName = "WebNoodle/Node"};
+                vr.ViewData.Model = node;
+                return vr;
             }
             else //must be a post
             {
@@ -46,7 +39,8 @@ namespace WebNoodle
                         if (cc.Controller.ViewData.ModelState.IsValid)
                         {
                             doInvoke(node, methodInstance, parameters);
-                        }else
+                        }
+                        else
                         {
                             var errors = cc.Controller.ViewData.ModelState.Values.SelectMany(v => v.Errors);
                             var messages = errors.Select(e => string.IsNullOrWhiteSpace(e.ErrorMessage) ? e.Exception.Message : e.ErrorMessage);
