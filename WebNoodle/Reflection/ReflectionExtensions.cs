@@ -5,18 +5,18 @@ using System.Reflection;
 
 namespace WebNoodle.Reflection
 {
-    public static class GetMethodInfosViaReflectionExtension
+    public static class ReflectionExtensions
     {
-        static GetMethodInfosViaReflectionExtension()
+        static ReflectionExtensions()
         {
-            MethodFilters = new List<Func<object, MethodInfo, bool>>()
+            NodeMethodFilters = new List<Func<object, MethodInfo, bool>>()
             {
             };
         }
 
-        public static IList<Func<object, MethodInfo, bool>> MethodFilters { get; set; }
+        public static IList<Func<object, MethodInfo, bool>> NodeMethodFilters { get; private set; }
 
-        public static IEnumerable<IObjectMethod> GetNodeMethodInfos<T>(this T o) where T : IBehaviour
+        public static IEnumerable<IObjectMethod> GetNodeMethodInfos(this object o) 
         {
             var methods = o.GetType().GetMethods(BindingFlags.Public | BindingFlags.Instance | BindingFlags.FlattenHierarchy).ToArray();
             return methods
@@ -31,7 +31,7 @@ namespace WebNoodle.Reflection
                 .Where(mi => mi.Name != "Children")
                 .Where(mi => mi.Name != "GetEnumerator")
                 .Where(mi => !mi.Name.StartsWith("_"))
-                .Where(mi => MethodFilters.All(mf => mf(o, mi)))
+                .Where(mi => NodeMethodFilters.All(mf => mf(o, mi)))
                 .Select(mi => new ObjectMethod(o, mi))
                 .ToArray();
         }

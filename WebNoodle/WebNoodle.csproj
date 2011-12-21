@@ -61,7 +61,7 @@
     <Compile Include="App_Start\RazorGeneratorMvcStart.cs" />
     <Compile Include="NodeHelper.cs" />
     <Compile Include="Profiler.cs" />
-    <Compile Include="Reflection\GetMethodInfosViaReflectionExtension.cs" />
+    <Compile Include="Reflection\ReflectionExtensions.cs" />
     <Compile Include="INode.cs" />
     <Compile Include="INoodleTarget.cs" />
     <Compile Include="NoodleResultBuilder.cs" />
