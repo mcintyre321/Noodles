@@ -48,7 +48,7 @@ namespace WebNoodle.Reflection
             get
             {
                 if (_value != null) return _value;
-                if (_mi.Name.StartsWith("set_"))
+                if (_mi.Name.StartsWith("set_") && !_mi.Name.EndsWith("_callback"))
                 {
                     var property = _target.GetType().GetProperty(_mi.Name.Substring(4), looseBindingFlags);
                     var getter = property.GetGetMethod(true);
