@@ -44,12 +44,12 @@ namespace WebNoodle
                                 cc.Controller.ViewData.ModelState.AddModelError("", ex);
                             }
                         }
-                        if (!cc.Controller.ViewData.ModelState.IsValid)
-                        {
-                            var errors = cc.Controller.ViewData.ModelState.Values.SelectMany(v => v.Errors);
-                            var messages = errors.Select(e => string.IsNullOrWhiteSpace(e.ErrorMessage) ? e.Exception.Message : e.ErrorMessage);
-                            throw new UserException("There were some errors: \r\n" + string.Join("\r\n", messages));
-                        }
+                        //if (!cc.Controller.ViewData.ModelState.IsValid)
+                        //{
+                        //    var errors = cc.Controller.ViewData.ModelState.Values.SelectMany(v => v.Errors);
+                        //    var messages = errors.Select(e => string.IsNullOrWhiteSpace(e.ErrorMessage) ? e.Exception.Message : e.ErrorMessage);
+                        //    throw new UserException("There were some errors: \r\n" + string.Join("\r\n", messages));
+                        //}
                         return new RedirectResult(cc.HttpContext.Request.UrlReferrer.ToString());
 
                         //return ActionInvoker.InvokeAction()
