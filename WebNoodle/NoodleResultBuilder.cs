@@ -36,9 +36,15 @@ namespace WebNoodle
                         var parameters = methodInstance.Parameters.Select(pt => this.BindObject(cc, pt.BindingParameterType, node.Id + "_" + methodInstance.Name + "_" + pt.Name)).ToArray();
                         if (cc.Controller.ViewData.ModelState.IsValid)
                         {
-                            doInvoke(node, methodInstance, parameters);
+                            try
+                            {
+                                doInvoke(node, methodInstance, parameters);
+                            }catch(Exception ex)
+                            {
+                                cc.Controller.ViewData.ModelState.AddModelError("", ex);
+                            }
                         }
-                        else
+                        if (!cc.Controller.ViewData.ModelState.IsValid)
                         {
                             var errors = cc.Controller.ViewData.ModelState.Values.SelectMany(v => v.Errors);
                             var messages = errors.Select(e => string.IsNullOrWhiteSpace(e.ErrorMessage) ? e.Exception.Message : e.ErrorMessage);
