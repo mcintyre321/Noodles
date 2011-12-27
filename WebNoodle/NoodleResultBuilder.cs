@@ -10,8 +10,6 @@ namespace WebNoodle
 {
     public class NoodleResultBuilder
     {
-
-
         public ActionResult Execute(ControllerContext cc, INode node, Action<INode, IObjectMethod, object[]> doInvoke = null)
         {
             doInvoke = doInvoke ?? (DoInvoke);
@@ -24,8 +22,8 @@ namespace WebNoodle
                     result.ViewData.Model = node;
                     return result;
                 }
-
-                var vr = new ViewResult() {ViewName = "WebNoodle/Node"};
+                var viewname = FormFactory.FormHelperExtension.BestViewName(cc, node.NodeType);
+                var vr = new ViewResult() {ViewName = viewname};
                 vr.ViewData.Model = node;
                 return vr;
             }
