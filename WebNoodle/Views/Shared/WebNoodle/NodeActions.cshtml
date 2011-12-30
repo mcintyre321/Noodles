@@ -26,7 +26,7 @@
         <div class="modal-body">
             @foreach (var parameter in command.Parameters)
             {
-                var vm = new PropertyVm(Html, parameter.ParameterType, Model.Id + "_" + command.Name + "_" + parameter.Name, parameter.DisplayName)
+                var vm = new PropertyVm(Html, parameter.ParameterType, parameter.Name, Model.Id + "_" + command.Name + "_" + parameter.Name, parameter.DisplayName)
                 {
                     GetCustomAttributes = () => new Attribute[] { },
                     IsWritable = true,

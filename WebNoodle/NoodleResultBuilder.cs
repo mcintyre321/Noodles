@@ -10,6 +10,8 @@ namespace WebNoodle
 {
     public class NoodleResultBuilder
     {
+        public static List<Func<Exception, ModelStateDictionary, Action>> ModelStateExceptionHandlers =
+            new List<Func<Exception, ModelStateDictionary, Action>>();
         public ActionResult Execute(ControllerContext cc, INode node, Action<INode, IObjectMethod, object[]> doInvoke = null)
         {
             doInvoke = doInvoke ?? (DoInvoke);
@@ -33,17 +35,46 @@ namespace WebNoodle
                 {
                     {
                         var methodInstance = node.NodeMethods().Single(m => m.Name == cc.HttpContext.Request.QueryString["action"]);
-                        var parameters = methodInstance.Parameters.Select(pt => this.BindObject(cc, pt.BindingParameterType, node.Id + "_" + methodInstance.Name + "_" + pt.Name)).ToArray();
-                        if (cc.Controller.ViewData.ModelState.IsValid)
+                        var parameters = methodInstance.Parameters.Select(pt => this.BindObject(cc, pt.BindingParameterType, /*node.Id + "_" + methodInstance.Name + "_" +*/ pt.Name)).ToArray();
+                        var msd = cc.Controller.ViewData.ModelState;
+                        if (msd.IsValid)
                         {
                             try
                             {
                                 doInvoke(node, methodInstance, parameters);
-                            }catch(Exception ex)
+                            }
+                            catch (Exception ex)
                             {
-                                cc.Controller.ViewData.ModelState.AddModelError("", ex);
+                                //bool handled = false;
+                                //foreach (var modelStateExceptionHandler in ModelStateExceptionHandlers)
+                                //{
+                                //    var handle = modelStateExceptionHandler(ex, msd);
+                                //    if (handle != null)
+                                //    {
+                                //        handle();
+                                //        handled = true;
+                                //    }
+                                //}
+                                //if (!handled)
+                                    msd.AddModelError("", ex);
                             }
                         }
+                        
+                        //{
+                        //    //repoint modelstate errors to point to parameters
+                        //    var msd2 = new ModelStateDictionary();
+                        //    foreach (var parameter in methodInstance.Parameters)
+                        //    {
+                        //        var ms = msd[parameter.Name];
+                        //        if (ms != null)
+                        //        {
+                        //            msd.Remove(parameter.Name);
+                        //            msd2.Add(node.Id + "_" + methodInstance.Name + "_" + parameter.Name, ms);
+                        //        }
+                        //    }
+                        //    msd.Merge(msd2);
+                        //}
+
                         //if (!cc.Controller.ViewData.ModelState.IsValid)
                         //{
                         //    var errors = cc.Controller.ViewData.ModelState.Values.SelectMany(v => v.Errors);
@@ -74,6 +105,7 @@ namespace WebNoodle
                 }
             }
         }
+
 
         private static void DoInvoke(INode node, IObjectMethod methodInstance, object[] parameters)
         {

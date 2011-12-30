@@ -206,7 +206,7 @@ WriteLiteral("</h3>\r\n        </div>\r\n        <div class=\"modal-body\">\r\n"
             #line 27 "..\..\Views\Shared\WebNoodle\NodeActions.cshtml"
              foreach (var parameter in command.Parameters)
             {
-                var vm = new PropertyVm(Html, parameter.ParameterType, Model.Id + "_" + command.Name + "_" + parameter.Name, parameter.DisplayName)
+                var vm = new PropertyVm(Html, parameter.ParameterType, parameter.Name, Model.Id + "_" + command.Name + "_" + parameter.Name, parameter.DisplayName)
                 {
                     GetCustomAttributes = () => new Attribute[] { },
                     IsWritable = true,
