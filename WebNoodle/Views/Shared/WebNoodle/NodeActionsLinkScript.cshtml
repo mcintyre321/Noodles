@@ -8,7 +8,7 @@
             var $link = $(this);
             if (e.target != this) return false;
             var nodePath = $link.attr("data-nodepath");
-            var nodeId = nodePath.replace(new RegExp('/', 'g'),'_');
+            var nodeId = nodePath.replace(new RegExp('/', 'g'), '_');
             if ($('#actions-' + nodeId).length) {
                 return false;
             }
@@ -48,6 +48,26 @@
             $("#" + panelId).modal({ show: true, backdrop: true });
             $("#" + panelId + " :input:visible:enabled:first").focus();
             e.stopPropogation();
+        });
+        $(".post-via-ajax").live('click', function (e) {
+            var $form = $(this).closest("form");
+            $.ajax({
+                url: $form.attr('action'),
+                type: "POST",
+                data: $form.serialize(),
+                success: function (data) {
+                    $form.parent().html(data);
+                    //$.validator.unobtrusive.parse("form");
+                },
+                error: function (jqXhr, textStatus, errorThrown) {
+                    
+                    console.log("Error '" + jqXhr.status + "' (textStatus: '" + textStatus + "', errorThrown: '" + errorThrown + "')");
+                },
+                complete: function () {
+                    //$("#ProgressDialog").dialog("close");
+                }
+            });
+            return false;
         });
     </script>
 }

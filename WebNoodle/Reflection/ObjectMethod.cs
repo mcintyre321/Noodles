@@ -13,16 +13,20 @@ namespace WebNoodle.Reflection
     public class ObjectMethod : IObjectMethod
     {
         private readonly MethodInfo _methodInfo;
-        private readonly object _target;
+        private readonly object _behaviour;
 
-        public ObjectMethod(object target, MethodInfo methodInfo)
+        public ObjectMethod(INode node, object behaviour, MethodInfo methodInfo)
         {
             _methodInfo = methodInfo;
-            _target = target;
+            _behaviour = behaviour ?? node;
+            Node = node;
         }
 
+        public INode Node { get; private set; }
+
         private BindingFlags looseBindingFlags = BindingFlags.IgnoreCase | BindingFlags.FlattenHierarchy |
-                                                BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic;
+               
+                                 BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic;
 
         public string Name { get { return _methodInfo.Name; } }
         public string DisplayName { get { return Name.Replace("_", "").Sentencise(); } }
@@ -30,12 +34,12 @@ namespace WebNoodle.Reflection
         {
             get
             {
-                var parameters = _methodInfo.GetParameters().Select(p => new ObjectMethodParameter(this, _target, _methodInfo, p)).ToArray();
+                var parameters = _methodInfo.GetParameters().Select(p => new ObjectMethodParameter(this, _behaviour, _methodInfo, p)).ToArray();
                 var methodName = this._methodInfo.Name.StartsWith("set_") ? _methodInfo.Name.Substring(4) : _methodInfo.Name;
-                var valuesMethod = _target.GetType().GetMethod(methodName + "_values", looseBindingFlags);
+                var valuesMethod = _behaviour.GetType().GetMethod(methodName + "_values", looseBindingFlags);
                 if (valuesMethod != null)
                 {
-                    var parameterValues = ((IEnumerable<object>) valuesMethod.Invoke(_target, new object[] {})).ToArray();
+                    var parameterValues = ((IEnumerable<object>) valuesMethod.Invoke(_behaviour, new object[] {})).ToArray();
                     for (int i = 0; i < parameterValues.Length; i++)
                     {
                         parameters[i].Value = parameterValues[i];
@@ -54,7 +58,7 @@ namespace WebNoodle.Reflection
                 var parameterInfo = methodParameterInfos[index];
                 resolvedParameters[index] = GetParameterValue(parameters, parameterInfo, index);
             }
-            _methodInfo.Invoke(_target, resolvedParameters);
+            _methodInfo.Invoke(_behaviour, resolvedParameters);
         }
 
         private object GetParameterValue(object[] parameters, ParameterInfo parameterInfo, int index)

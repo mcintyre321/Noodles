@@ -25,6 +25,11 @@ namespace WebNoodle.Reflection
             get { return _inner.Parameters; }
         }
 
+        public INode Node
+        {
+            get { return _inner.Node; }
+        }
+
         public void Invoke(object[] parameters)
         {
             _inner.Invoke(parameters);

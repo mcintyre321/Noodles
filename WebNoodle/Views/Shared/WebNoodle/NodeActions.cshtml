@@ -3,7 +3,6 @@
 @using WebNoodle
 @using System.Linq
 @model INode
- 
 @if (Model.NodeMethods().Any())
 {
     <div id="actions-@Model.Id">
@@ -18,35 +17,7 @@
             foreach (var command in Model.NodeMethods())
             {
     <div id="@(Model.Id)__@(command.Name)_actionlinkpanel" class="modal hide fade"   >
-        <form action="@Model.Path?action=@command.Name" method="post" enctype="multipart/form-data" encoding="multipart/form-data">
-        <div class="modal-header">
-            <a href="#" class="close">×</a>
-            <h3>@command.DisplayName</h3>
-        </div>
-        <div class="modal-body">
-            @foreach (var parameter in command.Parameters)
-            {
-                var vm = new PropertyVm(Html, parameter.ParameterType, parameter.Name, Model.Id + "_" + command.Name + "_" + parameter.Name, parameter.DisplayName)
-                {
-                    GetCustomAttributes = () => new Attribute[] { },
-                    IsWritable = true,
-                    Value = parameter.Value,
-                    Choices = parameter.Choices,
-                    Suggestions = parameter.Suggestions
-                    
-                };
-                
-                Html.RenderPartial("FormFactory/Form.Property", vm);
-
-            }
-        </div>
-        <div class="modal-footer">
-            <input type="submit" class="btn primary" value="@command.DisplayName" />
-        </div>
-        </form>
+        @Html.Partial("WebNoodle/NodeActionForm", command)
     </div>
-    <script type="text/javascript">
-//        $('#@(Model.Id)__@(command.Name)_panel').modal({ keyboard: true, backdrop: true })
-    </script>
             }
 }

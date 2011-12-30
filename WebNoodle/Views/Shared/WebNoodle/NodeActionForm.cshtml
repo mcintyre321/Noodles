@@ -1,0 +1,29 @@
+﻿@using FormFactory
+@using Microsoft.Web.Mvc.Html
+@model global::WebNoodle.Reflection.IObjectMethod
+<form action="@Model.Node.Path?action=@Model.Name" method="post" enctype="multipart/form-data" encoding="multipart/form-data">
+<div class="modal-header">
+    <a href="#" class="close">×</a>
+    <h3>@Model.DisplayName</h3>
+</div>
+<div class="modal-body">
+    @foreach (var parameter in Model.Parameters)
+    {
+        var vm = new PropertyVm(Html, parameter.ParameterType, parameter.Name, Model.Node.Id + "_" + Model.Name + "_" + parameter.Name, parameter.DisplayName)
+        {
+            GetCustomAttributes = () => new Attribute[] { },
+            IsWritable = true,
+            Value = parameter.Value,
+            Choices = parameter.Choices,
+            Suggestions = parameter.Suggestions
+
+        };
+
+        Html.RenderPartial("FormFactory/Form.Property", vm);
+
+    }
+</div>
+<div class="modal-footer">
+    <input type="submit" class="btn primary post-via-ajax" value="@Model.DisplayName" />
+</div>
+</form>

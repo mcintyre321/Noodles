@@ -63,11 +63,9 @@ namespace WebNoodle.Views.Shared.WebNoodle
 
 
 
-WriteLiteral(" \r\n");
-
 
             
-            #line 7 "..\..\Views\Shared\WebNoodle\NodeActions.cshtml"
+            #line 6 "..\..\Views\Shared\WebNoodle\NodeActions.cshtml"
  if (Model.NodeMethods().Any())
 {
 
@@ -78,7 +76,7 @@ WriteLiteral("    <div id=\"actions-");
 
 
             
-            #line 9 "..\..\Views\Shared\WebNoodle\NodeActions.cshtml"
+            #line 8 "..\..\Views\Shared\WebNoodle\NodeActions.cshtml"
                 Write(Model.Id);
 
             
@@ -88,7 +86,7 @@ WriteLiteral("\">\r\n        <ul>\r\n");
 
 
             
-            #line 11 "..\..\Views\Shared\WebNoodle\NodeActions.cshtml"
+            #line 10 "..\..\Views\Shared\WebNoodle\NodeActions.cshtml"
              foreach (var action in Model.NodeMethods())
             {
 
@@ -99,7 +97,7 @@ WriteLiteral("                <li style=\"display: block;\"><a class=\"nodeActio
 
 
             
-            #line 13 "..\..\Views\Shared\WebNoodle\NodeActions.cshtml"
+            #line 12 "..\..\Views\Shared\WebNoodle\NodeActions.cshtml"
                                                                             Write(Model.Id);
 
             
@@ -109,7 +107,7 @@ WriteLiteral("__");
 
 
             
-            #line 13 "..\..\Views\Shared\WebNoodle\NodeActions.cshtml"
+            #line 12 "..\..\Views\Shared\WebNoodle\NodeActions.cshtml"
                                                                                          Write(action.Name);
 
             
@@ -119,7 +117,7 @@ WriteLiteral("_actionlink\">");
 
 
             
-            #line 13 "..\..\Views\Shared\WebNoodle\NodeActions.cshtml"
+            #line 12 "..\..\Views\Shared\WebNoodle\NodeActions.cshtml"
                                                                                                                    Write(action.DisplayName);
 
             
@@ -129,7 +127,7 @@ WriteLiteral("</a> </li>\r\n");
 
 
             
-            #line 14 "..\..\Views\Shared\WebNoodle\NodeActions.cshtml"
+            #line 13 "..\..\Views\Shared\WebNoodle\NodeActions.cshtml"
             }
 
             
@@ -139,7 +137,7 @@ WriteLiteral("        </ul>\r\n    </div>\r\n");
 
 
             
-            #line 17 "..\..\Views\Shared\WebNoodle\NodeActions.cshtml"
+            #line 16 "..\..\Views\Shared\WebNoodle\NodeActions.cshtml"
 
             foreach (var command in Model.NodeMethods())
             {
@@ -151,7 +149,7 @@ WriteLiteral("    <div id=\"");
 
 
             
-            #line 20 "..\..\Views\Shared\WebNoodle\NodeActions.cshtml"
+            #line 19 "..\..\Views\Shared\WebNoodle\NodeActions.cshtml"
          Write(Model.Id);
 
             
@@ -161,108 +159,27 @@ WriteLiteral("__");
 
 
             
-            #line 20 "..\..\Views\Shared\WebNoodle\NodeActions.cshtml"
+            #line 19 "..\..\Views\Shared\WebNoodle\NodeActions.cshtml"
                       Write(command.Name);
 
             
             #line default
             #line hidden
-WriteLiteral("_actionlinkpanel\" class=\"modal hide fade\"   >\r\n        <form action=\"");
+WriteLiteral("_actionlinkpanel\" class=\"modal hide fade\"   >\r\n        ");
 
 
             
-            #line 21 "..\..\Views\Shared\WebNoodle\NodeActions.cshtml"
-                 Write(Model.Path);
-
-            
-            #line default
-            #line hidden
-WriteLiteral("?action=");
-
-
-            
-            #line 21 "..\..\Views\Shared\WebNoodle\NodeActions.cshtml"
-                                    Write(command.Name);
+            #line 20 "..\..\Views\Shared\WebNoodle\NodeActions.cshtml"
+   Write(Html.Partial("WebNoodle/NodeActionForm", command));
 
             
             #line default
             #line hidden
-WriteLiteral("\" method=\"post\" enctype=\"multipart/form-data\" encoding=\"multipart/form-data\">\r\n  " +
-"      <div class=\"modal-header\">\r\n            <a href=\"#\" class=\"close\">×</a>\r\n " +
-"           <h3>");
+WriteLiteral("\r\n    </div>\r\n");
 
 
             
-            #line 24 "..\..\Views\Shared\WebNoodle\NodeActions.cshtml"
-           Write(command.DisplayName);
-
-            
-            #line default
-            #line hidden
-WriteLiteral("</h3>\r\n        </div>\r\n        <div class=\"modal-body\">\r\n");
-
-
-            
-            #line 27 "..\..\Views\Shared\WebNoodle\NodeActions.cshtml"
-             foreach (var parameter in command.Parameters)
-            {
-                var vm = new PropertyVm(Html, parameter.ParameterType, parameter.Name, Model.Id + "_" + command.Name + "_" + parameter.Name, parameter.DisplayName)
-                {
-                    GetCustomAttributes = () => new Attribute[] { },
-                    IsWritable = true,
-                    Value = parameter.Value,
-                    Choices = parameter.Choices,
-                    Suggestions = parameter.Suggestions
-                    
-                };
-                
-                Html.RenderPartial("FormFactory/Form.Property", vm);
-
-            }
-
-            
-            #line default
-            #line hidden
-WriteLiteral("        </div>\r\n        <div class=\"modal-footer\">\r\n            <input type=\"subm" +
-"it\" class=\"btn primary\" value=\"");
-
-
-            
-            #line 44 "..\..\Views\Shared\WebNoodle\NodeActions.cshtml"
-                                                       Write(command.DisplayName);
-
-            
-            #line default
-            #line hidden
-WriteLiteral("\" />\r\n        </div>\r\n        </form>\r\n    </div>\r\n");
-
-
-
-WriteLiteral("    <script type=\"text/javascript\">\r\n//        $(\'#");
-
-
-            
-            #line 49 "..\..\Views\Shared\WebNoodle\NodeActions.cshtml"
-          Write(Model.Id);
-
-            
-            #line default
-            #line hidden
-WriteLiteral("__");
-
-
-            
-            #line 49 "..\..\Views\Shared\WebNoodle\NodeActions.cshtml"
-                       Write(command.Name);
-
-            
-            #line default
-            #line hidden
-WriteLiteral("_panel\').modal({ keyboard: true, backdrop: true })\r\n    </script>\r\n");
-
-
-            
-            #line 51 "..\..\Views\Shared\WebNoodle\NodeActions.cshtml"
+            #line 22 "..\..\Views\Shared\WebNoodle\NodeActions.cshtml"
             }
 }
 

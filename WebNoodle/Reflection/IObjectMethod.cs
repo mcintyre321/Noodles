@@ -7,6 +7,7 @@ namespace WebNoodle.Reflection
         string Name { get; }
         string DisplayName { get; }
         IEnumerable<ObjectMethodParameter> Parameters { get; }
+        INode Node { get; }
         void Invoke(object[] parameters);
     }
 }

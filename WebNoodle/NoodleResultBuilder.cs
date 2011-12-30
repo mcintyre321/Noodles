@@ -10,8 +10,8 @@ namespace WebNoodle
 {
     public class NoodleResultBuilder
     {
-        public static List<Func<Exception, ModelStateDictionary, Action>> ModelStateExceptionHandlers =
-            new List<Func<Exception, ModelStateDictionary, Action>>();
+        //public static List<Func<Exception, ModelStateDictionary, Action>> ModelStateExceptionHandlers =
+        //    new List<Func<Exception, ModelStateDictionary, Action>>();
         public ActionResult Execute(ControllerContext cc, INode node, Action<INode, IObjectMethod, object[]> doInvoke = null)
         {
             doInvoke = doInvoke ?? (DoInvoke);
@@ -20,13 +20,12 @@ namespace WebNoodle
             {
                 if (cc.HttpContext.Request.QueryString["action"] == "getNodeActions")
                 {
-                    var result = new PartialViewResult() {ViewName = @"WebNoodle/NodeActions"};
+                    var result = new PartialViewResult() { ViewName = @"WebNoodle/NodeActions" };
                     result.ViewData.Model = node;
                     return result;
                 }
                 var viewname = FormFactory.FormHelperExtension.BestViewName(cc, node.NodeType);
-                var vr = new ViewResult() {ViewName = viewname};
-                vr.ViewData.Model = node;
+                var vr = new ViewResult {ViewName = viewname, ViewData = {Model = node}};
                 return vr;
             }
             else //must be a post
@@ -45,62 +44,29 @@ namespace WebNoodle
                             }
                             catch (Exception ex)
                             {
-                                //bool handled = false;
-                                //foreach (var modelStateExceptionHandler in ModelStateExceptionHandlers)
-                                //{
-                                //    var handle = modelStateExceptionHandler(ex, msd);
-                                //    if (handle != null)
-                                //    {
-                                //        handle();
-                                //        handled = true;
-                                //    }
-                                //}
-                                //if (!handled)
-                                    msd.AddModelError("", ex);
+                                msd.AddModelError("", ex);
                             }
                         }
-                        
-                        //{
-                        //    //repoint modelstate errors to point to parameters
-                        //    var msd2 = new ModelStateDictionary();
-                        //    foreach (var parameter in methodInstance.Parameters)
-                        //    {
-                        //        var ms = msd[parameter.Name];
-                        //        if (ms != null)
-                        //        {
-                        //            msd.Remove(parameter.Name);
-                        //            msd2.Add(node.Id + "_" + methodInstance.Name + "_" + parameter.Name, ms);
-                        //        }
-                        //    }
-                        //    msd.Merge(msd2);
-                        //}
-
-                        //if (!cc.Controller.ViewData.ModelState.IsValid)
-                        //{
-                        //    var errors = cc.Controller.ViewData.ModelState.Values.SelectMany(v => v.Errors);
-                        //    var messages = errors.Select(e => string.IsNullOrWhiteSpace(e.ErrorMessage) ? e.Exception.Message : e.ErrorMessage);
-                        //    throw new UserException("There were some errors: \r\n" + string.Join("\r\n", messages));
-                        //}
-                        return new RedirectResult(cc.HttpContext.Request.UrlReferrer.ToString());
-
-                        //return ActionInvoker.InvokeAction()
-                        //else
-                        //{
-                        //    var target = _noodleTarget.FetchReadonly().YieldChildren(path, true).Last();
-                        //    return View()
-                        //}
-
-                        //if (Request.IsAjaxRequest())
-                        //{
-                        //    var node = _sourcerer.ReadModel.YieldPath(fixedPath).Last();
-                        //    return PartialView(node.GetType().Name, node);
-                        //}
-                        //else
-                        //{
-                        //    var page = _sourcerer.ReadModel.YieldPath(fixedPath, true).OfType<IPage>().Last();
-                        //    return Redirect(page.Path);
-                        //}
-
+                        if (cc.HttpContext.Request.IsAjaxRequest())
+                        {
+                            if (!msd.IsValid)
+                            {
+                                return new PartialViewResult
+                                {
+                                    ViewName = "WebNoodle/NodeActionForm",
+                                    ViewData = {Model = methodInstance}
+                                };
+                            }
+                            else
+                            {
+                                return new ContentResult()
+                                {Content = @"<script type='text\javascript'>window.location.reload();</script>"};
+                            }
+                        }
+                        else
+                        {
+                            return new RedirectResult(cc.HttpContext.Request.UrlReferrer.ToString());
+                        }
                     }
                 }
             }
@@ -114,7 +80,7 @@ namespace WebNoodle
 
         private object BindObject(ControllerContext cc, Type desiredType, string name)
         {
-            
+
             var formCollection = cc.HttpContext.Request.Unvalidated().Form;
 
             var valueProvider = new NameValueCollectionValueProvider(formCollection, null);
