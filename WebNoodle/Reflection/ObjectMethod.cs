@@ -25,45 +25,53 @@ namespace WebNoodle.Reflection
         public INode Node { get; private set; }
 
         private BindingFlags looseBindingFlags = BindingFlags.IgnoreCase | BindingFlags.FlattenHierarchy |
-               
+
                                  BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic;
 
         public string Name { get { return _methodInfo.Name; } }
         public string DisplayName { get { return Name.Replace("_", "").Sentencise(); } }
+        private IEnumerable<ObjectMethodParameter> _parameters;
         public IEnumerable<ObjectMethodParameter> Parameters
         {
             get
             {
-                var parameters = _methodInfo.GetParameters().Select(p => new ObjectMethodParameter(this, _behaviour, _methodInfo, p)).ToArray();
-                var methodName = this._methodInfo.Name.StartsWith("set_") ? _methodInfo.Name.Substring(4) : _methodInfo.Name;
-                var valuesMethod = _behaviour.GetType().GetMethod(methodName + "_values", looseBindingFlags);
-                if (valuesMethod != null)
-                {
-                    var parameterValues = ((IEnumerable<object>) valuesMethod.Invoke(_behaviour, new object[] {})).ToArray();
-                    for (int i = 0; i < parameterValues.Length; i++)
-                    {
-                        parameters[i].Value = parameterValues[i];
-                    }
-                }
-                return parameters;
+                return _parameters ?? (_parameters = LoadParameters());
             }
+        }
+
+        private IEnumerable<ObjectMethodParameter> LoadParameters()
+        {
+            var parameters = _methodInfo.GetParameters().Select(p => new ObjectMethodParameter(this, _behaviour, _methodInfo, p)).ToArray();
+            var methodName = this._methodInfo.Name.StartsWith("set_")
+                                 ? _methodInfo.Name.Substring(4)
+                                 : _methodInfo.Name;
+            var valuesMethod = _behaviour.GetType().GetMethod(methodName + "_values", looseBindingFlags);
+            if (valuesMethod != null)
+            {
+                var parameterValues = ((IEnumerable<object>)valuesMethod.Invoke(_behaviour, new object[] { })).ToArray();
+                for (int i = 0; i < parameterValues.Length; i++)
+                {
+                    parameters[i].Value = parameterValues[i];
+                }
+            }
+            return parameters;
         }
 
         public void Invoke(object[] parameters)
         {
-            var methodParameterInfos = _methodInfo.GetParameters();
-            var resolvedParameters = new object[methodParameterInfos.Length];
+            var methodParameterInfos = this.Parameters.ToArray();
             for (int index = 0; index < methodParameterInfos.Length; index++)
             {
-                var parameterInfo = methodParameterInfos[index];
-                resolvedParameters[index] = GetParameterValue(parameters, parameterInfo, index);
+                var methodParameter = methodParameterInfos[index];
+                var resolvedParameterValue = GetParameterValue(parameters, methodParameter.ParameterInfo, index);
+                methodParameterInfos[index].LastValue = resolvedParameterValue;
             }
-            _methodInfo.Invoke(_behaviour, resolvedParameters);
+            _methodInfo.Invoke(_behaviour, methodParameterInfos.Select(mp => mp.LastValue).ToArray());
         }
 
         private object GetParameterValue(object[] parameters, ParameterInfo parameterInfo, int index)
         {
-            if(index >= parameters.Length && parameterInfo.IsOptional) //looks there a new optional parameter has been added to the method
+            if (index >= parameters.Length && parameterInfo.IsOptional) //looks there a new optional parameter has been added to the method
             {
                 return null;
             }
@@ -76,7 +84,7 @@ namespace WebNoodle.Reflection
             }
             if (value.GetType() == parameterInfo.ParameterType)
             {
-                return value; 
+                return value;
             }
 
             {
@@ -89,7 +97,7 @@ namespace WebNoodle.Reflection
 
             if (value is DateTime && parameterInfo.ParameterType == typeof(DateTimeOffset))
             {
-                
+
             }
 
             //if (value.GetType() == typeof (JObject)) //maybe its a chunk of json
@@ -108,7 +116,7 @@ namespace WebNoodle.Reflection
 
                 if (value as long? != null) //is it an int representation of an enum?
                 {
-                    return Enum.ToObject(underlyingType, (long) value);
+                    return Enum.ToObject(underlyingType, (long)value);
                 }
                 return Enum.Parse(underlyingType, value.ToString());
             }

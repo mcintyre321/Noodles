@@ -59,6 +59,7 @@ namespace WebNoodle.Reflection
             set { _value = value; }
         }
 
+        public object LastValue { get; set; }
         public IEnumerable Choices
         {
             get
@@ -93,6 +94,11 @@ namespace WebNoodle.Reflection
                 }
                 return null;
             }
+        }
+
+        internal ParameterInfo ParameterInfo
+        {
+            get { return this._parameter; }
         }
     }
 }
