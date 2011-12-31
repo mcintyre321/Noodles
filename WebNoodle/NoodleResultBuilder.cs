@@ -51,11 +51,13 @@ namespace WebNoodle
                         {
                             if (!msd.IsValid)
                             {
-                                return new PartialViewResult
+                                var res = new PartialViewResult
                                 {
                                     ViewName = "WebNoodle/NodeActionForm",
-                                    ViewData = {Model = methodInstance}
+                                    ViewData = {Model = methodInstance},
                                 };
+                                res.ViewData.ModelState.Merge(msd);
+                                return res;
                             }
                             else
                             {
