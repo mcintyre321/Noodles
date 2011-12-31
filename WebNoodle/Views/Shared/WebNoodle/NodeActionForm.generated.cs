@@ -19,7 +19,12 @@ namespace WebNoodle.Views.Shared.WebNoodle
     using System.Text;
     using System.Web;
     using System.Web.Helpers;
+    
+    #line 1 "..\..\Views\Shared\WebNoodle\NodeActionForm.cshtml"
     using System.Web.Mvc;
+    
+    #line default
+    #line hidden
     using System.Web.Mvc.Ajax;
     using System.Web.Mvc.Html;
     using System.Web.Routing;
@@ -27,13 +32,13 @@ namespace WebNoodle.Views.Shared.WebNoodle
     using System.Web.UI;
     using System.Web.WebPages;
     
-    #line 1 "..\..\Views\Shared\WebNoodle\NodeActionForm.cshtml"
+    #line 2 "..\..\Views\Shared\WebNoodle\NodeActionForm.cshtml"
     using FormFactory;
     
     #line default
     #line hidden
     
-    #line 2 "..\..\Views\Shared\WebNoodle\NodeActionForm.cshtml"
+    #line 3 "..\..\Views\Shared\WebNoodle\NodeActionForm.cshtml"
     using Microsoft.Web.Mvc.Html;
     
     #line default
@@ -51,11 +56,12 @@ namespace WebNoodle.Views.Shared.WebNoodle
 
 
 
+
 WriteLiteral("<form action=\"");
 
 
             
-            #line 4 "..\..\Views\Shared\WebNoodle\NodeActionForm.cshtml"
+            #line 5 "..\..\Views\Shared\WebNoodle\NodeActionForm.cshtml"
          Write(Model.Node.Path);
 
             
@@ -65,7 +71,7 @@ WriteLiteral("?action=");
 
 
             
-            #line 4 "..\..\Views\Shared\WebNoodle\NodeActionForm.cshtml"
+            #line 5 "..\..\Views\Shared\WebNoodle\NodeActionForm.cshtml"
                                  Write(Model.Name);
 
             
@@ -75,17 +81,33 @@ WriteLiteral("\" method=\"post\" enctype=\"multipart/form-data\" encoding=\"mult
 
 
             
-            #line 5 "..\..\Views\Shared\WebNoodle\NodeActionForm.cshtml"
+            #line 6 "..\..\Views\Shared\WebNoodle\NodeActionForm.cshtml"
+ if (Context.Request.IsAjaxRequest())
+{
+    
+            
+            #line default
+            #line hidden
+            
+            #line 8 "..\..\Views\Shared\WebNoodle\NodeActionForm.cshtml"
 Write(Html.AntiForgeryToken());
 
             
             #line default
             #line hidden
-WriteLiteral("\r\n<div class=\"modal-header\">\r\n    <a href=\"#\" class=\"close\">×</a>\r\n    <h3>");
+            
+            #line 8 "..\..\Views\Shared\WebNoodle\NodeActionForm.cshtml"
+                            
+}
+
+            
+            #line default
+            #line hidden
+WriteLiteral("    \r\n<div class=\"modal-header\">\r\n    <a href=\"#\" class=\"close\">×</a>\r\n    <h3>");
 
 
             
-            #line 8 "..\..\Views\Shared\WebNoodle\NodeActionForm.cshtml"
+            #line 13 "..\..\Views\Shared\WebNoodle\NodeActionForm.cshtml"
    Write(Model.DisplayName);
 
             
@@ -95,7 +117,7 @@ WriteLiteral("</h3>\r\n</div>\r\n<div class=\"modal-body\">\r\n");
 
 
             
-            #line 11 "..\..\Views\Shared\WebNoodle\NodeActionForm.cshtml"
+            #line 16 "..\..\Views\Shared\WebNoodle\NodeActionForm.cshtml"
      foreach (var parameter in Model.Parameters)
     {
         var vm = new PropertyVm(Html, parameter.ParameterType, parameter.Name, Model.Node.Id + "_" + Model.Name + "_" + parameter.Name, parameter.DisplayName)
@@ -120,7 +142,7 @@ WriteLiteral("</div>\r\n<div class=\"modal-footer\">\r\n    <input type=\"submit
 
 
             
-            #line 28 "..\..\Views\Shared\WebNoodle\NodeActionForm.cshtml"
+            #line 33 "..\..\Views\Shared\WebNoodle\NodeActionForm.cshtml"
                                                              Write(Model.DisplayName);
 
             

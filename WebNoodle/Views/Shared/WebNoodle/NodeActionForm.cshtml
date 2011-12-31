@@ -1,8 +1,13 @@
-﻿@using FormFactory
+﻿@using System.Web.Mvc
+@using FormFactory
 @using Microsoft.Web.Mvc.Html
 @model global::WebNoodle.Reflection.IObjectMethod
 <form action="@Model.Node.Path?action=@Model.Name" method="post" enctype="multipart/form-data" encoding="multipart/form-data">
-@Html.AntiForgeryToken()
+@if (Context.Request.IsAjaxRequest())
+{
+    @Html.AntiForgeryToken()
+}
+    
 <div class="modal-header">
     <a href="#" class="close">×</a>
     <h3>@Model.DisplayName</h3>
