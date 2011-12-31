@@ -71,12 +71,21 @@ WriteLiteral("?action=");
             
             #line default
             #line hidden
-WriteLiteral("\" method=\"post\" enctype=\"multipart/form-data\" encoding=\"multipart/form-data\">\r\n<d" +
-"iv class=\"modal-header\">\r\n    <a href=\"#\" class=\"close\">×</a>\r\n    <h3>");
+WriteLiteral("\" method=\"post\" enctype=\"multipart/form-data\" encoding=\"multipart/form-data\">\r\n");
 
 
             
-            #line 7 "..\..\Views\Shared\WebNoodle\NodeActionForm.cshtml"
+            #line 5 "..\..\Views\Shared\WebNoodle\NodeActionForm.cshtml"
+Write(Html.AntiForgeryToken());
+
+            
+            #line default
+            #line hidden
+WriteLiteral("\r\n<div class=\"modal-header\">\r\n    <a href=\"#\" class=\"close\">×</a>\r\n    <h3>");
+
+
+            
+            #line 8 "..\..\Views\Shared\WebNoodle\NodeActionForm.cshtml"
    Write(Model.DisplayName);
 
             
@@ -86,7 +95,7 @@ WriteLiteral("</h3>\r\n</div>\r\n<div class=\"modal-body\">\r\n");
 
 
             
-            #line 10 "..\..\Views\Shared\WebNoodle\NodeActionForm.cshtml"
+            #line 11 "..\..\Views\Shared\WebNoodle\NodeActionForm.cshtml"
      foreach (var parameter in Model.Parameters)
     {
         var vm = new PropertyVm(Html, parameter.ParameterType, parameter.Name, Model.Node.Id + "_" + Model.Name + "_" + parameter.Name, parameter.DisplayName)
@@ -111,7 +120,7 @@ WriteLiteral("</div>\r\n<div class=\"modal-footer\">\r\n    <input type=\"submit
 
 
             
-            #line 27 "..\..\Views\Shared\WebNoodle\NodeActionForm.cshtml"
+            #line 28 "..\..\Views\Shared\WebNoodle\NodeActionForm.cshtml"
                                                              Write(Model.DisplayName);
 
             
