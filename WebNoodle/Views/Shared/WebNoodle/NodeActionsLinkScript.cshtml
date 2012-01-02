@@ -56,11 +56,14 @@
                 type: "POST",
                 data: $form.serialize(),
                 success: function (data) {
-                    $form.parent().html(data);
-                    //$.validator.unobtrusive.parse("form");
+                    if (data === "OK") {
+                        window.location.reload();
+                    } else {
+                        $form.parent().html(data);
+                    }
                 },
                 error: function (jqXhr, textStatus, errorThrown) {
-                    
+
                     console.log("Error '" + jqXhr.status + "' (textStatus: '" + textStatus + "', errorThrown: '" + errorThrown + "')");
                 },
                 complete: function () {

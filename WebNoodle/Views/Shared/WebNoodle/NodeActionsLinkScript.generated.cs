@@ -76,18 +76,19 @@ WriteLiteral("    <script type=\"text/javascript\">\r\n        $(\".popover .clo
 "  });\r\n        $(\".post-via-ajax\").live(\'click\', function (e) {\r\n            var" +
 " $form = $(this).closest(\"form\");\r\n            $.ajax({\r\n                url: $f" +
 "orm.attr(\'action\'),\r\n                type: \"POST\",\r\n                data: $form." +
-"serialize(),\r\n                success: function (data) {\r\n                    $f" +
-"orm.parent().html(data);\r\n                    //$.validator.unobtrusive.parse(\"f" +
-"orm\");\r\n                },\r\n                error: function (jqXhr, textStatus, " +
-"errorThrown) {\r\n                    \r\n                    console.log(\"Error \'\" " +
-"+ jqXhr.status + \"\' (textStatus: \'\" + textStatus + \"\', errorThrown: \'\" + errorTh" +
-"rown + \"\')\");\r\n                },\r\n                complete: function () {\r\n    " +
-"                //$(\"#ProgressDialog\").dialog(\"close\");\r\n                }\r\n    " +
-"        });\r\n            return false;\r\n        });\r\n    </script>\r\n");
+"serialize(),\r\n                success: function (data) {\r\n                    if" +
+" (data === \"OK\") {\r\n                        window.location.reload();\r\n         " +
+"           } else {\r\n                        $form.parent().html(data);\r\n       " +
+"             }\r\n                },\r\n                error: function (jqXhr, text" +
+"Status, errorThrown) {\r\n\r\n                    console.log(\"Error \'\" + jqXhr.stat" +
+"us + \"\' (textStatus: \'\" + textStatus + \"\', errorThrown: \'\" + errorThrown + \"\')\")" +
+";\r\n                },\r\n                complete: function () {\r\n                " +
+"    //$(\"#ProgressDialog\").dialog(\"close\");\r\n                }\r\n            });\r" +
+"\n            return false;\r\n        });\r\n    </script>\r\n");
 
 
             
-            #line 73 "..\..\Views\Shared\WebNoodle\NodeActionsLinkScript.cshtml"
+            #line 76 "..\..\Views\Shared\WebNoodle\NodeActionsLinkScript.cshtml"
 }
             
             #line default

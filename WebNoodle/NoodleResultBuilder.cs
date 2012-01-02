@@ -61,8 +61,13 @@ namespace WebNoodle
                             }
                             else
                             {
-                                return new ContentResult()
-                                {Content = @"<script type='text\javascript'>window.location.reload();</script>"};
+                                var res = new PartialViewResult
+                                {
+                                    ViewName = "WebNoodle/NodeActionSuccess",
+                                    ViewData = { Model = methodInstance },
+                                };
+                                res.ViewData.ModelState.Merge(msd);
+                                return res;
                             }
                         }
                         else
