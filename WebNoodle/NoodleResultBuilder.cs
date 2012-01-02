@@ -24,7 +24,8 @@ namespace WebNoodle
                     result.ViewData.Model = node;
                     return result;
                 }
-                var viewname = FormFactory.FormHelperExtension.BestViewName(cc, node.NodeType);
+                var viewname = FormFactory.FormHelperExtension.BestViewName(cc, node.NodeType)
+                    ?? FormFactory.FormHelperExtension.BestViewName(cc, node.NodeType, null, t => t.Name);
                 var vr = new ViewResult {ViewName = viewname, ViewData = {Model = node}};
                 return vr;
             }
