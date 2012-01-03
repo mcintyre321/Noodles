@@ -10,7 +10,7 @@ namespace WebNoodle
         string Name { get; }
         string Id { get; }
         Type NodeType { get; }
-        INode GetChild(string name);
+        INode GetChild(IEnumerator<string> pathEnumerator);
     }
 
     public interface IBehaviour

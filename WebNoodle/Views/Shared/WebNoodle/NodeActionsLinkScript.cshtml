@@ -40,8 +40,8 @@
                         .click();
 
                 });
-                return;
             }
+            return false;
         });
         $(".nodeActionsPanelLink").live('click', function (e) {
             var panelId = $(this).attr("id") + "panel";

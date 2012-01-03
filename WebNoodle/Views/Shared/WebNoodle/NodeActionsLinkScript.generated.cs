@@ -68,23 +68,23 @@ WriteLiteral("    <script type=\"text/javascript\">\r\n        $(\".popover .clo
 "r(\"data-actionname\");\r\n                            if (actionName) {\r\n          " +
 "                      $(\"#\" + nodeId + \"__\" + actionName + \"_actionlink\").click(" +
 ");\r\n\r\n                            }\r\n                        })\r\n               " +
-"         .click();\r\n\r\n                });\r\n                return;\r\n            " +
-"}\r\n        });\r\n        $(\".nodeActionsPanelLink\").live(\'click\', function (e) {\r" +
-"\n            var panelId = $(this).attr(\"id\") + \"panel\";\r\n            $(\"#\" + pa" +
-"nelId).modal({ show: true, backdrop: true });\r\n            $(\"#\" + panelId + \" :" +
-"input:visible:enabled:first\").focus();\r\n            e.stopPropogation();\r\n      " +
-"  });\r\n        $(\".post-via-ajax\").live(\'click\', function (e) {\r\n            var" +
-" $form = $(this).closest(\"form\");\r\n            $.ajax({\r\n                url: $f" +
-"orm.attr(\'action\'),\r\n                type: \"POST\",\r\n                data: $form." +
-"serialize(),\r\n                success: function (data) {\r\n                    if" +
-" (data === \"OK\") {\r\n                        window.location.reload();\r\n         " +
-"           } else {\r\n                        $form.parent().html(data);\r\n       " +
-"             }\r\n                },\r\n                error: function (jqXhr, text" +
-"Status, errorThrown) {\r\n\r\n                    console.log(\"Error \'\" + jqXhr.stat" +
-"us + \"\' (textStatus: \'\" + textStatus + \"\', errorThrown: \'\" + errorThrown + \"\')\")" +
-";\r\n                },\r\n                complete: function () {\r\n                " +
-"    //$(\"#ProgressDialog\").dialog(\"close\");\r\n                }\r\n            });\r" +
-"\n            return false;\r\n        });\r\n    </script>\r\n");
+"         .click();\r\n\r\n                });\r\n            }\r\n            return fal" +
+"se;\r\n        });\r\n        $(\".nodeActionsPanelLink\").live(\'click\', function (e) " +
+"{\r\n            var panelId = $(this).attr(\"id\") + \"panel\";\r\n            $(\"#\" + " +
+"panelId).modal({ show: true, backdrop: true });\r\n            $(\"#\" + panelId + \"" +
+" :input:visible:enabled:first\").focus();\r\n            e.stopPropogation();\r\n    " +
+"    });\r\n        $(\".post-via-ajax\").live(\'click\', function (e) {\r\n            v" +
+"ar $form = $(this).closest(\"form\");\r\n            $.ajax({\r\n                url: " +
+"$form.attr(\'action\'),\r\n                type: \"POST\",\r\n                data: $for" +
+"m.serialize(),\r\n                success: function (data) {\r\n                    " +
+"if (data === \"OK\") {\r\n                        window.location.reload();\r\n       " +
+"             } else {\r\n                        $form.parent().html(data);\r\n     " +
+"               }\r\n                },\r\n                error: function (jqXhr, te" +
+"xtStatus, errorThrown) {\r\n\r\n                    console.log(\"Error \'\" + jqXhr.st" +
+"atus + \"\' (textStatus: \'\" + textStatus + \"\', errorThrown: \'\" + errorThrown + \"\')" +
+"\");\r\n                },\r\n                complete: function () {\r\n              " +
+"      //$(\"#ProgressDialog\").dialog(\"close\");\r\n                }\r\n            })" +
+";\r\n            return false;\r\n        });\r\n    </script>\r\n");
 
 
             

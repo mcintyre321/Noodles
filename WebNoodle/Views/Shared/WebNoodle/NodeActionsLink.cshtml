@@ -3,6 +3,6 @@
 @model INode
 @if (Model.NodeMethods().Any())
 {
-    <a href="#" class="nodeActionsLink" data-nodepath="@Model.Path" >(edit)</a>
+    <a href="#loadactions" class="nodeActionsLink" data-nodepath="@Model.Path" >(edit)</a>
 }
 @Html.Partial("WebNoodle/NodeActionsLinkScript")

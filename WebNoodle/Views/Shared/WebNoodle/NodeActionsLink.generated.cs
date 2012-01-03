@@ -22,7 +22,7 @@ namespace WebNoodle.Views.Shared.WebNoodle
     using System.Web.Mvc;
     using System.Web.Mvc.Ajax;
     
-    #line 1 "..\..\Views\Shared\WebNoodle/NodeActionsLink.cshtml"
+    #line 1 "..\..\Views\Shared\WebNoodle\NodeActionsLink.cshtml"
     using System.Web.Mvc.Html;
     
     #line default
@@ -32,7 +32,7 @@ namespace WebNoodle.Views.Shared.WebNoodle
     using System.Web.UI;
     using System.Web.WebPages;
     
-    #line 2 "..\..\Views\Shared\WebNoodle/NodeActionsLink.cshtml"
+    #line 2 "..\..\Views\Shared\WebNoodle\NodeActionsLink.cshtml"
     using WebNoodle;
     
     #line default
@@ -52,19 +52,19 @@ namespace WebNoodle.Views.Shared.WebNoodle
 
 
             
-            #line 4 "..\..\Views\Shared\WebNoodle/NodeActionsLink.cshtml"
+            #line 4 "..\..\Views\Shared\WebNoodle\NodeActionsLink.cshtml"
  if (Model.NodeMethods().Any())
 {
 
             
             #line default
             #line hidden
-WriteLiteral("    <a href=\"#\" class=\"nodeActionsLink\" data-nodepath=\"");
+WriteLiteral("    <a href=\"#loadactions\" class=\"nodeActionsLink\" data-nodepath=\"");
 
 
             
-            #line 6 "..\..\Views\Shared\WebNoodle/NodeActionsLink.cshtml"
-                                                  Write(Model.Path);
+            #line 6 "..\..\Views\Shared\WebNoodle\NodeActionsLink.cshtml"
+                                                             Write(Model.Path);
 
             
             #line default
@@ -73,7 +73,7 @@ WriteLiteral("\" >(edit)</a>\r\n");
 
 
             
-            #line 7 "..\..\Views\Shared\WebNoodle/NodeActionsLink.cshtml"
+            #line 7 "..\..\Views\Shared\WebNoodle\NodeActionsLink.cshtml"
 }
 
             
@@ -81,7 +81,7 @@ WriteLiteral("\" >(edit)</a>\r\n");
             #line hidden
 
             
-            #line 8 "..\..\Views\Shared\WebNoodle/NodeActionsLink.cshtml"
+            #line 8 "..\..\Views\Shared\WebNoodle\NodeActionsLink.cshtml"
 Write(Html.Partial("WebNoodle/NodeActionsLinkScript"));
 
             
