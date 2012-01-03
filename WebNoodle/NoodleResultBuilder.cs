@@ -16,7 +16,7 @@ namespace WebNoodle
         {
             doInvoke = doInvoke ?? (DoInvoke);
 
-            if (cc.HttpContext.Request.HttpMethod.ToLower() == "get")
+            if (cc.HttpContext.Request.HttpMethod.ToLower() == "get" || cc.HttpContext.Request.QueryString["action"] == null)
             {
                 if (cc.HttpContext.Request.QueryString["action"] == "getNodeActions")
                 {
