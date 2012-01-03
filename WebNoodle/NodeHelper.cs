@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace WebNoodle
 {
@@ -8,21 +7,18 @@ namespace WebNoodle
     {
         public static IEnumerable<INode> YieldChildren(this INode node, string path, bool breakOnNull = false)
         {
-            var parts = (path).Split("/".ToCharArray(), StringSplitOptions.RemoveEmptyEntries).ToList<string>();
-            using (var enumerator = parts.GetEnumerator())
+            yield return node;
+            var parts = (path).Split("/".ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
+            foreach (var part in parts)
             {
-                yield return node;
-                while (true)
+                node = node.GetChild(part);
+                if (node == null)
                 {
-                    node = node.GetChild(enumerator);
-                    if (node == null)
-                    {
-                        if (breakOnNull) yield break;
-                        throw new Exception("Node '" + path + "' not found in path '" + path + "'");
-                    }
+                    if (breakOnNull) yield break;
+                    throw new Exception("Node '" + part + "' not found in path '" + path + "'");
                 }
+                yield return node;
             }
-
         }
     }
 }
