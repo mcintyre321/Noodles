@@ -27,10 +27,7 @@ namespace WebNoodle.Reflection
                 .Where(mi => !mi.Name.EndsWith("_values", StringComparison.InvariantCultureIgnoreCase)) //choices should be hidden
                 .Where(mi => !mi.Name.EndsWith("_choices", StringComparison.InvariantCultureIgnoreCase)) //choices should be hidden
                 .Where(mi => !mi.Name.EndsWith("_suggestions", StringComparison.InvariantCultureIgnoreCase)) //suggestions should be hidden
-                .Where(mi => mi.Name != "NodeMethods")
-                .Where(mi => mi.Name != "GetBehavioursFor")
-                .Where(mi => mi.Name != "Children")
-                .Where(mi => mi.Name != "GetEnumerator")
+                .Where(mi => !(o is IHasChildren && mi.Name == "GetChild"))
                 .Where(mi => !mi.Name.StartsWith("_"))
                 .Where(mi => NodeMethodFilters.All(mf => mf(o, mi)))
                 .Select(mi => new ObjectMethod(o, mi))

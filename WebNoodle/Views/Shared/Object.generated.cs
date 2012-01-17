@@ -60,21 +60,41 @@ WriteLiteral("<div class=\"row\">\r\n    <div class=\"span4\">");
             
             #line default
             #line hidden
-WriteLiteral("&nbsp;</div>\r\n    <div class=\"span12\">\r\n");
+WriteLiteral("&nbsp;</div>\r\n    <div class=\"span12\">\r\n        ");
 
 
             
             #line 7 "..\..\Views\Shared\Object.cshtml"
+   Write(Html.Partial("FormFactory/Form.Start", new FormVm(Html)));
+
+            
+            #line default
+            #line hidden
+WriteLiteral("\r\n");
+
+
+            
+            #line 8 "..\..\Views\Shared\Object.cshtml"
            Html.RenderPropertiesFor(Model); 
 
             
             #line default
             #line hidden
-WriteLiteral("    </div>\r\n</div>\r\n");
+WriteLiteral("        ");
 
 
             
-            #line 10 "..\..\Views\Shared\Object.cshtml"
+            #line 9 "..\..\Views\Shared\Object.cshtml"
+   Write(Html.Partial("FormFactory/Form.Close", new FormVm(Html)));
+
+            
+            #line default
+            #line hidden
+WriteLiteral("\r\n    </div>\r\n</div>\r\n");
+
+
+            
+            #line 12 "..\..\Views\Shared\Object.cshtml"
 Write(Html.Partial("WebNoodle/NodeActionsLinkScript"));
 
             

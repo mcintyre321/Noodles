@@ -9,7 +9,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace WebNoodle.Example.Views.Home
+namespace WebNoodle.Example.Views.Shared
 {
     using System;
     using System.Collections.Generic;
@@ -22,7 +22,7 @@ namespace WebNoodle.Example.Views.Home
     using System.Web.Mvc;
     using System.Web.Mvc.Ajax;
     
-    #line 1 "..\..\Views\Home\Home.cshtml"
+    #line 1 "..\..\Views\Shared\Object.cshtml"
     using System.Web.Mvc.Html;
     
     #line default
@@ -32,17 +32,17 @@ namespace WebNoodle.Example.Views.Home
     using System.Web.UI;
     using System.Web.WebPages;
     
-    #line 2 "..\..\Views\Home\Home.cshtml"
+    #line 2 "..\..\Views\Shared\Object.cshtml"
     using FormFactory;
     
     #line default
     #line hidden
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("RazorGenerator", "1.3.0.0")]
-    [System.Web.WebPages.PageVirtualPathAttribute("~/Views/Home/Home.cshtml")]
-    public class Home : System.Web.Mvc.WebViewPage<object>
+    [System.Web.WebPages.PageVirtualPathAttribute("~/Views/Shared/Object.cshtml")]
+    public class Object : System.Web.Mvc.WebViewPage<object>
     {
-        public Home()
+        public Object()
         {
         }
         public override void Execute()
@@ -54,27 +54,47 @@ WriteLiteral("<div class=\"row\">\r\n    <div class=\"span4\">");
 
 
             
-            #line 5 "..\..\Views\Home\Home.cshtml"
+            #line 5 "..\..\Views\Shared\Object.cshtml"
                   Write(Html.Partial("WebNoodle/NodeActions", Model));
 
             
             #line default
             #line hidden
-WriteLiteral("&nbsp;</div>\r\n    <div class=\"span12\">\r\n");
+WriteLiteral("&nbsp;</div>\r\n    <div class=\"span12\">\r\n        ");
 
 
             
-            #line 7 "..\..\Views\Home\Home.cshtml"
+            #line 7 "..\..\Views\Shared\Object.cshtml"
+   Write(Html.Partial("FormFactory/Form.Start", new FormVm(Html)));
+
+            
+            #line default
+            #line hidden
+WriteLiteral("\r\n");
+
+
+            
+            #line 8 "..\..\Views\Shared\Object.cshtml"
            Html.RenderPropertiesFor(Model); 
 
             
             #line default
             #line hidden
-WriteLiteral("    </div>\r\n</div>\r\n");
+WriteLiteral("        ");
 
 
             
-            #line 10 "..\..\Views\Home\Home.cshtml"
+            #line 9 "..\..\Views\Shared\Object.cshtml"
+   Write(Html.Partial("FormFactory/Form.Close", new FormVm(Html)));
+
+            
+            #line default
+            #line hidden
+WriteLiteral("\r\n    </div>\r\n</div>\r\n");
+
+
+            
+            #line 12 "..\..\Views\Shared\Object.cshtml"
 Write(Html.Partial("WebNoodle/NodeActionsLinkScript"));
 
             

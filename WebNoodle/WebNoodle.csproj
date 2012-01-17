@@ -63,7 +63,7 @@
     <Compile Include="NodeHelper.cs" />
     <Compile Include="Profiler.cs" />
     <Compile Include="Reflection\ReflectionExtensions.cs" />
-    <Compile Include="INode.cs" />
+    <Compile Include="IHasName.cs" />
     <Compile Include="INoodleTarget.cs" />
     <Compile Include="NoodleResultBuilder.cs" />
     <Compile Include="Reflection\ImplicitConversionMethodHelper.cs" />

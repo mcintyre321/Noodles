@@ -25,7 +25,7 @@ namespace WebNoodle.Reflection
     //        get { return _inner.Parameters; }
     //    }
 
-    //    public INode Node
+    //    public IHasName Node
     //    {
     //        get { return _inner.Node; }
     //    }

@@ -4,7 +4,9 @@
 <div class="row">
     <div class="span4">@Html.Partial("WebNoodle/NodeActions", Model)&nbsp;</div>
     <div class="span12">
+        @Html.Partial("FormFactory/Form.Start", new FormVm(Html))
         @{ Html.RenderPropertiesFor(Model); }
+        @Html.Partial("FormFactory/Form.Close", new FormVm(Html))
     </div>
 </div>
 @Html.Partial("WebNoodle/NodeActionsLinkScript")

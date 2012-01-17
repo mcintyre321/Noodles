@@ -4,7 +4,7 @@ using WebNoodle.Reflection;
 
 namespace WebNoodle
 {
-    public interface INode
+    public interface IHasName
     {
         string Name { get; }
     }
@@ -34,21 +34,21 @@ namespace WebNoodle
         public static string Path(this object obj)
         {
             if (obj is IHasPath) return ((IHasPath) obj).Path;
-            if (obj is INode)
+            if (obj is IHasName)
             {
-                var node = (INode) obj;
-                if (node is IHasParent)
+                var node = (IHasName) obj;
+                if (node is IHasParent<object>)
                 {
 
-                    var nodeWithParent = (IHasParent) node;
+                    var nodeWithParent = (IHasParent<object>) node;
                     var parent = nodeWithParent.Parent;
                     if (parent == null)
                     {
-                        return "/" + node.Name;
+                        return "/" + node.Name + "/";
                     }
                     else
                     {
-                        return parent.Path() + "/" + node.Name;
+                        return parent.Path() + node.Name + "/";
                     }
 
                 }
@@ -58,9 +58,9 @@ namespace WebNoodle
         }
     }
 
-    public interface IHasParent
+    public interface IHasParent<out T>
     {
-        INode Parent { get; }
+        T Parent { get; }
     }
 
     public interface IHasId

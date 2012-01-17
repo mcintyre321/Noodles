@@ -36,7 +36,7 @@ namespace WebNoodle.Reflection
         {
             get
             {
-                if (typeof(INode).IsAssignableFrom(_parameter.ParameterType)) return typeof(String);
+                if (typeof(IHasName).IsAssignableFrom(_parameter.ParameterType)) return typeof(String);
                 return _parameter.ParameterType;
             }
         }

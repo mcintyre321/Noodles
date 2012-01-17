@@ -47,48 +47,52 @@ namespace WebNoodle.Example.Views.Shared.WebNoodle
             
             #line default
             #line hidden
-WriteLiteral("    <script type=\"text/javascript\">\r\n        $(\".popover .close\").live(\'click\', f" +
-"unction (e) { $(this).closest(\".popover\").hide(); });\r\n        $(\".nodeActionsLi" +
-"nk\").live(\'click\', function (e) {\r\n            var $link = $(this);\r\n           " +
-" if (e.target != this) return false;\r\n            var nodePath = $link.attr(\"dat" +
-"a-nodepath\");\r\n            var nodeId = nodePath.replace(new RegExp(\'/\', \'g\'), \'" +
-"_\');\r\n            if ($(\'#actions-\' + nodeId).length) {\r\n                return " +
-"false;\r\n            }\r\n            if ($link.attr(\"data-content\") === undefined)" +
-" {\r\n                $link.attr(\"data-content\", \"\");\r\n                var actionU" +
-"rl = nodePath + \"?action=getNodeActions\";\r\n                $.get(actionUrl, {}, " +
-"function (data) {\r\n                    $link.attr(\"data-content\", data)\r\n       " +
-"                 .popover({\r\n                            trigger: \"manual\",\r\n   " +
-"                         placement: \"right\",\r\n                            offset" +
-": 0,\r\n                            html: true,\r\n                            delay" +
-"Out: 500,\r\n                            title: function () { return \"Actions<a cl" +
-"ass=\'close\' href=\'#\'>×</a>\"; }\r\n\r\n                        })\r\n                  " +
-"      .click(function () {\r\n                            $(\".popover\").hide();\r\n " +
-"                           $link.popover(\'show\');\r\n\r\n                           " +
-" console.log(\"showing\");\r\n                            var actionName = $link.att" +
-"r(\"data-actionname\");\r\n                            if (actionName) {\r\n          " +
-"                      $(\"#\" + nodeId + \"__\" + actionName + \"_actionlink\").click(" +
-");\r\n\r\n                            }\r\n                        })\r\n               " +
-"         .click();\r\n\r\n                });\r\n            }\r\n            return fal" +
-"se;\r\n        });\r\n        $(\".nodeActionsPanelLink\").live(\'click\', function (e) " +
-"{\r\n            var panelId = $(this).attr(\"id\") + \"panel\";\r\n            $(\"#\" + " +
-"panelId).modal({ show: true, backdrop: true });\r\n            $(\"#\" + panelId + \"" +
-" :input:visible:enabled:first\").focus();\r\n            e.stopPropogation();\r\n    " +
-"    });\r\n        $(\".post-via-ajax\").live(\'click\', function (e) {\r\n            v" +
-"ar $form = $(this).closest(\"form\");\r\n            $.ajax({\r\n                url: " +
-"$form.attr(\'action\'),\r\n                type: \"POST\",\r\n                data: $for" +
-"m.serialize(),\r\n                success: function (data) {\r\n                    " +
-"if (data === \"OK\") {\r\n                        window.location.reload();\r\n       " +
-"             } else {\r\n                        $form.parent().html(data);\r\n     " +
-"               }\r\n                },\r\n                error: function (jqXhr, te" +
-"xtStatus, errorThrown) {\r\n\r\n                    console.log(\"Error \'\" + jqXhr.st" +
-"atus + \"\' (textStatus: \'\" + textStatus + \"\', errorThrown: \'\" + errorThrown + \"\')" +
-"\");\r\n                },\r\n                complete: function () {\r\n              " +
-"      //$(\"#ProgressDialog\").dialog(\"close\");\r\n                }\r\n            })" +
-";\r\n            return false;\r\n        });\r\n    </script>\r\n");
+WriteLiteral("    <script type=\"text/javascript\">\r\n        $(document).ready(function() {\r\n    " +
+"        $(\".popover .close\").live(\'click\', function(e) { $(this).closest(\".popov" +
+"er\").hide(); });\r\n            $(\".nodeActionsLink\").live(\'click\', function(e) {\r" +
+"\n                var $link = $(this);\r\n                if (e.target != this) ret" +
+"urn false;\r\n                var nodePath = $link.attr(\"data-nodepath\");\r\n       " +
+"         var nodeId = nodePath.replace(new RegExp(\'/\', \'g\'), \'_\');\r\n            " +
+"    if ($(\'#actions-\' + nodeId).length) {\r\n                    return false;\r\n  " +
+"              }\r\n                if ($link.attr(\"data-content\") === undefined) {" +
+"\r\n                    $link.attr(\"data-content\", \"\");\r\n                    var a" +
+"ctionUrl = nodePath + \"?action=getNodeActions\";\r\n                    $.get(actio" +
+"nUrl, { }, function(data) {\r\n                        $link.attr(\"data-content\", " +
+"data)\r\n                            .popover({\r\n                                t" +
+"rigger: \"manual\",\r\n                                placement: \"right\",\r\n        " +
+"                        offset: 0,\r\n                                html: true,\r" +
+"\n                                delayOut: 500,\r\n                               " +
+" title: function() { return \"Actions<a class=\'close\' href=\'#\'>×</a>\"; }\r\n       " +
+"                     })\r\n                            .click(function() {\r\n      " +
+"                          $(\".popover\").hide();\r\n                               " +
+" $link.popover(\'show\');\r\n\r\n                                console.log(\"showing\"" +
+");\r\n                                var actionName = $link.attr(\"data-actionname" +
+"\");\r\n                                if (actionName) {\r\n                        " +
+"            $(\"#\" + nodeId + \"_\" + actionName + \"_actionlink\").click();\r\n\r\n     " +
+"                           }\r\n                            })\r\n                  " +
+"          .click();\r\n\r\n                    });\r\n                }\r\n             " +
+"   return false;\r\n            });\r\n            $(\".nodeActionsPanelLink\").live(\'" +
+"click\', function(e) {\r\n                var panelId = $(this).attr(\"id\") + \"panel" +
+"\";\r\n                $(\"#\" + panelId).modal({ show: true, backdrop: true });\r\n   " +
+"             $(\"#\" + panelId + \" :input:visible:enabled:first\").focus();\r\n      " +
+"          e.stopPropogation();\r\n            });\r\n            $(\".post-via-ajax\")" +
+".live(\'click\', function(e) {\r\n                var $form = $(this).closest(\"form\"" +
+");\r\n                $.ajax({\r\n                    url: $form.attr(\'action\'),\r\n  " +
+"                  type: \"POST\",\r\n                    data: $form.serialize(),\r\n " +
+"                   success: function(data) {\r\n                        if (data =" +
+"== \"OK\") {\r\n                            window.location.reload();\r\n             " +
+"           } else {\r\n                            $form.parent().html(data);\r\n   " +
+"                     }\r\n                    },\r\n                    error: funct" +
+"ion(jqXhr, textStatus, errorThrown) {\r\n\r\n                        console.log(\"Er" +
+"ror \'\" + jqXhr.status + \"\' (textStatus: \'\" + textStatus + \"\', errorThrown: \'\" + " +
+"errorThrown + \"\')\");\r\n                    },\r\n                    complete: func" +
+"tion() {\r\n                        //$(\"#ProgressDialog\").dialog(\"close\");\r\n     " +
+"               }\r\n                });\r\n                return false;\r\n          " +
+"  });\r\n        });\r\n    </script>\r\n");
 
 
             
-            #line 76 "..\..\Views\Shared\WebNoodle\NodeActionsLinkScript.cshtml"
+            #line 77 "..\..\Views\Shared\WebNoodle\NodeActionsLinkScript.cshtml"
 }
             
             #line default

@@ -69,11 +69,7 @@ WriteLiteral("    <a href=\"#loadactions\" class=\"nodeActionsLink\" data-nodepa
             
             #line default
             #line hidden
-WriteLiteral("\" >(edit)</a>");
-
-
-
-WriteLiteral("<a href=\"NodeActionsLink.cshtml\">NodeActionsLink.cshtml</a>\r\n");
+WriteLiteral("\" >(edit)</a>\r\n");
 
 
             

@@ -8,7 +8,7 @@ using FormFactory;
 
 namespace WebNoodle.Reflection
 {
-    public delegate Func<object> ResolveResult(INode root, ParameterInfo parameter, object stored);
+    public delegate Func<object> ResolveResult(IHasName root, ParameterInfo parameter, object stored);
     [DebuggerDisplay("{ToString()} - Name={Name}")]
     public class ObjectMethod : IObjectMethod
     {

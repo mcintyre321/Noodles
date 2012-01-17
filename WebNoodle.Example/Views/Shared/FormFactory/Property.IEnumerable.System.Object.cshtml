@@ -8,12 +8,13 @@
         {
         <li>
             @{
-            var prop = new PropertyVm(Html, obj.GetType(), Model.Name + i)
-            {
-                Value = obj
-            };
+                var prop = new PropertyVm(Html, obj.GetType(), Model.Name + i)
+                {
+                    Value = obj
+                };
                 @Html.BestProperty(prop)
             }
+            @Html.Partial("WebNoodle/NodeActionsLink", obj)
         </li>
         }
     }
