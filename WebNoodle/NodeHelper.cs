@@ -5,8 +5,9 @@ namespace WebNoodle
 {
     public static class NodeHelper
     {
-        public static IEnumerable<INode> YieldChildren(this INode node, string path, bool breakOnNull = false)
+        public static IEnumerable<object> YieldChildren(this object node, string path, bool breakOnNull = false)
         {
+            path = string.IsNullOrWhiteSpace(path) ? "/" : path;
             yield return node;
             var parts = (path).Split("/".ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
             foreach (var part in parts)

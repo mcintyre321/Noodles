@@ -16,10 +16,10 @@ namespace WebNoodle.Reflection
 
         public static IList<Func<object, MethodInfo, bool>> NodeMethodFilters { get; private set; }
 
-        public static IEnumerable<IObjectMethod> GetNodeMethodInfos(this INode o, object behaviour = null)
+        
+        public static IEnumerable<IObjectMethod> GetNodeMethodInfos(this object o)
         {
-            behaviour = behaviour ?? o;
-            var methods = behaviour.GetType().GetMethods(BindingFlags.Public | BindingFlags.Instance | BindingFlags.FlattenHierarchy).ToArray();
+            var methods = o.GetType().GetMethods(BindingFlags.Public | BindingFlags.Instance | BindingFlags.FlattenHierarchy).ToArray();
             return methods
                 .Where(mi => !mi.Name.StartsWith("get_"))
                 .Where(mi => mi.DeclaringType != typeof(System.Object))
@@ -32,8 +32,8 @@ namespace WebNoodle.Reflection
                 .Where(mi => mi.Name != "Children")
                 .Where(mi => mi.Name != "GetEnumerator")
                 .Where(mi => !mi.Name.StartsWith("_"))
-                .Where(mi => NodeMethodFilters.All(mf => mf(behaviour, mi)))
-                .Select(mi => new ObjectMethod(o, behaviour, mi))
+                .Where(mi => NodeMethodFilters.All(mf => mf(o, mi)))
+                .Select(mi => new ObjectMethod(o, mi))
                 .ToArray();
         }
     }

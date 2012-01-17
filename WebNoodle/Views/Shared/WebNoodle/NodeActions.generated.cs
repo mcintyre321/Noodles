@@ -49,9 +49,9 @@ namespace WebNoodle.Views.Shared.WebNoodle
     #line default
     #line hidden
     
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("RazorGenerator", "1.2.0.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("RazorGenerator", "1.3.0.0")]
     [System.Web.WebPages.PageVirtualPathAttribute("~/Views/Shared/WebNoodle/NodeActions.cshtml")]
-    public class NodeActions : System.Web.Mvc.WebViewPage<INode>
+    public class NodeActions : System.Web.Mvc.WebViewPage<object>
     {
         public NodeActions()
         {
@@ -77,7 +77,7 @@ WriteLiteral("    <div id=\"actions-");
 
             
             #line 8 "..\..\Views\Shared\WebNoodle\NodeActions.cshtml"
-                Write(Model.Id);
+                Write(Model.Id());
 
             
             #line default
@@ -87,7 +87,7 @@ WriteLiteral("\">\r\n        <ul>\r\n");
 
             
             #line 10 "..\..\Views\Shared\WebNoodle\NodeActions.cshtml"
-             foreach (var action in Model.NodeMethods())
+             foreach (var nodeMethod in Model.NodeMethods())
             {
 
             
@@ -98,17 +98,7 @@ WriteLiteral("                <li style=\"display: block;\"><a class=\"nodeActio
 
             
             #line 12 "..\..\Views\Shared\WebNoodle\NodeActions.cshtml"
-                                                                            Write(Model.Id);
-
-            
-            #line default
-            #line hidden
-WriteLiteral("__");
-
-
-            
-            #line 12 "..\..\Views\Shared\WebNoodle\NodeActions.cshtml"
-                                                                                         Write(action.Name);
+                                                                            Write(nodeMethod.Id());
 
             
             #line default
@@ -118,7 +108,7 @@ WriteLiteral("_actionlink\">");
 
             
             #line 12 "..\..\Views\Shared\WebNoodle\NodeActions.cshtml"
-                                                                                                                   Write(action.DisplayName);
+                                                                                                          Write(nodeMethod.DisplayName);
 
             
             #line default
@@ -139,7 +129,7 @@ WriteLiteral("        </ul>\r\n    </div>\r\n");
             
             #line 16 "..\..\Views\Shared\WebNoodle\NodeActions.cshtml"
 
-            foreach (var command in Model.NodeMethods())
+            foreach (var nodeMethod in Model.NodeMethods())
             {
 
             
@@ -150,17 +140,7 @@ WriteLiteral("    <div id=\"");
 
             
             #line 19 "..\..\Views\Shared\WebNoodle\NodeActions.cshtml"
-         Write(Model.Id);
-
-            
-            #line default
-            #line hidden
-WriteLiteral("__");
-
-
-            
-            #line 19 "..\..\Views\Shared\WebNoodle\NodeActions.cshtml"
-                      Write(command.Name);
+         Write(nodeMethod.Id());
 
             
             #line default
@@ -170,7 +150,7 @@ WriteLiteral("_actionlinkpanel\" class=\"modal hide fade\"   >\r\n        ");
 
             
             #line 20 "..\..\Views\Shared\WebNoodle\NodeActions.cshtml"
-   Write(Html.Partial("WebNoodle/NodeActionForm", command));
+   Write(Html.Partial("WebNoodle/NodeActionForm", nodeMethod));
 
             
             #line default

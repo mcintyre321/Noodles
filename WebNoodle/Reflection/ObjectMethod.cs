@@ -13,16 +13,14 @@ namespace WebNoodle.Reflection
     public class ObjectMethod : IObjectMethod
     {
         private readonly MethodInfo _methodInfo;
-        private readonly object _behaviour;
 
-        public ObjectMethod(INode node, object behaviour, MethodInfo methodInfo)
+        public ObjectMethod(object behaviour, MethodInfo methodInfo)
         {
             _methodInfo = methodInfo;
-            _behaviour = behaviour ?? node;
-            Node = node;
+            Target = behaviour;
         }
 
-        public INode Node { get; private set; }
+        public object Target { get; private set; }
 
         private BindingFlags looseBindingFlags = BindingFlags.IgnoreCase | BindingFlags.FlattenHierarchy |
 
@@ -41,14 +39,14 @@ namespace WebNoodle.Reflection
 
         private IEnumerable<ObjectMethodParameter> LoadParameters()
         {
-            var parameters = _methodInfo.GetParameters().Select(p => new ObjectMethodParameter(this, _behaviour, _methodInfo, p)).ToArray();
+            var parameters = _methodInfo.GetParameters().Select(p => new ObjectMethodParameter(this, Target, _methodInfo, p)).ToArray();
             var methodName = this._methodInfo.Name.StartsWith("set_")
                                  ? _methodInfo.Name.Substring(4)
                                  : _methodInfo.Name;
-            var valuesMethod = _behaviour.GetType().GetMethod(methodName + "_values", looseBindingFlags);
+            var valuesMethod = Target.GetType().GetMethod(methodName + "_values", looseBindingFlags);
             if (valuesMethod != null)
             {
-                var parameterValues = ((IEnumerable<object>)valuesMethod.Invoke(_behaviour, new object[] { })).ToArray();
+                var parameterValues = ((IEnumerable<object>)valuesMethod.Invoke(Target, new object[] { })).ToArray();
                 for (int i = 0; i < parameterValues.Length; i++)
                 {
                     parameters[i].Value = parameterValues[i];
@@ -66,7 +64,7 @@ namespace WebNoodle.Reflection
                 var resolvedParameterValue = GetParameterValue(parameters, methodParameter.ParameterInfo, index);
                 methodParameterInfos[index].LastValue = resolvedParameterValue;
             }
-            _methodInfo.Invoke(_behaviour, methodParameterInfos.Select(mp => mp.LastValue).ToArray());
+            _methodInfo.Invoke(Target, methodParameterInfos.Select(mp => mp.LastValue).ToArray());
         }
 
         private object GetParameterValue(object[] parameters, ParameterInfo parameterInfo, int index)

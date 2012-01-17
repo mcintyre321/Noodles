@@ -12,7 +12,7 @@ namespace WebNoodle
     {
         //public static List<Func<Exception, ModelStateDictionary, Action>> ModelStateExceptionHandlers =
         //    new List<Func<Exception, ModelStateDictionary, Action>>();
-        public ActionResult Execute(ControllerContext cc, INode node, Action<INode, IObjectMethod, object[]> doInvoke = null)
+        public ActionResult Execute(ControllerContext cc, object node, Action<object, IObjectMethod, object[]> doInvoke = null)
         {
             doInvoke = doInvoke ?? (DoInvoke);
 
@@ -24,8 +24,8 @@ namespace WebNoodle
                     result.ViewData.Model = node;
                     return result;
                 }
-                var viewname = FormFactory.FormHelperExtension.BestViewName(cc, node.NodeType)
-                    ?? FormFactory.FormHelperExtension.BestViewName(cc, node.NodeType, null, t => t.Name);
+                var viewname = FormFactory.FormHelperExtension.BestViewName(cc, node.NodeType())
+                    ?? FormFactory.FormHelperExtension.BestViewName(cc, node.NodeType(), null, t => t.Name);
                 var vr = new ViewResult {ViewName = viewname, ViewData = {Model = node}};
                 return vr;
             }
@@ -81,7 +81,7 @@ namespace WebNoodle
         }
 
 
-        private static void DoInvoke(INode node, IObjectMethod methodInstance, object[] parameters)
+        private static void DoInvoke(object node, IObjectMethod methodInstance, object[] parameters)
         {
             methodInstance.Invoke(parameters);
         }

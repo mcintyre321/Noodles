@@ -108,5 +108,7 @@ namespace WebNoodle.Reflection
         {
             get { return this._parameter; }
         }
+
+        public IObjectMethod NodeMethod { get { return _objectMethod; } }
     }
 }

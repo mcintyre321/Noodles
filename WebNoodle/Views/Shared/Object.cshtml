@@ -1,0 +1,10 @@
+﻿@using System.Web.Mvc.Html
+@using FormFactory
+@model object
+<div class="row">
+    <div class="span4">@Html.Partial("WebNoodle/NodeActions", Model)&nbsp;</div>
+    <div class="span12">
+        @{ Html.RenderPropertiesFor(Model); }
+    </div>
+</div>
+@Html.Partial("WebNoodle/NodeActionsLinkScript")

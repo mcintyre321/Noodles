@@ -38,9 +38,9 @@ namespace WebNoodle.Views.Shared.WebNoodle
     #line default
     #line hidden
     
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("RazorGenerator", "1.2.0.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("RazorGenerator", "1.3.0.0")]
     [System.Web.WebPages.PageVirtualPathAttribute("~/Views/Shared/WebNoodle/NodeActionsLink.cshtml")]
-    public class NodeActionsLink : System.Web.Mvc.WebViewPage<INode>
+    public class NodeActionsLink : System.Web.Mvc.WebViewPage<object>
     {
         public NodeActionsLink()
         {
@@ -64,7 +64,7 @@ WriteLiteral("    <a href=\"#loadactions\" class=\"nodeActionsLink\" data-nodepa
 
             
             #line 6 "..\..\Views\Shared\WebNoodle\NodeActionsLink.cshtml"
-                                                             Write(Model.Path);
+                                                             Write(Model.Path());
 
             
             #line default

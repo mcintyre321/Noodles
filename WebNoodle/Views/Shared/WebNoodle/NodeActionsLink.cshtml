@@ -1,8 +1,8 @@
 ﻿@using System.Web.Mvc.Html
 @using WebNoodle
-@model INode
+@model object
 @if (Model.NodeMethods().Any())
 {
-    <a href="#loadactions" class="nodeActionsLink" data-nodepath="@Model.Path" >(edit)</a>
+    <a href="#loadactions" class="nodeActionsLink" data-nodepath="@Model.Path()" >(edit)</a>
 }
 @Html.Partial("WebNoodle/NodeActionsLinkScript")
