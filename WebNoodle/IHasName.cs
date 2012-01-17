@@ -42,17 +42,12 @@ namespace WebNoodle
 
                     var nodeWithParent = (IHasParent<object>) node;
                     var parent = nodeWithParent.Parent;
-                    if (parent == null)
-                    {
-                        return "/" + node.Name + "/";
-                    }
-                    else
+                    if (parent != null)
                     {
                         return parent.Path() + node.Name + "/";
                     }
-
                 }
-                return node.Name;
+                return "/" + node.Name + "/";
             }
             return "/";
         }
