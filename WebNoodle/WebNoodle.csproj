@@ -78,6 +78,11 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
+    <Compile Include="Views\Shared\WebNoodle\NodeAction.generated.cs">
+      <DependentUpon>NodeAction.cshtml</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
     <Compile Include="Views\Shared\WebNoodle\NodeActionSuccess.generated.cs">
       <DependentUpon>NodeActionSuccess.cshtml</DependentUpon>
       <AutoGen>True</AutoGen>
@@ -150,6 +155,10 @@
     <Content Include="Views\Shared\Object.cshtml">
       <Generator>RazorGenerator</Generator>
       <LastGenOutput>Object.generated.cs</LastGenOutput>
+    </Content>
+    <Content Include="Views\Shared\WebNoodle\NodeAction.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>Copy of NodeActions.generated.cs</LastGenOutput>
     </Content>
   </ItemGroup>
   <ItemGroup />

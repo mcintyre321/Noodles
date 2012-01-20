@@ -15,7 +15,7 @@ namespace WebNoodle.Views.Shared.WebNoodle
     using System.Collections.Generic;
     using System.IO;
     
-    #line 4 "..\..\Views\Shared\WebNoodle\NodeActions.cshtml"
+    #line 4 "..\..\Views\Shared\WebNoodle\NodeAction.cshtml"
     using System.Linq;
     
     #line default
@@ -27,7 +27,7 @@ namespace WebNoodle.Views.Shared.WebNoodle
     using System.Web.Mvc;
     using System.Web.Mvc.Ajax;
     
-    #line 1 "..\..\Views\Shared\WebNoodle\NodeActions.cshtml"
+    #line 1 "..\..\Views\Shared\WebNoodle\NodeAction.cshtml"
     using System.Web.Mvc.Html;
     
     #line default
@@ -37,23 +37,23 @@ namespace WebNoodle.Views.Shared.WebNoodle
     using System.Web.UI;
     using System.Web.WebPages;
     
-    #line 2 "..\..\Views\Shared\WebNoodle\NodeActions.cshtml"
+    #line 2 "..\..\Views\Shared\WebNoodle\NodeAction.cshtml"
     using FormFactory;
     
     #line default
     #line hidden
     
-    #line 3 "..\..\Views\Shared\WebNoodle\NodeActions.cshtml"
+    #line 3 "..\..\Views\Shared\WebNoodle\NodeAction.cshtml"
     using WebNoodle;
     
     #line default
     #line hidden
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("RazorGenerator", "1.3.0.0")]
-    [System.Web.WebPages.PageVirtualPathAttribute("~/Views/Shared/WebNoodle/NodeActions.cshtml")]
-    public class NodeActions : System.Web.Mvc.WebViewPage<object>
+    [System.Web.WebPages.PageVirtualPathAttribute("~/Views/Shared/WebNoodle/NodeAction.cshtml")]
+    public class NodeAction : System.Web.Mvc.WebViewPage<WebNoodle.Reflection.IObjectMethod>
     {
-        public NodeActions()
+        public NodeAction()
         {
         }
         public override void Execute()
@@ -63,66 +63,48 @@ namespace WebNoodle.Views.Shared.WebNoodle
 
 
 
-
-            
-            #line 6 "..\..\Views\Shared\WebNoodle\NodeActions.cshtml"
- if (Model.NodeMethods().Any())
-{
-
-            
-            #line default
-            #line hidden
-WriteLiteral("    <div id=\"actions-");
+WriteLiteral("<a class=\"nodeActionsPanelLink\" id=\"");
 
 
             
-            #line 8 "..\..\Views\Shared\WebNoodle\NodeActions.cshtml"
-                Write(Model.Id());
+            #line 6 "..\..\Views\Shared\WebNoodle\NodeAction.cshtml"
+                                Write(Model.Id());
 
             
             #line default
             #line hidden
-WriteLiteral("\">\r\n        <ul>\r\n");
+WriteLiteral("_actionlink\">");
 
 
             
-            #line 10 "..\..\Views\Shared\WebNoodle\NodeActions.cshtml"
-             foreach (var nodeMethod in Model.NodeMethods())
-            {
-
-            
-            #line default
-            #line hidden
-WriteLiteral("                <li>");
-
-
-            
-            #line 12 "..\..\Views\Shared\WebNoodle\NodeActions.cshtml"
-               Write(Html.Partial("WebNoodle/NodeAction", nodeMethod));
+            #line 6 "..\..\Views\Shared\WebNoodle\NodeAction.cshtml"
+                                                         Write(Model.DisplayName);
 
             
             #line default
             #line hidden
-WriteLiteral("</li>\r\n");
+WriteLiteral("</a>\r\n<div id=\"");
 
 
             
-            #line 13 "..\..\Views\Shared\WebNoodle\NodeActions.cshtml"
-            }
-
-            
-            #line default
-            #line hidden
-WriteLiteral("        </ul>\r\n    </div>\r\n");
-
-
-            
-            #line 16 "..\..\Views\Shared\WebNoodle\NodeActions.cshtml"
-}
+            #line 7 "..\..\Views\Shared\WebNoodle\NodeAction.cshtml"
+     Write(Model.Id());
 
             
             #line default
             #line hidden
+WriteLiteral("_actionlinkpanel\" class=\"modal hide fade\"   >\r\n    ");
+
+
+            
+            #line 8 "..\..\Views\Shared\WebNoodle\NodeAction.cshtml"
+Write(Html.Partial("WebNoodle/NodeActionForm", Model));
+
+            
+            #line default
+            #line hidden
+WriteLiteral("\r\n</div>\r\n");
+
 
         }
     }
