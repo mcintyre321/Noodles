@@ -40,7 +40,7 @@ namespace WebNoodle.Views.Shared.WebNoodle
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("RazorGenerator", "1.3.0.0")]
     [System.Web.WebPages.PageVirtualPathAttribute("~/Views/Shared/WebNoodle/NodeAction.cshtml")]
-    public class NodeAction : System.Web.Mvc.WebViewPage<WebNoodle.Reflection.IObjectMethod>
+    public class NodeAction : System.Web.Mvc.WebViewPage<global::WebNoodle.Reflection.IObjectMethod>
     {
         public NodeAction()
         {

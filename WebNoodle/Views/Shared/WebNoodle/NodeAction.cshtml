@@ -1,6 +1,6 @@
 ﻿@using System.Web.Mvc.Html
 @using WebNoodle
-@model WebNoodle.Reflection.IObjectMethod
+@model global::WebNoodle.Reflection.IObjectMethod
 <a class="nodeActionsPanelLink" id="@(Model.Id())_actionlink">@Model.DisplayName</a>
 <div id="@(Model.Id())_actionlinkpanel" class="modal hide fade"   >
     @Html.Partial("WebNoodle/NodeActionForm", Model)
