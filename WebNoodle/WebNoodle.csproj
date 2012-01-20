@@ -158,7 +158,7 @@
     </Content>
     <Content Include="Views\Shared\WebNoodle\NodeAction.cshtml">
       <Generator>RazorGenerator</Generator>
-      <LastGenOutput>Copy of NodeActions.generated.cs</LastGenOutput>
+      <LastGenOutput>NodeAction.generated.cs</LastGenOutput>
     </Content>
   </ItemGroup>
   <ItemGroup />

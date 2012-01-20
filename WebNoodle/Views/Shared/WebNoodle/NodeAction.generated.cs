@@ -14,12 +14,7 @@ namespace WebNoodle.Views.Shared.WebNoodle
     using System;
     using System.Collections.Generic;
     using System.IO;
-    
-    #line 4 "..\..\Views\Shared\WebNoodle\NodeAction.cshtml"
     using System.Linq;
-    
-    #line default
-    #line hidden
     using System.Net;
     using System.Text;
     using System.Web;
@@ -38,12 +33,6 @@ namespace WebNoodle.Views.Shared.WebNoodle
     using System.Web.WebPages;
     
     #line 2 "..\..\Views\Shared\WebNoodle\NodeAction.cshtml"
-    using FormFactory;
-    
-    #line default
-    #line hidden
-    
-    #line 3 "..\..\Views\Shared\WebNoodle\NodeAction.cshtml"
     using WebNoodle;
     
     #line default
@@ -61,13 +50,11 @@ namespace WebNoodle.Views.Shared.WebNoodle
 
 
 
-
-
 WriteLiteral("<a class=\"nodeActionsPanelLink\" id=\"");
 
 
             
-            #line 6 "..\..\Views\Shared\WebNoodle\NodeAction.cshtml"
+            #line 4 "..\..\Views\Shared\WebNoodle\NodeAction.cshtml"
                                 Write(Model.Id());
 
             
@@ -77,7 +64,7 @@ WriteLiteral("_actionlink\">");
 
 
             
-            #line 6 "..\..\Views\Shared\WebNoodle\NodeAction.cshtml"
+            #line 4 "..\..\Views\Shared\WebNoodle\NodeAction.cshtml"
                                                          Write(Model.DisplayName);
 
             
@@ -87,7 +74,7 @@ WriteLiteral("</a>\r\n<div id=\"");
 
 
             
-            #line 7 "..\..\Views\Shared\WebNoodle\NodeAction.cshtml"
+            #line 5 "..\..\Views\Shared\WebNoodle\NodeAction.cshtml"
      Write(Model.Id());
 
             
@@ -97,7 +84,7 @@ WriteLiteral("_actionlinkpanel\" class=\"modal hide fade\"   >\r\n    ");
 
 
             
-            #line 8 "..\..\Views\Shared\WebNoodle\NodeAction.cshtml"
+            #line 6 "..\..\Views\Shared\WebNoodle\NodeAction.cshtml"
 Write(Html.Partial("WebNoodle/NodeActionForm", Model));
 
             
