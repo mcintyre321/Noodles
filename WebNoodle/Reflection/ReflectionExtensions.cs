@@ -28,6 +28,7 @@ namespace WebNoodle.Reflection
                 .Where(mi => !mi.Name.EndsWith("_choices", StringComparison.InvariantCultureIgnoreCase)) //choices should be hidden
                 .Where(mi => !mi.Name.EndsWith("_suggestions", StringComparison.InvariantCultureIgnoreCase)) //suggestions should be hidden
                 .Where(mi => !(o is IHasChildren && mi.Name == "GetChild"))
+                .Where(mi => !(o is IHasNodeMethods && mi.Name == "NodeMethods"))
                 .Where(mi => !mi.Name.StartsWith("_"))
                 .Where(mi => NodeMethodFilters.All(mf => mf(o, mi)))
                 .Select(mi => new ObjectMethod(o, mi))
