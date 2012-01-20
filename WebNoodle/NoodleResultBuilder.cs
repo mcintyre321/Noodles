@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Web;
 using System.Web.Helpers;
 using System.Web.Mvc;
@@ -44,10 +45,15 @@ namespace WebNoodle
                             {
                                 doInvoke(node, methodInstance, parameters);
                             }
+                            catch (TargetInvocationException ex)
+                            {
+                                msd.AddModelError("", ex.InnerException ?? ex);
+                            }
                             catch (Exception ex)
                             {
                                 msd.AddModelError("", ex);
                             }
+
                         }
                         if (cc.HttpContext.Request.IsAjaxRequest())
                         {
