@@ -26,7 +26,9 @@ namespace WebNoodle
                 }
                 var viewname = FormFactory.FormHelperExtension.BestViewName(cc, node.NodeType())
                     ?? FormFactory.FormHelperExtension.BestViewName(cc, node.NodeType(), null, t => t.Name);
-                var vr = new ViewResult {ViewName = viewname, ViewData = {Model = node}};
+                var viewData = cc.Controller.ViewData;
+                viewData.Model = node;
+                var vr = new ViewResult {ViewName = viewname, ViewData = viewData};
                 return vr;
             }
             else //must be a post
