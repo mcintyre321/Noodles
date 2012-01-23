@@ -45,7 +45,7 @@ namespace WebNoodle.Reflection
         public string Path
         {
             get { return _path ?? this.Target.Path(); }
-            set { _path = Path; }
+            set { _path = value; }
         }
     }
 }
