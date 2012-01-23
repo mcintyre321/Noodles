@@ -2,11 +2,12 @@ using System.Collections.Generic;
 
 namespace WebNoodle.Reflection
 {
-    public class RenameableObjectMethodWrapper : IObjectMethod
+    public class ObjectMethodWrapper : IObjectMethod, IHasPath
     {
         private readonly IObjectMethod _inner;
         private string _innerName;
         private string _innerDisplayName;
+        private string _path;
 
         public string Name
         {
@@ -35,11 +36,16 @@ namespace WebNoodle.Reflection
             _inner.Invoke(parameters);
         }
 
-        public RenameableObjectMethodWrapper(IObjectMethod inner)
+        public ObjectMethodWrapper(IObjectMethod inner)
         {
             _inner = inner;
         }
 
 
+        public string Path
+        {
+            get { return _path ?? this.Target.Path(); }
+            set { _path = Path; }
+        }
     }
 }
