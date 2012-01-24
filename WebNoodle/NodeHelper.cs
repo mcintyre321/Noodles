@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Web;
 
 namespace WebNoodle
 {
@@ -16,7 +17,7 @@ namespace WebNoodle
                 if (node == null)
                 {
                     if (breakOnNull) yield break;
-                    throw new Exception("Node '" + part + "' not found in path '" + path + "'");
+                    throw new HttpException(404, "Node '" + part + "' not found in path '" + path + "'");
                 }
                 yield return node;
             }
