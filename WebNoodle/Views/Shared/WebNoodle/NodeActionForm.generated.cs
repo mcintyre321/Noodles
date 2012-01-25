@@ -133,7 +133,8 @@ WriteLiteral("</h3>\r\n</div>\r\n<div class=\"modal-body\">\r\n");
             IsWritable = true,
             Value = parameter.Value,
             Choices = parameter.Choices,
-            Suggestions = parameter.Suggestions
+            Suggestions = parameter.Suggestions,
+            Source = parameter
 
         };
 
@@ -149,7 +150,7 @@ WriteLiteral("</div>\r\n<div class=\"modal-footer\">\r\n    <input type=\"submit
 
 
             
-            #line 34 "..\..\Views\Shared\WebNoodle\NodeActionForm.cshtml"
+            #line 35 "..\..\Views\Shared\WebNoodle\NodeActionForm.cshtml"
                                                              Write(Model.DisplayName);
 
             
