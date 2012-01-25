@@ -68,7 +68,7 @@ namespace WebNoodle
         {
             if (node is IHasId) return ((IHasId)node).Id;
             var path = node.Path();
-            return path.Replace('/', '_').Replace('@', '_').Replace(".", "_");
+            return path.Replace('/', '_').Replace('@', '_').Replace(".", "_").Replace(' ', '_');
         }
         public static string Id(this IObjectMethod method)
         {
