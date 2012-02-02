@@ -9,12 +9,13 @@ namespace WebNoodle.Example.Controllers
 {
     public class HomeController : Controller
     {
-        static Home home = new Home();
+        static ToDoList home = new ToDoList();
 
         public ActionResult Index(string path)
         {
             var noodle = new NoodleResultBuilder();
-            return noodle.Execute(this.ControllerContext, home.YieldChildren(path).Last());
+            var actionResult = noodle.Execute(this.ControllerContext, home.YieldChildren(path).Last());
+            return actionResult;
         }
     }
 }

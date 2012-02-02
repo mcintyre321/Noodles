@@ -59,12 +59,22 @@ namespace WebNoodle.Views.Shared.WebNoodle
             
             #line default
             #line hidden
-WriteLiteral("    <a href=\"#loadactions\" class=\"nodeActionsLink\" data-nodepath=\"");
+WriteLiteral("    <a href=\"#loadactions\" class=\"nodeActionsLink\" data-nodeid=\"");
 
 
             
             #line 6 "..\..\Views\Shared\WebNoodle\NodeActionsLink.cshtml"
-                                                             Write(Model.Path());
+                                                           Write(Model.Id());
+
+            
+            #line default
+            #line hidden
+WriteLiteral("\" data-nodepath=\"");
+
+
+            
+            #line 6 "..\..\Views\Shared\WebNoodle\NodeActionsLink.cshtml"
+                                                                                       Write(Model.Path());
 
             
             #line default

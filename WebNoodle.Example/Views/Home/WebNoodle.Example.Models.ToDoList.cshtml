@@ -1,0 +1,26 @@
+﻿@using WebNoodle.Helpers
+@model WebNoodle.Example.Models.ToDoList
+
+@{
+    ViewBag.Title = "ToDoList.cshtml";
+}
+
+<h2>ToDoList.cshtml</h2>
+<div class="row">
+    <div class="span4">@Html.Partial("WebNoodle/NodeActions")</div>
+    <div class="span12">
+        <h4>Tasks</h4>
+        <ul>
+            @foreach(var task in Model.Tasks)
+            {
+                <li>@task.Text</li>    
+            }
+        </ul>
+        <h4>Users</h4>
+        @{
+            var x = Model;
+        }
+        @Html.DataTableFor(() => x.Users, "Id", "Name", "Email")
+    </div>
+
+</div>

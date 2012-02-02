@@ -5,6 +5,7 @@ using System.Reflection;
 using System.Web;
 using System.Web.Helpers;
 using System.Web.Mvc;
+using Mvc.JQuery.Datatables;
 using WebNoodle.Reflection;
 
 namespace WebNoodle
@@ -21,10 +22,10 @@ namespace WebNoodle
             {
                 if (cc.HttpContext.Request.QueryString["action"] == "getNodeActions")
                 {
-                    var result = new PartialViewResult() { ViewName = @"WebNoodle/NodeActions" };
-                    result.ViewData.Model = node;
+                    var result = new PartialViewResult {ViewName = @"WebNoodle/NodeActions", ViewData = {Model = node}};
                     return result;
                 }
+                
                 var viewname = FormFactory.FormHelperExtension.BestViewName(cc, node.NodeType())
                     ?? FormFactory.FormHelperExtension.BestViewName(cc, node.NodeType(), null, t => t.Name);
                 var vr = new ViewResult {ViewName = viewname, ViewData = cc.Controller.ViewData };
@@ -35,6 +36,13 @@ namespace WebNoodle
             {
                 using (Profiler.Step("Post"))
                 {
+                    if (cc.HttpContext.Request.QueryString["action"] == "getDataTable")
+                    {
+                        var propertyName = cc.HttpContext.Request.QueryString["prop"];
+                        var queryable = node.GetType().GetProperty(propertyName).GetGetMethod().Invoke(node, null);
+                        var dtr = Create(queryable, BindObject<DataTablesParam>(cc, "dataTableParam"));
+                        return dtr;
+                    }
                     {
                         var methodInstance = node.NodeMethods().Single(m => m.Name == cc.HttpContext.Request.QueryString["action"]);
                         var parameters = methodInstance.Parameters.Select(pt => this.BindObject(cc, pt.BindingParameterType, /*node.Id + "_" + methodInstance.Name + "_" +*/ pt.Name)).ToArray();
@@ -87,12 +95,31 @@ namespace WebNoodle
             }
         }
 
+        public static DataTablesResult Create(object queryable, DataTablesParam dataTableParam)
+        {
+            try
+            {
+                var openCreateMethod =
+                    typeof(DataTablesResult).GetMethods().Single(x => x.Name == "Create" && x.GetGenericArguments().Count() == 1);
+                var queryableType = queryable.GetType().GetGenericArguments()[0];
+                var closedCreateMethod = openCreateMethod.MakeGenericMethod(queryableType);
+                return (DataTablesResult)closedCreateMethod.Invoke(null, new [] { queryable, dataTableParam});
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Was the object passed in a Something<T>?", ex);
+            }
+        }
 
         private static void DoInvoke(object node, IObjectMethod methodInstance, object[] parameters)
         {
             methodInstance.Invoke(parameters);
         }
 
+        private T BindObject<T>(ControllerContext cc, string name) where T : class
+        {
+            return BindObject(cc, typeof (T), name) as T;
+        }
         private object BindObject(ControllerContext cc, Type desiredType, string name)
         {
 

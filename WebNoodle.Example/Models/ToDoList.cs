@@ -5,13 +5,12 @@ using System.Linq;
 
 namespace WebNoodle.Example.Models
 {
-    public class Home : IHasChildren
+    public class ToDoList : IHasChildren
     {
-        public Home()
+        public ToDoList()
         {
             this._tasks = new Tasks(this);
-            this._tasks.AddTask("This is an example task");
-
+            var task = this._tasks.AddTask("This is an example task");
         }
 
         private Tasks _tasks;
@@ -21,6 +20,24 @@ namespace WebNoodle.Example.Models
         public void AddNote(string note)
         {
             _tasks.AddTask(note);
+        }
+
+        public IQueryable Users
+        {
+            get
+            {
+                var domains = "gmail.com,yahoo.com,hotmail.com".Split(',').ToArray();
+                return new List<User>
+                    (
+                    Enumerable.Range(1, 100).Select(i =>
+                                                    new User()
+                                                    {
+                                                        Id = i,
+                                                        Email = "user" + i + "@" + domains[i%domains.Length],
+                                                        Name = "User" + i
+                                                    })
+                    ).AsQueryable();
+            }
         }
 
         public void ClearCompletedTasks()
@@ -35,19 +52,29 @@ namespace WebNoodle.Example.Models
         }
     }
 
-    public class Tasks : IEnumerable<Task>, IHasChildren, IHasName, IHasParent<Home>
+    public class User
+    {
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public string Email { get; set; }
+    }
+
+
+    public class Tasks : IEnumerable<Task>, IHasChildren, IHasName, IHasParent<ToDoList>
     {
         private readonly List<Task> _tasks = new List<Task>();
 
-        public Tasks(Home parent)
+        public Tasks(ToDoList parent)
         {
             Parent = parent;
             this._tasks = new List<Task>();
         }
 
-        public void AddTask(string note)
+        public Task AddTask(string note)
         {
-            _tasks.Add(new Task(this) { Text = note });
+            var item = new Task(this) {Text = note};
+            _tasks.Add(item);
+            return item;
         }
 
         public IEnumerator<Task> GetEnumerator()
@@ -65,7 +92,7 @@ namespace WebNoodle.Example.Models
             return _tasks.SingleOrDefault(task => task.Name == name);
         }
 
-        public Home Parent { get; private set; }
+        public ToDoList Parent { get; private set; }
 
         public string Name { get { return "tasks"; } }
 

@@ -8,7 +8,7 @@
             var $link = $(this);
             if (e.target != this) return false;
             var nodePath = $link.attr("data-nodepath");
-            var nodeId = nodePath.replace(new RegExp('/', 'g'), '_');
+            var nodeId = $link.attr("data-nodeid");
             if ($('#actions-' + nodeId).length) {
                 return false;
             }
