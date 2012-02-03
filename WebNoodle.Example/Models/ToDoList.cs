@@ -22,7 +22,7 @@ namespace WebNoodle.Example.Models
             _tasks.AddTask(note);
         }
 
-        public IQueryable Users
+        public IEnumerable Users
         {
             get
             {
@@ -36,7 +36,7 @@ namespace WebNoodle.Example.Models
                                                         Email = "user" + i + "@" + domains[i%domains.Length],
                                                         Name = "User" + i
                                                     })
-                    ).AsQueryable();
+                    );
             }
         }
 

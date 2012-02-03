@@ -40,7 +40,7 @@ namespace WebNoodle
                     {
                         var propertyName = cc.HttpContext.Request.QueryString["prop"];
                         var queryable = node.GetType().GetProperty(propertyName).GetGetMethod().Invoke(node, null);
-                        var dtr = Create(queryable, BindObject<DataTablesParam>(cc, "dataTableParam"));
+                        var dtr = Mvc.JQuery.Datatables.DataTablesResult.Create(queryable, BindObject<DataTablesParam>(cc, "dataTableParam"));
                         return dtr;
                     }
                     {
@@ -94,22 +94,7 @@ namespace WebNoodle
                 }
             }
         }
-
-        public static DataTablesResult Create(object queryable, DataTablesParam dataTableParam)
-        {
-            try
-            {
-                var openCreateMethod =
-                    typeof(DataTablesResult).GetMethods().Single(x => x.Name == "Create" && x.GetGenericArguments().Count() == 1);
-                var queryableType = queryable.GetType().GetGenericArguments()[0];
-                var closedCreateMethod = openCreateMethod.MakeGenericMethod(queryableType);
-                return (DataTablesResult)closedCreateMethod.Invoke(null, new [] { queryable, dataTableParam});
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("Was the object passed in a Something<T>?", ex);
-            }
-        }
+ 
 
         private static void DoInvoke(object node, IObjectMethod methodInstance, object[] parameters)
         {
