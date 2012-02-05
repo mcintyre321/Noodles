@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -40,7 +41,8 @@ namespace WebNoodle
                     {
                         var propertyName = cc.HttpContext.Request.QueryString["prop"];
                         var queryable = node.GetType().GetProperty(propertyName).GetGetMethod().Invoke(node, null);
-                        var dtr = Mvc.JQuery.Datatables.DataTablesResult.Create(queryable, BindObject<DataTablesParam>(cc, "dataTableParam"));
+                        var dtr = Mvc.JQuery.Datatables.DataTablesResult.
+                            Create(queryable, BindObject<DataTablesParam>(cc, "dataTableParam"));
                         return dtr;
                     }
                     {
@@ -94,8 +96,8 @@ namespace WebNoodle
                 }
             }
         }
- 
 
+     
         private static void DoInvoke(object node, IObjectMethod methodInstance, object[] parameters)
         {
             methodInstance.Invoke(parameters);
