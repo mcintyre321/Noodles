@@ -47,7 +47,7 @@
             var panelId = $(this).attr("id") + "panel";
             $("#" + panelId).modal({ show: true, backdrop: true });
             $("#" + panelId + " :input:visible:enabled:first").focus();
-            e.stopPropogation();
+            e.stopPropagation();
         });
         $(".post-via-ajax").live('click', function (e) {
             var $form = $(this).closest("form");

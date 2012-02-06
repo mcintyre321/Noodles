@@ -72,7 +72,7 @@ WriteLiteral("    <script type=\"text/javascript\">\r\n        $(\".popover .clo
 "       $(\".nodeActionsPanelLink\").live(\'click\', function (e) {\r\n            var " +
 "panelId = $(this).attr(\"id\") + \"panel\";\r\n            $(\"#\" + panelId).modal({ sh" +
 "ow: true, backdrop: true });\r\n            $(\"#\" + panelId + \" :input:visible:ena" +
-"bled:first\").focus();\r\n            e.stopPropogation();\r\n        });\r\n        $(" +
+"bled:first\").focus();\r\n            e.stopPropagation();\r\n        });\r\n        $(" +
 "\".post-via-ajax\").live(\'click\', function (e) {\r\n            var $form = $(this)." +
 "closest(\"form\");\r\n            $.ajax({\r\n                url: $form.attr(\'action\'" +
 "),\r\n                type: \"POST\",\r\n                data: $form.serialize(),\r\n   " +
