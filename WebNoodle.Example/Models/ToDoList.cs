@@ -22,7 +22,7 @@ namespace WebNoodle.Example.Models
             _tasks.AddTask(note);
         }
 
-        public IEnumerable Users
+        public IEnumerable<User> Users
         {
             get
             {
@@ -75,6 +75,7 @@ namespace WebNoodle.Example.Models
         public string Name { get; set; }
         public string Email { get; set; }
     }
+
     public class UserVm
     {
         public int Id { get; set; }

@@ -1,4 +1,5 @@
-﻿@using WebNoodle.Helpers
+﻿@using WebNoodle.Example.Models
+@using WebNoodle.Helpers
 @model WebNoodle.Example.Models.ToDoList
 
 @{
@@ -20,7 +21,11 @@
         @{
             var x = Model;
         }
-        @Html.DataTableFor(() => x.UsersVm, "Id", "Name", "Email")
+        @*@Html.DataTableFor(() => x.UsersVm, "Id", "Name", "Email")*@
+        @helper link (string email){
+            <a href="@email">@email</a>
+        }
+        @Html.DataTableForX(() => x.Users, u => new {u.Id, Email = link(u.Email), Name = "Mr" + u.Name })   
     </div>
 
 </div>

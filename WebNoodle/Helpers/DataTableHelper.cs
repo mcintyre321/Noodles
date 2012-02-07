@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
 using System.Text;
+using System.Web.Caching;
 using System.Web.Mvc;
 using System.Web.Mvc.Html;
 using Mvc.JQuery.Datatables;
@@ -16,6 +18,20 @@ namespace WebNoodle.Helpers
         {
             var target = GetObjectAndMember(getProperty);
             var vm = new DataTableVm("DataTable_" + target.Item2 + "_" + target.Item1.Id(), target.Item1.Path() + "?action=getDataTable&prop=" + target.Item2, properties);
+            return helper.Partial("DataTable", vm);
+        }
+        public static MvcHtmlString DataTableForX<TIn, TResult>(this HtmlHelper helper, Expression<Func<IEnumerable<TIn>>> getProperty, Expression<Func<TIn, TResult>> transform)
+        {
+            var key = transform.ToString().GetHashCode().ToString(CultureInfo.InvariantCulture);
+            var x = helper.ViewContext.HttpContext.Cache[key];
+            if (x == null)
+            {
+                var compiled = transform.Compile();
+                Func<object, IEnumerable<TResult>> objTransform = o => ((IEnumerable<TIn>)o).Select(compiled);
+                helper.ViewContext.HttpContext.Cache.Add(key, objTransform, null, DateTime.MaxValue, System.Web.Caching.Cache.NoSlidingExpiration, CacheItemPriority.NotRemovable, null);
+            }
+            var target = GetObjectAndMember(getProperty);
+            var vm = new DataTableVm("DataTable_" + target.Item2 + "_" + target.Item1.Id(), target.Item1.Path() + "?action=getDataTable&prop=" + target.Item2 + "&transform=" + key, typeof(TResult).GetProperties().Select(p => p.Name));
             return helper.Partial("DataTable", vm);
         }
 

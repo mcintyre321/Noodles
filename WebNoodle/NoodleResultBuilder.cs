@@ -41,8 +41,13 @@ namespace WebNoodle
                     {
                         var propertyName = cc.HttpContext.Request.QueryString["prop"];
                         var queryable = node.GetType().GetProperty(propertyName).GetGetMethod().Invoke(node, null);
-                        var dtr = Mvc.JQuery.Datatables.DataTablesResult.
-                            Create(queryable, BindObject<DataTablesParam>(cc, "dataTableParam"));
+                        var transformKey = cc.HttpContext.Request.QueryString["transform"];
+                        if (transformKey != null)
+                        {
+                            dynamic transform = cc.HttpContext.Cache[transformKey];
+                            queryable = transform.Invoke(queryable);
+                        }
+                        var dtr = Mvc.JQuery.Datatables.DataTablesResult.Create(queryable, BindObject<DataTablesParam>(cc, "dataTableParam"));
                         return dtr;
                     }
                     {
@@ -127,7 +132,5 @@ namespace WebNoodle
 
             return output;
         }
-
-
     }
 }
