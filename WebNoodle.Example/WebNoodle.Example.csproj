@@ -54,7 +54,7 @@
       <HintPath>..\packages\Mvc3Futures.3.0.20105.0\lib\Microsoft.Web.Mvc.dll</HintPath>
     </Reference>
     <Reference Include="Mvc.JQuery.Datatables, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Mvc.JQuery.Datatables.1.1.36\lib\net40\Mvc.JQuery.Datatables.dll</HintPath>
+      <HintPath>..\packages\Mvc.JQuery.Datatables.1.1.38\lib\net40\Mvc.JQuery.Datatables.dll</HintPath>
     </Reference>
     <Reference Include="System.Data.Entity" />
     <Reference Include="System.Web.Mvc, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
@@ -83,7 +83,7 @@
       <HintPath>..\packages\WebActivator.1.5\lib\net40\WebActivator.dll</HintPath>
     </Reference>
     <Reference Include="WebNoodle, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\WebNoodle.1.1.85\lib\net40\WebNoodle.dll</HintPath>
+      <HintPath>..\packages\WebNoodle.1.1.91\lib\net40\WebNoodle.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -96,31 +96,6 @@
     <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Models\ToDoList.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Views\Shared\Object.generated.cs">
-      <DependentUpon>Object.cshtml</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-    </Compile>
-    <Compile Include="Views\Shared\WebNoodle\NodeActionForm.generated.cs">
-      <DependentUpon>NodeActionForm.cshtml</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-    </Compile>
-    <Compile Include="Views\Shared\WebNoodle\NodeActions.generated.cs">
-      <DependentUpon>NodeActions.cshtml</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-    </Compile>
-    <Compile Include="Views\Shared\WebNoodle\NodeActionsLink.generated.cs">
-      <DependentUpon>NodeActionsLink.cshtml</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-    </Compile>
-    <Compile Include="Views\Shared\WebNoodle\NodeActionsLinkScript.generated.cs">
-      <DependentUpon>NodeActionsLinkScript.cshtml</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-overrides.css" />
@@ -303,6 +278,9 @@
     <Content Include="Scripts\DataTables-1.9.0\media\js\jquery.dataTables.js" />
     <Content Include="Scripts\DataTables-1.9.0\media\js\jquery.dataTables.min.js" />
     <Content Include="Scripts\DataTables-1.9.0\media\js\jquery.js" />
+    <Content Include="Scripts\jquery-1.4.4-vsdoc.js" />
+    <Content Include="Scripts\jquery-1.4.4.js" />
+    <Content Include="Scripts\jquery-1.4.4.min.js" />
     <Content Include="Scripts\jquery-1.7.1-vsdoc.js" />
     <Content Include="Scripts\jquery-1.7.1.js" />
     <Content Include="Scripts\jquery-1.7.1.min.js" />
@@ -369,22 +347,10 @@
     <Content Include="Views\_ViewStart.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Shared\WebNoodle\NodeActionForm.cshtml">
-      <Generator>RazorGenerator</Generator>
-      <LastGenOutput>NodeActionForm.generated.cs</LastGenOutput>
-    </Content>
-    <Content Include="Views\Shared\WebNoodle\NodeActions.cshtml">
-      <Generator>RazorGenerator</Generator>
-      <LastGenOutput>NodeActions.generated.cs</LastGenOutput>
-    </Content>
-    <Content Include="Views\Shared\WebNoodle\NodeActionsLink.cshtml">
-      <Generator>RazorGenerator</Generator>
-      <LastGenOutput>NodeActionsLink.generated.cs</LastGenOutput>
-    </Content>
-    <Content Include="Views\Shared\WebNoodle\NodeActionsLinkScript.cshtml">
-      <Generator>RazorGenerator</Generator>
-      <LastGenOutput>NodeActionsLinkScript.generated.cs</LastGenOutput>
-    </Content>
+    <Content Include="Views\Shared\WebNoodle\NodeActionForm.cshtml" />
+    <Content Include="Views\Shared\WebNoodle\NodeActions.cshtml" />
+    <Content Include="Views\Shared\WebNoodle\NodeActionsLink.cshtml" />
+    <Content Include="Views\Shared\WebNoodle\NodeActionsLinkScript.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
@@ -393,10 +359,7 @@
     <Content Include="Views\Shared\FormFactory\Property.IEnumerable.System.Object.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Shared\Object.cshtml">
-      <Generator>RazorGenerator</Generator>
-      <LastGenOutput>Object.generated.cs</LastGenOutput>
-    </Content>
+    <Content Include="Views\Shared\Object.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Shared\FormFactory\Property.WebNoodle.Example.Models.Task.cshtml" />
@@ -428,9 +391,9 @@
     <Content Include="Views\Shared\FormFactory\Form.Property.cshtml" />
     <Content Include="Views\Shared\FormFactory\Form.Close.cshtml" />
     <Content Include="Views\Shared\FormFactory\Form.Actions.cshtml" />
-    <Content Include="Views\Shared\DataTable.cshtml" />
     <Content Include="Views\Shared\WebNoodle\NodeActionSuccess.cshtml" />
     <Content Include="Views\Shared\WebNoodle\NodeAction.cshtml" />
+    <Content Include="Views\Shared\DataTable.cshtml" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />

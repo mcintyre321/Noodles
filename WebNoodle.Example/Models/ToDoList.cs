@@ -39,23 +39,7 @@ namespace WebNoodle.Example.Models
                     );
             }
         }
-        public IEnumerable UsersVm
-        {
-            get
-            {
-                var domains = "gmail.com,yahoo.com,hotmail.com".Split(',').ToArray();
-                return new List<User>
-                    (
-                    Enumerable.Range(1, 100).Select(i =>
-                                                    new User()
-                                                    {
-                                                        Id = i,
-                                                        Email = "user" + i + "@" + domains[i % domains.Length],
-                                                        Name = "User" + i
-                                                    })
-                    ).Select(u => new UserVm{ Id = u.Id, Email = u.Email, Name = u.Name});
-            }
-        }
+         
 
         public void ClearCompletedTasks()
         {
