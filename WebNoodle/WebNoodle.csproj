@@ -82,41 +82,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Reflection\ObjectMethodWrapper.cs" />
     <Compile Include="UserException.cs" />
-    <Compile Include="Views\Shared\Object.generated.cs">
-      <DependentUpon>Object.cshtml</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-    </Compile>
-    <Compile Include="Views\Shared\WebNoodle\NodeAction.generated.cs">
-      <DependentUpon>NodeAction.cshtml</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-    </Compile>
-    <Compile Include="Views\Shared\WebNoodle\NodeActionSuccess.generated.cs">
-      <DependentUpon>NodeActionSuccess.cshtml</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-    </Compile>
-    <Compile Include="Views\Shared\WebNoodle\NodeActionForm.generated.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>NodeActionForm.cshtml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Shared\WebNoodle\NodeActions.generated.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>NodeActions.cshtml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Shared\WebNoodle\NodeActionsLink.generated.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>NodeActionsLink.cshtml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Shared\WebNoodle\NodeActionsLinkScript.generated.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>NodeActionsLinkScript.cshtml</DependentUpon>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\DataTables-1.9.0\docs\media\css\doc.css" />
@@ -235,23 +200,14 @@
     <Content Include="Scripts\jquery-1.4.4.min.js" />
     <Content Include="Scripts\jquery.dataTables.columnFilter.js" />
     <Content Include="Views\Shared\FormFactory\_README.txt" />
-    <Content Include="Views\Shared\WebNoodle\NodeActionsLinkScript.cshtml">
-      <Generator>RazorGenerator</Generator>
-      <LastGenOutput>NodeActionsLinkScript.generated.cs</LastGenOutput>
-    </Content>
+    <Content Include="Views\Shared\WebNoodle\NodeActionsLinkScript.cshtml" />
     <Content Include="Views\Shared\WebNoodle\_README.txt" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Shared\WebNoodle\NodeActions.cshtml">
-      <Generator>RazorGenerator</Generator>
-      <LastGenOutput>NodeActions.generated.cs</LastGenOutput>
-    </Content>
+    <Content Include="Views\Shared\WebNoodle\NodeActions.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Shared\WebNoodle\NodeActionsLink.cshtml">
-      <Generator>RazorGenerator</Generator>
-      <LastGenOutput>NodeActionsLink.generated.cs</LastGenOutput>
-    </Content>
+    <Content Include="Views\Shared\WebNoodle\NodeActionsLink.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Content\DataTables-1.9.0\extras\TableTools\media\images\psd\collection.psd" />
@@ -280,22 +236,12 @@
     <None Include="Views\Shared\FormFactory\Property.System.Int64.cshtml" />
     <None Include="Views\Shared\FormFactory\Property.System.Object.cshtml" />
     <None Include="Views\Shared\FormFactory\Property.System.String.cshtml" />
-    <Content Include="Views\Shared\WebNoodle\NodeActionForm.cshtml">
-      <Generator>RazorGenerator</Generator>
-      <LastGenOutput>NodeActionForm.generated.cs</LastGenOutput>
-    </Content>
+    <Content Include="Views\Shared\WebNoodle\NodeActionForm.cshtml" />
     <Content Include="Views\Shared\WebNoodle\NodeActionSuccess.cshtml">
-      <Generator>RazorGenerator</Generator>
       <LastGenOutput>Copy of NodeActionForm.generated.cs</LastGenOutput>
     </Content>
-    <Content Include="Views\Shared\Object.cshtml">
-      <Generator>RazorGenerator</Generator>
-      <LastGenOutput>Object.generated.cs</LastGenOutput>
-    </Content>
-    <Content Include="Views\Shared\WebNoodle\NodeAction.cshtml">
-      <Generator>RazorGenerator</Generator>
-      <LastGenOutput>NodeAction.generated.cs</LastGenOutput>
-    </Content>
+    <Content Include="Views\Shared\Object.cshtml" />
+    <Content Include="Views\Shared\WebNoodle\NodeAction.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />
