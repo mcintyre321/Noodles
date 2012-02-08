@@ -8,12 +8,15 @@
                 <th>@column</th>
             }
         </tr>
-        <tr>
-            @foreach (var column in Model.Columns)
-            {
-                <th>@column</th>
-            }
-        </tr>
+        @if (Model.ColumnFilter)
+        {
+            <tr>
+                @foreach (var column in Model.Columns)
+                {
+                    <th>@column</th>
+                }
+            </tr>
+        }
     </thead>
     <tbody>
         <tr>
@@ -41,6 +44,8 @@
                 });
             }
         });
-        dt.columnFilter({ sPlaceHolder: "head:before" });
+        @if(Model.ColumnFilter){
+            @:dt.columnFilter({ sPlaceHolder: "head:before" });
+        }
     });
 </script>
