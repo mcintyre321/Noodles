@@ -83,7 +83,7 @@
       <HintPath>..\packages\WebActivator.1.5\lib\net40\WebActivator.dll</HintPath>
     </Reference>
     <Reference Include="WebNoodle, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\WebNoodle.1.1.94\lib\net40\WebNoodle.dll</HintPath>
+      <HintPath>..\packages\WebNoodle.1.1.96\lib\net40\WebNoodle.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
