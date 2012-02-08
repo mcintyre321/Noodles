@@ -22,10 +22,10 @@
             var x = Model;
         }
         @*@Html.DataTableFor(() => x.UsersVm, "Id", "Name", "Email")*@
-        @helper link (string email){
+        @helper Link (string email){
             <a href="@email">@email</a>
         }
-        @Html.DataTableForX(() => x.Users, u => new {u.Id, Email = link(u.Email), Name = "Mr" + u.Name })   
+        @Html.DataTableForX(() => x.Users, u => new {u.Id, Email = Link(u.Email), Name = "Mr" + u.Name })   
     </div>
 
 </div>

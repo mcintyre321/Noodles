@@ -43,10 +43,6 @@
     <Reference Include="Microsoft.Web.Mvc">
       <HintPath>..\packages\Mvc3Futures.3.0.20105.0\lib\Microsoft.Web.Mvc.dll</HintPath>
     </Reference>
-    <Reference Include="Mvc.JQuery.Datatables, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\Mvc.JQuery.Datatables\Mvc.JQuery.Datatables\bin\Debug\Mvc.JQuery.Datatables.dll</HintPath>
-    </Reference>
     <Reference Include="RazorGenerator.Mvc, Version=1.3.2.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\RazorGenerator.Mvc.1.3.2.0\lib\net40\RazorGenerator.Mvc.dll</HintPath>
@@ -246,6 +242,9 @@
       <Generator>RazorGenerator</Generator>
       <LastGenOutput>NodeAction.generated.cs</LastGenOutput>
     </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
