@@ -14,13 +14,12 @@ namespace WebNoodle.Helpers
 {
     public static class DataTableHelper
     {
-        public static MvcHtmlString DataTableFor<TQueryable>(this HtmlHelper helper, Expression<Func<TQueryable>> getProperty, params string[] properties)
+        public static DataTableVm DataTableVmFor<TQueryable>(this HtmlHelper helper, Expression<Func<TQueryable>> getProperty, params string[] properties)
         {
             var target = GetObjectAndMember(getProperty);
-            var vm = new DataTableVm("DataTable_" + target.Item2 + "_" + target.Item1.Id(), target.Item1.Path() + "?action=getDataTable&prop=" + target.Item2, properties);
-            return helper.Partial("DataTable", vm);
+            return new DataTableVm("DataTable_" + target.Item2 + "_" + target.Item1.Id(), target.Item1.Path() + "?action=getDataTable&prop=" + target.Item2, properties);
         }
-        public static MvcHtmlString DataTableForX<TIn, TResult>(this HtmlHelper helper, Expression<Func<IEnumerable<TIn>>> getProperty, Expression<Func<TIn, TResult>> transform)
+        public static DataTableVm DataTableVmFor<TIn, TResult>(this HtmlHelper helper, Expression<Func<IEnumerable<TIn>>> getProperty, Expression<Func<TIn, TResult>> transform)
         {
             var key = transform.ToString().GetHashCode().ToString(CultureInfo.InvariantCulture);
             var x = helper.ViewContext.HttpContext.Cache[key];
@@ -31,8 +30,7 @@ namespace WebNoodle.Helpers
                 helper.ViewContext.HttpContext.Cache.Add(key, objTransform, null, DateTime.MaxValue, System.Web.Caching.Cache.NoSlidingExpiration, CacheItemPriority.NotRemovable, null);
             }
             var target = GetObjectAndMember(getProperty);
-            var vm = new DataTableVm("DataTable_" + target.Item2 + "_" + target.Item1.Id(), target.Item1.Path() + "?action=getDataTable&prop=" + target.Item2 + "&transform=" + key, typeof(TResult).GetProperties().Select(p => p.Name));
-            return helper.Partial("DataTable", vm);
+            return new DataTableVm("DataTable_" + target.Item2 + "_" + target.Item1.Id(), target.Item1.Path() + "?action=getDataTable&prop=" + target.Item2 + "&transform=" + key, typeof(TResult).GetProperties().Select(p => p.Name));
         }
 
 

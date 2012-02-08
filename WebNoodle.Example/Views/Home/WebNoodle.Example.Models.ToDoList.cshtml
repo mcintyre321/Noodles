@@ -1,8 +1,13 @@
-﻿@using WebNoodle.Example.Models
+﻿@using WebNoodle
+@using WebNoodle.Example.Models
 @using WebNoodle.Helpers
 @model WebNoodle.Example.Models.ToDoList
 @{
     ViewBag.Title = "ToDoList.cshtml";
+}
+@helper MailToLink(string email)
+    {
+    <a href="@email">@email</a>
 }
 <h2>ToDoList.cshtml</h2>
 <div class="row">
@@ -12,17 +17,12 @@
     </div>
     <div class="span12">
         <h4>Tasks</h4>
-        <ul>
-            @foreach (var task in Model.Tasks)
-            {
-                <li>@task.Text</li>    
-            }
-        </ul>
-        <h4>Users</h4>
-        @helper Link(string email)
-            {
-            <a href="@email">@email</a>
+        @helper Task(Task t)
+        {
+            <a href="@t.Path()">@t.Text</a>    <a href="#loadactions" class="nodeActionsLink pull-right" data-nodeid="@t.Id()" data-nodepath="@t.Path()" >(edit)</a>
         }
-        @Html.DataTableForX(() => Model.Users, u => new { u.Id, Email = Link(u.Email).ToHtmlString(), Name = "Mr" + u.Name })
+        @Html.Partial("DataTable", Html.DataTableVmFor(() => Model.Tasks, t => new { Task = Task(t).ToHtmlString() }))
+        <h4>Users</h4>
+        @Html.Partial("DataTable", Html.DataTableVmFor(() => Model.Users, u => new { Email = MailToLink(u.Email).ToHtmlString(), u.Name }))
     </div>
 </div>
