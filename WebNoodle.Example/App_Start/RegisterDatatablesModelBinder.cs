@@ -1,6 +1,5 @@
 using System.Web.Mvc;
 using System.Web.WebPages;
-using RazorGenerator.Mvc;
 
 [assembly: WebActivator.PreApplicationStartMethod(typeof(WebNoodle.Example.App_Start.RegisterDatatablesModelBinder), "Start")]
 
