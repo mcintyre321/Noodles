@@ -1,10 +1,12 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
 using FormFactory;
+using WebNoodle.Attributes;
 
 namespace WebNoodle.Reflection
 {
@@ -27,8 +29,30 @@ namespace WebNoodle.Reflection
                                  BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic;
 
         public string Name { get { return _methodInfo.Name; } }
-        public string DisplayName { get { return Name.Replace("_", "").Sentencise(); } }
+
+        public string DisplayName
+        {
+            get
+            {
+                return _displayName ?? (_displayName = GetDisplayName());
+            }
+        }
+
+        private string GetDisplayName()
+        {
+            var att = this._methodInfo.GetCustomAttributes(typeof(DisplayNameAttribute), true).OfType<DisplayNameAttribute>().FirstOrDefault();
+            if (att == null)
+            {
+                return Name.Replace("_", "").Sentencise();
+            }
+            return att.DisplayName;
+        }
+
+        private string _displayName;
+
+
         private IEnumerable<ObjectMethodParameter> _parameters;
+
         public IEnumerable<ObjectMethodParameter> Parameters
         {
             get

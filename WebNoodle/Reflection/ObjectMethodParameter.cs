@@ -1,5 +1,7 @@
 using System;
 using System.Collections;
+using System.ComponentModel;
+using System.Linq;
 using System.Reflection;
 using FormFactory;
 
@@ -84,9 +86,22 @@ namespace WebNoodle.Reflection
             }
         }
 
+        private string _displayName;
         public string DisplayName
         {
-            get { return Name.Sentencise(); }
+            get
+            {
+                return _displayName ?? (_displayName = GetDisplayName());
+            }
+        }
+        string GetDisplayName()
+        {
+            var att = this._parameter.GetCustomAttributes(typeof(DisplayNameAttribute), true).OfType<DisplayNameAttribute>().FirstOrDefault();
+            if (att == null)
+            {
+                return Name.Replace("_", "").Sentencise();
+            }
+            return att.DisplayName;
         }
 
         public IEnumerable Suggestions
