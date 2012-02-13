@@ -241,6 +241,7 @@
     </Content>
     <Content Include="Views\Shared\Object.cshtml" />
     <Content Include="Views\Shared\WebNoodle\NodeAction.cshtml" />
+    <Content Include="Views\Shared\WebNoodle\NodeActionFormModal.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />
