@@ -54,7 +54,7 @@
       <HintPath>..\packages\Mvc3Futures.3.0.20105.0\lib\Microsoft.Web.Mvc.dll</HintPath>
     </Reference>
     <Reference Include="Mvc.JQuery.Datatables, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Mvc.JQuery.Datatables.1.1.47\lib\net40\Mvc.JQuery.Datatables.dll</HintPath>
+      <HintPath>..\packages\Mvc.JQuery.Datatables.1.1.56\lib\net40\Mvc.JQuery.Datatables.dll</HintPath>
     </Reference>
     <Reference Include="System.Data.Entity" />
     <Reference Include="System.Web.Mvc, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
@@ -391,9 +391,9 @@
     <Content Include="Views\Shared\FormFactory\Form.Property.cshtml" />
     <Content Include="Views\Shared\FormFactory\Form.Close.cshtml" />
     <Content Include="Views\Shared\FormFactory\Form.Actions.cshtml" />
-    <Content Include="Views\Shared\DataTable.cshtml" />
     <Content Include="Views\Shared\WebNoodle\NodeActionSuccess.cshtml" />
     <Content Include="Views\Shared\WebNoodle\NodeAction.cshtml" />
+    <Content Include="Views\Shared\DataTable.cshtml" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />
