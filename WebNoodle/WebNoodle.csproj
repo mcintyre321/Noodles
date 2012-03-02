@@ -44,7 +44,7 @@
       <HintPath>..\packages\Mvc3Futures.3.0.20105.0\lib\Microsoft.Web.Mvc.dll</HintPath>
     </Reference>
     <Reference Include="Mvc.JQuery.Datatables, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Mvc.JQuery.Datatables.1.1.58\lib\net40\Mvc.JQuery.Datatables.dll</HintPath>
+      <HintPath>..\packages\Mvc.JQuery.Datatables.1.1.69\lib\net40\Mvc.JQuery.Datatables.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
@@ -209,6 +209,8 @@
     <Content Include="Views\Shared\WebNoodle\NodeActionsLink.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Code\Bootstrap.cshtml" />
+    <Content Include="App_Code\Noodles.cshtml" />
     <None Include="Content\DataTables-1.9.0\extras\TableTools\media\images\psd\collection.psd" />
     <None Include="Content\DataTables-1.9.0\extras\TableTools\media\images\psd\copy document.psd" />
     <None Include="Content\DataTables-1.9.0\extras\TableTools\media\images\psd\file_types.psd" />
@@ -242,6 +244,7 @@
     <Content Include="Views\Shared\Object.cshtml" />
     <Content Include="Views\Shared\WebNoodle\NodeAction.cshtml" />
     <Content Include="Views\Shared\WebNoodle\NodeActionFormModal.cshtml" />
+    <Content Include="Views\Shared\WebNoodle\ActionsMenuButton.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />

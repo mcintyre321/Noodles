@@ -1,0 +1,6 @@
+﻿@using System.Web.Mvc
+@using WebNoodle
+@using WebNoodle.Reflection
+@helper ActionFormLink(IObjectMethod om){
+    <a class="nodeActionsPanelLink" href="#@om.DisplayName" id="@(om.Id())_actionlink">@om.DisplayName</a>
+}

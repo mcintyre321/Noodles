@@ -110,7 +110,7 @@ namespace WebNoodle.Example.Models
         }
     }
 
-    
+
 
     public class Task : IHasName, IHasParent<Tasks>
     {
@@ -126,5 +126,12 @@ namespace WebNoodle.Example.Models
         public string Name { get; private set; }
 
         public Tasks Parent { get; private set; }
+
+        public string Status { get; set; }
+        public IEnumerable<string> Status_choices()
+        {
+            return "Good,Bad,Ugly".Split(',');
+        }
+
     }
 }

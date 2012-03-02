@@ -74,10 +74,13 @@ namespace WebNoodle.Reflection
         {
             get
             {
-                var methodName = _objectMethod.Name.StartsWith("set_") ? _objectMethod.Name.Substring(4) : _objectMethod.Name;
-                
-                var choices = _target.GetType().GetMethod(methodName + "_" + Name + "_choices",
-                                                                looseBindingFlags);
+                string methodName = "";
+                if (!_objectMethod.Name.StartsWith("set_"))
+                {
+                    methodName = _objectMethod.Name + "_";
+                }
+
+                var choices = _target.GetType().GetMethod(methodName + Name + "_choices", looseBindingFlags);
                 if (choices != null)
                 {
                     return  (IEnumerable)choices.Invoke(_target, null);
@@ -108,9 +111,12 @@ namespace WebNoodle.Reflection
         {
             get
             {
-                var methodName = _objectMethod.Name.StartsWith("set_") ? _objectMethod.Name.Substring(4) : _objectMethod.Name;
-                var suggestions = _target.GetType().GetMethod(methodName + "_" + Name + "_suggestions",
-                                                              looseBindingFlags);
+                string methodName = "";
+                if (!_objectMethod.Name.StartsWith("set_"))
+                {
+                    methodName = _objectMethod.Name + "_";
+                }
+                var suggestions = _target.GetType().GetMethod(methodName + Name + "_suggestions", looseBindingFlags);
                 if (suggestions != null)
                 {
                     return (IEnumerable)suggestions.Invoke(_target, null);
