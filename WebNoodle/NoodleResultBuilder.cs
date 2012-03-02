@@ -79,12 +79,12 @@ namespace WebNoodle
                                     catch (TargetInvocationException ex)
                                     {
                                         msd.AddModelError("", ex.InnerException ?? ex);
-                                        Logger.Trace("Added model error: " + (ex.InnerException ?? ex).ToString());
+                                        Logger.LogException("TIE", ex);
                                     }
                                     catch (Exception ex)
                                     {
                                         msd.AddModelError("", ex);
-                                        Logger.Trace("Added model error: " + ex.ToString());
+                                        Logger.LogException("ex", ex);
                                     }
 
                                 }
@@ -93,7 +93,8 @@ namespace WebNoodle
                                     Logger.Trace("In ajax request");
                                     if (!msd.IsValid)
                                     {
-                                        Logger.Trace("Returning conflict");
+                                        var msdErrs = string.Join("\r\n", msd.SelectMany(c => c.Key + " - " + string.Join("\r\n", c.Value.Errors.SelectMany(e => e.ErrorMessage ?? e.Exception.Message))));
+                                        Logger.LogException("msd error", new Exception(msdErrs));
                                         var res = new PartialViewResult
                                         {
                                             ViewName = "WebNoodle/NodeActionForm",
