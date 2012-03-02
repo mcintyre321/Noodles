@@ -68,6 +68,7 @@
     <Compile Include="Helpers\DataTableHelper.cs" />
     <Compile Include="Infrastructure\GlobalFixUserExceptionsAttribute.cs" />
     <Compile Include="Infrastructure\ModelStateTempDataTransferAttribute.cs" />
+    <Compile Include="Logger.cs" />
     <Compile Include="NodeHelper.cs" />
     <Compile Include="Profiler.cs" />
     <Compile Include="Reflection\ReflectionExtensions.cs" />

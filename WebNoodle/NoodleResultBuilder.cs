@@ -23,15 +23,21 @@ namespace WebNoodle
             {
                 if (cc.HttpContext.Request.QueryString["action"] == "getNodeActions")
                 {
-                    var result = new PartialViewResult {ViewName = @"WebNoodle/NodeActions", ViewData = {Model = node}};
-                    return result;
+                    using (Profiler.Step("Getting node actions"))
+                    {
+                        var result = new PartialViewResult { ViewName = @"WebNoodle/NodeActions", ViewData = { Model = node } };
+                        return result;
+                    }
                 }
-                
-                var viewname = FormFactory.FormHelperExtension.BestViewName(cc, node.NodeType())
-                    ?? FormFactory.FormHelperExtension.BestViewName(cc, node.NodeType(), null, t => t.Name);
-                var vr = new ViewResult {ViewName = viewname, ViewData = cc.Controller.ViewData };
-                vr.ViewData.Model = node;
-                return vr;
+                using (Profiler.Step("Returning view"))
+                {
+                    var viewname = FormFactory.FormHelperExtension.BestViewName(cc, node.NodeType())
+                                   ??
+                                   FormFactory.FormHelperExtension.BestViewName(cc, node.NodeType(), null, t => t.Name);
+                    var vr = new ViewResult { ViewName = viewname, ViewData = cc.Controller.ViewData };
+                    vr.ViewData.Model = node;
+                    return vr;
+                }
             }
             else //must be a post
             {
@@ -39,70 +45,89 @@ namespace WebNoodle
                 {
                     if (cc.HttpContext.Request.QueryString["action"] == "getDataTable")
                     {
-                        var propertyName = cc.HttpContext.Request.QueryString["prop"];
-                        var queryable = node.GetType().GetProperty(propertyName).GetGetMethod().Invoke(node, null);
-                        var transformKey = cc.HttpContext.Request.QueryString["transform"];
-                        if (transformKey != null)
+                        using (Profiler.Step("Returning DataTable"))
                         {
-                            dynamic transform = cc.HttpContext.Cache[transformKey];
-                            queryable = transform.Invoke(queryable);
+                            var propertyName = cc.HttpContext.Request.QueryString["prop"];
+                            var queryable = node.GetType().GetProperty(propertyName).GetGetMethod().Invoke(node, null);
+                            var transformKey = cc.HttpContext.Request.QueryString["transform"];
+                            if (transformKey != null)
+                            {
+                                dynamic transform = cc.HttpContext.Cache[transformKey];
+                                queryable = transform.Invoke(queryable);
+                            }
+                            var dtr = Mvc.JQuery.Datatables.DataTablesResult.Create(queryable,
+                                                                                    BindObject<DataTablesParam>(cc,
+                                                                                                                "dataTableParam"));
+                            return dtr;
                         }
-                        var dtr = Mvc.JQuery.Datatables.DataTablesResult.Create(queryable, BindObject<DataTablesParam>(cc, "dataTableParam"));
-                        return dtr;
                     }
                     {
-                        var methodInstance = node.NodeMethods().Single(m => m.Name == cc.HttpContext.Request.QueryString["action"]);
-                        var parameters = methodInstance.Parameters.Select(pt => this.BindObject(cc, pt.BindingParameterType, /*node.Id + "_" + methodInstance.Name + "_" +*/ pt.Name)).ToArray();
-                        var msd = cc.Controller.ViewData.ModelState;
-                        if (msd.IsValid)
+                        using (Profiler.Step("Executing action " + cc.HttpContext.Request.QueryString["action"]))
                         {
-                            try
                             {
-                                doInvoke(node, methodInstance, parameters);
-                            }
-                            catch (TargetInvocationException ex)
-                            {
-                                msd.AddModelError("", ex.InnerException ?? ex);
-                            }
-                            catch (Exception ex)
-                            {
-                                msd.AddModelError("", ex);
-                            }
+                                var methodInstance = node.NodeMethods().Single(m => m.Name == cc.HttpContext.Request.QueryString["action"]);
+                                var parameters = methodInstance.Parameters.Select(pt => this.BindObject(cc, pt.BindingParameterType, pt.Name)).ToArray();
+                                var msd = cc.Controller.ViewData.ModelState;
+                                if (msd.IsValid)
+                                {
+                                    Logger.Trace("ModelBinding successful");
+                                    try
+                                    {
+                                        doInvoke(node, methodInstance, parameters);
+                                        Logger.Trace("Invoke successful");
+                                    }
+                                    catch (TargetInvocationException ex)
+                                    {
+                                        msd.AddModelError("", ex.InnerException ?? ex);
+                                        Logger.Trace("Added model error: " + (ex.InnerException ?? ex).ToString());
+                                    }
+                                    catch (Exception ex)
+                                    {
+                                        msd.AddModelError("", ex);
+                                        Logger.Trace("Added model error: " + ex.ToString());
+                                    }
 
-                        }
-                        if (cc.HttpContext.Request.IsAjaxRequest())
-                        {
-                            if (!msd.IsValid)
-                            {
-                                var res = new PartialViewResult
+                                }
+                                if (cc.HttpContext.Request.IsAjaxRequest())
                                 {
-                                    ViewName = "WebNoodle/NodeActionForm",
-                                    ViewData = {Model = methodInstance},
-                                };
-                                res.ViewData.ModelState.Merge(msd);
-                                return res;
-                            }
-                            else
-                            {
-                                var res = new PartialViewResult
+                                    Logger.Trace("In ajax request");
+                                    if (!msd.IsValid)
+                                    {
+                                        Logger.Trace("Returning conflict");
+                                        var res = new PartialViewResult
+                                        {
+                                            ViewName = "WebNoodle/NodeActionForm",
+                                            ViewData = {Model = methodInstance},
+                                        };
+                                        res.ViewData.ModelState.Merge(msd);
+                                        HttpContext.Current.Response.StatusCode = 409;
+                                        return res;
+                                    }
+                                    else
+                                    {
+                                        Logger.Trace("Returning success");
+                                        var res = new PartialViewResult
+                                        {
+                                            ViewName = "WebNoodle/NodeActionSuccess",
+                                            ViewData = {Model = methodInstance},
+                                        };
+
+                                        res.ViewData.ModelState.Merge(msd);
+                                        return res;
+                                    }
+                                }
+                                else
                                 {
-                                    ViewName = "WebNoodle/NodeActionSuccess",
-                                    ViewData = { Model = methodInstance },
-                                };
-                                res.ViewData.ModelState.Merge(msd);
-                                return res;
+                                    return new RedirectResult(cc.HttpContext.Request.UrlReferrer.ToString());
+                                }
                             }
-                        }
-                        else
-                        {
-                            return new RedirectResult(cc.HttpContext.Request.UrlReferrer.ToString());
                         }
                     }
                 }
             }
         }
 
-     
+
         private static void DoInvoke(object node, IObjectMethod methodInstance, object[] parameters)
         {
             methodInstance.Invoke(parameters);
@@ -110,7 +135,7 @@ namespace WebNoodle
 
         private T BindObject<T>(ControllerContext cc, string name) where T : class
         {
-            return BindObject(cc, typeof (T), name) as T;
+            return BindObject(cc, typeof(T), name) as T;
         }
         private object BindObject(ControllerContext cc, Type desiredType, string name)
         {
