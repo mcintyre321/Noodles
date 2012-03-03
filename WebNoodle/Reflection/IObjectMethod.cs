@@ -2,7 +2,7 @@ using System.Collections.Generic;
 
 namespace WebNoodle
 {
-    public interface IObjectMethod
+    public interface IObjectMethod : IHasPath
     {
         string Name { get; }
         string DisplayName { get; }

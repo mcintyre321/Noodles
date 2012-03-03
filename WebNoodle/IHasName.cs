@@ -69,6 +69,7 @@ namespace WebNoodle
             var path = node.Path();
             return path.Replace('/', '_').Replace('@', '_').Replace(".", "_").Replace(' ', '_');
         }
+
         public static string Id(this IObjectMethod method)
         {
             return method.Target.Id() + "_" + method.Name;

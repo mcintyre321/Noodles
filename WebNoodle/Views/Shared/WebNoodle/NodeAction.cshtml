@@ -1,6 +1,0 @@
-﻿@using System.Web.Mvc.Html
-@using WebNoodle
-<a class="nodeActionsPanelLink" id="@(Model.Id())_actionlink">@Model.DisplayName</a>
-<div id="@(Model.Id())_actionlinkpanel" class="modal hide fade"   >
-    @Html.Partial("WebNoodle/NodeActionForm", Model)
-</div>

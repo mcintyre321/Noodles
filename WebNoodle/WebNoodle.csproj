@@ -215,16 +215,18 @@
     <Content Include="Views\Shared\WebNoodle\_README.txt" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Shared\WebNoodle\NodeActions.cshtml" />
+    <Content Include="Views\Shared\WebNoodle\NodeMethods.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Helpers\Bootstrap.cshtml">
-      <Generator>RazorGenerator</Generator>
-      <LastGenOutput>Bootstrap.generated.cs</LastGenOutput>
+      <SubType>
+      </SubType>
     </Content>
     <Content Include="Helpers\Noodles.cshtml">
       <Generator>RazorGenerator</Generator>
       <LastGenOutput>Noodles.generated.cs</LastGenOutput>
+      <SubType>
+      </SubType>
     </Content>
     <None Include="Content\DataTables-1.9.0\extras\TableTools\media\images\psd\collection.psd" />
     <None Include="Content\DataTables-1.9.0\extras\TableTools\media\images\psd\copy document.psd" />
@@ -252,13 +254,11 @@
     <None Include="Views\Shared\FormFactory\Property.System.Int64.cshtml" />
     <None Include="Views\Shared\FormFactory\Property.System.Object.cshtml" />
     <None Include="Views\Shared\FormFactory\Property.System.String.cshtml" />
-    <Content Include="Views\Shared\WebNoodle\NodeActionForm.cshtml" />
-    <Content Include="Views\Shared\WebNoodle\NodeActionSuccess.cshtml">
+    <Content Include="Views\Shared\WebNoodle\NodeMethod.cshtml" />
+    <Content Include="Views\Shared\WebNoodle\NodeMethodSuccess.cshtml">
       <LastGenOutput>Copy of NodeActionForm.generated.cs</LastGenOutput>
     </Content>
     <Content Include="Views\Shared\Object.cshtml" />
-    <Content Include="Views\Shared\WebNoodle\NodeAction.cshtml" />
-    <Content Include="Views\Shared\WebNoodle\ActionsMenuButton.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />

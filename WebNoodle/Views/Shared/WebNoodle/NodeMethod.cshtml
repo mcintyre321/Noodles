@@ -1,0 +1,12 @@
+﻿@using System.Web.Mvc
+@using WebNoodle
+@using WebNoodle.Helpers
+<form action="@WebNoodle.PathExtension.Path(Model.Target)?action=@Model.Name" method="post" enctype="multipart/form-data" encoding="multipart/form-data">
+@if (Context.Request.IsAjaxRequest())
+{
+    @Html.AntiForgeryToken()
+}
+@foreach (var parameter in Model.Parameters)
+{
+    @Html.Partial("FormFactory/Form.Property", (object) WebNoodle.Helpers.ForFactoryHelperExtensions.ToPropertyVm(parameter, Html))
+}

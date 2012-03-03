@@ -20,14 +20,25 @@ namespace WebNoodle
 
             if (cc.HttpContext.Request.HttpMethod.ToLower() == "get" || cc.HttpContext.Request.QueryString["action"] == null)
             {
-                if (cc.HttpContext.Request.QueryString["action"] == "getNodeActions")
+                if (cc.HttpContext.Request.QueryString["action"] == "getNodeMethods")
                 {
                     using (Profiler.Step("Getting node actions"))
                     {
-                        var result = new PartialViewResult { ViewName = @"WebNoodle/NodeActions", ViewData = { Model = node } };
+                        var result = new PartialViewResult { ViewName = @"WebNoodle/NodeMethods", ViewData = { Model = node } };
                         return result;
                     }
                 }
+                var nodeAction = node.NodeMethods().SingleOrDefault(m => cc.HttpContext.Request.QueryString["action"] == m.Name);
+
+                if (nodeAction != null)
+                {
+                    using (Profiler.Step("Getting node action"))
+                    {
+                        var result = new PartialViewResult { ViewName = @"WebNoodle/NodeMethod", ViewData = { Model = nodeAction } };
+                        return result;
+                    }
+                }
+
                 using (Profiler.Step("Returning view"))
                 {
                     var viewname = FormFactory.FormHelperExtension.BestViewName(cc, node.NodeType())

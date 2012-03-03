@@ -22,9 +22,7 @@ namespace WebNoodle
 
         public object Target { get; private set; }
 
-        private BindingFlags looseBindingFlags = BindingFlags.IgnoreCase | BindingFlags.FlattenHierarchy |
-
-                                 BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic;
+        private BindingFlags looseBindingFlags = BindingFlags.IgnoreCase | BindingFlags.FlattenHierarchy | BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic;
 
         public string Name { get { return _methodInfo.Name; } }
 
@@ -157,6 +155,11 @@ namespace WebNoodle
             {
                 return Convert.ChangeType(obj, t);
             }
+        }
+
+        public string Path
+        {
+            get { return this.Target.Path() + "?action=" + this.Name; }
         }
     }
 }

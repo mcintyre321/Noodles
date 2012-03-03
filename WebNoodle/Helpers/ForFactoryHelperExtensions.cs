@@ -7,7 +7,7 @@ using FormFactory;
 
 namespace WebNoodle.Helpers
 {
-    static class ForFactoryHelperExtensions
+    public static class ForFactoryHelperExtensions
     {
         public static PropertyVm ToPropertyVm(this ObjectMethodParameter parameter, HtmlHelper Html)
         {
