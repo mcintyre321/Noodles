@@ -71,6 +71,7 @@
       <DependentUpon>Bootstrap.cshtml</DependentUpon>
     </Compile>
     <Compile Include="Helpers\DataTableHelper.cs" />
+    <Compile Include="Helpers\ForFactoryHelperExtensions.cs" />
     <Compile Include="Infrastructure\GlobalFixUserExceptionsAttribute.cs" />
     <Compile Include="Infrastructure\ModelStateTempDataTransferAttribute.cs" />
     <Compile Include="Logger.cs" />
@@ -257,7 +258,6 @@
     </Content>
     <Content Include="Views\Shared\Object.cshtml" />
     <Content Include="Views\Shared\WebNoodle\NodeAction.cshtml" />
-    <Content Include="Views\Shared\WebNoodle\NodeActionFormModal.cshtml" />
     <Content Include="Views\Shared\WebNoodle\ActionsMenuButton.cshtml" />
   </ItemGroup>
   <ItemGroup>

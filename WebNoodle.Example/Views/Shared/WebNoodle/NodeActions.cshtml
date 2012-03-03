@@ -1,7 +1,6 @@
-﻿@using System.Web.Mvc.Html
-@using FormFactory
-@using WebNoodle
+﻿@using WebNoodle
 @using System.Linq
+@using WebNoodle.Helpers
 @model object
 @if (Model.NodeMethods().Any())
 {
@@ -9,15 +8,8 @@
         <ul>
             @foreach (var nodeMethod in Model.NodeMethods())
             {
-                <li style="display: block;"><a class="nodeActionsPanelLink" id="@(nodeMethod.Id())_actionlink">@nodeMethod.DisplayName</a> </li>
+                <li>@Noodles.NodeActionsLink(nodeMethod)</li>
             }
         </ul>
     </div>
-
-            foreach (var nodeMethod in Model.NodeMethods())
-            {
-    <div id="@(nodeMethod.Id())_actionlinkpanel" class="modal hide fade"   >
-        @Html.Partial("WebNoodle/NodeActionForm", nodeMethod)
-    </div>
-            }
 }

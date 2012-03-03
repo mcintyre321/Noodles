@@ -1,6 +1,5 @@
 ﻿@using System.Web.Mvc
 @using FormFactory
-@using Microsoft.Web.Mvc.Html
 @using WebNoodle
 @using WebNoodle.Helpers
 <form action="@Model.Target.Path()?action=@Model.Name" method="post" enctype="multipart/form-data" encoding="multipart/form-data">
@@ -13,19 +12,7 @@
                             
         @foreach (var parameter in Model.Parameters)
         {
-            var vm = new PropertyVm(Html, parameter.ParameterType, parameter.Name, parameter.Id(), parameter.DisplayName)
-            {
-                GetCustomAttributes = () => parameter.CustomAttributes,
-                IsWritable = true,
-                Value = parameter.Value,
-                Choices = parameter.Choices,
-                Suggestions = parameter.Suggestions,
-                Source = parameter
-
-            };
-
-            Html.RenderPartial("FormFactory/Form.Property", vm);
-
+            Html.RenderPartial("FormFactory/Form.Property", parameter.ToPropertyVm(Html));
         }
     </p>,
     @<input type="submit" class="btn primary post-via-ajax" value="@Model.DisplayName" />
