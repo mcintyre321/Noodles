@@ -44,7 +44,7 @@
       <HintPath>..\packages\Mvc3Futures.3.0.20105.0\lib\Microsoft.Web.Mvc.dll</HintPath>
     </Reference>
     <Reference Include="Mvc.JQuery.Datatables, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Mvc.JQuery.Datatables.1.1.69\lib\net40\Mvc.JQuery.Datatables.dll</HintPath>
+      <HintPath>..\packages\Mvc.JQuery.Datatables.1.1.70\lib\net40\Mvc.JQuery.Datatables.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
@@ -65,7 +65,7 @@
     <Compile Include="App_Start\RegisterDatatablesModelBinder.cs" />
     <Compile Include="GenericNoodleCollection.cs" />
     <Compile Include="Helpers\AttemptedValueHelper.cs" />
-    <Compile Include="Helpers\Bootstrap.generated.cs">
+    <Compile Include="Views\Shared\WebNoodle\Bootstrap.generated.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Bootstrap.cshtml</DependentUpon>
@@ -87,10 +87,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Reflection\ObjectMethodWrapper.cs" />
     <Compile Include="UserException.cs" />
-    <Compile Include="Helpers\Noodles.generated.cs">
+    <Compile Include="Views\Shared\WebNoodle\Helpers.generated.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>Noodles.cshtml</DependentUpon>
+      <DependentUpon>Helpers.cshtml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -205,12 +205,12 @@
     <Content Include="Scripts\DataTables-1.9.0\media\js\jquery.dataTables.js" />
     <Content Include="Scripts\DataTables-1.9.0\media\js\jquery.dataTables.min.js" />
     <Content Include="Scripts\DataTables-1.9.0\media\js\jquery.js" />
-    <Content Include="Scripts\jquery-1.4.4-vsdoc.js" />
-    <Content Include="Scripts\jquery-1.4.4.js" />
-    <Content Include="Scripts\jquery-1.4.4.min.js" />
+    <Content Include="Scripts\jquery-1.7.1-vsdoc.js" />
+    <Content Include="Scripts\jquery-1.7.1.js" />
+    <Content Include="Scripts\jquery-1.7.1.min.js" />
     <Content Include="Scripts\jquery.dataTables.columnFilter.js" />
     <Content Include="Views\Shared\FormFactory\_README.txt" />
-    <Content Include="Views\Shared\WebNoodle\NodeActionsLinkScript.cshtml" />
+    <Content Include="Scripts\WebNoodle\WebNoodle.js" />
     <Content Include="Views\Shared\WebNoodle\_README.txt" />
   </ItemGroup>
   <ItemGroup>
@@ -220,11 +220,11 @@
     <Content Include="Views\Shared\WebNoodle\NodeActionsLink.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Helpers\Bootstrap.cshtml">
+    <None Include="Views\Shared\WebNoodle\Bootstrap.cshtml">
       <Generator>RazorGenerator</Generator>
       <LastGenOutput>Bootstrap.generated.cs</LastGenOutput>
     </None>
-    <None Include="Helpers\Noodles.cshtml">
+    <None Include="Views\Shared\WebNoodle\Helpers.cshtml">
       <Generator>RazorGenerator</Generator>
       <LastGenOutput>Noodles.generated.cs</LastGenOutput>
     </None>
