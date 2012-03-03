@@ -1,0 +1,16 @@
+﻿@* Generator: MvcHelper *@
+@using WebNoodle
+@using WebNoodle.Helpers
+@helper NodeActionsDropdown(object obj, string additionalClasses = null)
+{
+    if (obj.NodeMethods().Any())
+    {
+    @Bootstrap.DropdownLinksButton("Actions", @<text>
+    @foreach (var method in obj.NodeMethods())
+    {
+        <a class="nodeActionsLink @(additionalClasses ?? "")" href="#action-@obj.Id()" data-nodeid="@obj.Id()" data-nodepath="@obj.Path()" data-actionname="@method.Name">(edit)</a>
+    }
+    </text>)
+    }
+    
+}
