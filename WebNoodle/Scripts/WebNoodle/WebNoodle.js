@@ -66,7 +66,7 @@
                 $link.attr("data-nodepath"),
                 function () { showMethodForm($link); },
                 function (body) {
-                    return modalHtml($link[0].innerHTML, body, "<button class='btn primary submitMethod'>Submit</button>")
+                    return modalHtml($link[0].innerHTML, body, "<button class='btn primary submitMethod'>Submit</button>");
                 });
         }
         return false;
@@ -79,23 +79,21 @@
         $("#" + methodsPanelId + " :input:visible:enabled:first").focus();
     };
 
-    $(".post-via-ajax").live('click', function (e) {
+    $(".submitMethod").live('click', function (e) {
 
-        var $form = $(this).closest("form");
+        var $form = $(this).closest(".modal").find("form");
         $.ajax({
             url: $form.attr('action'),
             type: "POST",
             data: $form.serialize(),
             success: function (data) {
-                if (data === "OK") {
-                    window.location.reload();
-                } else {
-                    $form.parent().html(data);
-                }
+                window.location.reload();
             },
-            error: function (jqXhr, textStatus, errorThrown) {
 
-                console.log("Error '" + jqXhr.status + "' (textStatus: '" + textStatus + "', errorThrown: '" + errorThrown + "')");
+            error: function (jqXhr, textStatus, errorThrown) {
+                if (errorThrown == "Conflict") {
+                    $form.html(jqXhr.responseText);
+                }
             },
             complete: function () {
                 //$("#ProgressDialog").dialog("close");

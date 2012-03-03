@@ -17,9 +17,10 @@ namespace WebNoodle.Example.Models
 
         public IEnumerable<Task> Tasks { get { return _tasks; } }
 
-        public void AddNote(string note)
+        public void AddTask(string taskDescription)
         {
-            _tasks.AddTask(note);
+            if (string.IsNullOrWhiteSpace(taskDescription)) throw new UserException("Task description cannot be empty");
+            _tasks.AddTask(taskDescription);
         }
 
         public IEnumerable<User> Users

@@ -106,7 +106,7 @@ namespace WebNoodle
                                         Logger.Trace("Returning conflict");
                                         var res = new PartialViewResult
                                         {
-                                            ViewName = "WebNoodle/NodeActionForm",
+                                            ViewName = "WebNoodle/NodeMethod",
                                             ViewData = {Model = methodInstance},
                                         };
                                         res.ViewData.ModelState.Merge(msd);
@@ -118,7 +118,7 @@ namespace WebNoodle
                                         Logger.Trace("Returning success");
                                         var res = new PartialViewResult
                                         {
-                                            ViewName = "WebNoodle/NodeActionSuccess",
+                                            ViewName = "WebNoodle/NodeMethodSuccess",
                                             ViewData = {Model = methodInstance},
                                         };
 
