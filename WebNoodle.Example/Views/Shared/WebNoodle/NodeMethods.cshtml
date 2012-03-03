@@ -1,0 +1,11 @@
+﻿@using WebNoodle
+@using System.Linq
+@using WebNoodle.Helpers
+@model object
+@if (Model.NodeMethods().Any())
+{
+    foreach (var nodeMethod in Model.NodeMethods())
+    {
+        @Noodles.NodeMethodLink(nodeMethod)
+    }
+}
