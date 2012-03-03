@@ -6,8 +6,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
 using FormFactory;
-
-namespace WebNoodle.Reflection
+namespace WebNoodle
 {
     public delegate Func<object> ResolveResult(IHasName root, ParameterInfo parameter, object stored);
     [DebuggerDisplay("{ToString()} - Name={Name}")]

@@ -65,7 +65,7 @@
     <Compile Include="App_Start\RegisterDatatablesModelBinder.cs" />
     <Compile Include="GenericNoodleCollection.cs" />
     <Compile Include="Helpers\AttemptedValueHelper.cs" />
-    <Compile Include="Views\Shared\WebNoodle\Bootstrap.generated.cs">
+    <Compile Include="Helpers\Bootstrap.generated.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Bootstrap.cshtml</DependentUpon>
@@ -87,10 +87,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Reflection\ObjectMethodWrapper.cs" />
     <Compile Include="UserException.cs" />
-    <Compile Include="Views\Shared\WebNoodle\Helpers.generated.cs">
+    <Compile Include="Helpers\Noodles.generated.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>Helpers.cshtml</DependentUpon>
+      <DependentUpon>Noodles.cshtml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -217,17 +217,14 @@
     <Content Include="Views\Shared\WebNoodle\NodeActions.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Shared\WebNoodle\NodeActionsLink.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Views\Shared\WebNoodle\Bootstrap.cshtml">
+    <Content Include="Helpers\Bootstrap.cshtml">
       <Generator>RazorGenerator</Generator>
       <LastGenOutput>Bootstrap.generated.cs</LastGenOutput>
-    </None>
-    <None Include="Views\Shared\WebNoodle\Helpers.cshtml">
+    </Content>
+    <Content Include="Helpers\Noodles.cshtml">
       <Generator>RazorGenerator</Generator>
       <LastGenOutput>Noodles.generated.cs</LastGenOutput>
-    </None>
+    </Content>
     <None Include="Content\DataTables-1.9.0\extras\TableTools\media\images\psd\collection.psd" />
     <None Include="Content\DataTables-1.9.0\extras\TableTools\media\images\psd\copy document.psd" />
     <None Include="Content\DataTables-1.9.0\extras\TableTools\media\images\psd\file_types.psd" />

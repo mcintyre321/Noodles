@@ -9,7 +9,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace WebNoodle.Views.Shared.WebNoodle
+namespace WebNoodle.Helpers
 {
     using System;
     using System.Collections.Generic;
@@ -20,7 +20,7 @@ namespace WebNoodle.Views.Shared.WebNoodle
     using System.Web;
     using System.Web.Helpers;
     
-    #line 2 "..\..\Views\Shared\WebNoodle\Bootstrap.cshtml"
+    #line 2 "..\..\Helpers\Bootstrap.cshtml"
     using System.Web.Mvc;
     
     #line default
@@ -41,20 +41,20 @@ return new System.Web.WebPages.HelperResult(__razor_helper_writer => {
 
 
 
-#line 3 "..\..\Views\Shared\WebNoodle\Bootstrap.cshtml"
+#line 3 "..\..\Helpers\Bootstrap.cshtml"
                                                                                            
 #line default
 #line hidden
 
 
-#line 3 "..\..\Views\Shared\WebNoodle\Bootstrap.cshtml"
+#line 3 "..\..\Helpers\Bootstrap.cshtml"
                                                 WebViewPage.WriteTo(@__razor_helper_writer, DropdownLinksButton(buttonTitle, links, null));
 
 #line default
 #line hidden
 
 
-#line 3 "..\..\Views\Shared\WebNoodle\Bootstrap.cshtml"
+#line 3 "..\..\Helpers\Bootstrap.cshtml"
                                                                                                                                          
 #line default
 #line hidden
@@ -70,7 +70,7 @@ return new System.Web.WebPages.HelperResult(__razor_helper_writer => {
 
 
 
-#line 5 "..\..\Views\Shared\WebNoodle\Bootstrap.cshtml"
+#line 5 "..\..\Helpers\Bootstrap.cshtml"
  
 
 #line default
@@ -80,7 +80,7 @@ WebViewPage.WriteLiteralTo(@__razor_helper_writer, "    <div class=\"btn-group\"
 
 
 
-#line 7 "..\..\Views\Shared\WebNoodle\Bootstrap.cshtml"
+#line 7 "..\..\Helpers\Bootstrap.cshtml"
 WebViewPage.WriteTo(@__razor_helper_writer, additionalClasses ?? "");
 
 #line default
@@ -90,7 +90,7 @@ WebViewPage.WriteLiteralTo(@__razor_helper_writer, "\" data-toggle=\"dropdown\" 
 
 
 
-#line 7 "..\..\Views\Shared\WebNoodle\Bootstrap.cshtml"
+#line 7 "..\..\Helpers\Bootstrap.cshtml"
                                                        WebViewPage.WriteTo(@__razor_helper_writer, buttonTitle);
 
 #line default
@@ -101,7 +101,7 @@ WebViewPage.WriteLiteralTo(@__razor_helper_writer, " <span class=\"caret\"></spa
 
 
 
-#line 9 "..\..\Views\Shared\WebNoodle\Bootstrap.cshtml"
+#line 9 "..\..\Helpers\Bootstrap.cshtml"
 WebViewPage.WriteTo(@__razor_helper_writer, links(null));
 
 #line default
@@ -111,7 +111,64 @@ WebViewPage.WriteLiteralTo(@__razor_helper_writer, "\r\n        </ul>\r\n    </d
 
 
 
-#line 12 "..\..\Views\Shared\WebNoodle\Bootstrap.cshtml"
+#line 12 "..\..\Helpers\Bootstrap.cshtml"
+
+#line default
+#line hidden
+
+});
+
+}
+
+
+public static System.Web.WebPages.HelperResult Modal(string header, Func<MvcHtmlString, HelperResult> body, Func<MvcHtmlString, HelperResult> footer)
+    {
+return new System.Web.WebPages.HelperResult(__razor_helper_writer => {
+
+
+
+#line 15 "..\..\Helpers\Bootstrap.cshtml"
+     
+
+#line default
+#line hidden
+
+WebViewPage.WriteLiteralTo(@__razor_helper_writer, "    <div class=\"modal\" id=\"myModal\">\r\n        <div class=\"modal-header\">\r\n       " +
+"     <a class=\"close\" data-dismiss=\"modal\">×</a>\r\n            <h3>");
+
+
+
+#line 19 "..\..\Helpers\Bootstrap.cshtml"
+WebViewPage.WriteTo(@__razor_helper_writer, header);
+
+#line default
+#line hidden
+
+WebViewPage.WriteLiteralTo(@__razor_helper_writer, "</h3>\r\n        </div>\r\n        <div class=\"modal-body\">\r\n            ");
+
+
+
+#line 22 "..\..\Helpers\Bootstrap.cshtml"
+WebViewPage.WriteTo(@__razor_helper_writer, body(null));
+
+#line default
+#line hidden
+
+WebViewPage.WriteLiteralTo(@__razor_helper_writer, "\r\n        </div>\r\n        <div class=\"modal-footer\">\r\n            ");
+
+
+
+#line 25 "..\..\Helpers\Bootstrap.cshtml"
+WebViewPage.WriteTo(@__razor_helper_writer, footer(null));
+
+#line default
+#line hidden
+
+WebViewPage.WriteLiteralTo(@__razor_helper_writer, "\r\n        </div>\r\n    </div>\r\n");
+
+
+
+#line 28 "..\..\Helpers\Bootstrap.cshtml"
 
 #line default
 #line hidden

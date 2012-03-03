@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace WebNoodle.Reflection
+namespace WebNoodle
 {
     public class ObjectMethodWrapper : IObjectMethod, IHasPath
     {

@@ -1,11 +1,12 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Reflection;
 using FormFactory;
 
-namespace WebNoodle.Reflection
+namespace WebNoodle
 {
     public class ObjectMethodParameter
     {
@@ -131,5 +132,10 @@ namespace WebNoodle.Reflection
         }
 
         public IObjectMethod NodeMethod { get { return _objectMethod; } }
+
+        public IEnumerable<Attribute> CustomAttributes
+        {
+            get { return this._parameter.GetCustomAttributes(false).Cast<Attribute>(); }
+        }
     }
 }

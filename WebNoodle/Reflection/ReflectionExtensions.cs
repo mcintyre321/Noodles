@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 
-namespace WebNoodle.Reflection
+namespace WebNoodle
 {
     public static class ReflectionExtensions
     {

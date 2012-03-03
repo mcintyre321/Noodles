@@ -10,3 +10,19 @@
         </ul>
     </div>
 }
+
+@helper Modal(string header, Func<MvcHtmlString, HelperResult> body, Func<MvcHtmlString, HelperResult> footer)
+    {
+    <div class="modal" id="myModal">
+        <div class="modal-header">
+            <a class="close" data-dismiss="modal">×</a>
+            <h3>@header</h3>
+        </div>
+        <div class="modal-body">
+            @body(null)
+        </div>
+        <div class="modal-footer">
+            @footer(null)
+        </div>
+    </div>
+}

@@ -2,36 +2,34 @@
 @using FormFactory
 @using Microsoft.Web.Mvc.Html
 @using WebNoodle
-@model global::WebNoodle.Reflection.IObjectMethod
+@using WebNoodle.Helpers
 <form action="@Model.Target.Path()?action=@Model.Name" method="post" enctype="multipart/form-data" encoding="multipart/form-data">
 @if (Context.Request.IsAjaxRequest())
 {
     @Html.AntiForgeryToken()
 }
-    
-<div class="modal-header">
-    <a href="#" class="close">×</a>
-    <h3>@Model.DisplayName</h3>
-</div>
-<div class="modal-body">
-    @foreach (var parameter in Model.Parameters)
-    {
-        var vm = new PropertyVm(Html, parameter.ParameterType, parameter.Name, parameter.Id(), parameter.DisplayName)
+@Bootstrap.Modal(Model.DisplayName,
+    @<p>
+                            
+        @foreach (var parameter in Model.Parameters)
         {
-            GetCustomAttributes = () => new Attribute[] { },
-            IsWritable = true,
-            Value = parameter.Value,
-            Choices = parameter.Choices,
-            Suggestions = parameter.Suggestions,
-            Source = parameter
+            var vm = new PropertyVm(Html, parameter.ParameterType, parameter.Name, parameter.Id(), parameter.DisplayName)
+            {
+                GetCustomAttributes = () => parameter.CustomAttributes,
+                IsWritable = true,
+                Value = parameter.Value,
+                Choices = parameter.Choices,
+                Suggestions = parameter.Suggestions,
+                Source = parameter
 
-        };
+            };
 
-        Html.RenderPartial("FormFactory/Form.Property", vm);
+            Html.RenderPartial("FormFactory/Form.Property", vm);
 
-    }
-</div>
-<div class="modal-footer">
-    <input type="submit" class="btn primary post-via-ajax" value="@Model.DisplayName" />
-</div>
+        }
+    </p>,
+    @<div>
+        <input type="submit" class="btn primary post-via-ajax" value="@Model.DisplayName" />
+    </div>
+)
 </form>
