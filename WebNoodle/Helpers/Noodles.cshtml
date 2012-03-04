@@ -4,8 +4,8 @@
 @using WebNoodle
 @using WebNoodle.Helpers
 
-@helper NodeActionsDropdown(object obj) { @NodeActionsDropdown(obj, null) }
-@helper NodeActionsDropdown(object obj, string additionalClasses)
+@helper NodeMethodsDropdown(object obj) { @NodeMethodsDropdown(obj, null) }
+@helper NodeMethodsDropdown(object obj, string additionalClasses)
 {
     if (obj.NodeMethods().Any())
     {
@@ -31,8 +31,7 @@
 @helper NodeMethodForm(System.Web.Mvc.HtmlHelper html, IObjectMethod method, string formClass) {
 
     <div class="objectMethod">
-        @html.Partial("WebNoodle/ObjectMethod", method, new ViewDataDictionary{{"FormClass", formClass ?? ""}})
-        <button class="submitMethod btn btn-primary">@method.DisplayName</button>
+        @html.Partial("WebNoodle/NodeMethod", method, new ViewDataDictionary{{"FormClass", formClass ?? ""}})
     </div>
 }
 

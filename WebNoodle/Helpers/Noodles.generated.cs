@@ -53,7 +53,7 @@ namespace WebNoodle.Helpers
     public static class Noodles
     {
 
-public static System.Web.WebPages.HelperResult NodeActionsDropdown(object obj) {
+public static System.Web.WebPages.HelperResult NodeMethodsDropdown(object obj) {
 return new System.Web.WebPages.HelperResult(__razor_helper_writer => {
 
 
@@ -65,7 +65,7 @@ return new System.Web.WebPages.HelperResult(__razor_helper_writer => {
 
 
 #line 7 "..\..\Helpers\Noodles.cshtml"
-WebViewPage.WriteTo(@__razor_helper_writer, NodeActionsDropdown(obj, null));
+WebViewPage.WriteTo(@__razor_helper_writer, NodeMethodsDropdown(obj, null));
 
 #line default
 #line hidden
@@ -81,7 +81,7 @@ WebViewPage.WriteTo(@__razor_helper_writer, NodeActionsDropdown(obj, null));
                                                                           }
 
 
-public static System.Web.WebPages.HelperResult NodeActionsDropdown(object obj, string additionalClasses)
+public static System.Web.WebPages.HelperResult NodeMethodsDropdown(object obj, string additionalClasses)
 {
 return new System.Web.WebPages.HelperResult(__razor_helper_writer => {
 
@@ -106,7 +106,7 @@ item => new System.Web.WebPages.HelperResult(__razor_template_writer => {
 
 WebViewPage.WriteLiteralTo(@__razor_template_writer, "            ");
 
-WebViewPage.WriteLiteralTo(@__razor_template_writer, "\n");
+WebViewPage.WriteLiteralTo(@__razor_template_writer, "\r\n");
 
 
 
@@ -224,7 +224,7 @@ WebViewPage.WriteLiteralTo(@__razor_helper_writer, "\" data-nodemethodspath=\"")
 #line default
 #line hidden
 
-WebViewPage.WriteLiteralTo(@__razor_helper_writer, "?action=getNodeMethods\">Actions</a>\n");
+WebViewPage.WriteLiteralTo(@__razor_helper_writer, "?action=getNodeMethods\">Actions</a>\r\n");
 
 
 
@@ -328,7 +328,7 @@ WebViewPage.WriteLiteralTo(@__razor_helper_writer, "\">");
 #line default
 #line hidden
 
-WebViewPage.WriteLiteralTo(@__razor_helper_writer, "</a>\n");
+WebViewPage.WriteLiteralTo(@__razor_helper_writer, "</a>\r\n");
 
 
 
@@ -359,26 +359,16 @@ WebViewPage.WriteLiteralTo(@__razor_helper_writer, "    <div class=\"objectMetho
 
 
 #line 34 "..\..\Helpers\Noodles.cshtml"
-WebViewPage.WriteTo(@__razor_helper_writer, html.Partial("WebNoodle/ObjectMethod", method, new ViewDataDictionary{{"FormClass", formClass ?? ""}}));
+WebViewPage.WriteTo(@__razor_helper_writer, html.Partial("WebNoodle/NodeMethod", method, new ViewDataDictionary{{"FormClass", formClass ?? ""}}));
 
 #line default
 #line hidden
 
-WebViewPage.WriteLiteralTo(@__razor_helper_writer, "\r\n        <button class=\"submitMethod btn btn-primary\">");
+WebViewPage.WriteLiteralTo(@__razor_helper_writer, "\r\n    </div>\r\n");
 
 
 
-#line 35 "..\..\Helpers\Noodles.cshtml"
-          WebViewPage.WriteTo(@__razor_helper_writer, method.DisplayName);
-
-#line default
-#line hidden
-
-WebViewPage.WriteLiteralTo(@__razor_helper_writer, "</button>\r\n    </div>\r\n");
-
-
-
-#line 37 "..\..\Helpers\Noodles.cshtml"
+#line 36 "..\..\Helpers\Noodles.cshtml"
 
 #line default
 #line hidden

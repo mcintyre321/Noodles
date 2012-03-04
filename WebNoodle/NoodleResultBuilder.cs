@@ -35,13 +35,13 @@ namespace WebNoodle
                         return result;
                     }
                 }
-                var nodeAction = node.NodeMethods().SingleOrDefault(m => cc.HttpContext.Request.QueryString["action"] == m.Name);
+                var method = node.NodeMethods().SingleOrDefault(m => cc.HttpContext.Request.QueryString["action"] == m.Name);
 
-                if (nodeAction != null)
+                if (method != null)
                 {
                     using (Profiler.Step("Getting node action"))
                     {
-                        var result = new PartialViewResult { ViewName = @"WebNoodle/NodeMethod", ViewData = { Model = nodeAction } };
+                        var result = new PartialViewResult { ViewName = @"WebNoodle/NodeMethod", ViewData = { Model = method } };
                         return result;
                     }
                 }

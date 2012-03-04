@@ -14,7 +14,7 @@
     <AssemblyName>WebNoodle.Example</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
-    <UseIISExpress>false</UseIISExpress>
+    <UseIISExpress>true</UseIISExpress>
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\..\WebNoodle\</SolutionDir>
     <RestorePackages>true</RestorePackages>
   </PropertyGroup>
@@ -37,7 +37,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="FormFactory, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\FormFactory.1.1.72\lib\net40\FormFactory.dll</HintPath>
+      <HintPath>..\packages\FormFactory.1.1.77\lib\net40\FormFactory.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
@@ -313,12 +313,6 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Shared\FormFactory\Property.IEnumerable.System.Object.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\Shared\FormFactory\Property.WebNoodle.Example.Models.Task.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="Views\Home\WebNoodle.Example.Models.ToDoList.cshtml" />
   </ItemGroup>
   <ItemGroup>
@@ -327,26 +321,12 @@
     <None Include="Content\DataTables-1.9.0\extras\TableTools\media\images\psd\file_types.psd" />
     <None Include="Content\DataTables-1.9.0\extras\TableTools\media\images\psd\printer.psd" />
     <None Include="Content\DataTables-1.9.0\media\images\Sorting icons.psd" />
-    <Content Include="Helpers\Noodles.cshtml" />
-    <Content Include="Helpers\Bootstrap.cshtml" />
     <None Include="Scripts\DataTables-1.9.0\extras\AutoFill\media\js\AutoFill.min.js.gz" />
     <None Include="Scripts\DataTables-1.9.0\extras\ColReorder\media\js\ColReorder.min.js.gz" />
     <None Include="Scripts\DataTables-1.9.0\extras\ColVis\media\js\ColVis.min.js.gz" />
     <None Include="Scripts\DataTables-1.9.0\extras\FixedColumns\media\js\FixedColumns.min.js.gz" />
     <None Include="Scripts\DataTables-1.9.0\extras\Scroller\media\js\Scroller.min.js.gz" />
     <None Include="Scripts\DataTables-1.9.0\extras\TableTools\media\js\TableTools.min.js.gz" />
-    <Content Include="Views\Shared\FormFactory\Property.System.String.cshtml" />
-    <Content Include="Views\Shared\FormFactory\Property.System.Object.cshtml" />
-    <Content Include="Views\Shared\FormFactory\Property.System.Int64.cshtml" />
-    <Content Include="Views\Shared\FormFactory\Property.System.Int32.cshtml" />
-    <Content Include="Views\Shared\FormFactory\Property.System.Enum.cshtml" />
-    <Content Include="Views\Shared\FormFactory\Property.System.Double.cshtml" />
-    <Content Include="Views\Shared\FormFactory\Property.System.DateTime.cshtml" />
-    <Content Include="Views\Shared\FormFactory\Property.System.Boolean.cshtml" />
-    <Content Include="Views\Shared\FormFactory\Form.Start.cshtml" />
-    <Content Include="Views\Shared\FormFactory\Form.Property.cshtml" />
-    <Content Include="Views\Shared\FormFactory\Form.Close.cshtml" />
-    <Content Include="Views\Shared\FormFactory\Form.Actions.cshtml" />
     <Content Include="Views\Shared\DataTable.cshtml" />
     <Content Include="Views\Web.config" />
     <Content Include="Views\Shared\Error.cshtml" />
@@ -359,10 +339,23 @@
     <Content Include="Views\Account\ChangePasswordSuccess.cshtml" />
     <Content Include="Views\Account\ChangePassword.cshtml" />
     <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\Shared\WebNoodle\NodeMethod.cshtml" />
     <Content Include="Views\Shared\WebNoodle\NodeMethodSuccess.cshtml" />
     <Content Include="Views\Shared\WebNoodle\NodeMethods.cshtml" />
-    <Content Include="Views\Shared\WebNoodle\NodeMethod.cshtml" />
     <Content Include="Views\Shared\Object.cshtml" />
+    <Content Include="Views\Shared\FormFactory\Property.System.String.cshtml" />
+    <Content Include="Views\Shared\FormFactory\Property.System.Object.cshtml" />
+    <Content Include="Views\Shared\FormFactory\Property.System.Int64.cshtml" />
+    <Content Include="Views\Shared\FormFactory\Property.System.Int32.cshtml" />
+    <Content Include="Views\Shared\FormFactory\Property.System.Enum.cshtml" />
+    <Content Include="Views\Shared\FormFactory\Property.System.Double.cshtml" />
+    <Content Include="Views\Shared\FormFactory\Property.System.DateTime.cshtml" />
+    <Content Include="Views\Shared\FormFactory\Property.System.Boolean.cshtml" />
+    <Content Include="Views\Shared\FormFactory\Property.IEnumerable.System.Object.cshtml" />
+    <Content Include="Views\Shared\FormFactory\Form.Start.cshtml" />
+    <Content Include="Views\Shared\FormFactory\Form.Property.cshtml" />
+    <Content Include="Views\Shared\FormFactory\Form.Close.cshtml" />
+    <Content Include="Views\Shared\FormFactory\Form.Actions.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\WebNoodle\WebNoodle.csproj">
@@ -386,11 +379,10 @@
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
         <WebProjectProperties>
           <UseIIS>False</UseIIS>
-          <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>50661</DevelopmentServerPort>
+          <AutoAssignPort>False</AutoAssignPort>
+          <DevelopmentServerPort>50662</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>
-          </IISUrl>
+          <IISUrl>http://localhost:50661/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

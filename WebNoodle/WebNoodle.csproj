@@ -34,7 +34,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="FormFactory, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\FormFactory.1.1.72\lib\net40\FormFactory.dll</HintPath>
+      <HintPath>..\packages\FormFactory.1.1.77\lib\net40\FormFactory.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <Private>True</Private>
@@ -211,8 +211,8 @@
     <Content Include="Scripts\jquery-1.7.1.js" />
     <Content Include="Scripts\jquery-1.7.1.min.js" />
     <Content Include="Scripts\jquery.dataTables.columnFilter.js" />
-    <Content Include="Views\Shared\FormFactory\_README.txt" />
     <Content Include="Scripts\WebNoodle\WebNoodle.js" />
+    <Content Include="Views\Shared\FormFactory\_README.txt" />
     <Content Include="Views\Shared\WebNoodle\_README.txt" />
   </ItemGroup>
   <ItemGroup>
@@ -242,6 +242,11 @@
     <None Include="Scripts\DataTables-1.9.0\extras\Scroller\media\js\Scroller.min.js.gz" />
     <None Include="Scripts\DataTables-1.9.0\extras\TableTools\media\js\TableTools.min.js.gz" />
     <None Include="Views\Shared\DataTable.cshtml" />
+    <Content Include="Views\Shared\WebNoodle\NodeMethod.cshtml" />
+    <Content Include="Views\Shared\WebNoodle\NodeMethodSuccess.cshtml">
+      <LastGenOutput>Copy of NodeActionForm.generated.cs</LastGenOutput>
+    </Content>
+    <Content Include="Views\Shared\Object.cshtml" />
     <None Include="Views\Shared\FormFactory\Form.Actions.cshtml" />
     <None Include="Views\Shared\FormFactory\Form.Close.cshtml" />
     <None Include="Views\Shared\FormFactory\Form.Property.cshtml" />
@@ -255,11 +260,6 @@
     <None Include="Views\Shared\FormFactory\Property.System.Int64.cshtml" />
     <None Include="Views\Shared\FormFactory\Property.System.Object.cshtml" />
     <None Include="Views\Shared\FormFactory\Property.System.String.cshtml" />
-    <Content Include="Views\Shared\WebNoodle\NodeMethod.cshtml" />
-    <Content Include="Views\Shared\WebNoodle\NodeMethodSuccess.cshtml">
-      <LastGenOutput>Copy of NodeActionForm.generated.cs</LastGenOutput>
-    </Content>
-    <Content Include="Views\Shared\Object.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />

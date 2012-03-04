@@ -4,32 +4,36 @@
 @using WebNoodle.Helpers
 @model WebNoodle.Example.Models.ToDoList
 @{
-    ViewBag.Title = "ToDoList.cshtml";
+    ViewBag.Title = "ToDoList";
 }
 @helper MailToLink(string email)
     {
     <a href="@email">@email</a>
 }
-<h2>ToDoList.cshtml</h2>
+<h2>ToDoList</h2>
 <div class="row">
     <div class="span3">
-        @*@Html.Partial("WebNoodle/NodeActions")*@
-        @Noodles.NodeMethodsMenuLink(Model)
+        @foreach (var method in Model.NodeMethods().Where(m => m.Name != "AddTask"))
+        {
+            <div>@Noodles.NodeMethodLink(method, "btn btn-primary")</div>
+        }
     </div>
     <div class="span9">
         <h4>Tasks</h4>
         @helper Task(Task t)
-        {
+            {
             <a href="@t.Path()">@t.Text</a>    
         }
         @helper Actions(object o)
-        {
-            foreach(var method in o.NodeMethods())
+            {
+            foreach (var method in o.NodeMethods())
             {
                 @Noodles.NodeMethodLink(method)
             }
         }
-        @Html.Partial("DataTable", Html.DataTableVmFor(() => Model.Tasks, t => new { Task = Task(t).ToHtmlString(), t.Status, Actions = Noodles.NodeActionsDropdown(t).ToHtmlString() }))
+        @Noodles.NodeMethodForm(Html, Model.NodeMethods().Single(m => m.Name == "AddTask"), "form-horizontal")
+        <br/>
+        @Html.Partial("DataTable", Html.DataTableVmFor(() => Model.Tasks, t => new { Task = Task(t).ToHtmlString(), t.Status, Actions = Noodles.NodeMethodsDropdown(t).ToHtmlString() }))
         <br />
         <h4>Users</h4>
         @Html.Partial("DataTable", Html.DataTableVmFor(() => Model.Users, u => new { Email = MailToLink(u.Email).ToHtmlString(), u.Name }))

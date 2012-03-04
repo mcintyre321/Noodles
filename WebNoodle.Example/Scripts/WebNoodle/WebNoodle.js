@@ -17,8 +17,8 @@
         return false;
     });
 
-    function modalHtml(title, body, footer) {
-        return '<div class="modal" id="myModal"><div class="modal-header"><a class="close" data-dismiss="modal">×</a><h3>' + title + '</h3></div><div class="modal-body">' + body + '</div><div class="modal-footer">' + footer + '</div></div>';
+    function modalHtml() {
+        return '<div class="modal objectMethod" id="myModal"><div class="modal-header"><a class="close" data-dismiss="modal">×</a><h3 class="title"></h3></div><div class="modal-body"></div><div class="modal-footer"></div></div>';
     }
 
     var showMethodsMenu = function ($link) {
@@ -46,11 +46,11 @@
             callback();
             return true;
         }
-        $.get(path, {}, function (data) {
+        $.get(path, {}, function (html) {
             if (transform) {
-                data = transform(data);
+                html = transform(html)[0].outerHTML;
             }
-            $('<div>').attr("id", id).html(data).hide().appendTo($("body"));
+            $('<div>').attr("id", id).css("display", "none").html(html).appendTo($("body"));
             callback();
         });
         return true;
@@ -58,6 +58,7 @@
 
     $(".nodeMethodLink").live('click', function (e) {
         var $link = $(this);
+        $link.closest(".popover").hide();
         if (e.target != this) return false;
         var methodsPanelId = "method-" + $link.attr("data-nodeid");
         if ($("#" + methodsPanelId).length == false) {
@@ -66,8 +67,15 @@
                 $link.attr("data-nodepath"),
                 function () { showMethodForm($link); },
                 function (body) {
-                    return modalHtml($link[0].innerHTML, body, "<button class='btn primary submitMethod'>Submit</button>");
+                    var $formHtml = $(body);
+                    var $modal = $(modalHtml());
+                    $modal.find(".title").append($link.html());
+                    $modal.find(".modal-footer").append($formHtml.find("button").remove());
+                    $modal.find(".modal-body").append($formHtml);
+                    return $modal;
                 });
+        } else {
+            showMethodForm($link);
         }
         return false;
     });
@@ -81,22 +89,24 @@
 
     $(".submitMethod").live('click', function (e) {
 
-        var $form = $(this).closest(".modal").find("form");
+        var $container = $(this).closest(".objectMethod");
+        var $form = $container.find("form");
         $.ajax({
             url: $form.attr('action'),
             type: "POST",
             data: $form.serialize(),
             success: function (data) {
-                if (data === "OK") {
-                    window.location.reload();
-                } else {
-                    $form.html(data);
-                }
+                window.location.reload();
             },
 
             error: function (jqXhr, textStatus, errorThrown) {
                 if (errorThrown == "Conflict") {
-                    $form.html(jqXhr.responseText);
+                    var $html = $(jqXhr.responseText);
+                    if ($container.hasClass("modal")) {
+                        var $buttons = $html.find("button").remove();
+                        $container.find(".modal-footer").empty().append($buttons);
+                    }
+                    $form.replaceWith($html);
                 }
             },
             complete: function () {
