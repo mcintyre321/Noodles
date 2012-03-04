@@ -3,12 +3,13 @@
 @using FormFactory
 @using WebNoodle
 @using WebNoodle.Helpers
-<form action="@WebNoodle.PathExtension.Path(Model.Target)?action=@Model.Name" method="post" enctype="multipart/form-data" encoding="multipart/form-data">
-
+<form action="@WebNoodle.PathExtension.Path(Model.Target)?action=@Model.Name" method="post" enctype="multipart/form-data" encoding="multipart/form-data" class="@ViewBag.FormClass">
 @if (Html.HasErrors(""))
 {
-    <div class="alert alert-error">
-        @Html.AllValidationMessages("")
+    <div class="result alert alert-error">
+        <div class="message">
+            @Html.AllValidationMessages("")
+        </div>
     </div>
 }
 @if (Context.Request.IsAjaxRequest())
@@ -17,5 +18,6 @@
 }
 @foreach (var parameter in Model.Parameters)
 {
- @Html.Partial("FormFactory/Form.Property", (object)WebNoodle.Helpers.ForFactoryHelperExtensions.ToPropertyVm(parameter, Html))
+    @Html.Partial("FormFactory/Form.Property", (object)WebNoodle.Helpers.ForFactoryHelperExtensions.ToPropertyVm(parameter, Html))
 }
+</form>

@@ -8,6 +8,7 @@ namespace WebNoodle
         string DisplayName { get; }
         IEnumerable<ObjectMethodParameter> Parameters { get; }
         object Target { get; }
+        string SuccessMessage { get; }
         void Invoke(object[] parameters);
     }
 }

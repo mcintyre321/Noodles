@@ -10,7 +10,10 @@ namespace WebNoodle
         static Logger()
         {
             Trace = s => System.Diagnostics.Trace.WriteLine(s);
+            LogError = s => System.Diagnostics.Trace.TraceError(s.ToString());
         }
         public static Action<string> Trace { get; set; }
+
+        public static Action<Exception> LogError { get; set; }
     }
 }

@@ -1,4 +1,6 @@
 ﻿@* Generator: MvcHelper *@
+@using System.Web.Mvc
+@using System.Web.Mvc.Html
 @using WebNoodle
 @using WebNoodle.Helpers
 
@@ -25,3 +27,12 @@
     {
     <a class="nodeMethodLink @(additionalClasses ?? "")" href="#@method.Name" data-nodeid="@method.Id()" data-nodepath="@method.Path()">@method.DisplayName</a>
 }
+
+@helper NodeMethodForm(System.Web.Mvc.HtmlHelper html, IObjectMethod method, string formClass) {
+
+    <div class="objectMethod">
+        @html.Partial("WebNoodle/ObjectMethod", method, new ViewDataDictionary{{"FormClass", formClass ?? ""}})
+        <button class="submitMethod btn btn-primary">@method.DisplayName</button>
+    </div>
+}
+

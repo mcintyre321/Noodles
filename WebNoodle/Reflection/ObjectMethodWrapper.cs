@@ -31,6 +31,11 @@ namespace WebNoodle
             get { return _inner.Target; }
         }
 
+        public string SuccessMessage
+        {
+            get { return _inner.SuccessMessage; }
+        }
+
         public void Invoke(object[] parameters)
         {
             _inner.Invoke(parameters);

@@ -12,8 +12,15 @@ namespace WebNoodle
 {
     public class NoodleResultBuilder
     {
-        //public static List<Func<Exception, ModelStateDictionary, Action>> ModelStateExceptionHandlers =
-        //    new List<Func<Exception, ModelStateDictionary, Action>>();
+        static List<Func<Exception, ModelStateDictionary, Action>> ModelStateExceptionHandlers = new List<Func<Exception, ModelStateDictionary, Action>>();
+        public static void AddExceptionHandler<TEx>(Action<TEx, ModelStateDictionary> action) where TEx : Exception
+        {
+            ModelStateExceptionHandlers.Add((e, msd) => (e as TEx) == null ? null as Action : () => action((TEx) e, msd));
+        }
+        static NoodleResultBuilder()
+        {
+            AddExceptionHandler<UserException>((e, msd) => msd.AddModelError("", e));
+        }
         public ActionResult Execute(ControllerContext cc, object node, Action<object, IObjectMethod, object[]> doInvoke = null)
         {
             doInvoke = doInvoke ?? (DoInvoke);
@@ -65,71 +72,74 @@ namespace WebNoodle
                                 dynamic transform = cc.HttpContext.Cache[transformKey];
                                 queryable = transform.Invoke(queryable);
                             }
-                            var dtr = Mvc.JQuery.Datatables.DataTablesResult.Create(queryable,
-                                                                                    BindObject<DataTablesParam>(cc,
-                                                                                                                "dataTableParam"));
+                            var dtr = Mvc.JQuery.Datatables.DataTablesResult.Create(queryable, BindObject<DataTablesParam>(cc, "dataTableParam"));
                             return dtr;
                         }
                     }
                     {
                         using (Profiler.Step("Executing action " + cc.HttpContext.Request.QueryString["action"]))
                         {
+                            var methodInstance = node.NodeMethods().Single(m => m.Name == cc.HttpContext.Request.QueryString["action"]);
+                            var parameters = methodInstance.Parameters.Select(pt => this.BindObject(cc, pt.BindingParameterType, pt.Name)).ToArray();
+                            var msd = cc.Controller.ViewData.ModelState;
+                            if (msd.IsValid)
                             {
-                                var methodInstance = node.NodeMethods().Single(m => m.Name == cc.HttpContext.Request.QueryString["action"]);
-                                var parameters = methodInstance.Parameters.Select(pt => this.BindObject(cc, pt.BindingParameterType, pt.Name)).ToArray();
-                                var msd = cc.Controller.ViewData.ModelState;
-                                if (msd.IsValid)
+                                Logger.Trace("ModelBinding successful");
+                                try
                                 {
-                                    Logger.Trace("ModelBinding successful");
-                                    try
-                                    {
-                                        doInvoke(node, methodInstance, parameters);
-                                        Logger.Trace("Invoke successful");
-                                    }
-                                    catch (TargetInvocationException ex)
-                                    {
-                                        msd.AddModelError("", ex.InnerException ?? ex);
-                                        Logger.Trace("Added model error: " + (ex.InnerException ?? ex).ToString());
-                                    }
-                                    catch (Exception ex)
-                                    {
-                                        msd.AddModelError("", ex);
-                                        Logger.Trace("Added model error: " + ex.ToString());
-                                    }
-
+                                    doInvoke(node, methodInstance, parameters);
+                                    Logger.Trace("Invoke successful");
                                 }
-                                if (cc.HttpContext.Request.IsAjaxRequest())
+                                catch (Exception ex)
                                 {
-                                    Logger.Trace("In ajax request");
-                                    if (!msd.IsValid)
+                                    if (ex is TargetInvocationException)
                                     {
-                                        Logger.Trace("Returning conflict");
-                                        var res = new PartialViewResult
-                                        {
-                                            ViewName = "WebNoodle/NodeMethod",
-                                            ViewData = {Model = methodInstance},
-                                        };
-                                        res.ViewData.ModelState.Merge(msd);
-                                        HttpContext.Current.Response.StatusCode = 409;
-                                        return res;
+                                        ex = ex.InnerException ?? ex;
+                                    }
+                                    Action handle = ModelStateExceptionHandlers.Select(h => h(ex, msd)).FirstOrDefault(h => h != null);
+
+                                    if (handle != null)
+                                    {
+                                        handle();
+                                        cc.HttpContext.Response.StatusCode = 409;
                                     }
                                     else
                                     {
-                                        Logger.Trace("Returning success");
-                                        var res = new PartialViewResult
-                                        {
-                                            ViewName = "WebNoodle/NodeMethodSuccess",
-                                            ViewData = {Model = methodInstance},
-                                        };
-
-                                        res.ViewData.ModelState.Merge(msd);
-                                        return res;
+                                        msd.AddModelError("", "An error occurred");
+                                        cc.HttpContext.Response.StatusCode = 500;
+                                        Logger.LogError(ex);
                                     }
+                                }
+                            }
+                            if (cc.HttpContext.Request.IsAjaxRequest())
+                            {
+                                Logger.Trace("In ajax request");
+                                if (!msd.IsValid)
+                                {
+                                    var res = new PartialViewResult
+                                    {
+                                        ViewName = "WebNoodle/NodeMethod",
+                                        ViewData = {Model = methodInstance},
+                                    };
+                                    res.ViewData.ModelState.Merge(msd);
+                                    return res;
                                 }
                                 else
                                 {
-                                    return new RedirectResult(cc.HttpContext.Request.UrlReferrer.ToString());
+                                    Logger.Trace("Returning success");
+                                    var res = new PartialViewResult
+                                    {
+                                        ViewName = "WebNoodle/NodeMethodSuccess",
+                                        ViewData = {Model = methodInstance},
+                                    };
+
+                                    res.ViewData.ModelState.Merge(msd);
+                                    return res;
                                 }
+                            }
+                            else
+                            {
+                                return new RedirectResult(cc.HttpContext.Request.UrlReferrer.ToString());
                             }
                         }
                     }
