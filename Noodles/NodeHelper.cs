@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Web;
 
-namespace WebNoodle
+namespace Noodles
 {
     public static class NodeHelper
     {

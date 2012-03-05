@@ -1,6 +1,6 @@
 using System;
 
-namespace WebNoodle
+namespace Noodles
 {
     public static class Profiler
     {

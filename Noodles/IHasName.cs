@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace WebNoodle
+namespace Noodles
 {
     public interface IHasName
     {

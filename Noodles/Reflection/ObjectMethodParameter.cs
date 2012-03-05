@@ -6,7 +6,7 @@ using System.Linq;
 using System.Reflection;
 using FormFactory;
 
-namespace WebNoodle
+namespace Noodles
 {
     public class ObjectMethodParameter
     {

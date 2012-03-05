@@ -1,6 +1,6 @@
 ﻿using System.Web.Mvc;
 
-namespace WebNoodle.Helpers
+namespace Noodles.Helpers
 {
     public static class AttemptedValueHelper
     {

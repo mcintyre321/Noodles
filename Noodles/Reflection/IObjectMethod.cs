@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace WebNoodle
+namespace Noodles
 {
     public interface IObjectMethod : IHasPath
     {

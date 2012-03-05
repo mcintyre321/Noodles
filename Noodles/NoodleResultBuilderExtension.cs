@@ -8,20 +8,20 @@ using System.Web.Helpers;
 using System.Web.Mvc;
 using Mvc.JQuery.Datatables;
 
-namespace WebNoodle
+namespace Noodles
 {
-    public class NoodleResultBuilder
+    public static class NoodleResultBuilderExtension
     {
         static List<Func<Exception, ModelStateDictionary, Action>> ModelStateExceptionHandlers = new List<Func<Exception, ModelStateDictionary, Action>>();
         public static void AddExceptionHandler<TEx>(Action<TEx, ModelStateDictionary> action) where TEx : Exception
         {
             ModelStateExceptionHandlers.Add((e, msd) => (e as TEx) == null ? null as Action : () => action((TEx) e, msd));
         }
-        static NoodleResultBuilder()
+        static NoodleResultBuilderExtension()
         {
             AddExceptionHandler<UserException>((e, msd) => msd.AddModelError("", e));
         }
-        public ActionResult Execute(ControllerContext cc, object node, Action<object, IObjectMethod, object[]> doInvoke = null)
+         public static ActionResult GetNoodleResult(this ControllerContext cc, object node, Action<object, IObjectMethod, object[]> doInvoke = null)
         {
             doInvoke = doInvoke ?? (DoInvoke);
 
@@ -31,7 +31,7 @@ namespace WebNoodle
                 {
                     using (Profiler.Step("Getting node actions"))
                     {
-                        var result = new PartialViewResult { ViewName = @"WebNoodle/NodeMethods", ViewData = { Model = node } };
+                        var result = new PartialViewResult { ViewName = @"Noodles/NodeMethods", ViewData = { Model = node } };
                         return result;
                     }
                 }
@@ -41,7 +41,7 @@ namespace WebNoodle
                 {
                     using (Profiler.Step("Getting node action"))
                     {
-                        var result = new PartialViewResult { ViewName = @"WebNoodle/NodeMethod", ViewData = { Model = method } };
+                        var result = new PartialViewResult { ViewName = @"Noodles/NodeMethod", ViewData = { Model = method } };
                         return result;
                     }
                 }
@@ -80,7 +80,7 @@ namespace WebNoodle
                         using (Profiler.Step("Executing action " + cc.HttpContext.Request.QueryString["action"]))
                         {
                             var methodInstance = node.NodeMethods().Single(m => m.Name == cc.HttpContext.Request.QueryString["action"]);
-                            var parameters = methodInstance.Parameters.Select(pt => this.BindObject(cc, pt.BindingParameterType, pt.Name)).ToArray();
+                            var parameters = methodInstance.Parameters.Select(pt => BindObject(cc, pt.BindingParameterType, pt.Name)).ToArray();
                             var msd = cc.Controller.ViewData.ModelState;
                             if (msd.IsValid)
                             {
@@ -118,7 +118,7 @@ namespace WebNoodle
                                 {
                                     var res = new PartialViewResult
                                     {
-                                        ViewName = "WebNoodle/NodeMethod",
+                                        ViewName = "Noodles/NodeMethod",
                                         ViewData = {Model = methodInstance},
                                     };
                                     res.ViewData.ModelState.Merge(msd);
@@ -129,7 +129,7 @@ namespace WebNoodle
                                     Logger.Trace("Returning success");
                                     var res = new PartialViewResult
                                     {
-                                        ViewName = "WebNoodle/NodeMethodSuccess",
+                                        ViewName = "Noodles/NodeMethodSuccess",
                                         ViewData = {Model = methodInstance},
                                     };
 
@@ -153,11 +153,11 @@ namespace WebNoodle
             methodInstance.Invoke(parameters);
         }
 
-        private T BindObject<T>(ControllerContext cc, string name) where T : class
+        private static T BindObject<T>(ControllerContext cc, string name) where T : class
         {
             return BindObject(cc, typeof(T), name) as T;
         }
-        private object BindObject(ControllerContext cc, Type desiredType, string name)
+        private static object BindObject(ControllerContext cc, Type desiredType, string name)
         {
 
             var formCollection = cc.HttpContext.Request.Unvalidated().Form;

@@ -1,6 +1,6 @@
 using System;
 
-namespace WebNoodle
+namespace Noodles
 {
     public class UserException : Exception
     {

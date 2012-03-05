@@ -1,7 +1,7 @@
 using System.Linq;
 using System.Web.Mvc;
 
-namespace WebNoodle.Infrastructure
+namespace Noodles.Infrastructure
 {
     public class GlobalFixUserExceptionsAttribute : ActionFilterAttribute
     {

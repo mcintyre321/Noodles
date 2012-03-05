@@ -1,7 +1,7 @@
 ﻿using System.Web.Mvc;
 using FormFactory;
 
-namespace WebNoodle.Helpers
+namespace Noodles.Helpers
 {
     public static class ForFactoryHelperExtensions
     {

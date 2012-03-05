@@ -1,8 +1,8 @@
 ﻿@* Generator: MvcHelper *@
 @using System.Web.Mvc
 @using System.Web.Mvc.Html
-@using WebNoodle
-@using WebNoodle.Helpers
+@using Noodles
+@using Noodles.Helpers
 
 @helper NodeMethodsDropdown(object obj) { @NodeMethodsDropdown(obj, null) }
 @helper NodeMethodsDropdown(object obj, string additionalClasses)
@@ -31,7 +31,7 @@
 @helper NodeMethodForm(System.Web.Mvc.HtmlHelper html, IObjectMethod method, string formClass) {
 
     <div class="objectMethod">
-        @html.Partial("WebNoodle/NodeMethod", method, new ViewDataDictionary{{"FormClass", formClass ?? ""}})
+        @html.Partial("Noodles/NodeMethod", method, new ViewDataDictionary{{"FormClass", formClass ?? ""}})
     </div>
 }
 

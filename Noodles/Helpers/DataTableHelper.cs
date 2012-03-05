@@ -10,7 +10,7 @@ using System.Web.Mvc;
 using System.Web.Mvc.Html;
 using Mvc.JQuery.Datatables;
 
-namespace WebNoodle.Helpers
+namespace Noodles.Helpers
 {
     public static class DataTableHelper
     {
