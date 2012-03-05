@@ -31,7 +31,7 @@
                 @Noodles.NodeMethodLink(method)
             }
         }
-        @Noodles.NodeMethodForm(Html, Model.NodeMethods().Single(m => m.Name == "AddTask"), "form-horizontal")
+        @Noodles.NodeMethodForm(Html, Model.NodeMethods().Single(m => m.Name == "AddTask"), "form-inline")
         <br/>
         @Html.Partial("DataTable", Html.DataTableVmFor(() => Model.Tasks, t => new { Task = Task(t).ToHtmlString(), t.Status, Actions = Noodles.NodeMethodsDropdown(t).ToHtmlString() }))
         <br />

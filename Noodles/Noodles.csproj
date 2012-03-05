@@ -8,8 +8,8 @@
     <ProjectGuid>{3F8BA73C-2F1C-4F24-A5D9-B3243FA6A495}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>WebNoodle</RootNamespace>
-    <AssemblyName>WebNoodle</AssemblyName>
+    <RootNamespace>Noodles</RootNamespace>
+    <AssemblyName>Noodles</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\..\WebNoodle\</SolutionDir>
@@ -211,12 +211,12 @@
     <Content Include="Scripts\jquery-1.7.1.js" />
     <Content Include="Scripts\jquery-1.7.1.min.js" />
     <Content Include="Scripts\jquery.dataTables.columnFilter.js" />
-    <Content Include="Scripts\WebNoodle\WebNoodle.js" />
+    <Content Include="Scripts\Noodles\Noodles.js" />
     <Content Include="Views\Shared\FormFactory\_README.txt" />
-    <Content Include="Views\Shared\WebNoodle\_README.txt" />
+    <Content Include="Views\Shared\Noodles\_README.txt" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Shared\WebNoodle\NodeMethods.cshtml" />
+    <Content Include="Views\Shared\Noodles\NodeMethods.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Helpers\Bootstrap.cshtml">
@@ -241,8 +241,8 @@
     <None Include="Scripts\DataTables-1.9.0\extras\FixedColumns\media\js\FixedColumns.min.js.gz" />
     <None Include="Scripts\DataTables-1.9.0\extras\Scroller\media\js\Scroller.min.js.gz" />
     <None Include="Scripts\DataTables-1.9.0\extras\TableTools\media\js\TableTools.min.js.gz" />
-    <Content Include="Views\Shared\WebNoodle\NodeMethod.cshtml" />
-    <Content Include="Views\Shared\WebNoodle\NodeMethodSuccess.cshtml">
+    <Content Include="Views\Shared\Noodles\NodeMethod.cshtml" />
+    <Content Include="Views\Shared\Noodles\NodeMethodSuccess.cshtml">
       <LastGenOutput>Copy of NodeActionForm.generated.cs</LastGenOutput>
     </Content>
     <Content Include="Views\Shared\Object.cshtml" />

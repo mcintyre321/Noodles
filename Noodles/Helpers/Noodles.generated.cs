@@ -9,7 +9,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace WebNoodle.Helpers
+namespace Noodles.Helpers
 {
     using System;
     using System.Collections.Generic;
