@@ -5,9 +5,9 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
 using System.Web.Security;
-using WebNoodle.Example.Models;
+using Noodles.Example.Models;
 
-namespace WebNoodle.Example.Controllers
+namespace Noodles.Example.Controllers
 {
     public class AccountController : Controller
     {

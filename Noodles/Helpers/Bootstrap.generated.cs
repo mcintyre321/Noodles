@@ -33,7 +33,7 @@ namespace Noodles.Helpers
     using System.Web.WebPages;
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("RazorGenerator", "1.3.0.0")]
-    public static class Bootstrap
+    public static class BootstrapHelper
     {
 
 public static System.Web.WebPages.HelperResult DropdownLinksButton(string buttonTitle, Func<MvcHtmlString, HelperResult> links) {

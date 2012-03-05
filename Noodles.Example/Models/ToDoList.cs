@@ -3,9 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace WebNoodle.Example.Models
+namespace Noodles.Example.Models
 {
-    public class ToDoList : IHasChildren
+    public class ToDoList : Noodles.IHasChildren
     {
         public ToDoList()
         {

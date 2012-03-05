@@ -1,0 +1,10 @@
+﻿@using Noodles
+@using Noodles.Helpers
+@model object
+@if (Model.NodeMethods().Any())
+{
+    foreach (var nodeMethod in Model.NodeMethods())
+    {
+        @Noodles.Helpers.NoodlesHelper.NodeMethodLink(nodeMethod )
+    }
+}

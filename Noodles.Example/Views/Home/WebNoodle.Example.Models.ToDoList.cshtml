@@ -1,8 +1,9 @@
 ﻿@using System.Web.Mvc.Html
-@using WebNoodle
-@using WebNoodle.Example.Models
-@using WebNoodle.Helpers
-@model WebNoodle.Example.Models.ToDoList
+@using Noodles
+@using Noodles.Example.Models
+@using Noodles
+@using Noodles.Helpers
+@model Noodles.Example.Models.ToDoList
 @{
     ViewBag.Title = "ToDoList";
 }
@@ -15,7 +16,7 @@
     <div class="span3">
         @foreach (var method in Model.NodeMethods().Where(m => m.Name != "AddTask"))
         {
-            <div>@Noodles.NodeMethodLink(method, "btn btn-primary")</div>
+            <div>@NoodlesHelper.NodeMethodLink(method, "btn btn-primary")</div>
         }
     </div>
     <div class="span9">
@@ -28,10 +29,10 @@
             {
             foreach (var method in o.NodeMethods())
             {
-                @Noodles.NodeMethodLink(method)
+                @NoodlesHelper.NodeMethodLink(method)
             }
         }
-        @Noodles.NodeMethodForm(Html, Model.NodeMethods().Single(m => m.Name == "AddTask"), "form-inline")
+        @NoodlesHelper.NodeMethodForm(Html, Model.NodeMethods().Single(m => m.Name == "AddTask"), "form-inline")
         <br/>
         @Html.Partial("DataTable", Html.DataTableVmFor(() => Model.Tasks, t => new { Task = Task(t).ToHtmlString(), t.Status, Actions = Noodles.NodeMethodsDropdown(t).ToHtmlString() }))
         <br />

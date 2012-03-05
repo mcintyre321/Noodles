@@ -69,7 +69,7 @@
     <Compile Include="Helpers\Bootstrap.generated.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>Bootstrap.cshtml</DependentUpon>
+      <DependentUpon>BootstrapHelper.cshtml</DependentUpon>
     </Compile>
     <Compile Include="Helpers\DataTableHelper.cs" />
     <Compile Include="Helpers\ForFactoryHelperExtensions.cs" />
@@ -89,10 +89,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Reflection\ObjectMethodWrapper.cs" />
     <Compile Include="UserException.cs" />
-    <Compile Include="Helpers\NoodlesHelpers.generated.cs">
+    <Compile Include="Helpers\NoodlesHelper.generated.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>NoodlesHelpers.cshtml</DependentUpon>
+      <DependentUpon>NoodlesHelper.cshtml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -219,13 +219,13 @@
     <Content Include="Views\Shared\Noodles\NodeMethods.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Helpers\Bootstrap.cshtml">
+    <Content Include="Helpers\BootstrapHelper.cshtml">
       <SubType>
       </SubType>
     </Content>
-    <Content Include="Helpers\NoodlesHelpers.cshtml">
+    <Content Include="Helpers\NoodlesHelper.cshtml">
       <Generator>RazorGenerator</Generator>
-      <LastGenOutput>NoodlesHelpers.generated.cs</LastGenOutput>
+      <LastGenOutput>NoodlesHelper.generated.cs</LastGenOutput>
       <SubType>
       </SubType>
     </Content>

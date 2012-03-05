@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using WebNoodle.Example.Models;
-
-namespace WebNoodle.Example.Controllers
+using Noodles.Example.Models;
+using Noodles;
+namespace Noodles.Example.Controllers
 {
     public class HomeController : Controller
     {
@@ -13,8 +13,7 @@ namespace WebNoodle.Example.Controllers
 
         public ActionResult Index(string path)
         {
-            var noodle = new NoodleResultBuilder();
-            var actionResult = noodle.Execute(this.ControllerContext, home.YieldChildren(path).Last());
+            var actionResult = this.ControllerContext.GetNoodleResult(home.YieldChildren(path).Last());
             return actionResult;
         }
     }

@@ -1,9 +1,9 @@
 ﻿@using System.Web.Mvc
 @using System.Web.Mvc.Html
 @using FormFactory
-@using WebNoodle
-@using WebNoodle.Helpers
-<form action="@WebNoodle.PathExtension.Path(Model.Target)?action=@Model.Name" method="post" enctype="multipart/form-data" encoding="multipart/form-data" class="@ViewBag.FormClass">
+@using Noodles
+@using Noodles.Helpers
+<form action="@Model.Path()" method="post" enctype="multipart/form-data" encoding="multipart/form-data" class="@ViewBag.FormClass">
 @if (Html.HasErrors(""))
 {
     <div class="result alert alert-error">
@@ -18,7 +18,7 @@
 }
 @foreach (var parameter in Model.Parameters)
 {
-    @Html.Partial("FormFactory/Form.Property", (object)WebNoodle.Helpers.ForFactoryHelperExtensions.ToPropertyVm(parameter, Html))
+    @Html.Partial("FormFactory/Form.Property", (object)Noodles.Helpers.ForFactoryHelperExtensions.ToPropertyVm(parameter, Html))
 }
     <button class="submitMethod btn btn-primary">@Model.DisplayName</button>
 </form>

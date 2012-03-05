@@ -5,7 +5,7 @@ using System.Globalization;
 using System.Web.Mvc;
 using System.Web.Security;
 
-namespace WebNoodle.Example.Models
+namespace Noodles.Example.Models
 {
 
     public class ChangePasswordModel
