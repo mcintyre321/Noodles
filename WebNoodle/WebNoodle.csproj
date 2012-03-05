@@ -44,7 +44,7 @@
       <HintPath>..\packages\Mvc3Futures.3.0.20105.0\lib\Microsoft.Web.Mvc.dll</HintPath>
     </Reference>
     <Reference Include="Mvc.JQuery.Datatables, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Mvc.JQuery.Datatables.1.1.70\lib\net40\Mvc.JQuery.Datatables.dll</HintPath>
+      <HintPath>..\packages\Mvc.JQuery.Datatables.1.1.71\lib\net40\Mvc.JQuery.Datatables.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
@@ -241,12 +241,12 @@
     <None Include="Scripts\DataTables-1.9.0\extras\FixedColumns\media\js\FixedColumns.min.js.gz" />
     <None Include="Scripts\DataTables-1.9.0\extras\Scroller\media\js\Scroller.min.js.gz" />
     <None Include="Scripts\DataTables-1.9.0\extras\TableTools\media\js\TableTools.min.js.gz" />
-    <None Include="Views\Shared\DataTable.cshtml" />
     <Content Include="Views\Shared\WebNoodle\NodeMethod.cshtml" />
     <Content Include="Views\Shared\WebNoodle\NodeMethodSuccess.cshtml">
       <LastGenOutput>Copy of NodeActionForm.generated.cs</LastGenOutput>
     </Content>
     <Content Include="Views\Shared\Object.cshtml" />
+    <None Include="Views\Shared\DataTable.cshtml" />
     <None Include="Views\Shared\FormFactory\Form.Actions.cshtml" />
     <None Include="Views\Shared\FormFactory\Form.Close.cshtml" />
     <None Include="Views\Shared\FormFactory\Form.Property.cshtml" />

@@ -2,7 +2,7 @@
 @using FormFactory
 @model object
 <div class="row">
-    <div class="span4">@Html.Partial("WebNoodle/NodeActions", Model)&nbsp;</div>
+    <div class="span4">@Html.Partial("WebNoodle/NodeMethods", Model)&nbsp;</div>
     <div class="span12">
         @Html.Partial("FormFactory/Form.Start", new FormVm(Html))
         @{ Html.RenderPropertiesFor(Model); }
