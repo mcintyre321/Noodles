@@ -49,7 +49,7 @@ namespace WebNoodle
 
         public string Path
         {
-            get { return (Parent ?? (this.Target.Path())) + "?action=getNodeMethod"; }
+            get { return (Parent ?? (this.Target.Path())) + "?action=" + this.Name; }
         }
     }
 } 
