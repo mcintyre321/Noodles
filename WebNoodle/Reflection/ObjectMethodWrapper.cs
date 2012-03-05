@@ -7,8 +7,6 @@ namespace WebNoodle
         private readonly IObjectMethod _inner;
         private string _innerName;
         private string _innerDisplayName;
-        private string _path;
-
         public string Name
         {
             get { return _innerName ?? _inner.Name; }
@@ -31,6 +29,9 @@ namespace WebNoodle
             get { return _inner.Target; }
         }
 
+        public object Parent { set; private get; }
+
+
         public string SuccessMessage
         {
             get { return _inner.SuccessMessage; }
@@ -46,11 +47,9 @@ namespace WebNoodle
             _inner = inner;
         }
 
-
         public string Path
         {
-            get { return _path ?? this.Target.Path(); }
-            set { _path = value; }
+            get { return (Parent ?? (this.Target.Path())) + "?action=getNodeMethod"; }
         }
     }
-}
+} 
