@@ -2,7 +2,7 @@ using System.Collections.Generic;
 
 namespace Noodles
 {
-    public class ObjectMethodWrapper : IObjectMethod, IHasPath
+    public class ObjectMethodWrapper : IObjectMethod
     {
         private readonly IObjectMethod _inner;
         private string _innerName;
@@ -47,9 +47,9 @@ namespace Noodles
             _inner = inner;
         }
 
-        public string Path
+        string IHasPath.Path
         {
-            get { return (Parent ?? (this.Target.Path())) + "?action=" + this.Name; }
+            get { return (Parent ?? (this.Target)).Path() + "?action=" + this.Name; }
         }
     }
 } 

@@ -22,11 +22,11 @@
     <div class="span9">
         <h4>Tasks</h4>
         @helper Task(Task t)
-            {
+        {
             <a href="@t.Path()">@t.Text</a>    
         }
         @helper Actions(object o)
-            {
+        {
             foreach (var method in o.NodeMethods())
             {
                 @NoodlesHelper.NodeMethodLink(method)
@@ -34,7 +34,7 @@
         }
         @NoodlesHelper.NodeMethodForm(Html, Model.NodeMethods().Single(m => m.Name == "AddTask"), "form-inline")
         <br/>
-        @Html.Partial("DataTable", Html.DataTableVmFor(() => Model.Tasks, t => new { Task = Task(t).ToHtmlString(), t.Status, Actions = Noodles.NodeMethodsDropdown(t).ToHtmlString() }))
+        @Html.Partial("DataTable", Html.DataTableVmFor(() => Model.Tasks, t => new { Task = Task(t).ToHtmlString(), t.Status, Actions = NoodlesHelper.NodeMethodsDropdown(t).ToHtmlString() }))
         <br />
         <h4>Users</h4>
         @Html.Partial("DataTable", Html.DataTableVmFor(() => Model.Users, u => new { Email = MailToLink(u.Email).ToHtmlString(), u.Name }))
