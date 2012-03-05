@@ -3,7 +3,7 @@
 @using FormFactory
 @using WebNoodle
 @using WebNoodle.Helpers
-<form action="@WebNoodle.PathExtension.Path(Model.Target)?action=@Model.Name" method="post" enctype="multipart/form-data" encoding="multipart/form-data" class="@ViewBag.FormClass">
+<form action="@Model.Path()" method="post" enctype="multipart/form-data" encoding="multipart/form-data" class="@ViewBag.FormClass">
 @if (Html.HasErrors(""))
 {
     <div class="result alert alert-error">
