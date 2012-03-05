@@ -137,14 +137,14 @@ WebViewPage.WriteLiteralTo(@__razor_template_writer, "            ");
 
 
 #line 18 "..\..\Helpers\NoodlesHelper.cshtml"
-                 })));
+                 }), additionalClasses));
 
 #line default
 #line hidden
 
 
 #line 18 "..\..\Helpers\NoodlesHelper.cshtml"
-                    
+                                       
     }
 
 #line default
