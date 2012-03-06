@@ -1,0 +1,11 @@
+﻿@using System.Web.Mvc.Html
+@using FormFactory
+@model object
+<div class="row">
+    <div class="span3">@Html.Partial("Noodles/NodeMethods", Model)&nbsp;</div>
+    <div class="span9">
+        @Html.Partial("FormFactory/Form.Start", new FormVm(Html))
+        @{ Html.RenderPropertiesFor(Model); }
+        @Html.Partial("FormFactory/Form.Close", new FormVm(Html))
+    </div>
+</div>

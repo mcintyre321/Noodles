@@ -1,0 +1,25 @@
+﻿@using System.Web.Mvc
+@using System.Web.Mvc.Html
+@using FormFactory
+@using Noodles
+@using Noodles.Helpers
+@model IObjectMethod
+<form action="@Model.Path()" method="post" enctype="multipart/form-data" encoding="multipart/form-data" class="@ViewBag.FormClass">
+@if (Html.HasErrors(""))
+{
+    <div class="result alert alert-error">
+        <div class="message">
+            @Html.AllValidationMessages("")
+        </div>
+    </div>
+}
+@if (Context.Request.IsAjaxRequest())
+{
+ @Html.AntiForgeryToken()
+}
+@foreach (var parameter in Model.Parameters)
+{
+    @Html.Partial("FormFactory/Form.Property", (object)Noodles.Helpers.ForFactoryHelperExtensions.ToPropertyVm(parameter, Html))
+}
+    <button class="submitMethod btn btn-primary">@Model.DisplayName</button>
+</form>
