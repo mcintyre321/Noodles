@@ -15,7 +15,7 @@ namespace Noodles
         static List<Func<Exception, ControllerContext, Action>> ModelStateExceptionHandlers = new List<Func<Exception, ControllerContext, Action>>();
         public static void AddExceptionHandler<TEx>(Action<TEx, ControllerContext> action) where TEx : Exception
         {
-            ModelStateExceptionHandlers.Add((e, msd) => (e as TEx) == null ? null as Action : () => action((TEx) e, msd));
+            ModelStateExceptionHandlers.Add((e, msd) => (e as TEx) == null ? null as Action : () => action((TEx)e, msd));
             ModelStateExceptionHandlers.Add((e, msd) => (e as NodeNotFoundException) == null ? null as Action : () => action((TEx)e, msd));
         }
         static NoodleResultBuilderExtension()
@@ -25,14 +25,22 @@ namespace Noodles
                 cc.HttpContext.Response.StatusCode = 409;
                 cc.Controller.ViewData.ModelState.AddModelError("", e);
             });
-            AddExceptionHandler<NodeNotFoundException>((e, msd) =>
-            {
-                throw new HttpException(404, e.Message);
-            });
-
+            
         }
-         public static ActionResult GetNoodleResult(this ControllerContext cc, object node, Action<object, IObjectMethod, object[]> doInvoke = null)
+
+        public static ActionResult GetNoodleResult(this ControllerContext cc, object root, string path = null, Action<object, IObjectMethod, object[]> doInvoke = null)
         {
+            path = path ?? cc.RouteData.Values["path"] as string ?? "/";
+            object node = null;
+            try
+            {
+                node = root.YieldChildren(path);
+            }
+            catch (NodeNotFoundException ex)
+            {
+                throw new HttpException(404, ex.Message);
+            }
+
             doInvoke = doInvoke ?? (DoInvoke);
 
             if (cc.HttpContext.Request.HttpMethod.ToLower() == "get" || cc.HttpContext.Request.QueryString["action"] == null)
