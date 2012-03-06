@@ -174,7 +174,6 @@
     <Content Include="Content\DataTables-1.9.0\media\images\sort_desc.png" />
     <Content Include="Content\DataTables-1.9.0\media\images\sort_desc_disabled.png" />
     <Content Include="Global.asax" />
-    <Content Include="README.jQuery.vsdoc.txt" />
     <Content Include="Scripts\Noodles\Noodles.js" />
     <Content Include="Views\Shared\Noodles\_README.txt" />
     <Content Include="Web.config" />
