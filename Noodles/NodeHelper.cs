@@ -17,7 +17,7 @@ namespace Noodles
                 if (node == null)
                 {
                     if (breakOnNull) yield break;
-                    throw new HttpException(404, "Node '" + part + "' not found in path '" + path + "'");
+                    throw new NodeNotFoundException("Node '" + part + "' not found in path '" + path + "'");
                 }
                 yield return node;
             }
