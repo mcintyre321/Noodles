@@ -48,7 +48,7 @@
       <HintPath>..\packages\Mvc.JQuery.Datatables.1.1.71\lib\net40\Mvc.JQuery.Datatables.dll</HintPath>
     </Reference>
     <Reference Include="Noodles, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Noodles.1.1.144\lib\net40\Noodles.dll</HintPath>
+      <HintPath>..\packages\Noodles.1.1.149\lib\net40\Noodles.dll</HintPath>
     </Reference>
     <Reference Include="System.Data.Entity" />
     <Reference Include="System.Web.Mvc, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
@@ -174,6 +174,7 @@
     <Content Include="Content\DataTables-1.9.0\media\images\sort_desc.png" />
     <Content Include="Content\DataTables-1.9.0\media\images\sort_desc_disabled.png" />
     <Content Include="Global.asax" />
+    <Content Include="README.jQuery.vsdoc.txt" />
     <Content Include="Scripts\DataTables-1.9.0\docs\media\js\doc.js" />
     <Content Include="Scripts\DataTables-1.9.0\docs\media\js\jquery.js" />
     <Content Include="Scripts\DataTables-1.9.0\docs\media\js\shBrushJScript.js" />
@@ -214,6 +215,9 @@
     <Content Include="Scripts\DataTables-1.9.0\media\js\jquery.dataTables.js" />
     <Content Include="Scripts\DataTables-1.9.0\media\js\jquery.dataTables.min.js" />
     <Content Include="Scripts\DataTables-1.9.0\media\js\jquery.js" />
+    <Content Include="Scripts\jquery-1.7.1-vsdoc.js" />
+    <Content Include="Scripts\jquery-1.7.1.js" />
+    <Content Include="Scripts\jquery-1.7.1.min.js" />
     <Content Include="Scripts\jquery.dataTables.columnFilter.js" />
     <Content Include="Scripts\Noodles\Noodles.js" />
     <Content Include="Views\Shared\FormFactory\_README.txt" />

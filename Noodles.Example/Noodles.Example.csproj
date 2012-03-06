@@ -51,10 +51,10 @@
       <HintPath>..\packages\Mvc.JQuery.Datatables.1.1.71\lib\net40\Mvc.JQuery.Datatables.dll</HintPath>
     </Reference>
     <Reference Include="Noodles, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Noodles.1.1.148\lib\net40\Noodles.dll</HintPath>
+      <HintPath>..\packages\Noodles.1.1.149\lib\net40\Noodles.dll</HintPath>
     </Reference>
-    <Reference Include="Noodles.Web">
-      <HintPath>..\packages\Noodles.Web.1.1.148\lib\net40\Noodles.Web.dll</HintPath>
+    <Reference Include="Noodles.Web, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Noodles.Web.1.1.149\lib\net40\Noodles.Web.dll</HintPath>
     </Reference>
     <Reference Include="System.Data.Entity" />
     <Reference Include="System.Web.Mvc, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
@@ -358,9 +358,9 @@
     <Content Include="Views\Shared\FormFactory\Form.Close.cshtml" />
     <Content Include="Views\Shared\FormFactory\Form.Actions.cshtml" />
     <Content Include="Views\Shared\Object.cshtml" />
-    <Content Include="Views\Shared\Noodles\NodeMethod.cshtml" />
     <Content Include="Views\Shared\Noodles\NodeMethodSuccess.cshtml" />
     <Content Include="Views\Shared\Noodles\NodeMethods.cshtml" />
+    <Content Include="Views\Shared\Noodles\NodeMethod.cshtml" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />
