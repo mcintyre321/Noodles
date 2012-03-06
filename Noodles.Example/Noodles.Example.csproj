@@ -51,10 +51,10 @@
       <HintPath>..\packages\Mvc.JQuery.Datatables.1.1.71\lib\net40\Mvc.JQuery.Datatables.dll</HintPath>
     </Reference>
     <Reference Include="Noodles, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Noodles.1.1.152\lib\net40\Noodles.dll</HintPath>
+      <HintPath>..\packages\Noodles.1.1.155\lib\net40\Noodles.dll</HintPath>
     </Reference>
     <Reference Include="Noodles.Web, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Noodles.Web.1.1.152\lib\net40\Noodles.Web.dll</HintPath>
+      <HintPath>..\packages\Noodles.Web.1.1.155\lib\net40\Noodles.Web.dll</HintPath>
     </Reference>
     <Reference Include="System.Data.Entity" />
     <Reference Include="System.Web.Mvc, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
@@ -230,7 +230,6 @@
     <Content Include="Content\themes\base\minified\jquery.ui.tabs.min.css" />
     <Content Include="Content\themes\base\minified\jquery.ui.theme.min.css" />
     <Content Include="Global.asax" />
-    <Content Include="README.jQuery.vsdoc.txt" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\DataTables-1.9.0\docs\media\js\doc.js" />
@@ -277,8 +276,6 @@
     <Content Include="Scripts\jquery-1.4.4.js" />
     <Content Include="Scripts\jquery-1.4.4.min.js" />
     <Content Include="Scripts\jquery-1.7.1-vsdoc.js" />
-    <Content Include="Scripts\jquery-1.7.1.js" />
-    <Content Include="Scripts\jquery-1.7.1.min.js" />
     <Content Include="Scripts\jquery-ui-1.8.17.js" />
     <Content Include="Scripts\jquery-ui-1.8.17.min.js" />
     <Content Include="Scripts\jquery.dataTables.columnFilter.js" />

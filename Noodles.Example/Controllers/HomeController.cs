@@ -13,7 +13,7 @@ namespace Noodles.Example.Controllers
 
         public ActionResult Index(string path)
         {
-            var actionResult = this.ControllerContext.GetNoodleResult(home.YieldChildren(path).Last());
+            var actionResult = this.ControllerContext.GetNoodleResult(home);
             return actionResult;
         }
     }
