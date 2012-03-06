@@ -173,11 +173,11 @@
     <Content Include="Content\DataTables-1.9.0\media\images\sort_both.png" />
     <Content Include="Content\DataTables-1.9.0\media\images\sort_desc.png" />
     <Content Include="Content\DataTables-1.9.0\media\images\sort_desc_disabled.png" />
-    <Content Include="Global.asax" />
+    <None Include="Global.asax" />
     <Content Include="Scripts\Noodles\Noodles.js" />
     <Content Include="Views\Shared\FormFactory\_README.txt" />
     <Content Include="Views\Shared\Noodles\_README.txt" />
-    <Content Include="Web.config" />
+    <None Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -190,7 +190,7 @@
     <Content Include="Views\Shared\Noodles\NodeMethod.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="packages.config" />
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Helpers\BootstrapHelper.cshtml">
