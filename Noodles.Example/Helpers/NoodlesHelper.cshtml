@@ -45,7 +45,12 @@
     </div>
 }
 @helper NodeMethodFormInline(System.Web.Mvc.HtmlHelper html, IObjectMethod method) {
-    @NodeMethodForm(html, method, "form-inline", new ViewDataDictionary(){{"Inline", true}})
+    @NodeMethodFormInline(html, method, new ViewDataDictionary())
+}
+@helper NodeMethodFormInline(System.Web.Mvc.HtmlHelper html, IObjectMethod method, ViewDataDictionary viewData) {
+    viewData = viewData ?? new ViewDataDictionary();
+    viewData.Add("Inline", true);
+    @NodeMethodForm(html, method, "form-inline", viewData)
 }
 
 

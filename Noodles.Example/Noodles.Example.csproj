@@ -37,7 +37,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="FormFactory, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\FormFactory.1.1.82\lib\net40\FormFactory.dll</HintPath>
+      <HintPath>..\packages\FormFactory.1.1.83\lib\net40\FormFactory.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
@@ -51,10 +51,10 @@
       <HintPath>..\packages\Mvc.JQuery.Datatables.1.1.71\lib\net40\Mvc.JQuery.Datatables.dll</HintPath>
     </Reference>
     <Reference Include="Noodles, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Noodles.1.1.161\lib\net40\Noodles.dll</HintPath>
+      <HintPath>..\packages\Noodles.1.1.163\lib\net40\Noodles.dll</HintPath>
     </Reference>
     <Reference Include="Noodles.Web, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Noodles.Web.1.1.161\lib\net40\Noodles.Web.dll</HintPath>
+      <HintPath>..\packages\Noodles.Web.1.1.163\lib\net40\Noodles.Web.dll</HintPath>
     </Reference>
     <Reference Include="System.Data.Entity" />
     <Reference Include="System.Web.Mvc, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
@@ -345,6 +345,7 @@
     <Content Include="Views\Account\ChangePassword.cshtml" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Object.cshtml" />
+    <Content Include="Views\Shared\FormFactory\Form.Close.cshtml" />
     <Content Include="Views\Shared\FormFactory\Property.System.String.cshtml" />
     <Content Include="Views\Shared\FormFactory\Property.System.Object.cshtml" />
     <Content Include="Views\Shared\FormFactory\Property.System.Int64.cshtml" />
@@ -358,7 +359,6 @@
     <Content Include="Views\Shared\FormFactory\Form.Property.Inline.cshtml" />
     <Content Include="Views\Shared\FormFactory\Form.Property.cshtml" />
     <Content Include="Views\Shared\FormFactory\Form.Property.Block.cshtml" />
-    <Content Include="Views\Shared\FormFactory\Form.Close.cshtml" />
     <Content Include="Views\Shared\FormFactory\Form.Actions.cshtml" />
     <Content Include="Views\Shared\Noodles\NodeMethodSuccess.cshtml" />
     <Content Include="Views\Shared\Noodles\NodeMethods.cshtml" />

@@ -35,7 +35,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="FormFactory, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\FormFactory.1.1.82\lib\net40\FormFactory.dll</HintPath>
+      <HintPath>..\packages\FormFactory.1.1.83\lib\net40\FormFactory.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <Private>True</Private>
@@ -48,7 +48,7 @@
       <HintPath>..\packages\Mvc.JQuery.Datatables.1.1.71\lib\net40\Mvc.JQuery.Datatables.dll</HintPath>
     </Reference>
     <Reference Include="Noodles, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Noodles.1.1.161\lib\net40\Noodles.dll</HintPath>
+      <HintPath>..\packages\Noodles.1.1.163\lib\net40\Noodles.dll</HintPath>
     </Reference>
     <Reference Include="System.Data.Entity" />
     <Reference Include="System.Web.Mvc, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
@@ -102,81 +102,95 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Content\DataTables-1.9.0\docs\media\css\doc.css" />
-    <Content Include="Content\DataTables-1.9.0\docs\media\css\shCore.css" />
-    <Content Include="Content\DataTables-1.9.0\docs\media\css\shThemeDataTables.css" />
-    <Content Include="Content\DataTables-1.9.0\docs\media\images\arrow.jpg" />
-    <Content Include="Content\DataTables-1.9.0\docs\media\images\extended.png" />
-    <Content Include="Content\DataTables-1.9.0\extras\AutoFill\media\css\AutoFill.css" />
-    <Content Include="Content\DataTables-1.9.0\extras\AutoFill\media\docs\media\css\doc.css" />
-    <Content Include="Content\DataTables-1.9.0\extras\AutoFill\media\docs\media\css\shCore.css" />
-    <Content Include="Content\DataTables-1.9.0\extras\AutoFill\media\docs\media\css\shThemeDataTables.css" />
-    <Content Include="Content\DataTables-1.9.0\extras\AutoFill\media\docs\media\images\arrow.jpg" />
-    <Content Include="Content\DataTables-1.9.0\extras\AutoFill\media\docs\media\images\extended.png" />
-    <Content Include="Content\DataTables-1.9.0\extras\AutoFill\media\images\filler.png" />
-    <Content Include="Content\DataTables-1.9.0\extras\ColReorder\media\css\ColReorder.css" />
-    <Content Include="Content\DataTables-1.9.0\extras\ColReorder\media\docs\media\css\doc.css" />
-    <Content Include="Content\DataTables-1.9.0\extras\ColReorder\media\docs\media\css\shCore.css" />
-    <Content Include="Content\DataTables-1.9.0\extras\ColReorder\media\docs\media\css\shThemeDataTables.css" />
-    <Content Include="Content\DataTables-1.9.0\extras\ColReorder\media\docs\media\images\arrow.jpg" />
-    <Content Include="Content\DataTables-1.9.0\extras\ColReorder\media\docs\media\images\extended.png" />
-    <Content Include="Content\DataTables-1.9.0\extras\ColReorder\media\images\insert.png" />
-    <Content Include="Content\DataTables-1.9.0\extras\ColVis\media\css\ColVis.css" />
-    <Content Include="Content\DataTables-1.9.0\extras\ColVis\media\css\ColVisAlt.css" />
-    <Content Include="Content\DataTables-1.9.0\extras\ColVis\media\docs\media\css\doc.css" />
-    <Content Include="Content\DataTables-1.9.0\extras\ColVis\media\docs\media\css\shCore.css" />
-    <Content Include="Content\DataTables-1.9.0\extras\ColVis\media\docs\media\css\shThemeDataTables.css" />
-    <Content Include="Content\DataTables-1.9.0\extras\ColVis\media\docs\media\images\arrow.jpg" />
-    <Content Include="Content\DataTables-1.9.0\extras\ColVis\media\docs\media\images\extended.png" />
-    <Content Include="Content\DataTables-1.9.0\extras\ColVis\media\images\button.png" />
-    <Content Include="Content\DataTables-1.9.0\extras\FixedColumns\docs\media\css\doc.css" />
-    <Content Include="Content\DataTables-1.9.0\extras\FixedColumns\docs\media\css\shCore.css" />
-    <Content Include="Content\DataTables-1.9.0\extras\FixedColumns\docs\media\css\shThemeDataTables.css" />
-    <Content Include="Content\DataTables-1.9.0\extras\FixedColumns\docs\media\images\arrow.jpg" />
-    <Content Include="Content\DataTables-1.9.0\extras\FixedColumns\docs\media\images\extended.png" />
-    <Content Include="Content\DataTables-1.9.0\extras\Scroller\media\docs\media\css\doc.css" />
-    <Content Include="Content\DataTables-1.9.0\extras\Scroller\media\docs\media\css\shCore.css" />
-    <Content Include="Content\DataTables-1.9.0\extras\Scroller\media\docs\media\css\shThemeDataTables.css" />
-    <Content Include="Content\DataTables-1.9.0\extras\Scroller\media\docs\media\images\arrow.jpg" />
-    <Content Include="Content\DataTables-1.9.0\extras\Scroller\media\docs\media\images\extended.png" />
-    <Content Include="Content\DataTables-1.9.0\extras\TableTools\media\css\TableTools.css" />
-    <Content Include="Content\DataTables-1.9.0\extras\TableTools\media\css\TableTools_JUI.css" />
-    <Content Include="Content\DataTables-1.9.0\extras\TableTools\media\images\background.png" />
-    <Content Include="Content\DataTables-1.9.0\extras\TableTools\media\images\collection.png" />
-    <Content Include="Content\DataTables-1.9.0\extras\TableTools\media\images\collection_hover.png" />
-    <Content Include="Content\DataTables-1.9.0\extras\TableTools\media\images\copy.png" />
-    <Content Include="Content\DataTables-1.9.0\extras\TableTools\media\images\copy_hover.png" />
-    <Content Include="Content\DataTables-1.9.0\extras\TableTools\media\images\csv.png" />
-    <Content Include="Content\DataTables-1.9.0\extras\TableTools\media\images\csv_hover.png" />
-    <Content Include="Content\DataTables-1.9.0\extras\TableTools\media\images\pdf.png" />
-    <Content Include="Content\DataTables-1.9.0\extras\TableTools\media\images\pdf_hover.png" />
-    <Content Include="Content\DataTables-1.9.0\extras\TableTools\media\images\print.png" />
-    <Content Include="Content\DataTables-1.9.0\extras\TableTools\media\images\print_hover.png" />
-    <Content Include="Content\DataTables-1.9.0\extras\TableTools\media\images\xls.png" />
-    <Content Include="Content\DataTables-1.9.0\extras\TableTools\media\images\xls_hover.png" />
-    <Content Include="Content\DataTables-1.9.0\extras\TableTools\media\swf\copy_cvs_xls.swf" />
-    <Content Include="Content\DataTables-1.9.0\extras\TableTools\media\swf\copy_cvs_xls_pdf.swf" />
-    <Content Include="Content\DataTables-1.9.0\media\css\demo_page.css" />
-    <Content Include="Content\DataTables-1.9.0\media\css\demo_table.css" />
-    <Content Include="Content\DataTables-1.9.0\media\css\demo_table_jui.css" />
-    <Content Include="Content\DataTables-1.9.0\media\css\jquery.dataTables.css" />
-    <Content Include="Content\DataTables-1.9.0\media\css\jquery.dataTables_themeroller.css" />
-    <Content Include="Content\DataTables-1.9.0\media\images\back_disabled.png" />
-    <Content Include="Content\DataTables-1.9.0\media\images\back_enabled.png" />
-    <Content Include="Content\DataTables-1.9.0\media\images\back_enabled_hover.png" />
-    <Content Include="Content\DataTables-1.9.0\media\images\favicon.ico" />
-    <Content Include="Content\DataTables-1.9.0\media\images\forward_disabled.png" />
-    <Content Include="Content\DataTables-1.9.0\media\images\forward_enabled.png" />
-    <Content Include="Content\DataTables-1.9.0\media\images\forward_enabled_hover.png" />
-    <Content Include="Content\DataTables-1.9.0\media\images\sort_asc.png" />
-    <Content Include="Content\DataTables-1.9.0\media\images\sort_asc_disabled.png" />
-    <Content Include="Content\DataTables-1.9.0\media\images\sort_both.png" />
-    <Content Include="Content\DataTables-1.9.0\media\images\sort_desc.png" />
-    <Content Include="Content\DataTables-1.9.0\media\images\sort_desc_disabled.png" />
+    <None Include="Content\DataTables-1.9.0\docs\media\css\doc.css" />
+    <None Include="Content\DataTables-1.9.0\docs\media\css\shCore.css" />
+    <None Include="Content\DataTables-1.9.0\docs\media\css\shThemeDataTables.css" />
+    <None Include="Content\DataTables-1.9.0\docs\media\images\arrow.jpg" />
+    <None Include="Content\DataTables-1.9.0\docs\media\images\extended.png" />
+    <None Include="Content\DataTables-1.9.0\extras\AutoFill\media\css\AutoFill.css" />
+    <None Include="Content\DataTables-1.9.0\extras\AutoFill\media\docs\media\css\doc.css" />
+    <None Include="Content\DataTables-1.9.0\extras\AutoFill\media\docs\media\css\shCore.css" />
+    <None Include="Content\DataTables-1.9.0\extras\AutoFill\media\docs\media\css\shThemeDataTables.css" />
+    <None Include="Content\DataTables-1.9.0\extras\AutoFill\media\docs\media\images\arrow.jpg" />
+    <None Include="Content\DataTables-1.9.0\extras\AutoFill\media\docs\media\images\extended.png" />
+    <None Include="Content\DataTables-1.9.0\extras\AutoFill\media\images\filler.png" />
+    <None Include="Content\DataTables-1.9.0\extras\ColReorder\media\css\ColReorder.css" />
+    <None Include="Content\DataTables-1.9.0\extras\ColReorder\media\docs\media\css\doc.css" />
+    <None Include="Content\DataTables-1.9.0\extras\ColReorder\media\docs\media\css\shCore.css" />
+    <None Include="Content\DataTables-1.9.0\extras\ColReorder\media\docs\media\css\shThemeDataTables.css" />
+    <None Include="Content\DataTables-1.9.0\extras\ColReorder\media\docs\media\images\arrow.jpg" />
+    <None Include="Content\DataTables-1.9.0\extras\ColReorder\media\docs\media\images\extended.png" />
+    <None Include="Content\DataTables-1.9.0\extras\ColReorder\media\images\insert.png" />
+    <None Include="Content\DataTables-1.9.0\extras\ColVis\media\css\ColVis.css" />
+    <None Include="Content\DataTables-1.9.0\extras\ColVis\media\css\ColVisAlt.css" />
+    <None Include="Content\DataTables-1.9.0\extras\ColVis\media\docs\media\css\doc.css" />
+    <None Include="Content\DataTables-1.9.0\extras\ColVis\media\docs\media\css\shCore.css" />
+    <None Include="Content\DataTables-1.9.0\extras\ColVis\media\docs\media\css\shThemeDataTables.css" />
+    <None Include="Content\DataTables-1.9.0\extras\ColVis\media\docs\media\images\arrow.jpg" />
+    <None Include="Content\DataTables-1.9.0\extras\ColVis\media\docs\media\images\extended.png" />
+    <None Include="Content\DataTables-1.9.0\extras\ColVis\media\images\button.png" />
+    <None Include="Content\DataTables-1.9.0\extras\FixedColumns\docs\media\css\doc.css" />
+    <None Include="Content\DataTables-1.9.0\extras\FixedColumns\docs\media\css\shCore.css" />
+    <None Include="Content\DataTables-1.9.0\extras\FixedColumns\docs\media\css\shThemeDataTables.css" />
+    <None Include="Content\DataTables-1.9.0\extras\FixedColumns\docs\media\images\arrow.jpg" />
+    <None Include="Content\DataTables-1.9.0\extras\FixedColumns\docs\media\images\extended.png" />
+    <None Include="Content\DataTables-1.9.0\extras\Scroller\media\docs\media\css\doc.css" />
+    <None Include="Content\DataTables-1.9.0\extras\Scroller\media\docs\media\css\shCore.css" />
+    <None Include="Content\DataTables-1.9.0\extras\Scroller\media\docs\media\css\shThemeDataTables.css" />
+    <None Include="Content\DataTables-1.9.0\extras\Scroller\media\docs\media\images\arrow.jpg" />
+    <None Include="Content\DataTables-1.9.0\extras\Scroller\media\docs\media\images\extended.png" />
+    <None Include="Content\DataTables-1.9.0\extras\TableTools\media\css\TableTools.css" />
+    <None Include="Content\DataTables-1.9.0\extras\TableTools\media\css\TableTools_JUI.css" />
+    <None Include="Content\DataTables-1.9.0\extras\TableTools\media\images\background.png" />
+    <None Include="Content\DataTables-1.9.0\extras\TableTools\media\images\collection.png" />
+    <None Include="Content\DataTables-1.9.0\extras\TableTools\media\images\collection_hover.png" />
+    <None Include="Content\DataTables-1.9.0\extras\TableTools\media\images\copy.png" />
+    <None Include="Content\DataTables-1.9.0\extras\TableTools\media\images\copy_hover.png" />
+    <None Include="Content\DataTables-1.9.0\extras\TableTools\media\images\csv.png" />
+    <None Include="Content\DataTables-1.9.0\extras\TableTools\media\images\csv_hover.png" />
+    <None Include="Content\DataTables-1.9.0\extras\TableTools\media\images\pdf.png" />
+    <None Include="Content\DataTables-1.9.0\extras\TableTools\media\images\pdf_hover.png" />
+    <None Include="Content\DataTables-1.9.0\extras\TableTools\media\images\print.png" />
+    <None Include="Content\DataTables-1.9.0\extras\TableTools\media\images\print_hover.png" />
+    <None Include="Content\DataTables-1.9.0\extras\TableTools\media\images\xls.png" />
+    <None Include="Content\DataTables-1.9.0\extras\TableTools\media\images\xls_hover.png" />
+    <None Include="Content\DataTables-1.9.0\extras\TableTools\media\swf\copy_cvs_xls.swf" />
+    <None Include="Content\DataTables-1.9.0\extras\TableTools\media\swf\copy_cvs_xls_pdf.swf" />
+    <None Include="Content\DataTables-1.9.0\media\css\demo_page.css" />
+    <None Include="Content\DataTables-1.9.0\media\css\demo_table.css" />
+    <None Include="Content\DataTables-1.9.0\media\css\demo_table_jui.css" />
+    <None Include="Content\DataTables-1.9.0\media\css\jquery.dataTables.css" />
+    <None Include="Content\DataTables-1.9.0\media\css\jquery.dataTables_themeroller.css" />
+    <None Include="Content\DataTables-1.9.0\media\images\back_disabled.png" />
+    <None Include="Content\DataTables-1.9.0\media\images\back_enabled.png" />
+    <None Include="Content\DataTables-1.9.0\media\images\back_enabled_hover.png" />
+    <None Include="Content\DataTables-1.9.0\media\images\favicon.ico" />
+    <None Include="Content\DataTables-1.9.0\media\images\forward_disabled.png" />
+    <None Include="Content\DataTables-1.9.0\media\images\forward_enabled.png" />
+    <None Include="Content\DataTables-1.9.0\media\images\forward_enabled_hover.png" />
+    <None Include="Content\DataTables-1.9.0\media\images\sort_asc.png" />
+    <None Include="Content\DataTables-1.9.0\media\images\sort_asc_disabled.png" />
+    <None Include="Content\DataTables-1.9.0\media\images\sort_both.png" />
+    <None Include="Content\DataTables-1.9.0\media\images\sort_desc.png" />
+    <None Include="Content\DataTables-1.9.0\media\images\sort_desc_disabled.png" />
     <None Include="Global.asax" />
     <Content Include="Scripts\Noodles\Noodles.js" />
-    <None Include="Views\Shared\FormFactory\_README.txt" />
+    <Content Include="Views\Shared\FormFactory\_README.txt" />
     <Content Include="Views\Shared\Noodles\_README.txt" />
+    <Content Include="Views\Shared\FormFactory\Property.System.String.cshtml" />
+    <Content Include="Views\Shared\FormFactory\Property.System.Object.cshtml" />
+    <Content Include="Views\Shared\FormFactory\Property.System.Int64.cshtml" />
+    <Content Include="Views\Shared\FormFactory\Property.System.Int32.cshtml" />
+    <Content Include="Views\Shared\FormFactory\Property.System.Enum.cshtml" />
+    <Content Include="Views\Shared\FormFactory\Property.System.Double.cshtml" />
+    <Content Include="Views\Shared\FormFactory\Property.System.DateTime.cshtml" />
+    <Content Include="Views\Shared\FormFactory\Property.System.Boolean.cshtml" />
+    <Content Include="Views\Shared\FormFactory\Property.IEnumerable.System.Object.cshtml" />
+    <Content Include="Views\Shared\FormFactory\Form.Start.cshtml" />
+    <Content Include="Views\Shared\FormFactory\Form.Property.Inline.cshtml" />
+    <Content Include="Views\Shared\FormFactory\Form.Property.cshtml" />
+    <Content Include="Views\Shared\FormFactory\Form.Property.Block.cshtml" />
+    <Content Include="Views\Shared\FormFactory\Form.Actions.cshtml" />
     <None Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -220,21 +234,7 @@
     <None Include="Content\DataTables-1.9.0\extras\TableTools\media\images\psd\file_types.psd" />
     <None Include="Content\DataTables-1.9.0\extras\TableTools\media\images\psd\printer.psd" />
     <None Include="Content\DataTables-1.9.0\media\images\Sorting icons.psd" />
-    <None Include="Views\Shared\FormFactory\Property.System.String.cshtml" />
-    <None Include="Views\Shared\FormFactory\Property.System.Object.cshtml" />
-    <None Include="Views\Shared\FormFactory\Property.System.Int64.cshtml" />
-    <None Include="Views\Shared\FormFactory\Property.System.Int32.cshtml" />
-    <None Include="Views\Shared\FormFactory\Property.System.Enum.cshtml" />
-    <None Include="Views\Shared\FormFactory\Property.System.Double.cshtml" />
-    <None Include="Views\Shared\FormFactory\Property.System.DateTime.cshtml" />
-    <None Include="Views\Shared\FormFactory\Property.System.Boolean.cshtml" />
-    <None Include="Views\Shared\FormFactory\Property.IEnumerable.System.Object.cshtml" />
-    <None Include="Views\Shared\FormFactory\Form.Start.cshtml" />
-    <None Include="Views\Shared\FormFactory\Form.Property.Inline.cshtml" />
-    <None Include="Views\Shared\FormFactory\Form.Property.cshtml" />
-    <None Include="Views\Shared\FormFactory\Form.Property.Block.cshtml" />
     <None Include="Views\Shared\FormFactory\Form.Close.cshtml" />
-    <None Include="Views\Shared\FormFactory\Form.Actions.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
