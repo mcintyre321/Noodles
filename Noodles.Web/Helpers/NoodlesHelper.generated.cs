@@ -458,14 +458,46 @@ return new System.Web.WebPages.HelperResult(__razor_helper_writer => {
 
 
 #line 48 "..\..\Helpers\NoodlesHelper.cshtml"
-WebViewPage.WriteTo(@__razor_helper_writer, NodeMethodForm(html, method, "form-inline", new ViewDataDictionary(){{"Inline", true}}));
+WebViewPage.WriteTo(@__razor_helper_writer, NodeMethodFormInline(html, method, new ViewDataDictionary()));
 
 #line default
 #line hidden
 
 
 #line 48 "..\..\Helpers\NoodlesHelper.cshtml"
-                                                                                            
+                                                                 
+
+#line default
+#line hidden
+
+});
+
+}
+
+
+public static System.Web.WebPages.HelperResult NodeMethodFormInline(System.Web.Mvc.HtmlHelper html, IObjectMethod method, ViewDataDictionary viewData) {
+return new System.Web.WebPages.HelperResult(__razor_helper_writer => {
+
+
+
+#line 50 "..\..\Helpers\NoodlesHelper.cshtml"
+                                                                                                                 
+    viewData = viewData ?? new ViewDataDictionary();
+    viewData.Add("Inline", true);
+    
+#line default
+#line hidden
+
+
+#line 53 "..\..\Helpers\NoodlesHelper.cshtml"
+WebViewPage.WriteTo(@__razor_helper_writer, NodeMethodForm(html, method, "form-inline", viewData));
+
+#line default
+#line hidden
+
+
+#line 53 "..\..\Helpers\NoodlesHelper.cshtml"
+                                                          
 
 #line default
 #line hidden
