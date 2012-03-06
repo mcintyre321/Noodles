@@ -34,7 +34,7 @@ namespace Noodles
             object node = null;
             try
             {
-                node = root.YieldChildren(path);
+                node = root.YieldChildren(path).Last();
             }
             catch (NodeNotFoundException ex)
             {
