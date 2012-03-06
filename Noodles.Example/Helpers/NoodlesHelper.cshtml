@@ -33,4 +33,18 @@
         @html.Partial("Noodles/NodeMethod", method, new ViewDataDictionary{{"FormClass", formClass ?? ""}})
     </div>
 }
+@helper NodeMethodForm(System.Web.Mvc.HtmlHelper html, IObjectMethod method, string formClass, ViewDataDictionary dict) {
+    dict = dict ?? new ViewDataDictionary();
+    dict["FormClass"] = formClass;
+    @NodeMethodForm(html, method, dict)
+}
+
+@helper NodeMethodForm(System.Web.Mvc.HtmlHelper html, IObjectMethod method, ViewDataDictionary dict) {
+    dict = dict ?? new ViewDataDictionary();
+    <div class="objectMethod">
+        @html.Partial("Noodles/NodeMethod", method, dict)
+    </div>
+}
+
+
 

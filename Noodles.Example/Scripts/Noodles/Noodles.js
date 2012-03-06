@@ -105,6 +105,10 @@
                     if ($container.hasClass("modal")) {
                         var $buttons = $html.find("button").remove();
                         $container.find(".modal-footer").empty().append($buttons);
+                    } else if ($form.hasClass("form-inline")) {
+                        $html.find("div.controls").css("display", "inline");
+                        $html.find("div.control-group").css("display", "inline");
+                        $html.addClass("form-inline");
                     }
                     $form.replaceWith($html);
                 }

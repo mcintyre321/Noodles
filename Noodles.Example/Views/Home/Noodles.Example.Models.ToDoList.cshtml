@@ -3,6 +3,7 @@
 @using Noodles.Example.Models
 @using Noodles
 @using Noodles.Helpers
+@using Noodles.Web.Helpers
 @model Noodles.Example.Models.ToDoList
 @{
     ViewBag.Title = "ToDoList";
@@ -32,7 +33,7 @@
                 @NoodlesHelper.NodeMethodLink(method)
             }
         }
-        @NoodlesHelper.NodeMethodForm(Html, Model.NodeMethods().Single(m => m.Name == "AddTask"), "form-inline", )
+        @NoodlesHelper.NodeMethodForm(Html, Model.NodeMethods().Single(m => m.Name == "AddTask"), "form-inline", new ViewDataDictionary(){{"Inline", true}})
         <br/>
         @Html.Partial("DataTable", Html.DataTableVmFor(() => Model.Tasks, t => new { Task = Task(t).ToHtmlString(), t.Status, Actions = NoodlesHelper.NodeMethodsDropdown(t).ToHtmlString() }))
         <br />
