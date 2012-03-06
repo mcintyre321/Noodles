@@ -12,14 +12,24 @@ namespace Noodles
 {
     public static class NoodleResultBuilderExtension
     {
-        static List<Func<Exception, ModelStateDictionary, Action>> ModelStateExceptionHandlers = new List<Func<Exception, ModelStateDictionary, Action>>();
-        public static void AddExceptionHandler<TEx>(Action<TEx, ModelStateDictionary> action) where TEx : Exception
+        static List<Func<Exception, ControllerContext, Action>> ModelStateExceptionHandlers = new List<Func<Exception, ControllerContext, Action>>();
+        public static void AddExceptionHandler<TEx>(Action<TEx, ControllerContext> action) where TEx : Exception
         {
             ModelStateExceptionHandlers.Add((e, msd) => (e as TEx) == null ? null as Action : () => action((TEx) e, msd));
+            ModelStateExceptionHandlers.Add((e, msd) => (e as NodeNotFoundException) == null ? null as Action : () => action((TEx)e, msd));
         }
         static NoodleResultBuilderExtension()
         {
-            AddExceptionHandler<UserException>((e, msd) => msd.AddModelError("", e));
+            AddExceptionHandler<UserException>((e, cc) =>
+            {
+                cc.HttpContext.Response.StatusCode = 409;
+                cc.Controller.ViewData.ModelState.AddModelError("", e);
+            });
+            AddExceptionHandler<NodeNotFoundException>((e, msd) =>
+            {
+                throw new HttpException(404, e.Message);
+            });
+
         }
          public static ActionResult GetNoodleResult(this ControllerContext cc, object node, Action<object, IObjectMethod, object[]> doInvoke = null)
         {
@@ -96,18 +106,15 @@ namespace Noodles
                                     {
                                         ex = ex.InnerException ?? ex;
                                     }
-                                    Action handle = ModelStateExceptionHandlers.Select(h => h(ex, msd)).FirstOrDefault(h => h != null);
+                                    Action handle = ModelStateExceptionHandlers.Select(h => h(ex, cc)).FirstOrDefault(h => h != null);
 
                                     if (handle != null)
                                     {
                                         handle();
-                                        cc.HttpContext.Response.StatusCode = 409;
                                     }
                                     else
                                     {
-                                        msd.AddModelError("", "An error occurred");
-                                        cc.HttpContext.Response.StatusCode = 500;
-                                        Logger.LogError(ex);
+                                        throw;
                                     }
                                 }
                             }
