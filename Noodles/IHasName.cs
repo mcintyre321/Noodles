@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Noodles
 {
@@ -97,12 +98,17 @@ namespace Noodles
     {
         IEnumerable<IObjectMethod> NodeMethods();
     }
+
     public static class NodeMethodsExtensions
     {
         public static IEnumerable<IObjectMethod> NodeMethods(this object o)
         {
             if (o is IHasNodeMethods) return ((IHasNodeMethods) o).NodeMethods();
             return o.GetNodeMethodInfos();
+        }
+        public static IObjectMethod NodeMethod(this object o, string methodName)
+        {
+            return o.NodeMethods().Single(m => m.Name == methodName);
         }
     }
 
