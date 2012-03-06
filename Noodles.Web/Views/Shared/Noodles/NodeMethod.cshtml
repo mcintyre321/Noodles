@@ -15,11 +15,12 @@
 }
 @if (Context.Request.IsAjaxRequest())
 {
- @Html.AntiForgeryToken()
+    @Html.AntiForgeryToken()
 }
 @foreach (var parameter in Model.Parameters)
 {
-    @Html.Partial("FormFactory/Form.Property", (object)Noodles.Helpers.ForFactoryHelperExtensions.ToPropertyVm(parameter, Html))
+    var vm = parameter.ToPropertyVm(Html);
+    Html.RenderPartial("FormFactory/Form.Property", vm, ViewData);
 }
-    <button class="submitMethod btn btn-primary">@Model.DisplayName</button>
+<button class="submitMethod btn btn-primary">@Model.DisplayName</button>
 </form>

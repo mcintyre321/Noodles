@@ -9,7 +9,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Noodles.Helpers
+namespace Noodles.Web.Helpers
 {
     using System;
     using System.Collections.Generic;
@@ -368,6 +368,74 @@ WebViewPage.WriteLiteralTo(@__razor_helper_writer, "\r\n    </div>\r\n");
 
 
 #line 35 "..\..\Helpers\NoodlesHelper.cshtml"
+
+#line default
+#line hidden
+
+});
+
+}
+
+
+public static System.Web.WebPages.HelperResult NodeMethodForm(System.Web.Mvc.HtmlHelper html, IObjectMethod method, string formClass, ViewDataDictionary dict) {
+return new System.Web.WebPages.HelperResult(__razor_helper_writer => {
+
+
+
+#line 36 "..\..\Helpers\NoodlesHelper.cshtml"
+                                                                                                                         
+    dict = dict ?? new ViewDataDictionary();
+    dict["FormClass"] = formClass;
+    
+#line default
+#line hidden
+
+
+#line 39 "..\..\Helpers\NoodlesHelper.cshtml"
+WebViewPage.WriteTo(@__razor_helper_writer, NodeMethodForm(html, method, dict));
+
+#line default
+#line hidden
+
+
+#line 39 "..\..\Helpers\NoodlesHelper.cshtml"
+                                       
+
+#line default
+#line hidden
+
+});
+
+}
+
+
+public static System.Web.WebPages.HelperResult NodeMethodForm(System.Web.Mvc.HtmlHelper html, IObjectMethod method, ViewDataDictionary dict) {
+return new System.Web.WebPages.HelperResult(__razor_helper_writer => {
+
+
+
+#line 42 "..\..\Helpers\NoodlesHelper.cshtml"
+                                                                                                       
+    dict = dict ?? new ViewDataDictionary();
+
+#line default
+#line hidden
+
+WebViewPage.WriteLiteralTo(@__razor_helper_writer, "    <div class=\"objectMethod\">\r\n        ");
+
+
+
+#line 45 "..\..\Helpers\NoodlesHelper.cshtml"
+WebViewPage.WriteTo(@__razor_helper_writer, html.Partial("Noodles/NodeMethod", method, dict));
+
+#line default
+#line hidden
+
+WebViewPage.WriteLiteralTo(@__razor_helper_writer, "\r\n    </div>\r\n");
+
+
+
+#line 47 "..\..\Helpers\NoodlesHelper.cshtml"
 
 #line default
 #line hidden
