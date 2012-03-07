@@ -106,12 +106,13 @@ namespace Noodles
                                 }
                                 catch (Exception ex)
                                 {
+                                    cc.HttpContext.Response.TrySkipIisCustomErrors = true;
+
                                     if (ex is TargetInvocationException)
                                     {
                                         ex = ex.InnerException ?? ex;
                                     }
                                     Action handle = ModelStateExceptionHandlers.Select(h => h(ex, cc)).FirstOrDefault(h => h != null);
-                                    cc.HttpContext.Response.TrySkipIisCustomErrors = true;
 
                                     if (handle != null)
                                     {
