@@ -20,11 +20,7 @@ namespace Noodles
         }
         static NoodleResultBuilderExtension()
         {
-            AddExceptionHandler<UserException>((e, cc) =>
-            {
-                cc.HttpContext.Response.StatusCode = 409;
-                cc.Controller.ViewData.ModelState.AddModelError("", e);
-            });
+            AddExceptionHandler<UserException>((e, cc) => cc.Controller.ViewData.ModelState.AddModelError("", e));
             
         }
 
@@ -118,43 +114,42 @@ namespace Noodles
 
                                     if (handle != null)
                                     {
+                                        cc.HttpContext.Response.StatusCode = 409;
                                         handle();
                                     }
                                     else
                                     {
+                                        cc.HttpContext.Response.StatusCode = 500;
                                         throw;
                                     }
                                 }
                             }
-                            if (cc.HttpContext.Request.IsAjaxRequest())
+                            else
                             {
-                                Logger.Trace("In ajax request");
-                                if (!msd.IsValid)
+                                cc.HttpContext.Response.StatusCode = 409;
+                            }
+                            Logger.Trace("In ajax request");
+                            if (!msd.IsValid)
+                            {
+                                var res = new PartialViewResult
                                 {
-                                    var res = new PartialViewResult
-                                    {
-                                        ViewName = "Noodles/NodeMethod",
-                                        ViewData = {Model = methodInstance},
-                                    };
-                                    res.ViewData.ModelState.Merge(msd);
-                                    return res;
-                                }
-                                else
-                                {
-                                    Logger.Trace("Returning success");
-                                    var res = new PartialViewResult
-                                    {
-                                        ViewName = "Noodles/NodeMethodSuccess",
-                                        ViewData = {Model = methodInstance},
-                                    };
-
-                                    res.ViewData.ModelState.Merge(msd);
-                                    return res;
-                                }
+                                    ViewName = "Noodles/NodeMethod",
+                                    ViewData = {Model = methodInstance},
+                                };
+                                res.ViewData.ModelState.Merge(msd);
+                                return res;
                             }
                             else
                             {
-                                return new RedirectResult(cc.HttpContext.Request.UrlReferrer.ToString());
+                                Logger.Trace("Returning success");
+                                var res = new PartialViewResult
+                                {
+                                    ViewName = "Noodles/NodeMethodSuccess",
+                                    ViewData = {Model = methodInstance},
+                                };
+
+                                res.ViewData.ModelState.Merge(msd);
+                                return res;
                             }
                         }
                     }
