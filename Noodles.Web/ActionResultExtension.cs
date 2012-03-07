@@ -106,7 +106,6 @@ namespace Noodles
                                 }
                                 catch (Exception ex)
                                 {
-                                    cc.HttpContext.Response.TrySkipIisCustomErrors = true;
 
                                     if (ex is TargetInvocationException)
                                     {
@@ -128,8 +127,12 @@ namespace Noodles
                             }
                             else
                             {
+
                                 cc.HttpContext.Response.StatusCode = 409;
                             }
+
+                            cc.HttpContext.Response.TrySkipIisCustomErrors = true;
+
                             Logger.Trace("In ajax request");
                             if (!msd.IsValid)
                             {
