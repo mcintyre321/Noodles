@@ -16,7 +16,7 @@ namespace Noodles.Example.Models
         private Tasks _tasks;
 
         public IEnumerable<Task> Tasks { get { return _tasks; } }
-
+        [Show]
         public void AddTask(string taskDescription)
         {
             if (string.IsNullOrWhiteSpace(taskDescription)) throw new UserException("Task description cannot be empty");
@@ -42,6 +42,7 @@ namespace Noodles.Example.Models
         }
          
 
+        [Show]
         public void ClearCompletedTasks()
         {
             _tasks.RemoveComplete();
@@ -68,7 +69,7 @@ namespace Noodles.Example.Models
         public string Email { get; set; }
     }
 
-
+    [Show]
     public class Tasks : IEnumerable<Task>, IHasChildren, IHasName, IHasParent<ToDoList>
     {
         private readonly List<Task> _tasks = new List<Task>();

@@ -50,9 +50,6 @@
     <Reference Include="Mvc.JQuery.Datatables, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Mvc.JQuery.Datatables.1.1.71\lib\net40\Mvc.JQuery.Datatables.dll</HintPath>
     </Reference>
-    <Reference Include="Noodles, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Noodles.1.1.167\lib\net40\Noodles.dll</HintPath>
-    </Reference>
     <Reference Include="Noodles.Web, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Noodles.Web.1.1.166\lib\net40\Noodles.Web.dll</HintPath>
     </Reference>
@@ -321,6 +318,12 @@
     <Content Include="Views\Shared\Noodles\NodeMethodSuccess.cshtml" />
     <Content Include="Views\Shared\Noodles\NodeMethods.cshtml" />
     <Content Include="Views\Shared\Noodles\NodeMethod.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Noodles\Noodles.csproj">
+      <Project>{3F8BA73C-2F1C-4F24-A5D9-B3243FA6A495}</Project>
+      <Name>Noodles</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />
