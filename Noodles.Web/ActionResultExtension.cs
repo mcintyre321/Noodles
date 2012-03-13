@@ -30,7 +30,9 @@ namespace Noodles
             object node = null;
             try
             {
-                node = root.YieldChildren(path).Last();
+                var objectPath = root.YieldChildren(path);
+                cc.Controller.ViewBag.ObjectPath = objectPath;
+                node = objectPath.Last();
             }
             catch (NodeNotFoundException ex)
             {

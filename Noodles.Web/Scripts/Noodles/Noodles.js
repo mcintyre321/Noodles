@@ -57,6 +57,7 @@
     }
 
     $(".nodeMethodLink").live('click', function (e) {
+        e.preventDefault();
         var $link = $(this);
         $link.closest(".popover").hide();
         if (e.target != this) return false;
@@ -91,7 +92,7 @@
 
         var $container = $(this).closest(".objectMethod");
         var $form = $container.find("form");
-        $.ajax({
+        var ajaxOptions = {
             url: $form.attr('action'),
             type: "POST",
             data: $form.serialize(),
@@ -116,7 +117,17 @@
             complete: function () {
                 //$("#ProgressDialog").dialog("close");
             }
-        });
+        };
+        var $fileInputs = $(":file", $form);
+        if ($fileInputs.length) {
+            $.extend(ajaxOptions, {
+                data: $form.serializeArray(),
+                files: $(":file", $form),
+                iframe: true,
+                processData: false
+            });
+        }
+        $.ajax(ajaxOptions);
         return false;
     });
 });
