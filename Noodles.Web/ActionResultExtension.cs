@@ -149,10 +149,11 @@ namespace Noodles
                             else
                             {
                                 Logger.Trace("Returning success");
+                                var freshMethod = node.NodeMethod(methodInstance.Name);
                                 var res = new PartialViewResult
                                 {
                                     ViewName = "Noodles/NodeMethodSuccess",
-                                    ViewData = {Model = methodInstance},
+                                    ViewData = {Model = freshMethod},
                                 };
 
                                 res.ViewData.ModelState.Merge(msd);
