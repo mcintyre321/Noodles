@@ -80,7 +80,9 @@ namespace Noodles
                     methodName = _objectMethod.Name + "_";
                 }
 
-                var choices = _target.GetType().GetMethod(methodName + Name + "_choices", looseBindingFlags);
+                methodName = methodName + Name + "_choices";
+                var choices = _target.GetType().GetMethod(methodName, looseBindingFlags)
+                    ?? _target.GetType().GetMethod("get_" + methodName, looseBindingFlags);
                 if (choices != null)
                 {
                     return  (IEnumerable)choices.Invoke(_target, null);
@@ -116,7 +118,9 @@ namespace Noodles
                 {
                     methodName = _objectMethod.Name + "_";
                 }
-                var suggestions = _target.GetType().GetMethod(methodName + Name + "_suggestions", looseBindingFlags);
+                methodName = methodName + Name + "_suggestions";
+                var suggestions = _target.GetType().GetMethod(methodName, looseBindingFlags)
+                    ?? _target.GetType().GetMethod("get_" + methodName, looseBindingFlags);
                 if (suggestions != null)
                 {
                     return (IEnumerable)suggestions.Invoke(_target, null);
