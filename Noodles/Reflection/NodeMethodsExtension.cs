@@ -6,6 +6,7 @@ using System.Reflection;
 namespace Noodles
 {
     public class ShowAttribute : Attribute{}
+    public class HideAttribute : Attribute { }
     public static class NodeMethodsExtension
     {
         /// <returns>
@@ -16,8 +17,9 @@ namespace Noodles
         public delegate bool? ShowMethodRule(object target, MethodInfo methodInfo);
 
         public static ShowMethodRule ShowAttributedMethods = (t, mi) => mi.GetCustomAttributes(typeof(ShowAttribute), true).Any() ? true : null as bool?;
+        public static ShowMethodRule HideHideAttributedMethods = (t, mi) => mi.GetCustomAttributes(typeof(HideAttribute), true).Any() ? false : null as bool?;
         public static ShowMethodRule HideValuesMethods = (t, mi) => mi.Name.EndsWith("_values", StringComparison.InvariantCultureIgnoreCase) ? false : null as bool?; //choices should be hidden
-        public static ShowMethodRule HideValueMethods = (t, mi) => mi.Name.EndsWith("_value", StringComparison.InvariantCultureIgnoreCase) ? false : null as bool?; //choices should be hidden
+        public static ShowMethodRule HideValueMethods = (t, mi) => mi.Name.ToLowerInvariant() != "set_value" && mi.Name.EndsWith("_value", StringComparison.InvariantCultureIgnoreCase) ? false : null as bool?; //choices should be hidden
         public static ShowMethodRule HideChoiceMethods = (t, mi) => mi.Name.EndsWith("_choices", StringComparison.InvariantCultureIgnoreCase) ? false : null as bool?; //choices should be hidden
         public static ShowMethodRule HideSuggestionsMethods = (t, mi) => mi.Name.EndsWith("_suggestions", StringComparison.InvariantCultureIgnoreCase) ? false : null as bool?; //choices should be hidden
         public static ShowMethodRule HideGetChildMethods = (t, mi) => (t is IHasChildren && mi.Name == "GetChild") ? false : null as bool?;
