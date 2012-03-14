@@ -47,10 +47,13 @@
             return true;
         }
         $.get(path, {}, function (html) {
+            var $html;
             if (transform) {
-                html = transform(html)[0].outerHTML;
+                $html = transform(html);
+            } else {
+                $html = $(html);
             }
-            $('<div>').attr("id", id).css("display", "none").html(html).appendTo($("body"));
+            $('<div>').attr("id", id).css("display", "none").append($html).appendTo($("body"));
             callback();
         });
         return true;
