@@ -28,12 +28,15 @@ namespace Noodles
         public static ShowMethodRule HidePropertyGetters = (t, mi) => mi.Name.StartsWith("get_") ? false : null as bool?;
         public static ShowMethodRule HideSystemObjectMembers = (t, mi) => mi.DeclaringType == typeof(System.Object) ? false : null as bool?;
         public static ShowMethodRule ClassLevelShowByDefault = (t, mi) => mi.DeclaringType.GetCustomAttributes(typeof(ShowAttribute), true).Any() ? true : null as bool?;
+        public static ShowMethodRule ClassLevelHideByDefault = (t, mi) => mi.DeclaringType.GetCustomAttributes(typeof(HideAttribute), true).Any() ? false : null as bool?;
+
 
         static NodeMethodsExtension()
         {
             ShowMethodRules = new List<ShowMethodRule>()
             {
                 ShowAttributedMethods,
+                HideHideAttributedMethods,
                 HideValuesMethods,
                 HideValueMethods,
                 HideChoiceMethods,
@@ -43,7 +46,8 @@ namespace Noodles
                 HideUndercoredMethods,
                 HidePropertyGetters,
                 HideSystemObjectMembers,
-                ClassLevelShowByDefault
+                ClassLevelShowByDefault,
+                ClassLevelHideByDefault,
             };
         }
 
