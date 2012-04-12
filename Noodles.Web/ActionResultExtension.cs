@@ -24,8 +24,10 @@ namespace Noodles
             
         }
 
-        public static ActionResult GetNoodleResult(this ControllerContext cc, object root, string path = null, Action<object, IObjectMethod, object[]> doInvoke = null)
+        public static ActionResult GetNoodleResult(this ControllerContext cc, object root, string path = null, Action<object, INodeAction, object[]> doInvoke = null)
         {
+            doInvoke = doInvoke ?? (DoInvoke);
+
             path = path ?? cc.RouteData.Values["path"] as string ?? "/";
             object node = null;
             try
@@ -39,29 +41,9 @@ namespace Noodles
                 throw new HttpException(404, ex.Message);
             }
 
-            doInvoke = doInvoke ?? (DoInvoke);
 
-            if (cc.HttpContext.Request.HttpMethod.ToLower() == "get" || cc.HttpContext.Request.QueryString["action"] == null)
+            if (cc.HttpContext.Request.HttpMethod.ToLower() == "get")
             {
-                if (cc.HttpContext.Request.QueryString["action"] == "getNodeMethods")
-                {
-                    using (Profiler.Step("Getting node actions"))
-                    {
-                        var result = new PartialViewResult { ViewName = @"Noodles/NodeMethods", ViewData = { Model = node } };
-                        return result;
-                    }
-                }
-                var method = node.NodeMethods().SingleOrDefault(m => cc.HttpContext.Request.QueryString["action"] == m.Name);
-
-                if (method != null)
-                {
-                    using (Profiler.Step("Getting node action"))
-                    {
-                        var result = new PartialViewResult { ViewName = @"Noodles/NodeMethod", ViewData = { Model = method } };
-                        return result;
-                    }
-                }
-
                 using (Profiler.Step("Returning view"))
                 {
                     var viewname = FormFactory.FormHelperExtension.BestViewName(cc, node.NodeType())
@@ -93,17 +75,19 @@ namespace Noodles
                         }
                     }
                     {
-                        using (Profiler.Step("Executing action " + cc.HttpContext.Request.QueryString["action"]))
+                        var action = (INodeAction)node;
+
+                        using (Profiler.Step("Executing action " + action.Name))
                         {
-                            var methodInstance = node.NodeMethods().Single(m => m.Name == cc.HttpContext.Request.QueryString["action"]);
-                            var parameters = methodInstance.Parameters.Select(pt => BindObject(cc, pt.BindingParameterType, pt.Name)).ToArray();
+
+                            var parameters = action.Parameters.Select(pt => BindObject(cc, pt.BindingParameterType, pt.Name)).ToArray();
                             var msd = cc.Controller.ViewData.ModelState;
                             if (msd.IsValid)
                             {
                                 Logger.Trace("ModelBinding successful");
                                 try
                                 {
-                                    doInvoke(node, methodInstance, parameters);
+                                    doInvoke(node, action, parameters);
                                     Logger.Trace("Invoke successful");
                                 }
                                 catch (Exception ex)
@@ -140,8 +124,8 @@ namespace Noodles
                             {
                                 var res = new PartialViewResult
                                 {
-                                    ViewName = "Noodles/NodeMethod",
-                                    ViewData = {Model = methodInstance},
+                                    ViewName = "Noodles/NodeAction",
+                                    ViewData = {Model = action},
                                 };
                                 res.ViewData.ModelState.Merge(msd);
                                 return res;
@@ -151,8 +135,8 @@ namespace Noodles
                                 Logger.Trace("Returning success");
                                 var res = new PartialViewResult
                                 {
-                                    ViewName = "Noodles/NodeMethodSuccess",
-                                    ViewData = {Model = methodInstance},
+                                    ViewName = "Noodles/NodeActionSuccess",
+                                    ViewData = {Model = action},
                                 };
 
                                 res.ViewData.ModelState.Merge(msd);
@@ -165,9 +149,9 @@ namespace Noodles
         }
 
 
-        private static void DoInvoke(object node, IObjectMethod methodInstance, object[] parameters)
+        private static void DoInvoke(object node, INodeAction nodeAction, object[] parameters)
         {
-            methodInstance.Invoke(parameters);
+            nodeAction.Invoke(parameters);
         }
 
         private static T BindObject<T>(ControllerContext cc, string name) where T : class

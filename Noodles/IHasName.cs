@@ -29,24 +29,38 @@ namespace Noodles
         string Path { get; }
     }
 
+    public delegate object ResolveParent(object child);
     public static class PathExtension
     {
+        public static ResolveParent GetParentFromInterface = o =>
+        {
+            var hasParent = o as IHasParent<object>;
+            if (hasParent != null)
+            {
+                return (hasParent).Parent;
+            }
+            return null;
+        };
+
+        public static List<ResolveParent> ParentRules = new List<ResolveParent>()
+                                                            {
+                                                                GetParentFromInterface
+                                                            };
+
+
         public static string Path(this object obj)
         {
             if (obj is IHasPath) return ((IHasPath) obj).Path;
             if (obj is IHasName)
             {
                 var node = (IHasName) obj;
-                if (node is IHasParent<object>)
+                foreach (var resolveParent in ParentRules)
                 {
-
-                    var nodeWithParent = (IHasParent<object>) node;
-                    var parent = nodeWithParent.Parent;
+                    var parent = resolveParent(node);
                     if (parent != null)
-                    {
                         return parent.Path() + node.Name + "/";
-                    }
                 }
+                
                 return "/" + node.Name + "/";
             }
             return "/";
@@ -71,13 +85,13 @@ namespace Noodles
             return path.Replace('/', '_').Replace('@', '_').Replace(".", "_").Replace(' ', '_');
         }
 
-        public static string Id(this IObjectMethod method)
+        public static string Id(this INodeAction action)
         {
-            return method.Target.Id() + "_" + method.Name;
+            return action.Target.Id() + "_" + action.Name;
         }
-        public static string Id(this ObjectMethodParameter parameter)
+        public static string Id(this NodeActionParameter parameter)
         {
-            return parameter.NodeMethod.Id() + "_" + parameter.Name;
+            return parameter.NodeAction.Id() + "_" + parameter.Name;
         }
 
     }
@@ -94,21 +108,21 @@ namespace Noodles
         }
     }
 
-    public interface IHasNodeMethods
+    public interface IHasNodeActions
     {
-        IEnumerable<IObjectMethod> NodeMethods();
+        IEnumerable<INodeAction> NodeActions();
     }
 
-    public static class NodeMethodsExtensions
+    public static class NodeActionsExtensions
     {
-        public static IEnumerable<IObjectMethod> NodeMethods(this object o)
+        public static IEnumerable<INodeAction> NodeActions(this object o)
         {
-            if (o is IHasNodeMethods) return ((IHasNodeMethods) o).NodeMethods();
-            return o.GetNodeMethodInfos();
+            if (o is IHasNodeActions) return ((IHasNodeActions) o).NodeActions();
+            return o.GetNodeActions();
         }
-        public static IObjectMethod NodeMethod(this object o, string methodName)
+        public static INodeAction NodeAction(this object o, string actionName)
         {
-            return o.NodeMethods().Single(m => m.Name == methodName);
+            return o.NodeActions().Single(m => m.Name == actionName);
         }
     }
 

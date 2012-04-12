@@ -50,12 +50,6 @@
     <Reference Include="Mvc.JQuery.Datatables, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Mvc.JQuery.Datatables.1.1.71\lib\net40\Mvc.JQuery.Datatables.dll</HintPath>
     </Reference>
-    <Reference Include="Noodles, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Noodles.1.1.180\lib\net40\Noodles.dll</HintPath>
-    </Reference>
-    <Reference Include="Noodles.Web, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Noodles.Web.1.1.180\lib\net40\Noodles.Web.dll</HintPath>
-    </Reference>
     <Reference Include="System.Data.Entity" />
     <Reference Include="System.Web.Mvc, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System.Web.WebPages, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
@@ -318,9 +312,21 @@
     <Content Include="Views\Shared\FormFactory\Form.Property.cshtml" />
     <Content Include="Views\Shared\FormFactory\Form.Property.Block.cshtml" />
     <Content Include="Views\Shared\FormFactory\Form.Actions.cshtml" />
-    <Content Include="Views\Shared\Noodles\NodeMethodSuccess.cshtml" />
-    <Content Include="Views\Shared\Noodles\NodeMethods.cshtml" />
-    <Content Include="Views\Shared\Noodles\NodeMethod.cshtml" />
+    <Content Include="Views\Shared\Noodles\NodeAction.cshtml" />
+    <Content Include="Views\Shared\Noodles\NodeActionSuccess.cshtml">
+      <LastGenOutput>Copy of NodeActionForm.generated.cs</LastGenOutput>
+    </Content>
+    <Content Include="Views\Shared\Noodles\NodeActions.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Noodles.Web\Noodles.Web.csproj">
+      <Project>{4B896492-265C-49DB-8D4B-B5F4DBBBB4E3}</Project>
+      <Name>Noodles.Web</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Noodles\Noodles.csproj">
+      <Project>{3F8BA73C-2F1C-4F24-A5D9-B3243FA6A495}</Project>
+      <Name>Noodles</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />

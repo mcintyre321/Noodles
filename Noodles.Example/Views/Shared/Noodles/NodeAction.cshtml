@@ -3,7 +3,7 @@
 @using FormFactory
 @using Noodles
 @using Noodles.Helpers
-@model IObjectMethod
+@model INodeAction
 <form action="@Model.Path()" method="post" enctype="multipart/form-data" encoding="multipart/form-data" class="@ViewBag.FormClass">
 @if (Html.HasErrors(""))
 {
@@ -22,5 +22,5 @@
     var vm = parameter.ToPropertyVm(Html);
     Html.RenderPartial("FormFactory/Form.Property", vm, ViewData);
 }
-<button class="submitMethod btn btn-primary">@Model.DisplayName</button>
+<button class="submitAction btn btn-primary">@Model.DisplayName</button>
 </form>

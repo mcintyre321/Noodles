@@ -3,27 +3,27 @@
 
     $(".popover .close").live('click', function (e) { $(this).closest(".popover").hide(); });
 
-    $(".nodeMethodsMenuLink").live('click', function (e) {
+    $(".nodeActionsMenuLink").live('click', function (e) {
         var $link = $(this);
         if (e.target != this) return false;
-        var methodsPanelId = "methods-" + $link.attr("data-nodeid");
-        if ($("#" + methodsPanelId).length == false) {
+        var actionsPanelId = "actions-" + $link.attr("data-nodeid");
+        if ($("#" + actionsPanelId).length == false) {
             ensureLazyElement(
-                methodsPanelId,
-                $link.attr("data-nodemethodspath"),
-                function () { showMethodsMenu($link); }
+                actionsPanelId,
+                $link.attr("data-nodeactionspath"),
+                function () { showActionsMenu($link); }
             );
         }
         return false;
     });
 
     function modalHtml() {
-        return '<div class="modal objectMethod" id="myModal"><div class="modal-header"><a class="close" data-dismiss="modal">×</a><h3 class="title"></h3></div><div class="modal-body"></div><div class="modal-footer"></div></div>';
+        return '<div class="modal objectAction" id="myModal"><div class="modal-header"><a class="close" data-dismiss="modal">×</a><h3 class="title"></h3></div><div class="modal-body"></div><div class="modal-footer"></div></div>';
     }
 
-    var showMethodsMenu = function ($link) {
-        var methodsNodeId = "methods-" + $link.attr("data-nodeid");
-        $link.attr("data-content", $("#" + methodsNodeId).html());
+    var showActionsMenu = function ($link) {
+        var actionsNodeId = "actions-" + $link.attr("data-nodeid");
+        $link.attr("data-content", $("#" + actionsNodeId).html());
         $link.popover({
             trigger: "manual",
             placement: ($link.offset().left > ($(window).width() / 2)) ? "left" : "right",
@@ -59,17 +59,17 @@
         return true;
     }
 
-    $(".nodeMethodLink").live('click', function (e) {
+    $(".nodeActionLink").live('click', function (e) {
         e.preventDefault();
         var $link = $(this);
         $link.closest(".popover").hide();
         if (e.target != this) return false;
-        var methodsPanelId = "method-" + $link.attr("data-nodeid");
-        if ($("#" + methodsPanelId).length == false) {
+        var actionsPanelId = "action-" + $link.attr("data-nodeid");
+        if ($("#" + actionsPanelId).length == false) {
             ensureLazyElement(
-                methodsPanelId,
+                actionsPanelId,
                 $link.attr("data-nodepath"),
-                function () { showMethodForm($link); },
+                function () { showActionForm($link); },
                 function (body) {
                     var $formHtml = $(body);
                     var $modal = $(modalHtml());
@@ -79,21 +79,21 @@
                     return $modal;
                 });
         } else {
-            showMethodForm($link);
+            showActionForm($link);
         }
         return false;
     });
-    var showMethodForm = function ($link) {
+    var showActionForm = function ($link) {
 
         //var panelId = $(this).attr("id") + "panel";
-        var methodsPanelId = "method-" + $link.attr("data-nodeid");
-        $("#" + methodsPanelId).modal({ show: true, backdrop: true });
-        $("#" + methodsPanelId + " :input:visible:enabled:first").focus();
+        var actionsPanelId = "action-" + $link.attr("data-nodeid");
+        $("#" + actionsPanelId).modal({ show: true, backdrop: true });
+        $("#" + actionsPanelId + " :input:visible:enabled:first").focus();
     };
 
-    $(".submitMethod").live('click', function (e) {
+    $(".submitAction").live('click', function (e) {
 
-        var $container = $(this).closest(".objectMethod");
+        var $container = $(this).closest(".objectAction");
         var $form = $container.find("form");
         var ajaxOptions = {
             url: $form.attr('action'),
