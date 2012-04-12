@@ -53,7 +53,7 @@ namespace Noodles.Web.Helpers
     public static class NoodlesHelper
     {
 
-public static System.Web.WebPages.HelperResult NodeActionsDropdown(object obj)
+public static System.Web.WebPages.HelperResult NodeMethodsDropdown(object obj)
     {
 return new System.Web.WebPages.HelperResult(__razor_helper_writer => {
 
@@ -66,7 +66,7 @@ return new System.Web.WebPages.HelperResult(__razor_helper_writer => {
 
 
 #line 7 "..\..\Helpers\NoodlesHelper.cshtml"
-WebViewPage.WriteTo(@__razor_helper_writer, NodeActionsDropdown(obj, null));
+WebViewPage.WriteTo(@__razor_helper_writer, NodeMethodsDropdown(obj, null));
 
 #line default
 #line hidden
@@ -82,7 +82,7 @@ WebViewPage.WriteTo(@__razor_helper_writer, NodeActionsDropdown(obj, null));
                                       }
 
 
-public static System.Web.WebPages.HelperResult NodeActionsDropdown(object obj, string additionalClasses)
+public static System.Web.WebPages.HelperResult NodeMethodsDropdown(object obj, string additionalClasses)
     {
 return new System.Web.WebPages.HelperResult(__razor_helper_writer => {
 
@@ -90,7 +90,7 @@ return new System.Web.WebPages.HelperResult(__razor_helper_writer => {
 
 #line 9 "..\..\Helpers\NoodlesHelper.cshtml"
      
-    if (obj.NodeActions().Any())
+    if (obj.NodeMethods().Any())
     {
     
 #line default
@@ -98,7 +98,7 @@ return new System.Web.WebPages.HelperResult(__razor_helper_writer => {
 
 
 #line 12 "..\..\Helpers\NoodlesHelper.cshtml"
-WebViewPage.WriteTo(@__razor_helper_writer, BootstrapHelper.DropdownLinksButton("Actions",
+WebViewPage.WriteTo(@__razor_helper_writer, BootstrapHelper.DropdownLinksButton("Methods",
 item => new System.Web.WebPages.HelperResult(__razor_template_writer => {
 
 #line default
@@ -112,7 +112,7 @@ WebViewPage.WriteLiteralTo(@__razor_template_writer, "\n");
 
 
 #line 14 "..\..\Helpers\NoodlesHelper.cshtml"
-     foreach (var action in obj.NodeActions())
+     foreach (var method in obj.NodeMethods())
     {
         
 #line default
@@ -120,7 +120,7 @@ WebViewPage.WriteLiteralTo(@__razor_template_writer, "\n");
 
 
 #line 16 "..\..\Helpers\NoodlesHelper.cshtml"
-WebViewPage.WriteTo(@__razor_template_writer, NodeActionLink(action));
+WebViewPage.WriteTo(@__razor_template_writer, NodeMethodLink(method));
 
 #line default
 #line hidden
@@ -156,7 +156,7 @@ WebViewPage.WriteLiteralTo(@__razor_template_writer, "    ");
 }
 
 
-public static System.Web.WebPages.HelperResult NodeActionsMenuLink(object obj)
+public static System.Web.WebPages.HelperResult NodeMethodsMenuLink(object obj)
     {
 return new System.Web.WebPages.HelperResult(__razor_helper_writer => {
 
@@ -169,7 +169,7 @@ return new System.Web.WebPages.HelperResult(__razor_helper_writer => {
 
 
 #line 22 "..\..\Helpers\NoodlesHelper.cshtml"
-WebViewPage.WriteTo(@__razor_helper_writer, NodeActionsMenuLink(obj, null));
+WebViewPage.WriteTo(@__razor_helper_writer, NodeMethodsMenuLink(obj, null));
 
 #line default
 #line hidden
@@ -185,7 +185,7 @@ WebViewPage.WriteTo(@__razor_helper_writer, NodeActionsMenuLink(obj, null));
                                       }
 
 
-public static System.Web.WebPages.HelperResult NodeActionsMenuLink(object obj, string additionalClasses)
+public static System.Web.WebPages.HelperResult NodeMethodsMenuLink(object obj, string additionalClasses)
     {
 return new System.Web.WebPages.HelperResult(__razor_helper_writer => {
 
@@ -193,13 +193,13 @@ return new System.Web.WebPages.HelperResult(__razor_helper_writer => {
 
 #line 24 "..\..\Helpers\NoodlesHelper.cshtml"
      
-    if (obj.NodeActions().Any())
+    if (obj.NodeMethods().Any())
     {
 
 #line default
 #line hidden
 
-WebViewPage.WriteLiteralTo(@__razor_helper_writer, "    <a class=\"nodeActionsMenuLink ");
+WebViewPage.WriteLiteralTo(@__razor_helper_writer, "    <a class=\"nodeMethodsMenuLink ");
 
 
 
@@ -209,7 +209,7 @@ WebViewPage.WriteTo(@__razor_helper_writer, additionalClasses ?? "");
 #line default
 #line hidden
 
-WebViewPage.WriteLiteralTo(@__razor_helper_writer, "\" href=\"#show actions\" data-nodeid=\"");
+WebViewPage.WriteLiteralTo(@__razor_helper_writer, "\" href=\"#show methods\" data-nodeid=\"");
 
 
 
@@ -219,7 +219,7 @@ WebViewPage.WriteLiteralTo(@__razor_helper_writer, "\" href=\"#show actions\" da
 #line default
 #line hidden
 
-WebViewPage.WriteLiteralTo(@__razor_helper_writer, "\" data-nodeactionspath=\"");
+WebViewPage.WriteLiteralTo(@__razor_helper_writer, "\" data-nodemethodspath=\"");
 
 
 
@@ -229,7 +229,7 @@ WebViewPage.WriteLiteralTo(@__razor_helper_writer, "\" data-nodeactionspath=\"")
 #line default
 #line hidden
 
-WebViewPage.WriteLiteralTo(@__razor_helper_writer, "?action=getNodeActions\">Actions</a>\n");
+WebViewPage.WriteLiteralTo(@__razor_helper_writer, "?method=getNodeMethods\">Methods</a>\n");
 
 
 
@@ -244,7 +244,7 @@ WebViewPage.WriteLiteralTo(@__razor_helper_writer, "?action=getNodeActions\">Act
 }
 
 
-public static System.Web.WebPages.HelperResult NodeActionLink(INodeAction action)
+public static System.Web.WebPages.HelperResult NodeMethodLink(INodeMethod method)
     {
 return new System.Web.WebPages.HelperResult(__razor_helper_writer => {
 
@@ -257,7 +257,7 @@ return new System.Web.WebPages.HelperResult(__razor_helper_writer => {
 
 
 #line 31 "..\..\Helpers\NoodlesHelper.cshtml"
-WebViewPage.WriteTo(@__razor_helper_writer, NodeActionLink(action, null));
+WebViewPage.WriteTo(@__razor_helper_writer, NodeMethodLink(method, null));
 
 #line default
 #line hidden
@@ -273,7 +273,7 @@ WebViewPage.WriteTo(@__razor_helper_writer, NodeActionLink(action, null));
                                    }
 
 
-public static System.Web.WebPages.HelperResult NodeActionLink(INodeAction action, string additionalClasses)
+public static System.Web.WebPages.HelperResult NodeMethodLink(INodeMethod method, string additionalClasses)
     {
 return new System.Web.WebPages.HelperResult(__razor_helper_writer => {
 
@@ -285,7 +285,7 @@ return new System.Web.WebPages.HelperResult(__razor_helper_writer => {
 #line default
 #line hidden
 
-WebViewPage.WriteLiteralTo(@__razor_helper_writer, "    <a class=\"nodeActionLink ");
+WebViewPage.WriteLiteralTo(@__razor_helper_writer, "    <a class=\"nodeMethodLink ");
 
 
 
@@ -300,7 +300,7 @@ WebViewPage.WriteLiteralTo(@__razor_helper_writer, "\" href=\"#");
 
 
 #line 34 "..\..\Helpers\NoodlesHelper.cshtml"
-                     WebViewPage.WriteTo(@__razor_helper_writer, action.Name);
+                     WebViewPage.WriteTo(@__razor_helper_writer, method.Name);
 
 #line default
 #line hidden
@@ -310,7 +310,7 @@ WebViewPage.WriteLiteralTo(@__razor_helper_writer, "\" data-nodeid=\"");
 
 
 #line 34 "..\..\Helpers\NoodlesHelper.cshtml"
-                                                WebViewPage.WriteTo(@__razor_helper_writer, action.Id());
+                                                WebViewPage.WriteTo(@__razor_helper_writer, method.Id());
 
 #line default
 #line hidden
@@ -320,7 +320,7 @@ WebViewPage.WriteLiteralTo(@__razor_helper_writer, "\" data-nodepath=\"");
 
 
 #line 34 "..\..\Helpers\NoodlesHelper.cshtml"
-                                                                             WebViewPage.WriteTo(@__razor_helper_writer, action.Path());
+                                                                             WebViewPage.WriteTo(@__razor_helper_writer, method.Path());
 
 #line default
 #line hidden
@@ -330,7 +330,7 @@ WebViewPage.WriteLiteralTo(@__razor_helper_writer, "\">");
 
 
 #line 34 "..\..\Helpers\NoodlesHelper.cshtml"
-                                                                                             WebViewPage.WriteTo(@__razor_helper_writer, action.DisplayName);
+                                                                                             WebViewPage.WriteTo(@__razor_helper_writer, method.DisplayName);
 
 #line default
 #line hidden
@@ -349,7 +349,7 @@ WebViewPage.WriteLiteralTo(@__razor_helper_writer, "</a>\n");
 }
 
 
-public static System.Web.WebPages.HelperResult NodeActionForm(System.Web.Mvc.HtmlHelper html, INodeAction action, string formClass)
+public static System.Web.WebPages.HelperResult NodeMethodForm(System.Web.Mvc.HtmlHelper html, INodeMethod method, string formClass)
     {
 return new System.Web.WebPages.HelperResult(__razor_helper_writer => {
 
@@ -361,12 +361,12 @@ return new System.Web.WebPages.HelperResult(__razor_helper_writer => {
 #line default
 #line hidden
 
-WebViewPage.WriteLiteralTo(@__razor_helper_writer, "    <div class=\"objectAction\">\n        ");
+WebViewPage.WriteLiteralTo(@__razor_helper_writer, "    <div class=\"objectMethod\">\n        ");
 
 
 
 #line 39 "..\..\Helpers\NoodlesHelper.cshtml"
-WebViewPage.WriteTo(@__razor_helper_writer, html.Partial("Noodles/NodeAction", action, new ViewDataDictionary { { "FormClass", formClass ?? "" } }));
+WebViewPage.WriteTo(@__razor_helper_writer, html.Partial("Noodles/NodeMethod", method, new ViewDataDictionary { { "FormClass", formClass ?? "" } }));
 
 #line default
 #line hidden
@@ -385,7 +385,7 @@ WebViewPage.WriteLiteralTo(@__razor_helper_writer, "\n    </div>\n");
 }
 
 
-public static System.Web.WebPages.HelperResult NodeActionForm(System.Web.Mvc.HtmlHelper html, INodeAction action, string formClass, ViewDataDictionary dict)
+public static System.Web.WebPages.HelperResult NodeMethodForm(System.Web.Mvc.HtmlHelper html, INodeMethod method, string formClass, ViewDataDictionary dict)
     {
 return new System.Web.WebPages.HelperResult(__razor_helper_writer => {
 
@@ -401,7 +401,7 @@ return new System.Web.WebPages.HelperResult(__razor_helper_writer => {
 
 
 #line 46 "..\..\Helpers\NoodlesHelper.cshtml"
-WebViewPage.WriteTo(@__razor_helper_writer, NodeActionForm(html, action, dict));
+WebViewPage.WriteTo(@__razor_helper_writer, NodeMethodForm(html, method, dict));
 
 #line default
 #line hidden
@@ -418,7 +418,7 @@ WebViewPage.WriteTo(@__razor_helper_writer, NodeActionForm(html, action, dict));
 }
 
 
-public static System.Web.WebPages.HelperResult NodeActionForm(System.Web.Mvc.HtmlHelper html, INodeAction action, ViewDataDictionary dict)
+public static System.Web.WebPages.HelperResult NodeMethodForm(System.Web.Mvc.HtmlHelper html, INodeMethod method, ViewDataDictionary dict)
     {
 return new System.Web.WebPages.HelperResult(__razor_helper_writer => {
 
@@ -431,12 +431,12 @@ return new System.Web.WebPages.HelperResult(__razor_helper_writer => {
 #line default
 #line hidden
 
-WebViewPage.WriteLiteralTo(@__razor_helper_writer, "    <div class=\"objectAction\">\n        ");
+WebViewPage.WriteLiteralTo(@__razor_helper_writer, "    <div class=\"objectMethod\">\n        ");
 
 
 
 #line 52 "..\..\Helpers\NoodlesHelper.cshtml"
-WebViewPage.WriteTo(@__razor_helper_writer, html.Partial("Noodles/NodeAction", action, dict));
+WebViewPage.WriteTo(@__razor_helper_writer, html.Partial("Noodles/NodeMethod", method, dict));
 
 #line default
 #line hidden
@@ -455,7 +455,7 @@ WebViewPage.WriteLiteralTo(@__razor_helper_writer, "\n    </div>\n");
 }
 
 
-public static System.Web.WebPages.HelperResult NodeActionFormInline(System.Web.Mvc.HtmlHelper html, INodeAction action)
+public static System.Web.WebPages.HelperResult NodeMethodFormInline(System.Web.Mvc.HtmlHelper html, INodeMethod method)
     {
 return new System.Web.WebPages.HelperResult(__razor_helper_writer => {
 
@@ -469,7 +469,7 @@ return new System.Web.WebPages.HelperResult(__razor_helper_writer => {
 
 
 #line 57 "..\..\Helpers\NoodlesHelper.cshtml"
-WebViewPage.WriteTo(@__razor_helper_writer, NodeActionFormInline(html, action, new ViewDataDictionary()));
+WebViewPage.WriteTo(@__razor_helper_writer, NodeMethodFormInline(html, method, new ViewDataDictionary()));
 
 #line default
 #line hidden
@@ -486,7 +486,7 @@ WebViewPage.WriteTo(@__razor_helper_writer, NodeActionFormInline(html, action, n
 }
 
 
-public static System.Web.WebPages.HelperResult NodeActionFormInline(System.Web.Mvc.HtmlHelper html, INodeAction action, ViewDataDictionary viewData)
+public static System.Web.WebPages.HelperResult NodeMethodFormInline(System.Web.Mvc.HtmlHelper html, INodeMethod method, ViewDataDictionary viewData)
     {
 return new System.Web.WebPages.HelperResult(__razor_helper_writer => {
 
@@ -502,7 +502,7 @@ return new System.Web.WebPages.HelperResult(__razor_helper_writer => {
 
 
 #line 63 "..\..\Helpers\NoodlesHelper.cshtml"
-WebViewPage.WriteTo(@__razor_helper_writer, NodeActionForm(html, action, "form-inline", viewData));
+WebViewPage.WriteTo(@__razor_helper_writer, NodeMethodForm(html, method, "form-inline", viewData));
 
 #line default
 #line hidden

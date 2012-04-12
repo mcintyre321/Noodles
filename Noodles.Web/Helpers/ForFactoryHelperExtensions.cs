@@ -6,7 +6,7 @@ namespace Noodles.Helpers
 {
     public static class ForFactoryHelperExtensions
     {
-        public static PropertyVm ToPropertyVm(this NodeActionParameter parameter, HtmlHelper Html)
+        public static PropertyVm ToPropertyVm(this NodeMethodParameter parameter, HtmlHelper Html)
         {
              return new PropertyVm(Html, parameter.ParameterType, parameter.Name, parameter.Id(), parameter.DisplayName)
             {

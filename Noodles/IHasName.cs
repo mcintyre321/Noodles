@@ -85,13 +85,13 @@ namespace Noodles
             return path.Replace('/', '_').Replace('@', '_').Replace(".", "_").Replace(' ', '_');
         }
 
-        public static string Id(this INodeAction action)
+        public static string Id(this INodeMethod method)
         {
-            return action.Target.Id() + "_" + action.Name;
+            return method.Target.Id() + "_" + method.Name;
         }
-        public static string Id(this NodeActionParameter parameter)
+        public static string Id(this NodeMethodParameter parameter)
         {
-            return parameter.NodeAction.Id() + "_" + parameter.Name;
+            return parameter.NodeMethod.Id() + "_" + parameter.Name;
         }
 
     }
@@ -108,21 +108,21 @@ namespace Noodles
         }
     }
 
-    public interface IHasNodeActions
+    public interface IHasNodeMethods
     {
-        IEnumerable<INodeAction> NodeActions();
+        IEnumerable<INodeMethod> NodeMethods();
     }
 
-    public static class NodeActionsExtensions
+    public static class NodeMethodsExtensions
     {
-        public static IEnumerable<INodeAction> NodeActions(this object o)
+        public static IEnumerable<INodeMethod> NodeMethods(this object o)
         {
-            if (o is IHasNodeActions) return ((IHasNodeActions) o).NodeActions();
-            return o.GetNodeActions();
+            if (o is IHasNodeMethods) return ((IHasNodeMethods) o).NodeMethods();
+            return o.GetNodeMethods();
         }
-        public static INodeAction NodeAction(this object o, string actionName)
+        public static INodeMethod NodeMethod(this object o, string methodName)
         {
-            return o.NodeActions().Single(m => m.Name == actionName);
+            return o.NodeMethods().Single(m => m.Name == methodName);
         }
     }
 

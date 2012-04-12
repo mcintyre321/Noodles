@@ -9,11 +9,11 @@ namespace Noodles
 {
     public delegate Func<object> ResolveResult(IHasName root, ParameterInfo parameter, object stored);
     [DebuggerDisplay("{ToString()} - Name={Name}")]
-    public class NodeAction : INodeAction
+    public class NodeMethod : INodeMethod
     {
         private readonly MethodInfo _methodInfo;
 
-        public NodeAction(object behaviour, MethodInfo methodInfo)
+        public NodeMethod(object behaviour, MethodInfo methodInfo)
         {
             _methodInfo = methodInfo;
             Target = behaviour;
@@ -51,9 +51,9 @@ namespace Noodles
         private string _displayName;
 
 
-        private IEnumerable<NodeActionParameter> _parameters;
+        private IEnumerable<NodeMethodParameter> _parameters;
 
-        public IEnumerable<NodeActionParameter> Parameters
+        public IEnumerable<NodeMethodParameter> Parameters
         {
             get
             {
@@ -61,9 +61,9 @@ namespace Noodles
             }
         }
 
-        private IEnumerable<NodeActionParameter> LoadParameters()
+        private IEnumerable<NodeMethodParameter> LoadParameters()
         {
-            var parameters = _methodInfo.GetParameters().Select(p => new NodeActionParameter(this, Target, _methodInfo, p)).ToArray();
+            var parameters = _methodInfo.GetParameters().Select(p => new NodeMethodParameter(this, Target, _methodInfo, p)).ToArray();
             var methodName = this._methodInfo.Name.StartsWith("set_")
                                  ? _methodInfo.Name.Substring(4)
                                  : _methodInfo.Name;

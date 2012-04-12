@@ -198,7 +198,7 @@
     <None Include="Views\Web.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Shared\Noodles\NodeAction.cshtml" />
+    <Content Include="Views\Shared\Noodles\NodeMethod.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -215,10 +215,10 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Shared\Noodles\NodeActions.cshtml" />
+    <Content Include="Views\Shared\Noodles\NodeMethods.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Shared\Noodles\NodeActionSuccess.cshtml">
+    <Content Include="Views\Shared\Noodles\NodeMethodSuccess.cshtml">
       <LastGenOutput>Copy of NodeActionForm.generated.cs</LastGenOutput>
     </Content>
   </ItemGroup>

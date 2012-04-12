@@ -5,27 +5,27 @@ using System.Reflection;
 
 namespace Noodles
 {
-    public class NodeActions : IHasChildren , IEnumerable<INodeAction>
+    public class NodeMethods : IHasChildren , IEnumerable<INodeMethod>
     {
         public object Node { get; private set; }
 
-        public NodeActions(object node)
+        public NodeMethods(object node)
         {
             Node = node;
         }
 
         public object GetChild(string name)
         {
-            return Node.NodeActions().SingleOrDefault(nm => nm.Name == name);
+            return Node.NodeMethods().SingleOrDefault(nm => nm.Name == name);
         }
 
-        public IEnumerator<INodeAction> GetEnumerator()
+        public IEnumerator<INodeMethod> GetEnumerator()
         {
             var methods = Node.GetType().GetMethods(BindingFlags.Public | BindingFlags.Instance | BindingFlags.FlattenHierarchy).ToArray();
             var filteredMethods = methods
-                .Where(mi => NodeActionsRuleRegistry.ShowActionRules.Select(mf => mf(Node, mi)).FirstOrDefault(
-                    show => show != null) ?? NodeActionsRuleRegistry.ShowByDefault)
-                .Select(mi => new NodeAction(Node, mi));
+                .Where(mi => NodeMethodsRuleRegistry.ShowMethodRules.Select(mf => mf(Node, mi)).FirstOrDefault(
+                    show => show != null) ?? NodeMethodsRuleRegistry.ShowByDefault)
+                .Select(mi => new NodeMethod(Node, mi));
             return filteredMethods.GetEnumerator();
         }
 

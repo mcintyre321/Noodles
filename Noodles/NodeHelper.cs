@@ -15,7 +15,7 @@ namespace Noodles
             {
                 if (part == "actions")
                 {
-                    node = new NodeActions(node);
+                    node = new NodeMethods(node);
                     yield return node;
                 }
                 else

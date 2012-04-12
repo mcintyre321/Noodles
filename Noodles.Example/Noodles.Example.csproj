@@ -312,11 +312,11 @@
     <Content Include="Views\Shared\FormFactory\Form.Property.cshtml" />
     <Content Include="Views\Shared\FormFactory\Form.Property.Block.cshtml" />
     <Content Include="Views\Shared\FormFactory\Form.Actions.cshtml" />
-    <Content Include="Views\Shared\Noodles\NodeAction.cshtml" />
-    <Content Include="Views\Shared\Noodles\NodeActionSuccess.cshtml">
+    <Content Include="Views\Shared\Noodles\NodeMethod.cshtml" />
+    <Content Include="Views\Shared\Noodles\NodeMethodSuccess.cshtml">
       <LastGenOutput>Copy of NodeActionForm.generated.cs</LastGenOutput>
     </Content>
-    <Content Include="Views\Shared\Noodles\NodeActions.cshtml" />
+    <Content Include="Views\Shared\Noodles\NodeMethods.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Noodles.Web\Noodles.Web.csproj">

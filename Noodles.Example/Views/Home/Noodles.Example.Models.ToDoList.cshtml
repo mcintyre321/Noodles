@@ -15,9 +15,9 @@
 <h2>ToDoList</h2>
 <div class="row">
     <div class="span3">
-        @foreach (var action in Model.NodeActions().Where(m => m.Name != "AddTask"))
+        @foreach (var method in Model.NodeMethods().Where(m => m.Name != "AddTask"))
         {
-            <div>@NoodlesHelper.NodeActionLink(action, "btn btn-primary")</div>
+            <div>@NoodlesHelper.NodeMethodLink(method, "btn btn-primary")</div>
         }
     </div>
     <div class="span9">
@@ -26,16 +26,16 @@
         {
             <a href="@t.Path()">@t.Text</a>    
         }
-        @helper Actions(object o)
+        @helper Methods(object o)
         {
-            foreach (var action in o.NodeActions())
+            foreach (var method in o.NodeMethods())
             {
-                @NoodlesHelper.NodeActionLink(action)
+                @NoodlesHelper.NodeMethodLink(method)
             }
         }
-        @NoodlesHelper.NodeActionForm(Html, Model.NodeActions().Single(m => m.Name == "AddTask"), "form-inline", new ViewDataDictionary(){{"Inline", true}})
+        @NoodlesHelper.NodeMethodForm(Html, Model.NodeMethods().Single(m => m.Name == "AddTask"), "form-inline", new ViewDataDictionary(){{"Inline", true}})
         <br/>
-        @Html.Partial("DataTable", Html.DataTableVmFor(() => Model.Tasks, t => new { Task = Task(t).ToHtmlString(), t.Status, Actions = NoodlesHelper.NodeActionsDropdown(t).ToHtmlString() }))
+        @Html.Partial("DataTable", Html.DataTableVmFor(() => Model.Tasks, t => new { Task = Task(t).ToHtmlString(), t.Status, Actions = NoodlesHelper.NodeMethodsDropdown(t).ToHtmlString() }))
         <br />
         <h4>Users</h4>
         @Html.Partial("DataTable", Html.DataTableVmFor(() => Model.Users, u => new { Email = MailToLink(u.Email).ToHtmlString(), u.Name }))

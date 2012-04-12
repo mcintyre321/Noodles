@@ -2,11 +2,11 @@
 @using System.Linq
 @using Noodles.Helpers
 @using Noodles.Web.Helpers
-@model NodeActions
+@model NodeMethods
 @if (Model.Any())
 {
     foreach (var nodeMethod in Model)
     {
-        @NoodlesHelper.NodeActionLink(nodeMethod)
+        @NoodlesHelper.NodeMethodLink(nodeMethod)
     }
 }

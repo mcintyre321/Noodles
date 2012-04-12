@@ -3,62 +3,62 @@
 @using System.Web.Mvc.Html
 @using Noodles
 @using Noodles.Helpers
-@helper NodeActionsDropdown(object obj)
-    { @NodeActionsDropdown(obj, null) }
-@helper NodeActionsDropdown(object obj, string additionalClasses)
+@helper NodeMethodsDropdown(object obj)
+    { @NodeMethodsDropdown(obj, null) }
+@helper NodeMethodsDropdown(object obj, string additionalClasses)
     {
-    if (obj.NodeActions().Any())
+    if (obj.NodeMethods().Any())
     {
-    @BootstrapHelper.DropdownLinksButton("Actions",
+    @BootstrapHelper.DropdownLinksButton("Methods",
             @<text>
-    @foreach (var action in obj.NodeActions())
+    @foreach (var method in obj.NodeMethods())
     {
-        @NodeActionLink(action)
+        @NodeMethodLink(method)
     }
     </text>, additionalClasses)
     }
 }
-@helper NodeActionsMenuLink(object obj)
-    { @NodeActionsMenuLink(obj, null) }
-@helper NodeActionsMenuLink(object obj, string additionalClasses)
+@helper NodeMethodsMenuLink(object obj)
+    { @NodeMethodsMenuLink(obj, null) }
+@helper NodeMethodsMenuLink(object obj, string additionalClasses)
     {
-    if (obj.NodeActions().Any())
+    if (obj.NodeMethods().Any())
     {
-    <a class="nodeActionsMenuLink @(additionalClasses ?? "")" href="#show actions" data-nodeid="@obj.Id()" data-nodeactionspath="@obj.Path()?action=getNodeActions">Actions</a>
+    <a class="nodeMethodsMenuLink @(additionalClasses ?? "")" href="#show methods" data-nodeid="@obj.Id()" data-nodemethodspath="@obj.Path()?method=getNodeMethods">Methods</a>
     }
 }
-@helper NodeActionLink(INodeAction action)
-    { @NodeActionLink(action, null)}
-@helper NodeActionLink(INodeAction action, string additionalClasses)
+@helper NodeMethodLink(INodeMethod method)
+    { @NodeMethodLink(method, null)}
+@helper NodeMethodLink(INodeMethod method, string additionalClasses)
     {
-    <a class="nodeActionLink @(additionalClasses ?? "")" href="#@action.Name" data-nodeid="@action.Id()" data-nodepath="@action.Path()">@action.DisplayName</a>
+    <a class="nodeMethodLink @(additionalClasses ?? "")" href="#@method.Name" data-nodeid="@method.Id()" data-nodepath="@method.Path()">@method.DisplayName</a>
 }
-@helper NodeActionForm(System.Web.Mvc.HtmlHelper html, INodeAction action, string formClass)
+@helper NodeMethodForm(System.Web.Mvc.HtmlHelper html, INodeMethod method, string formClass)
     {
-    <div class="objectAction">
-        @html.Partial("Noodles/NodeAction", action, new ViewDataDictionary { { "FormClass", formClass ?? "" } })
+    <div class="objectMethod">
+        @html.Partial("Noodles/NodeMethod", method, new ViewDataDictionary { { "FormClass", formClass ?? "" } })
     </div>
 }
-@helper NodeActionForm(System.Web.Mvc.HtmlHelper html, INodeAction action, string formClass, ViewDataDictionary dict)
+@helper NodeMethodForm(System.Web.Mvc.HtmlHelper html, INodeMethod method, string formClass, ViewDataDictionary dict)
     {
     dict = dict ?? new ViewDataDictionary();
     dict["FormClass"] = formClass;
-    @NodeActionForm(html, action, dict)
+    @NodeMethodForm(html, method, dict)
 }
-@helper NodeActionForm(System.Web.Mvc.HtmlHelper html, INodeAction action, ViewDataDictionary dict)
+@helper NodeMethodForm(System.Web.Mvc.HtmlHelper html, INodeMethod method, ViewDataDictionary dict)
     {
     dict = dict ?? new ViewDataDictionary();
-    <div class="objectAction">
-        @html.Partial("Noodles/NodeAction", action, dict)
+    <div class="objectMethod">
+        @html.Partial("Noodles/NodeMethod", method, dict)
     </div>
 }
-@helper NodeActionFormInline(System.Web.Mvc.HtmlHelper html, INodeAction action)
+@helper NodeMethodFormInline(System.Web.Mvc.HtmlHelper html, INodeMethod method)
     {
-    @NodeActionFormInline(html, action, new ViewDataDictionary())
+    @NodeMethodFormInline(html, method, new ViewDataDictionary())
 }
-@helper NodeActionFormInline(System.Web.Mvc.HtmlHelper html, INodeAction action, ViewDataDictionary viewData)
+@helper NodeMethodFormInline(System.Web.Mvc.HtmlHelper html, INodeMethod method, ViewDataDictionary viewData)
     {
     viewData = viewData ?? new ViewDataDictionary();
     viewData.Add("Inline", true);
-    @NodeActionForm(html, action, "form-inline", viewData)
+    @NodeMethodForm(html, method, "form-inline", viewData)
 }
