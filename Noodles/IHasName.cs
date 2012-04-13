@@ -122,7 +122,7 @@ namespace Noodles
         }
         public static INodeMethod NodeMethod(this object o, string methodName)
         {
-            return o.NodeMethods().Single(m => m.Name == methodName);
+            return o.NodeMethods().SingleOrDefault(m => m.Name == methodName);
         }
     }
 
