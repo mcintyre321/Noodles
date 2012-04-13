@@ -5,7 +5,7 @@ using System.Reflection;
 
 namespace Noodles
 {
-    public class NodeMethods : IHasChildren , IEnumerable<INodeMethod>
+    public class NodeMethods : IHasChildren, IEnumerable<INodeMethod>
     {
         public object Node { get; private set; }
 

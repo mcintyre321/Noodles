@@ -46,10 +46,18 @@ namespace Noodles
             {
                 using (Profiler.Step("Returning view"))
                 {
-                    var viewname = FormFactory.FormHelperExtension.BestViewName(cc, node.NodeType())
-                                   ??
+                    var viewname = typeof(INodeMethod).IsAssignableFrom(node.NodeType()) ? "Noodles/NodeMethod" :
+                                   typeof(NodeMethods).IsAssignableFrom(node.NodeType()) ? "Noodles/NodeMethods" :
+                                   FormFactory.FormHelperExtension.BestViewName(cc, node.NodeType()) ??
                                    FormFactory.FormHelperExtension.BestViewName(cc, node.NodeType(), null, t => t.Name);
+
                     var vr = new ViewResult { ViewName = viewname, ViewData = cc.Controller.ViewData };
+                    if (cc.HttpContext.Request.IsAjaxRequest())
+                    {
+                        vr.MasterName = "Noodles/_AjaxLayout";
+                        
+                    }
+
                     vr.ViewData.Model = node;
                     return vr;
                 }

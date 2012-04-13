@@ -317,6 +317,7 @@
       <LastGenOutput>Copy of NodeActionForm.generated.cs</LastGenOutput>
     </Content>
     <Content Include="Views\Shared\Noodles\NodeMethods.cshtml" />
+    <Content Include="Views\Shared\Noodles\_AjaxLayout.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Noodles.Web\Noodles.Web.csproj">
