@@ -9,7 +9,7 @@
     {
     if (obj.NodeMethods().Any())
     {
-    @BootstrapHelper.DropdownLinksButton("Actions",
+    @BootstrapHelper.DropdownLinksButton("Methods",
             @<text>
     @foreach (var method in obj.NodeMethods())
     {
@@ -24,39 +24,39 @@
     {
     if (obj.NodeMethods().Any())
     {
-    <a class="nodeMethodsMenuLink @(additionalClasses ?? "")" href="#show actions" data-nodeid="@obj.Id()" data-nodemethodspath="@obj.Path()?action=getNodeMethods">Actions</a>
+    <a class="nodeMethodsMenuLink @(additionalClasses ?? "")" href="#show methods" data-nodeid="@obj.Id()" data-nodemethodspath="@obj.Path()?method=getNodeMethods">Methods</a>
     }
 }
-@helper NodeMethodLink(IObjectMethod method)
+@helper NodeMethodLink(INodeMethod method)
     { @NodeMethodLink(method, null)}
-@helper NodeMethodLink(IObjectMethod method, string additionalClasses)
+@helper NodeMethodLink(INodeMethod method, string additionalClasses)
     {
     <a class="nodeMethodLink @(additionalClasses ?? "")" href="#@method.Name" data-nodeid="@method.Id()" data-nodepath="@method.Path()">@method.DisplayName</a>
 }
-@helper NodeMethodForm(System.Web.Mvc.HtmlHelper html, IObjectMethod method, string formClass)
+@helper NodeMethodForm(System.Web.Mvc.HtmlHelper html, INodeMethod method, string formClass)
     {
     <div class="objectMethod">
         @html.Partial("Noodles/NodeMethod", method, new ViewDataDictionary { { "FormClass", formClass ?? "" } })
     </div>
 }
-@helper NodeMethodForm(System.Web.Mvc.HtmlHelper html, IObjectMethod method, string formClass, ViewDataDictionary dict)
+@helper NodeMethodForm(System.Web.Mvc.HtmlHelper html, INodeMethod method, string formClass, ViewDataDictionary dict)
     {
     dict = dict ?? new ViewDataDictionary();
     dict["FormClass"] = formClass;
     @NodeMethodForm(html, method, dict)
 }
-@helper NodeMethodForm(System.Web.Mvc.HtmlHelper html, IObjectMethod method, ViewDataDictionary dict)
+@helper NodeMethodForm(System.Web.Mvc.HtmlHelper html, INodeMethod method, ViewDataDictionary dict)
     {
     dict = dict ?? new ViewDataDictionary();
     <div class="objectMethod">
         @html.Partial("Noodles/NodeMethod", method, dict)
     </div>
 }
-@helper NodeMethodFormInline(System.Web.Mvc.HtmlHelper html, IObjectMethod method)
+@helper NodeMethodFormInline(System.Web.Mvc.HtmlHelper html, INodeMethod method)
     {
     @NodeMethodFormInline(html, method, new ViewDataDictionary())
 }
-@helper NodeMethodFormInline(System.Web.Mvc.HtmlHelper html, IObjectMethod method, ViewDataDictionary viewData)
+@helper NodeMethodFormInline(System.Web.Mvc.HtmlHelper html, INodeMethod method, ViewDataDictionary viewData)
     {
     viewData = viewData ?? new ViewDataDictionary();
     viewData.Add("Inline", true);

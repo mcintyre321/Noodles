@@ -26,7 +26,7 @@
         {
             <a href="@t.Path()">@t.Text</a>    
         }
-        @helper Actions(object o)
+        @helper Methods(object o)
         {
             foreach (var method in o.NodeMethods())
             {

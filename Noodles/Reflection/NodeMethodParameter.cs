@@ -7,9 +7,9 @@ using System.Reflection;
 
 namespace Noodles
 {
-    public class ObjectMethodParameter
+    public class NodeMethodParameter
     {
-        private readonly ObjectMethod _objectMethod;
+        private readonly NodeMethod _nodeMethod;
         private readonly object _target;
         private readonly MethodInfo _mi;
         private readonly ParameterInfo _parameter;
@@ -19,9 +19,9 @@ namespace Noodles
 
         private object _value;
 
-        internal ObjectMethodParameter(ObjectMethod objectMethod, object target, MethodInfo mi, ParameterInfo parameter)
+        internal NodeMethodParameter(NodeMethod nodeMethod, object target, MethodInfo mi, ParameterInfo parameter)
         {
-            _objectMethod = objectMethod;
+            _nodeMethod = nodeMethod;
             _target = target;
             _mi = mi;
             _parameter = parameter;
@@ -75,9 +75,9 @@ namespace Noodles
             get
             {
                 string methodName = "";
-                if (!_objectMethod.Name.StartsWith("set_"))
+                if (!_nodeMethod.Name.StartsWith("set_"))
                 {
-                    methodName = _objectMethod.Name + "_";
+                    methodName = _nodeMethod.Name + "_";
                 }
 
                 methodName = methodName + Name + "_choices";
@@ -114,9 +114,9 @@ namespace Noodles
             get
             {
                 string methodName = "";
-                if (!_objectMethod.Name.StartsWith("set_"))
+                if (!_nodeMethod.Name.StartsWith("set_"))
                 {
-                    methodName = _objectMethod.Name + "_";
+                    methodName = _nodeMethod.Name + "_";
                 }
                 methodName = methodName + Name + "_suggestions";
                 var suggestions = _target.GetType().GetMethod(methodName, looseBindingFlags)
@@ -134,7 +134,7 @@ namespace Noodles
             get { return this._parameter; }
         }
 
-        public IObjectMethod NodeMethod { get { return _objectMethod; } }
+        public INodeMethod NodeMethod { get { return _nodeMethod; } }
 
         public IEnumerable<Attribute> CustomAttributes
         {

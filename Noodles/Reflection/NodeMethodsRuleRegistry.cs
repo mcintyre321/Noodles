@@ -5,9 +5,9 @@ using System.Reflection;
 
 namespace Noodles
 {
-    public class ShowAttribute : Attribute{}
+    public class ShowAttribute : Attribute { }
     public class HideAttribute : Attribute { }
-    public static class NodeMethodsExtension
+    public static class NodeMethodsRuleRegistry
     {
         /// <returns>
         /// true if the method should defs be shown
@@ -31,36 +31,32 @@ namespace Noodles
         public static ShowMethodRule ClassLevelHideByDefault = (t, mi) => mi.DeclaringType.GetCustomAttributes(typeof(HideAttribute), true).Any() ? false : null as bool?;
 
 
-        static NodeMethodsExtension()
+        static NodeMethodsRuleRegistry()
         {
             ShowMethodRules = new List<ShowMethodRule>()
-            {
-                ShowAttributedMethods,
-                HideHideAttributedMethods,
-                HideValuesMethods,
-                HideValueMethods,
-                HideChoiceMethods,
-                HideSuggestionsMethods,
-                HideGetChildMethods,
-                HideHasNodeMethods,
-                HideUndercoredMethods,
-                HidePropertyGetters,
-                HideSystemObjectMembers,
-                ClassLevelShowByDefault,
-                ClassLevelHideByDefault,
-            };
+                                  {
+                                      ShowAttributedMethods,
+                                      HideHideAttributedMethods,
+                                      HideValuesMethods,
+                                      HideValueMethods,
+                                      HideChoiceMethods,
+                                      HideSuggestionsMethods,
+                                      HideGetChildMethods,
+                                      HideHasNodeMethods,
+                                      HideUndercoredMethods,
+                                      HidePropertyGetters,
+                                      HideSystemObjectMembers,
+                                      ClassLevelShowByDefault,
+                                      ClassLevelHideByDefault,
+                                  };
         }
 
         public static bool ShowByDefault { get; set; }
         public static List<ShowMethodRule> ShowMethodRules { get; private set; }
         
-        public static IEnumerable<IObjectMethod> GetNodeMethodInfos(this object o)
+        public static NodeMethods GetNodeMethods(this object o)
         {
-            var methods = o.GetType().GetMethods(BindingFlags.Public | BindingFlags.Instance | BindingFlags.FlattenHierarchy).ToArray();
-            return methods
-                .Where(mi => ShowMethodRules.Select(mf => mf(o, mi)).FirstOrDefault(show => show != null) ?? ShowByDefault)
-                .Select(mi => new ObjectMethod(o, mi))
-                .ToArray();
+            return new NodeMethods(o);
         }
     }
 }

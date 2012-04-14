@@ -2,10 +2,10 @@
 @using System.Linq
 @using Noodles.Helpers
 @using Noodles.Web.Helpers
-@model object
-@if (Model.NodeMethods().Any())
+@model NodeMethods
+@if (Model.Any())
 {
-    foreach (var nodeMethod in Model.NodeMethods())
+    foreach (var nodeMethod in Model)
     {
         @NoodlesHelper.NodeMethodLink(nodeMethod)
     }

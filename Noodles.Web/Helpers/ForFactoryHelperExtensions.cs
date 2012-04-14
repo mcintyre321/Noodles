@@ -1,11 +1,12 @@
 ﻿using System.Web.Mvc;
+using System.Web.Mvc;
 using FormFactory;
 
 namespace Noodles.Helpers
 {
     public static class ForFactoryHelperExtensions
     {
-        public static PropertyVm ToPropertyVm(this ObjectMethodParameter parameter, HtmlHelper Html)
+        public static PropertyVm ToPropertyVm(this NodeMethodParameter parameter, HtmlHelper Html)
         {
              return new PropertyVm(Html, parameter.ParameterType, parameter.Name, parameter.Id(), parameter.DisplayName)
             {

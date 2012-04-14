@@ -34,9 +34,9 @@
         }).click(function () {
             $(".popover").hide();
             $link.popover('show');
-            //            var actionName = $link.attr("data-actionname");
-            //            if (actionName) {
-            //                $("#" + nodeId + "_" + actionName + "_actionlink").click();
+            //            var methodName = $link.attr("data-methodname");
+            //            if (methodName) {
+            //                $("#" + nodeId + "_" + methodName + "_methodlink").click();
             //            }
         }).click();
     };

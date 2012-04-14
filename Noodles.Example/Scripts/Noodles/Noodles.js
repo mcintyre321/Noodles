@@ -34,9 +34,9 @@
         }).click(function () {
             $(".popover").hide();
             $link.popover('show');
-            //            var actionName = $link.attr("data-actionname");
-            //            if (actionName) {
-            //                $("#" + nodeId + "_" + actionName + "_actionlink").click();
+            //            var methodName = $link.attr("data-methodname");
+            //            if (methodName) {
+            //                $("#" + nodeId + "_" + methodName + "_methodlink").click();
             //            }
         }).click();
     };
@@ -47,16 +47,20 @@
             return true;
         }
         $.get(path, {}, function (html) {
+            var $html;
             if (transform) {
-                html = transform(html)[0].outerHTML;
+                $html = transform(html);
+            } else {
+                $html = $(html);
             }
-            $('<div>').attr("id", id).css("display", "none").html(html).appendTo($("body"));
+            $('<div>').attr("id", id).css("display", "none").append($html).appendTo($("body"));
             callback();
         });
         return true;
     }
 
     $(".nodeMethodLink").live('click', function (e) {
+        e.preventDefault();
         var $link = $(this);
         $link.closest(".popover").hide();
         if (e.target != this) return false;
@@ -91,7 +95,7 @@
 
         var $container = $(this).closest(".objectMethod");
         var $form = $container.find("form");
-        $.ajax({
+        var ajaxOptions = {
             url: $form.attr('action'),
             type: "POST",
             data: $form.serialize(),
@@ -116,7 +120,17 @@
             complete: function () {
                 //$("#ProgressDialog").dialog("close");
             }
-        });
+        };
+        var $fileInputs = $(":file", $form);
+        if ($fileInputs.length) {
+            $.extend(ajaxOptions, {
+                data: $form.serializeArray(),
+                files: $(":file", $form),
+                iframe: true,
+                processData: false
+            });
+        }
+        $.ajax(ajaxOptions);
         return false;
     });
 });

@@ -13,13 +13,22 @@ namespace Noodles
             var parts = (path).Split("/".ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
             foreach (var part in parts)
             {
-                node = node.GetChild(part);
-                if (node == null)
+                if (part == "actions")
                 {
-                    if (breakOnNull) yield break;
-                    throw new NodeNotFoundException("Node '" + part + "' not found in path '" + path + "'");
+                    node = new NodeMethods(node);
+                    yield return node;
                 }
-                yield return node;
+                else
+                {
+                    node = node.GetChild(part);
+                    if (node == null)
+                    {
+                        if (breakOnNull) yield break;
+                        throw new NodeNotFoundException("Node '" + part + "' not found in path '" + path + "'");
+                    }
+                    yield return node;
+                }
+
             }
         }
     }

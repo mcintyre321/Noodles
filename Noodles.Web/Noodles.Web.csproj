@@ -47,9 +47,6 @@
     <Reference Include="Mvc.JQuery.Datatables">
       <HintPath>..\packages\Mvc.JQuery.Datatables.1.1.71\lib\net40\Mvc.JQuery.Datatables.dll</HintPath>
     </Reference>
-    <Reference Include="Noodles, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Noodles.1.1.180\lib\net40\Noodles.dll</HintPath>
-    </Reference>
     <Reference Include="System.Data.Entity" />
     <Reference Include="System.Web.Mvc, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System.Web.WebPages, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
@@ -91,12 +88,12 @@
     </Compile>
     <Compile Include="Helpers\DataTableHelper.cs" />
     <Compile Include="Helpers\ForFactoryHelperExtensions.cs" />
+    <Compile Include="ActionResultExtension.cs" />
     <Compile Include="Helpers\NoodlesHelper.generated.cs">
-      <DependentUpon>NoodlesHelper.cshtml</DependentUpon>
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
+      <DependentUpon>NoodlesHelper.cshtml</DependentUpon>
     </Compile>
-    <Compile Include="ActionResultExtension.cs" />
     <Compile Include="Infrastructure\GlobalFixUserExceptionsAttribute.cs" />
     <Compile Include="Infrastructure\ModelStateTempDataTransferAttribute.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -191,6 +188,7 @@
     <Content Include="Views\Shared\FormFactory\Form.Property.cshtml" />
     <Content Include="Views\Shared\FormFactory\Form.Property.Block.cshtml" />
     <Content Include="Views\Shared\FormFactory\Form.Actions.cshtml" />
+    <Content Include="Views\Shared\Noodles\_AjaxLayout.cshtml" />
     <None Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -236,7 +234,12 @@
     <None Include="Content\DataTables-1.9.0\media\images\Sorting icons.psd" />
     <None Include="Views\Shared\FormFactory\Form.Close.cshtml" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\Noodles\Noodles.csproj">
+      <Project>{3F8BA73C-2F1C-4F24-A5D9-B3243FA6A495}</Project>
+      <Name>Noodles</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
@@ -254,7 +257,7 @@
         <WebProjectProperties>
           <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>65097</DevelopmentServerPort>
+          <DevelopmentServerPort>57376</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>
           </IISUrl>

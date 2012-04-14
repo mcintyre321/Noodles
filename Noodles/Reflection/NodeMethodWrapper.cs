@@ -2,9 +2,9 @@ using System.Collections.Generic;
 
 namespace Noodles
 {
-    public class ObjectMethodWrapper : IObjectMethod
+    public class NodeMethodWrapper : INodeMethod
     {
-        private readonly IObjectMethod _inner;
+        private readonly INodeMethod _inner;
         private string _innerName;
         private string _innerDisplayName;
         public string Name
@@ -19,7 +19,7 @@ namespace Noodles
             set { _innerDisplayName = value; }
         }
 
-        public IEnumerable<ObjectMethodParameter> Parameters
+        public IEnumerable<NodeMethodParameter> Parameters
         {
             get { return _inner.Parameters; }
         }
@@ -42,14 +42,14 @@ namespace Noodles
             _inner.Invoke(parameters);
         }
 
-        public ObjectMethodWrapper(IObjectMethod inner)
+        public NodeMethodWrapper(INodeMethod inner)
         {
             _inner = inner;
         }
 
         string IHasPath.Path
         {
-            get { return (Parent ?? (this.Target)).Path() + "?action=" + this.Name; }
+            get { return (Parent ?? (this.Target)).Path() + "actions/" + this.Name; }
         }
     }
 } 
