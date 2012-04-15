@@ -61,7 +61,7 @@ namespace Noodles
         };
         public static GetChildRule GetChildFromAttributedProperty = (object o, string name) =>
         {
-            var attributedProperties = o.GetType().GetProperties(BindingFlags.Instance | BindingFlags.FlattenHierarchy | BindingFlags.NonPublic | BindingFlags.GetField)
+            var attributedProperties = o.GetType().GetProperties(BindingFlags.Instance | BindingFlags.FlattenHierarchy | BindingFlags.NonPublic | BindingFlags.GetProperty)
                   .Select(x => new
                   {
                       Member = x,
