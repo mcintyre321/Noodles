@@ -210,12 +210,22 @@ WebViewPage.WriteTo(@__razor_helper_writer, additionalClasses ?? "");
 #line default
 #line hidden
 
-WebViewPage.WriteLiteralTo(@__razor_helper_writer, "\" href=\"#show actions\" data-nodeid=\"");
+WebViewPage.WriteLiteralTo(@__razor_helper_writer, "\" href=\"");
 
 
 
 #line 28 "..\..\Helpers\NoodlesHelper.cshtml"
-                                                         WebViewPage.WriteTo(@__razor_helper_writer, obj.Id());
+                             WebViewPage.WriteTo(@__razor_helper_writer, nodeMethods.Path());
+
+#line default
+#line hidden
+
+WebViewPage.WriteLiteralTo(@__razor_helper_writer, "\" data-nodeid=\"");
+
+
+
+#line 28 "..\..\Helpers\NoodlesHelper.cshtml"
+                                                               WebViewPage.WriteTo(@__razor_helper_writer, obj.Id());
 
 #line default
 #line hidden
@@ -225,7 +235,7 @@ WebViewPage.WriteLiteralTo(@__razor_helper_writer, "\" data-nodemethodspath=\"")
 
 
 #line 28 "..\..\Helpers\NoodlesHelper.cshtml"
-                                                                                          WebViewPage.WriteTo(@__razor_helper_writer, nodeMethods.Path());
+                                                                                                WebViewPage.WriteTo(@__razor_helper_writer, nodeMethods.Path());
 
 #line default
 #line hidden
