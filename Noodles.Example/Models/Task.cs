@@ -20,7 +20,7 @@ namespace Noodles.Example.Models
         [Name]
         public string Name { get; private set; }
 
-        public string Status { get; set; }
+        public string Status { get; [Show] set; }
         public IEnumerable<string> Status_choices()
         {
             return "Good,Bad,Ugly".Split(',');

@@ -2,7 +2,7 @@ using System.Collections.Generic;
 
 namespace Noodles
 {
-    public interface INodeMethod : IHasPath
+    public interface INodeMethod
     {
         string Name { get; }
         string DisplayName { get; }

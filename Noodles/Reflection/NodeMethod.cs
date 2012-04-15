@@ -7,14 +7,15 @@ using System.Linq;
 using System.Reflection;
 namespace Noodles
 {
-    public delegate Func<object> ResolveResult(IHasName root, ParameterInfo parameter, object stored);
     [DebuggerDisplay("{ToString()} - Name={Name}")]
-    public class NodeMethod : INodeMethod, IHasChildren
+    public class NodeMethod : INodeMethod, IHasChildren, IHasParent<NodeMethods>
     {
+        private readonly NodeMethods _parent;
         private readonly MethodInfo _methodInfo;
 
-        public NodeMethod(object behaviour, MethodInfo methodInfo)
+        public NodeMethod(object behaviour, NodeMethods parent, MethodInfo methodInfo)
         {
+            _parent = parent;
             _methodInfo = methodInfo;
             Target = behaviour;
         }
@@ -28,6 +29,7 @@ namespace Noodles
 
         private BindingFlags looseBindingFlags = BindingFlags.IgnoreCase | BindingFlags.FlattenHierarchy | BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic;
 
+        [Name]
         public string Name { get { return _methodInfo.Name; } }
 
         public string DisplayName
@@ -160,14 +162,15 @@ namespace Noodles
             }
         }
 
-        public string Path
-        {
-            get { return this.Target.Path() + "actions/" + this.Name; }
-        }
-
+        
         public object GetChild(string name)
         {
             return this.Parameters.SingleOrDefault(p => p.Name == name);
+        }
+
+        public NodeMethods Parent
+        {
+            get { return _parent; }
         }
     }
 }

@@ -46,10 +46,5 @@ namespace Noodles
         {
             _inner = inner;
         }
-
-        string IHasPath.Path
-        {
-            get { return (Parent ?? (this.Target)).Path() + "actions/" + this.Name; }
-        }
     }
 } 

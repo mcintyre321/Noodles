@@ -52,7 +52,7 @@
     <Compile Include="ParentExtension.cs" />
     <Compile Include="PathExtension.cs" />
     <Compile Include="Reflection\NodeMethods.cs" />
-    <Compile Include="NodeHelper.cs" />
+    <Compile Include="YieldChildrenExtension.cs" />
     <Compile Include="NodeNotFoundException.cs" />
     <Compile Include="Profiler.cs" />
     <Compile Include="Reflection\ImplicitConversionMethodHelper.cs" />
