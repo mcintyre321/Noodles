@@ -29,7 +29,7 @@ namespace Noodles
         public static readonly ResolvePath GetPathFromWalkingParent = obj =>
         {
             var name = obj.Name();
-            if (name == null) return "/";
+            if (name == null) return "";
             var parent = obj.Parent();
             if (parent != null)
             {
