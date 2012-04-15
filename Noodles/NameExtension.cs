@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -16,7 +17,8 @@ namespace Noodles
         {
             NameRules = new List<Noodles.ResolveName>()
             {
-                GetNameFromInterface
+                GetNameFromInterface,
+                GetNameFromAttribute
             };
         }
 
@@ -29,6 +31,27 @@ namespace Noodles
             }
             return null;
         };
+        public static Noodles.ResolveName GetNameFromAttribute = o =>
+        {
+            var attributedProperty = o.GetType().GetProperties()
+                .Select(pi => new
+                        {
+                            Property = pi,
+                            Attribute = pi.GetCustomAttributes(typeof (NameAttribute), true).FirstOrDefault()
+                        })
+                .SingleOrDefault(p => p.Attribute != null);
+            if (attributedProperty != null)
+            {
+                var value = attributedProperty.Property.GetValue(o, null);
+                if (value == null)
+                {
+                    throw new Exception("Properties with NameAttribute cannot return null - " + attributedProperty.Property.DeclaringType.FullName + "." + attributedProperty.Property.Name + " did");
+                }
+                return value.ToString();
+            }
+            return null;
+        };
+
 
         public static List<Noodles.ResolveName> NameRules;
 
@@ -37,5 +60,9 @@ namespace Noodles
         {
             return NameRules.Select(r => r(obj)).FirstOrDefault(name => name != null);
         }
+    }
+
+    public class NameAttribute : Attribute
+    {
     }
 }

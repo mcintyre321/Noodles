@@ -42,7 +42,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="GetChildrenExtensions.cs" />
+    <Compile Include="ChildrenExtensions.cs" />
     <Compile Include="GenericNoodleCollection.cs" />
     <Compile Include="IdExtension.cs" />
     <Compile Include="Logger.cs" />

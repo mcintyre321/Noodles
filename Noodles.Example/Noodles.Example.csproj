@@ -85,6 +85,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountModels.cs" />
+    <Compile Include="Models\Task.cs" />
     <Compile Include="Models\ToDoList.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

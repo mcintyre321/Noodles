@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -13,8 +12,9 @@ namespace Noodles.Example.Models
             var task = this._tasks.AddTask("This is an example task");
         }
 
-        private Tasks _tasks;
         [Child]
+        private Tasks _tasks;
+
         public IEnumerable<Task> Tasks { get { return _tasks; } }
         [Show]
         public void AddTask(string taskDescription)
@@ -64,7 +64,7 @@ namespace Noodles.Example.Models
     }
 
     [Show]
-    public class Tasks : IEnumerable<Task>, IHasChildren, IHasName, IHasParent<ToDoList>
+    public class Tasks : IEnumerable<Task>
     {
         private readonly List<Task> _tasks = new List<Task>();
 
@@ -91,43 +91,15 @@ namespace Noodles.Example.Models
             return GetEnumerator();
         }
 
-        public object GetChild(string name)
-        {
-            return _tasks.SingleOrDefault(task => task.Name == name);
-        }
-
+        [Parent]
         public ToDoList Parent { get; private set; }
 
+        [Name]
         public string Name { get { return "tasks"; } }
 
         public void RemoveComplete()
         {
             this._tasks.RemoveAll(t => t.Completed);
         }
-    }
-
-
-
-    public class Task : IHasName, IHasParent<Tasks>
-    {
-        public Task(Tasks parent)
-        {
-            Parent = parent;
-            Name = Guid.NewGuid().ToString();
-        }
-
-        public string Text { get; set; }
-        public bool Completed { get; set; }
-
-        public string Name { get; private set; }
-
-        public Tasks Parent { get; private set; }
-
-        public string Status { get; set; }
-        public IEnumerable<string> Status_choices()
-        {
-            return "Good,Bad,Ugly".Split(',');
-        }
-
     }
 }

@@ -103,6 +103,7 @@
 	margin-left: 10px;
 }
 
+/*
 .paginate_disabled_previous {
 	background: url('../images/back_disabled.png') no-repeat top left;
 }
@@ -123,7 +124,7 @@
 }
 .paginate_enabled_next:hover {
 	background: url('../images/forward_enabled_hover.png') no-repeat top right;
-}
+}*/
 
 
 
@@ -180,7 +181,7 @@ table.display td.center {
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
  * DataTables sorting
  */
-
+/*
 .sorting_asc {
 	background: url('../images/sort_asc.png') no-repeat center right;
 }
@@ -199,7 +200,7 @@ table.display td.center {
 
 .sorting_desc_disabled {
 	background: url('../images/sort_desc_disabled.png') no-repeat center right;
-}
+}*/
  
 th:active {
 	outline: none;
