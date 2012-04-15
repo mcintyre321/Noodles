@@ -36,7 +36,7 @@
 }
 @helper NodeMethodForm(System.Web.Mvc.HtmlHelper html, INodeMethod method, string formClass)
     {
-    <div class="objectMethod">
+    <div class="nodeMethod">
         @html.Partial("Noodles/NodeMethod", method, new ViewDataDictionary { { "FormClass", formClass ?? "" } })
     </div>
 }
@@ -49,7 +49,7 @@
 @helper NodeMethodForm(System.Web.Mvc.HtmlHelper html, INodeMethod method, ViewDataDictionary dict)
     {
     dict = dict ?? new ViewDataDictionary();
-    <div class="objectMethod">
+    <div class="nodeMethod">
         @html.Partial("Noodles/NodeMethod", method, dict)
     </div>
 }

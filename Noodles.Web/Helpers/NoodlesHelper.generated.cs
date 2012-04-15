@@ -362,7 +362,7 @@ return new System.Web.WebPages.HelperResult(__razor_helper_writer => {
 #line default
 #line hidden
 
-WebViewPage.WriteLiteralTo(@__razor_helper_writer, "    <div class=\"objectMethod\">\r\n        ");
+WebViewPage.WriteLiteralTo(@__razor_helper_writer, "    <div class=\"nodeMethod\">\r\n        ");
 
 
 
@@ -432,7 +432,7 @@ return new System.Web.WebPages.HelperResult(__razor_helper_writer => {
 #line default
 #line hidden
 
-WebViewPage.WriteLiteralTo(@__razor_helper_writer, "    <div class=\"objectMethod\">\r\n        ");
+WebViewPage.WriteLiteralTo(@__razor_helper_writer, "    <div class=\"nodeMethod\">\r\n        ");
 
 
 

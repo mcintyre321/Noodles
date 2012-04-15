@@ -18,7 +18,7 @@
     });
 
     function modalHtml() {
-        return '<div class="modal objectMethod" id="myModal"><div class="modal-header"><a class="close" data-dismiss="modal">×</a><h3 class="title"></h3></div><div class="modal-body"></div><div class="modal-footer"></div></div>';
+        return '<div class="modal nodeMethod" id="myModal"><div class="modal-header"><a class="close" data-dismiss="modal">×</a><h3 class="title"></h3></div><div class="modal-body"></div><div class="modal-footer"></div></div>';
     }
 
     var showMethodsMenu = function ($link) {
@@ -93,7 +93,7 @@
 
     $(".submitMethod").live('click', function (e) {
 
-        var $container = $(this).closest(".objectMethod");
+        var $container = $(this).closest(".nodeMethod");
         var $form = $container.find("form");
         var ajaxOptions = {
             url: $form.attr('action'),
