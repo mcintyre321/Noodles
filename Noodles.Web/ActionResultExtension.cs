@@ -24,7 +24,7 @@ namespace Noodles
             
         }
 
-        public static ActionResult GetNoodleResult(this ControllerContext cc, object root, string path = null, Action<object, INodeMethod, object[]> doInvoke = null)
+        public static ActionResult GetNoodleResult(this ControllerContext cc, object root, string path = null, Action<INodeMethod, object[]> doInvoke = null)
         {
             doInvoke = doInvoke ?? (DoInvoke);
 
@@ -95,7 +95,7 @@ namespace Noodles
                                 Logger.Trace("ModelBinding successful");
                                 try
                                 {
-                                    doInvoke(node, method, parameters);
+                                    doInvoke(method, parameters);
                                     Logger.Trace("Invoke successful");
                                 }
                                 catch (Exception ex)
@@ -157,7 +157,7 @@ namespace Noodles
         }
 
 
-        private static void DoInvoke(object node, INodeMethod nodeMethod, object[] parameters)
+        private static void DoInvoke(INodeMethod nodeMethod, object[] parameters)
         {
             nodeMethod.Invoke(parameters);
         }
