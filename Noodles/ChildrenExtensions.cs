@@ -61,7 +61,7 @@ namespace Noodles
         };
         public static GetChildRule GetChildFromAttributedProperty = (object o, string name) =>
         {
-            var attributedProperties = o.GetType().GetProperties(BindingFlags.Instance | BindingFlags.FlattenHierarchy | BindingFlags.NonPublic | BindingFlags.GetProperty)
+            var attributedProperties = o.GetType().GetProperties(BindingFlags.Instance | BindingFlags.FlattenHierarchy | BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.GetProperty)
                   .Select(x => new
                   {
                       Member = x,
@@ -82,7 +82,7 @@ namespace Noodles
 
         public static GetChildRule GetChildFromAttributedField = (object o, string name) =>
         {
-            var attributedFields = o.GetType().GetFields(BindingFlags.Instance | BindingFlags.FlattenHierarchy | BindingFlags.NonPublic | BindingFlags.GetField)
+            var attributedFields = o.GetType().GetFields(BindingFlags.Instance | BindingFlags.FlattenHierarchy | BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.GetField)
                   .Select(x => new
                   {
                       Member = x,

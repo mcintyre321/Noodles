@@ -33,7 +33,7 @@ namespace Noodles
 
         public static ResolveParent GetParentFromAttributedProperty = o =>
         {
-            var attributedProperty = o.GetType().GetProperties(BindingFlags.Instance | BindingFlags.FlattenHierarchy | BindingFlags.NonPublic | BindingFlags.GetProperty)
+            var attributedProperty = o.GetType().GetProperties(BindingFlags.Instance | BindingFlags.FlattenHierarchy | BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.GetProperty)
                 .Select(pi => new
                         {
                             Property = pi,
@@ -54,7 +54,7 @@ namespace Noodles
 
         public static ResolveParent GetParentFromAttributedField = o =>
         {
-            var attributedProperty = o.GetType().GetFields(BindingFlags.Instance | BindingFlags.FlattenHierarchy | BindingFlags.NonPublic | BindingFlags.GetField)
+            var attributedProperty = o.GetType().GetFields(BindingFlags.Instance | BindingFlags.FlattenHierarchy | BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.GetField)
                 .Select(fi => new
                 {
                     Field = fi,
