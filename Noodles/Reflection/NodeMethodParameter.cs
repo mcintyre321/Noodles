@@ -7,7 +7,7 @@ using System.Reflection;
 
 namespace Noodles
 {
-    public class NodeMethodParameter
+    public class NodeMethodParameter : IHasName
     {
         private readonly NodeMethod _nodeMethod;
         private readonly object _target;

@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace Noodles.Example.Models
 {
-    public class ToDoList : Noodles.IHasChildren
+    public class ToDoList 
     {
         public ToDoList()
         {
@@ -14,7 +14,7 @@ namespace Noodles.Example.Models
         }
 
         private Tasks _tasks;
-
+        [Child]
         public IEnumerable<Task> Tasks { get { return _tasks; } }
         [Show]
         public void AddTask(string taskDescription)
@@ -46,12 +46,6 @@ namespace Noodles.Example.Models
         public void ClearCompletedTasks()
         {
             _tasks.RemoveComplete();
-        }
-
-        public object GetChild(string name)
-        {
-            if (name.ToLowerInvariant() == _tasks.Name) return _tasks;
-            return null;
         }
     }
 

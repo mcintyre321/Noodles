@@ -9,7 +9,7 @@ namespace Noodles
 {
     public delegate Func<object> ResolveResult(IHasName root, ParameterInfo parameter, object stored);
     [DebuggerDisplay("{ToString()} - Name={Name}")]
-    public class NodeMethod : INodeMethod
+    public class NodeMethod : INodeMethod, IHasChildren
     {
         private readonly MethodInfo _methodInfo;
 
@@ -163,6 +163,11 @@ namespace Noodles
         public string Path
         {
             get { return this.Target.Path() + "actions/" + this.Name; }
+        }
+
+        public object GetChild(string name)
+        {
+            return this.Parameters.SingleOrDefault(p => p.Name == name);
         }
     }
 }
