@@ -25,7 +25,7 @@
     var nodeMethods = obj.NodeMethods();
     if (nodeMethods.Any())
     {
-        <a class="nodeMethodsMenuLink @(additionalClasses ?? "")" href="#show actions" data-nodeid="@obj.Id()" data-nodemethodspath="@nodeMethods.Path()">Actions</a>
+        <a class="nodeMethodsMenuLink @(additionalClasses ?? "")" href="@nodeMethods.Path()" data-nodeid="@obj.Id()" data-nodemethodspath="@nodeMethods.Path()">Actions</a>
     }
 }
 @helper NodeMethodLink(INodeMethod method)
