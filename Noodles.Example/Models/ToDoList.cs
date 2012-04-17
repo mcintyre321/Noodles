@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace Noodles.Example.Models
 {
-    public class ToDoList 
+    public class ToDoList : IHasChildren
     {
         public ToDoList()
         {
@@ -12,7 +12,7 @@ namespace Noodles.Example.Models
             var task = this._tasks.AddTask("This is an example task");
         }
 
-        [Child]
+        //[Child]
         private Tasks _tasks;
 
         public IEnumerable<Task> Tasks { get { return _tasks; } }
@@ -46,6 +46,12 @@ namespace Noodles.Example.Models
         public void ClearCompletedTasks()
         {
             _tasks.RemoveComplete();
+        }
+
+        public object GetChild(string name)
+        {
+            if (name == "tasks") return _tasks;
+            return null;
         }
     }
 
