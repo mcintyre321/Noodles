@@ -24,7 +24,7 @@ namespace Noodles
             {
                 throw new NodeNotFoundException("Node not found at path '" + path + "'");
             }
-            return null;
+            return node;
         }
 
         public static FindNodeFromPathRule WalkChildren = (r, p) => r.YieldChildren(p).Last();
