@@ -98,15 +98,15 @@ namespace Noodles
                 children = new Hashtable();
                 parent.Meta()["Children"] = children;
             }
-            var safeName = name;
             if (child.Name() == null)
             {
                 var nameCounter = 0;
+                string safeName = name + nameCounter;
                 while (children.GetChild(safeName) != null)
                 {
                     nameCounter++;
+                    safeName = name + nameCounter;
                 }
-                safeName = name + (nameCounter == 0 ? "" : nameCounter.ToString());
                 child.SetName(safeName);
             }
             children[child.Name()] = child;
