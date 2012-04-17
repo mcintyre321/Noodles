@@ -102,7 +102,7 @@ namespace Noodles
             {
                 var nameCounter = 0;
                 string safeName = name + nameCounter;
-                while (children.GetChild(safeName) != null)
+                while (parent.GetChild(safeName) != null)
                 {
                     nameCounter++;
                     safeName = name + nameCounter;
