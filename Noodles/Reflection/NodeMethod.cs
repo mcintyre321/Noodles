@@ -1,3 +1,4 @@
+
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -171,6 +172,36 @@ namespace Noodles
         public NodeMethods Parent
         {
             get { return _parent; }
+        }
+
+        public bool Equals(NodeMethod other)
+        {
+            if (ReferenceEquals(null, other)) return false;
+            if (ReferenceEquals(this, other)) return true;
+            return Equals(other.Path(), this.Path());
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(null, obj)) return false;
+            if (ReferenceEquals(this, obj)) return true;
+            if (obj.GetType() != typeof (NodeMethod)) return false;
+            return Equals((NodeMethod) obj);
+        }
+
+        public override int GetHashCode()
+        {
+            return this.Path().GetHashCode();
+        }
+
+        public static bool operator ==(NodeMethod left, NodeMethod right)
+        {
+            return Equals(left, right);
+        }
+
+        public static bool operator !=(NodeMethod left, NodeMethod right)
+        {
+            return !Equals(left, right);
         }
     }
 }
