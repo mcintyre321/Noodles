@@ -29,26 +29,25 @@ namespace Noodles
         public static readonly ResolvePath GetPathFromWalkingParent = obj =>
         {
             var name = obj.Name();
-            if (name == null) return "";
+            if (name == null) return "/";
             var parent = obj.Parent();
             if (parent != null)
             {
-                var parentPath = obj.Parent().Path();
-                if (parentPath == null)
-                {
-                    throw new Exception("Object '" + name + "' parent '" + (parent.Name() ?? "<no name>") +  "' has no path");
-                }else
-                {
-                    return parentPath + "/" + name;
-                }
+                var parentPath = parent.Path();
+                return parentPath + name + "/";
             }
-            return name;
+            return name + "/";
         };
 
 
         public static string Path(this object obj)
         {
-            return PathRules.Select(p => p(obj)).FirstOrDefault(path => path != null);
+            var pathString = PathRules.Select(p => p(obj)).FirstOrDefault(path => path != null);
+            if (string.IsNullOrWhiteSpace(pathString))
+            {
+                throw new Exception("Path should never be null/whitespace!");
+            }
+            return pathString;
         }
 
 
