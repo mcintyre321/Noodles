@@ -10,7 +10,7 @@
         if ($("#" + methodsPanelId).length == false) {
             ensureLazyElement(
                 methodsPanelId,
-                $link.attr("data-nodemethodspath"),
+                $link.attr("href"),
                 function () { showMethodsMenu($link); }
             );
         }
@@ -68,7 +68,7 @@
         if ($("#" + methodsPanelId).length == false) {
             ensureLazyElement(
                 methodsPanelId,
-                $link.attr("data-nodepath"),
+                $link.attr("href"),
                 function () { showMethodForm($link); },
                 function (body) {
                     var $formHtml = $(body);

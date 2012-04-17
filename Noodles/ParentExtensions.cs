@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -13,9 +14,9 @@ namespace Noodles
 
     public class ParentAttribute : Attribute
     {
-        
+
     }
-    public static class ParentExtension
+    public static class ParentExtensions
     {
         public static object Parent(this object child)
         {
@@ -37,7 +38,7 @@ namespace Noodles
                 .Select(pi => new
                         {
                             Property = pi,
-                            Attribute = pi.GetCustomAttributes(typeof (ParentAttribute), true).FirstOrDefault()
+                            Attribute = pi.GetCustomAttributes(typeof(ParentAttribute), true).FirstOrDefault()
                         })
                 .SingleOrDefault(p => p.Attribute != null);
             if (attributedProperty != null)
@@ -72,17 +73,44 @@ namespace Noodles
             }
             return null;
         };
-        static ParentExtension()
+        static ParentExtensions()
         {
             ParentRules = new List<ResolveParent>()
             {
                 GetParentFromIHasParent,
                 GetParentFromAttributedProperty,
-                GetParentFromAttributedField
+                GetParentFromAttributedField,
+                GetParentFromMetaProps
             };
         }
 
+        public static ResolveParent GetParentFromMetaProps = o => o.Meta()["Parent"];
+
         public static List<ResolveParent> ParentRules;
 
+
+        public static T SetParent<T>(this T child, object parent, string name = "_")
+        {
+            child.Meta()["Parent"] = parent;
+            var children = parent.Meta()["Children"] as Hashtable;
+            if (children == null)
+            {
+                children = new Hashtable();
+                parent.Meta()["Children"] = children;
+            }
+            var safeName = name;
+            if (child.Name() == null)
+            {
+                var nameCounter = 0;
+                while (children.GetChild(safeName) != null)
+                {
+                    nameCounter++;
+                }
+                safeName = name + (nameCounter == 0 ? "" : nameCounter.ToString());
+                child.SetName(safeName);
+            }
+            children[child.Name()] = child;
+            return child;
+        }
     }
 }

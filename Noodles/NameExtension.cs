@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 
 namespace Noodles
 {
@@ -18,7 +19,8 @@ namespace Noodles
             NameRules = new List<Noodles.ResolveName>()
             {
                 GetNameFromInterface,
-                GetNameFromAttribute
+                GetNameFromAttribute,
+                GetNameFromMetaProps
             };
         }
 
@@ -33,7 +35,7 @@ namespace Noodles
         };
         public static Noodles.ResolveName GetNameFromAttribute = o =>
         {
-            var attributedProperty = o.GetType().GetProperties()
+            var attributedProperty = o.GetType().GetProperties(BindingFlags.Instance | BindingFlags.FlattenHierarchy | BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.GetProperty)
                 .Select(pi => new
                         {
                             Property = pi,
@@ -55,11 +57,18 @@ namespace Noodles
 
         public static List<Noodles.ResolveName> NameRules;
 
+        public static Noodles.ResolveName GetNameFromMetaProps = o => o.Meta()["Name"] as string;
 
         public static string Name(this object obj)
         {
             return NameRules.Select(r => r(obj)).FirstOrDefault(name => name != null);
         }
+
+        public static void SetName(this object o, string name)
+        {
+            o.Meta()["Name"] = name;
+        }
+ 
     }
 
     public class NameAttribute : Attribute

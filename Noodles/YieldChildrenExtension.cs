@@ -20,12 +20,14 @@ namespace Noodles
                 }
                 else
                 {
-                    node = node.GetChild(part);
+                    var prev = node;
+                    node = prev.GetChild(part);
                     if (node == null)
                     {
                         if (breakOnNull) yield break;
                         throw new NodeNotFoundException("Node '" + part + "' not found in path '" + path + "'");
                     }
+
                     yield return node;
                 }
 

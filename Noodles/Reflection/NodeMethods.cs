@@ -22,11 +22,26 @@ namespace Noodles
         public IEnumerator<INodeMethod> GetEnumerator()
         {
             var methods = Parent.GetType().GetMethods(BindingFlags.Public | BindingFlags.Instance | BindingFlags.FlattenHierarchy).ToArray();
-            var filteredMethods = methods
-                .Where(mi => NodeMethodsRuleRegistry.ShowMethodRules.Select(mf => mf(Parent, mi)).FirstOrDefault(
-                    show => show != null) ?? NodeMethodsRuleRegistry.ShowByDefault)
-                .Select(mi => new NodeMethod(Parent, this, mi));
-            return filteredMethods.GetEnumerator();
+            List<INodeMethod> passedMethods = new List<INodeMethod>();
+            return YieldNodeMethods().GetEnumerator();
+        }
+
+        IEnumerable<INodeMethod> YieldNodeMethods()
+        {
+            var methods = Parent.GetType().GetMethods(BindingFlags.Public | BindingFlags.Instance | BindingFlags.FlattenHierarchy).ToArray();
+            foreach (var info in methods)
+            {
+                bool? ruleResult = null;
+                foreach (var rule in NodeMethodsRuleRegistry.ShowMethodRules)
+                {
+                    ruleResult = rule(Parent, info);
+                    if (ruleResult.HasValue) break;
+                }
+                if (ruleResult ?? NodeMethodsRuleRegistry.ShowByDefault)
+                {
+                    yield return new NodeMethod(Parent, this, info);
+                }
+            }
         }
 
         IEnumerator IEnumerable.GetEnumerator()

@@ -230,17 +230,7 @@ WebViewPage.WriteLiteralTo(@__razor_helper_writer, "\" data-nodeid=\"");
 #line default
 #line hidden
 
-WebViewPage.WriteLiteralTo(@__razor_helper_writer, "\" data-nodemethodspath=\"");
-
-
-
-#line 28 "..\..\Helpers\NoodlesHelper.cshtml"
-                                                                                                WebViewPage.WriteTo(@__razor_helper_writer, nodeMethods.Path());
-
-#line default
-#line hidden
-
-WebViewPage.WriteLiteralTo(@__razor_helper_writer, "\">Actions</a>\r\n");
+WebViewPage.WriteLiteralTo(@__razor_helper_writer, "\" >Actions</a>\r\n");
 
 
 
@@ -306,32 +296,22 @@ WebViewPage.WriteTo(@__razor_helper_writer, additionalClasses ?? "");
 #line default
 #line hidden
 
-WebViewPage.WriteLiteralTo(@__razor_helper_writer, "\" href=\"#");
-
-
-
-#line 35 "..\..\Helpers\NoodlesHelper.cshtml"
-                     WebViewPage.WriteTo(@__razor_helper_writer, method.Name);
-
-#line default
-#line hidden
-
 WebViewPage.WriteLiteralTo(@__razor_helper_writer, "\" data-nodeid=\"");
 
 
 
 #line 35 "..\..\Helpers\NoodlesHelper.cshtml"
-                                                WebViewPage.WriteTo(@__razor_helper_writer, method.Id());
+                           WebViewPage.WriteTo(@__razor_helper_writer, method.Id());
 
 #line default
 #line hidden
 
-WebViewPage.WriteLiteralTo(@__razor_helper_writer, "\" data-nodepath=\"");
+WebViewPage.WriteLiteralTo(@__razor_helper_writer, "\" href=\"");
 
 
 
 #line 35 "..\..\Helpers\NoodlesHelper.cshtml"
-                                                                             WebViewPage.WriteTo(@__razor_helper_writer, method.Path());
+                                               WebViewPage.WriteTo(@__razor_helper_writer, method.Path());
 
 #line default
 #line hidden
@@ -341,7 +321,7 @@ WebViewPage.WriteLiteralTo(@__razor_helper_writer, "\">");
 
 
 #line 35 "..\..\Helpers\NoodlesHelper.cshtml"
-                                                                                             WebViewPage.WriteTo(@__razor_helper_writer, method.DisplayName);
+                                                               WebViewPage.WriteTo(@__razor_helper_writer, method.DisplayName);
 
 #line default
 #line hidden

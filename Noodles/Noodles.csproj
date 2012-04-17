@@ -42,14 +42,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ChildrenExtensions.cs" />
+    <Compile Include="ChildrenExtensions.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="MetaPropsExtensions.cs" />
     <Compile Include="GenericNoodleCollection.cs" />
     <Compile Include="IdExtension.cs" />
     <Compile Include="Logger.cs" />
     <Compile Include="NameExtension.cs" />
     <Compile Include="NodeMethodsExtensions.cs" />
     <Compile Include="NodeTypeExtension.cs" />
-    <Compile Include="ParentExtension.cs" />
+    <Compile Include="ParentExtensions.cs" />
     <Compile Include="PathExtension.cs" />
     <Compile Include="Reflection\NodeMethods.cs" />
     <Compile Include="YieldChildrenExtension.cs" />
