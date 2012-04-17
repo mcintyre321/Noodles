@@ -7,7 +7,15 @@ namespace Noodles
 {
     public static class FindNodeFromPathExtension
     {
-        public static List<FindNodeFromPathRule> Rules = new List<FindNodeFromPathRule>();
+        static FindNodeFromPathExtension()
+        {
+            Rules = new List<FindNodeFromPathRule>()
+            {
+                WalkChildren
+            };
+        }
+
+        public static List<FindNodeFromPathRule> Rules;
 
         public static object FindNodeFromPath(this object root, string path)
         {
