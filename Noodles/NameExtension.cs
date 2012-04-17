@@ -66,7 +66,14 @@ namespace Noodles
 
         public static void SetName(this object o, string name)
         {
-            o.Meta()["Name"] = name;
+            if (name == null)
+            {
+                o.Meta().Remove("Name");
+            }
+            else
+            {
+                o.Meta()["Name"] = name;
+            }
         }
  
     }

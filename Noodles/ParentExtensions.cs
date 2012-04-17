@@ -88,29 +88,43 @@ namespace Noodles
 
         public static List<ResolveParent> ParentRules;
 
-
         public static T SetParent<T>(this T child, object parent, string name = "_")
         {
-            child.Meta()["Parent"] = parent;
-            var children = parent.Meta()["Children"] as Hashtable;
-            if (children == null)
+            if (parent == null)
             {
-                children = new Hashtable();
-                parent.Meta()["Children"] = children;
-            }
-            if (child.Name() == null)
-            {
-                var nameCounter = 0;
-                string safeName = name + nameCounter;
-                while (parent.GetChild(safeName) != null)
+                var children = child.Parent().Meta()["Children"] as Hashtable;
+
+                child.Meta().Remove("Parent");
+                if (children != null)
                 {
-                    nameCounter++;
-                    safeName = name + nameCounter;
+                    children.Remove(child.Name());
+                    child.SetName(null);
                 }
-                child.SetName(safeName);
+                return child;
             }
-            children[child.Name()] = child;
-            return child;
+            else
+            {
+                child.Meta()["Parent"] = parent;
+                var children = parent.Meta()["Children"] as Hashtable;
+                if (children == null)
+                {
+                    children = new Hashtable();
+                    parent.Meta()["Children"] = children;
+                }
+                if (child.Name() == null)
+                {
+                    var nameCounter = 0;
+                    string safeName = name + nameCounter;
+                    while (parent.GetChild(safeName) != null)
+                    {
+                        nameCounter++;
+                        safeName = name + nameCounter;
+                    }
+                    child.SetName(safeName);
+                }
+                children[child.Name()] = child;
+                return child;
+            }
         }
     }
 }

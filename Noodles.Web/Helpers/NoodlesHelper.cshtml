@@ -21,6 +21,8 @@
 @helper NodeMethodsMenuLink(object obj)
     { @NodeMethodsMenuLink(obj, null) }
 @helper NodeMethodsMenuLink(object obj, string additionalClasses)
+    { @NodeMethodsMenuLink(obj, additionalClasses, null) }
+@helper NodeMethodsMenuLink(object obj, string additionalClasses, string excludedMethodNames)
     {
     var nodeMethods = obj.NodeMethods();
     if (nodeMethods.Any())
