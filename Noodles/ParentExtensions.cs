@@ -111,10 +111,12 @@ namespace Noodles
                     children = new Hashtable();
                     parent.Meta()["Children"] = children;
                 }
+                string safeName = name;
+                
                 if (child.Name() == null)
                 {
                     var nameCounter = 0;
-                    string safeName = name + nameCounter;
+                    if (safeName == "_") safeName = "_0"; 
                     while (parent.GetChild(safeName) != null)
                     {
                         nameCounter++;
