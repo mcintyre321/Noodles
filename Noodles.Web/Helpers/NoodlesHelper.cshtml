@@ -22,12 +22,13 @@
     { @NodeMethodsMenuLink(obj, null) }
 @helper NodeMethodsMenuLink(object obj, string additionalClasses)
     { @NodeMethodsMenuLink(obj, additionalClasses, null) }
-@helper NodeMethodsMenuLink(object obj, string additionalClasses, string excludedMethodNames)
+@helper NodeMethodsMenuLink(object obj, string additionalClasses, string excludedMethodNamesCsv)
     {
+    var excludedMethodNames = (excludedMethodNamesCsv ?? "").Split(',');
     var nodeMethods = obj.NodeMethods();
-    if (nodeMethods.Any())
+    if (nodeMethods.Any(nm => excludedMethodNames.Contains(nm.Name) == false))
     {
-        <a class="nodeMethodsMenuLink @(additionalClasses ?? "")" href="@nodeMethods.Path()" data-nodeid="@obj.Id()" >Actions</a>
+        <a class="nodeMethodsMenuLink @(additionalClasses ?? "")" href="@nodeMethods.Path()" data-nodeid="@obj.Id()" data-excluded-methods="@excludedMethodNamesCsv">Actions</a>
     }
 }
 @helper NodeMethodLink(INodeMethod method)
