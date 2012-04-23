@@ -96,6 +96,7 @@
     };
 
     function submitForm($form) {
+        var $container = $form.closest(".nodeMethod");
         var ajaxOptions = {
             url: $form.attr('action'),
             type: "POST",
