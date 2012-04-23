@@ -21,8 +21,6 @@ namespace Noodles
 
         public IEnumerator<INodeMethod> GetEnumerator()
         {
-            var methods = Parent.GetType().GetMethods(BindingFlags.Public | BindingFlags.Instance | BindingFlags.FlattenHierarchy).ToArray();
-            List<INodeMethod> passedMethods = new List<INodeMethod>();
             return YieldNodeMethods().GetEnumerator();
         }
 
