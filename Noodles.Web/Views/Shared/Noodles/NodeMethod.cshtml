@@ -17,7 +17,7 @@
 {
     @Html.AntiForgeryToken()
 }
-@foreach (var parameter in Model.Parameters)
+@foreach (var parameter in Model.Parameters.Where(p => p.Locked == false))
 {
     var vm = parameter.ToPropertyVm(Html);
     Html.RenderPartial("FormFactory/Form.Property", vm, ViewData);

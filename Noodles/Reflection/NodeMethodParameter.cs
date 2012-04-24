@@ -140,5 +140,7 @@ namespace Noodles
         {
             get { return this._parameter.GetCustomAttributes(false).Cast<Attribute>(); }
         }
+
+        public bool Locked { get; set; }
     }
 }

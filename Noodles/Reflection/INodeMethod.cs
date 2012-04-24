@@ -5,7 +5,7 @@ namespace Noodles
     public interface INodeMethod
     {
         string Name { get; }
-        string DisplayName { get; }
+        string DisplayName { get; set; }
         IEnumerable<NodeMethodParameter> Parameters { get; }
         object Target { get; }
         string SuccessMessage { get; }

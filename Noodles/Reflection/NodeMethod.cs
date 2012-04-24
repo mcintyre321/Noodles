@@ -11,12 +11,12 @@ namespace Noodles
     [DebuggerDisplay("{ToString()} - Name={Name}")]
     public class NodeMethod : INodeMethod, IHasChildren, IHasParent<NodeMethods>
     {
-        private readonly NodeMethods _parent;
+        public NodeMethods Parent { get; set; }
         private readonly MethodInfo _methodInfo;
 
         public NodeMethod(object behaviour, NodeMethods parent, MethodInfo methodInfo)
         {
-            _parent = parent;
+            Parent = parent;
             _methodInfo = methodInfo;
             Target = behaviour;
         }
@@ -39,6 +39,7 @@ namespace Noodles
             {
                 return _displayName ?? (_displayName = GetDisplayName());
             }
+            set { _displayName = value; }
         }
 
         private string GetDisplayName()
@@ -168,11 +169,7 @@ namespace Noodles
         {
             return this.Parameters.SingleOrDefault(p => p.Name == name);
         }
-
-        public NodeMethods Parent
-        {
-            get { return _parent; }
-        }
+ 
 
         public bool Equals(NodeMethod other)
         {

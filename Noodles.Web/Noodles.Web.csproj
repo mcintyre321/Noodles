@@ -87,7 +87,7 @@
       <DesignTime>True</DesignTime>
     </Compile>
     <Compile Include="Helpers\DataTableHelper.cs" />
-    <Compile Include="Helpers\ForFactoryHelperExtensions.cs" />
+    <Compile Include="Helpers\FormFactoryHelperExtensions.cs" />
     <Compile Include="ActionResultExtension.cs" />
     <Compile Include="Helpers\NoodlesHelper.generated.cs">
       <AutoGen>True</AutoGen>

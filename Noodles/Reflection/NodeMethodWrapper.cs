@@ -1,12 +1,16 @@
+using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Noodles
 {
-    public class NodeMethodWrapper : INodeMethod
+    public class NodeMethodWrapper : INodeMethod, IHasParent<NodeMethods>
     {
         private readonly INodeMethod _inner;
         private string _innerName;
         private string _innerDisplayName;
+        private NodeMethods _parent;
+
         public string Name
         {
             get { return _innerName ?? _inner.Name; }
@@ -21,7 +25,7 @@ namespace Noodles
 
         public IEnumerable<NodeMethodParameter> Parameters
         {
-            get { return _inner.Parameters; }
+            get { return _inner.Parameters.Select(TransformParameters); }
         }
 
         public object Target
@@ -29,7 +33,7 @@ namespace Noodles
             get { return _inner.Target; }
         }
 
-        public object Parent { set; private get; }
+        public NodeMethods Parent { set { _parent  = value; } get { return _parent ?? _inner.Parent() as NodeMethods; } }
 
 
         public string SuccessMessage
@@ -45,6 +49,10 @@ namespace Noodles
         public NodeMethodWrapper(INodeMethod inner)
         {
             _inner = inner;
+            TransformParameters = s => s;
         }
+
+        public Func<NodeMethodParameter, NodeMethodParameter> TransformParameters { get; set; }
+
     }
 } 

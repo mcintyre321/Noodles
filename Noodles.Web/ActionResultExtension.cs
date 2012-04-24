@@ -86,7 +86,9 @@ namespace Noodles
                         using (Profiler.Step("Executing action " + method.Name))
                         {
 
-                            var parameters = method.Parameters.Select(pt => BindObject(cc, pt.BindingParameterType, pt.Name)).ToArray();
+                            var parameters = method.Parameters 
+                                .Select(pt => pt.Locked ? pt.Value : BindObject(cc, pt.BindingParameterType, pt.Name))
+                                .ToArray();
                             var msd = cc.Controller.ViewData.ModelState;
                             if (msd.IsValid)
                             {
