@@ -10,7 +10,6 @@ namespace Noodles
     public class NodeMethodParameter : IHasName
     {
         private readonly NodeMethod _nodeMethod;
-        private readonly object _target;
         private readonly MethodInfo _mi;
         private readonly ParameterInfo _parameter;
 
@@ -19,10 +18,9 @@ namespace Noodles
 
         private object _value;
 
-        internal NodeMethodParameter(NodeMethod nodeMethod, object target, MethodInfo mi, ParameterInfo parameter)
+        internal NodeMethodParameter(NodeMethod nodeMethod, MethodInfo mi, ParameterInfo parameter)
         {
             _nodeMethod = nodeMethod;
-            _target = target;
             _mi = mi;
             _parameter = parameter;
         }
@@ -60,9 +58,9 @@ namespace Noodles
                 if (_value != null) return _value;
                 if (_mi.Name.StartsWith("set_") && !_mi.Name.EndsWith("_callback"))
                 {
-                    var property = _target.GetType().GetProperty(_mi.Name.Substring(4), looseBindingFlags);
+                    var property = _nodeMethod.Target.GetType().GetProperty(_mi.Name.Substring(4), looseBindingFlags);
                     var getter = property.GetGetMethod(true);
-                    return getter.Invoke(_target, null);
+                    return getter.Invoke(_nodeMethod.Target, null);
                 }
                 return null;
             }
@@ -81,11 +79,11 @@ namespace Noodles
                 }
 
                 methodName = methodName + Name + "_choices";
-                var choices = _target.GetType().GetMethod(methodName, looseBindingFlags)
-                    ?? _target.GetType().GetMethod("get_" + methodName, looseBindingFlags);
+                var choices = _nodeMethod.Target.GetType().GetMethod(methodName, looseBindingFlags)
+                    ?? _nodeMethod.Target.GetType().GetMethod("get_" + methodName, looseBindingFlags);
                 if (choices != null)
                 {
-                    return  (IEnumerable)choices.Invoke(_target, null);
+                    return  (IEnumerable)choices.Invoke(_nodeMethod.Target, null);
                 }
                 return null;
             }
@@ -119,11 +117,11 @@ namespace Noodles
                     methodName = _nodeMethod.Name + "_";
                 }
                 methodName = methodName + Name + "_suggestions";
-                var suggestions = _target.GetType().GetMethod(methodName, looseBindingFlags)
-                    ?? _target.GetType().GetMethod("get_" + methodName, looseBindingFlags);
+                var suggestions = _nodeMethod.Target.GetType().GetMethod(methodName, looseBindingFlags)
+                    ?? _nodeMethod.Target.GetType().GetMethod("get_" + methodName, looseBindingFlags);
                 if (suggestions != null)
                 {
-                    return (IEnumerable)suggestions.Invoke(_target, null);
+                    return (IEnumerable)suggestions.Invoke(_nodeMethod.Target, null);
                 }
                 return null;
             }

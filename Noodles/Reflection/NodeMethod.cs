@@ -67,7 +67,7 @@ namespace Noodles
 
         private IEnumerable<NodeMethodParameter> LoadParameters()
         {
-            var parameters = _methodInfo.GetParameters().Select(p => new NodeMethodParameter(this, Target, _methodInfo, p)).ToArray();
+            var parameters = _methodInfo.GetParameters().Select(p => new NodeMethodParameter(this, _methodInfo, p)).ToArray();
             var methodName = this._methodInfo.Name.StartsWith("set_")
                                  ? _methodInfo.Name.Substring(4)
                                  : _methodInfo.Name;
