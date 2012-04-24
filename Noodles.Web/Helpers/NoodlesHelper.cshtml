@@ -39,8 +39,8 @@
 @helper NodeMethodLink(INodeMethod method)
     { @NodeMethodLink(method, null)}
 @helper NodeMethodLink(INodeMethod method, string additionalClasses)
-    {
-    <a class="nodeMethodLink @(additionalClasses ?? "")" data-nodeid="@method.Id()" href="@method.Path()">@method.DisplayName</a>
+{
+    <a class="nodeMethodLink @(additionalClasses ?? "") @(method.Target.NodeType().Name.ToLowerInvariant())-@(method.Name.ToLowerInvariant())" data-nodeid="@method.Id()" href="@method.Path()">@method.DisplayName</a>
 }
 @helper NodeMethodForm(System.Web.Mvc.HtmlHelper html, INodeMethod method, string formClass)
     {

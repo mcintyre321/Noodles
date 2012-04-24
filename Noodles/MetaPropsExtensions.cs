@@ -3,7 +3,7 @@ using System.Runtime.CompilerServices;
 
 namespace Noodles
 {
-    static class MetaPropsExtensions
+    public static class MetaPropsExtensions
     {
         private static readonly ConditionalWeakTable<object, Hashtable> Props =
             new ConditionalWeakTable<object, Hashtable>();
