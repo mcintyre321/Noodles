@@ -54,7 +54,7 @@ namespace Noodles
         public static bool ShowByDefault { get; set; }
         public static List<ShowMethodRule> ShowMethodRules { get; private set; }
         
-        public static NodeMethods GetNodeMethods(this object o)
+        internal static NodeMethods GetNodeMethods(this object o)
         {
             return new NodeMethods(o);
         }

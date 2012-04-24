@@ -11,7 +11,6 @@ namespace Noodles
     {
         public static IEnumerable<INodeMethod> NodeMethods(this object o)
         {
-            if (o is IHasNodeMethods) return ((IHasNodeMethods) o).NodeMethods();
             return o.GetNodeMethods();
         }
         public static INodeMethod NodeMethod(this object o, string methodName)
