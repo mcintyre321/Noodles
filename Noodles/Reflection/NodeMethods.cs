@@ -5,8 +5,22 @@ using System.Reflection;
 
 namespace Noodles
 {
+    public delegate IEnumerable<INodeMethod> FindNodeMethodsRule(NodeMethods obj);
     public class NodeMethods : IHasChildren, IEnumerable<INodeMethod>, IHasParent<object>, IHasName
     {
+        static NodeMethods()
+        {
+            FindNodeMethodsRules = new List<FindNodeMethodsRule>()
+            {
+                UseIHasNodeMethod,
+                FindNodeMethodsUsingReflection
+            };
+        }
+
+        public static List<FindNodeMethodsRule> FindNodeMethodsRules { get; private set; }
+
+        public static FindNodeMethodsRule UseIHasNodeMethod = nm => nm.Parent is IHasNodeMethods ? ((IHasNodeMethods)nm.Parent).NodeMethods() : null;
+
         public object Parent { get; private set; }
 
         public NodeMethods(object node)
@@ -21,25 +35,25 @@ namespace Noodles
 
         public IEnumerator<INodeMethod> GetEnumerator()
         {
-            var methods = Parent.GetType().GetMethods(BindingFlags.Public | BindingFlags.Instance | BindingFlags.FlattenHierarchy).ToArray();
-            List<INodeMethod> passedMethods = new List<INodeMethod>();
-            return YieldNodeMethods().GetEnumerator();
+            return FindNodeMethodsRules.SelectMany(r => r(this) ?? new INodeMethod[]{}).GetEnumerator();
         }
 
-        IEnumerable<INodeMethod> YieldNodeMethods()
+        public static readonly FindNodeMethodsRule FindNodeMethodsUsingReflection = (nm) => YieldFindNodeMethodsUsingReflection(nm);
+
+        public static IEnumerable<INodeMethod> YieldFindNodeMethodsUsingReflection(NodeMethods nm)
         {
-            var methods = Parent.GetType().GetMethods(BindingFlags.Public | BindingFlags.Instance | BindingFlags.FlattenHierarchy).ToArray();
+            var methods = nm.Parent.GetType().GetMethods(BindingFlags.Public | BindingFlags.Instance | BindingFlags.FlattenHierarchy).ToArray();
             foreach (var info in methods)
             {
                 bool? ruleResult = null;
                 foreach (var rule in NodeMethodsRuleRegistry.ShowMethodRules)
                 {
-                    ruleResult = rule(Parent, info);
+                    ruleResult = rule(nm.Parent, info);
                     if (ruleResult.HasValue) break;
                 }
                 if (ruleResult ?? NodeMethodsRuleRegistry.ShowByDefault)
                 {
-                    yield return new NodeMethod(Parent, this, info);
+                    yield return new NodeMethod(nm.Parent, nm, info);
                 }
             }
         }
