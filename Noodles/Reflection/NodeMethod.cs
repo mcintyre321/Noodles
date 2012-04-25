@@ -6,6 +6,8 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
+using Noodles.Attributes;
+
 namespace Noodles
 {
     [DebuggerDisplay("{ToString()} - Name={Name}")]
@@ -29,7 +31,7 @@ namespace Noodles
         }
 
         private BindingFlags looseBindingFlags = BindingFlags.IgnoreCase | BindingFlags.FlattenHierarchy | BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic;
-
+        
         [Name]
         public string Name { get { return _methodInfo.Name; } }
 
@@ -53,6 +55,29 @@ namespace Noodles
         }
 
         private string _displayName;
+
+
+        private bool _checkedForMessage = false;
+        private string _message;
+        public string Message
+        {
+            get
+            {
+                if (!_checkedForMessage)
+                {
+                    var messageAttribute = this._methodInfo
+                        .GetCustomAttributes(typeof (MessageAttribute), true)
+                        .OfType<MessageAttribute>()
+                        .FirstOrDefault();
+                    if (messageAttribute != null)
+                    {
+                        _message = messageAttribute.Message;
+                    }
+                    _checkedForMessage = true;
+                }
+                return _message;
+            }
+        }
 
 
         private IEnumerable<NodeMethodParameter> _parameters;

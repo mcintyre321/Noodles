@@ -6,6 +6,7 @@ namespace Noodles
     {
         string Name { get; }
         string DisplayName { get; set; }
+        string Message { get; }
         IEnumerable<NodeMethodParameter> Parameters { get; }
         object Target { get; }
         string SuccessMessage { get; }

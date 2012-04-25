@@ -23,6 +23,11 @@ namespace Noodles
             set { _innerDisplayName = value; }
         }
 
+        public string Message
+        {
+            get { return _inner.Message; }
+        }
+
         public IEnumerable<NodeMethodParameter> Parameters
         {
             get { return _inner.Parameters.Select(TransformParameters); }

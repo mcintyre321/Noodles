@@ -42,6 +42,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Attributes\MessageAttribute.cs" />
     <Compile Include="ChildrenExtensions.cs">
       <SubType>Code</SubType>
     </Compile>
