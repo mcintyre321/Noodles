@@ -17,14 +17,13 @@ namespace Noodles
             name = name ?? "_";
             if (parent == null)
             {
-                var children = child.Parent().Meta()["Children"] as Hashtable;
-
-                child.Meta().Remove("Parent");
-                if (children != null)
+                var currentParent = child.Parent();
+                if (currentParent != null)
                 {
-                    children.Remove(child.Name());
+                    currentParent.Children().Remove(child.Name());
                     child.SetName(null);
                 }
+                child.Meta().Remove("Parent");
                 return child;
             }
             else
@@ -67,8 +66,7 @@ namespace Noodles
         }
 
 
-
-        static Hashtable Children(this object obj)
+        public static Hashtable Children(this object obj)
         {
             var children = obj.Meta()["Children"] as Hashtable;
             if (children == null) obj.Meta()["Children"] = children = new Hashtable();
