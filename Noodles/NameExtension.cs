@@ -1,7 +1,9 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using System.Runtime.CompilerServices;
 
 namespace Noodles
 {
@@ -22,6 +24,7 @@ namespace Noodles
                 GetNameFromAttribute,
                 GetNameFromMetaProps
             };
+
         }
 
         public static Noodles.ResolveName GetNameFromInterface = o =>
@@ -57,7 +60,9 @@ namespace Noodles
 
         public static List<Noodles.ResolveName> NameRules;
 
-        public static Noodles.ResolveName GetNameFromMetaProps = o => o.Meta()["Name"] as string;
+        private static readonly ConditionalWeakTable<object, string> Names = new ConditionalWeakTable<object, string>();
+
+        public static Noodles.ResolveName GetNameFromMetaProps = o => Names.GetValue(o, (c) => null);
 
         public static string Name(this object obj)
         {
@@ -68,14 +73,16 @@ namespace Noodles
         {
             if (name == null)
             {
-                o.Meta().Remove("Name");
+                Names.Remove(o);
             }
             else
             {
-                o.Meta()["Name"] = name;
+                Names.Remove(o);
+                Names.Add(o, name);
             }
         }
- 
+
+
     }
 
     public class NameAttribute : Attribute
