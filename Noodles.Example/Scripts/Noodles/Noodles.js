@@ -141,4 +141,26 @@
         var $form = $container.find("form");
         return submitForm($form);
     });
+
+    $(".nodeMethodAutoSubmit").live('click', function (e) {
+        var ajaxOptions = {
+            url: $(this).attr('href'),
+            type: "POST",
+            success: function (data) {
+                window.location.reload();
+            },
+
+            error: function (jqXhr, textStatus, errorThrown) {
+                if (errorThrown == "Conflict") {
+                    var $html = $(jqXhr.responseText);
+                    // TODO: something with $html
+                }
+            },
+            complete: function () {
+                //$("#ProgressDialog").dialog("close");
+            }
+        };
+        $.ajax(ajaxOptions);
+        return false;
+    });
 });

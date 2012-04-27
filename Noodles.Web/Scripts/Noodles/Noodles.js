@@ -92,12 +92,14 @@
         var methodsPanelId = "method-" + $link.attr("data-nodeid");
         $("#" + methodsPanelId).modal({ show: true, backdrop: true });
         $("#" + methodsPanelId + " :input:visible:enabled:first").focus();
+
+        $("#" + methodsPanelId + " form").submit(function () {
+            return submitForm($(this));
+        });
     };
 
-    $(".submitMethod").live('click', function (e) {
-
-        var $container = $(this).closest(".nodeMethod");
-        var $form = $container.find("form");
+    function submitForm($form) {
+        var $container = $form.closest(".nodeMethod");
         var ajaxOptions = {
             url: $form.attr('action'),
             type: "POST",
@@ -133,6 +135,35 @@
                 processData: false
             });
         }
+        $.ajax(ajaxOptions);
+        return false;
+    }
+
+    $(".submitMethod").live('click', function (e) {
+        var $container = $(this).closest(".nodeMethod");
+        var $form = $container.find("form");
+        return submitForm($form);
+    });
+
+
+    $(".nodeMethodAutoSubmit").live('click', function (e) {
+        var ajaxOptions = {
+            url: $(this).attr('href'),
+            type: "POST",
+            success: function (data) {
+                window.location.reload();
+            },
+
+            error: function (jqXhr, textStatus, errorThrown) {
+                if (errorThrown == "Conflict") {
+                    var $html = $(jqXhr.responseText);
+                    // TODO: something with $html
+                }
+            },
+            complete: function () {
+                //$("#ProgressDialog").dialog("close");
+            }
+        };
         $.ajax(ajaxOptions);
         return false;
     });

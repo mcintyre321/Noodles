@@ -51,6 +51,11 @@ namespace Noodles
             _inner.Invoke(parameters);
         }
 
+        public bool AutoSubmit
+        {
+            get { return _inner.AutoSubmit; }
+        }
+
         public NodeMethodWrapper(INodeMethod inner)
         {
             _inner = inner;

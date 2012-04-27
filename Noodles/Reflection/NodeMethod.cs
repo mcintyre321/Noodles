@@ -120,6 +120,27 @@ namespace Noodles
             _methodInfo.Invoke(Target, methodParameterInfos.Select(mp => mp.LastValue).ToArray());
         }
 
+        private bool? _autoSubmit;
+        public bool AutoSubmit
+        {
+            get
+            {
+                if (_autoSubmit == null)
+                {
+                    foreach (var rule in NodeMethodsRuleRegistry.AutoSubmitRules)
+                    {
+                        _autoSubmit = rule(this._methodInfo);
+                        if (_autoSubmit.HasValue) break;
+                    }
+                    if (_autoSubmit == null)
+                    {
+                        _autoSubmit = NodeMethodsRuleRegistry.AutoSubmitByDefault;
+                    }
+                }
+                return _autoSubmit.Value;
+            }
+        }
+
         private object GetParameterValue(object[] parameters, ParameterInfo parameterInfo, int index)
         {
             if (index >= parameters.Length && parameterInfo.IsOptional) //looks there a new optional parameter has been added to the method

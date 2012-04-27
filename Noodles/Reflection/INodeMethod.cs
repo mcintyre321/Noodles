@@ -11,5 +11,6 @@ namespace Noodles
         object Target { get; }
         string SuccessMessage { get; }
         void Invoke(object[] parameters);
+        bool AutoSubmit { get; }
     }
 }

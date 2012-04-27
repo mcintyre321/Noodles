@@ -39,10 +39,11 @@
 @helper NodeMethodLink(INodeMethod method)
     { @NodeMethodLink(method, null)}
 @helper NodeMethodLink(INodeMethod method, string additionalClasses)
-{
+    {
     if (method != null)
     {
-        <a class="nodeMethodLink @(additionalClasses ?? "") @(method.Target.NodeType().Name.ToLowerInvariant())-@(method.Name.ToLowerInvariant())" data-nodeid="@method.Id()" href="@method.Path()">@method.DisplayName</a>
+        var nodeClass = method.AutoSubmit ? "nodeMethodAutoSubmit" : "nodeMethodLink";
+        <a class="@(nodeClass) @(additionalClasses ?? "") @(method.Target.NodeType().Name.ToLowerInvariant())-@(method.Name.ToLowerInvariant())" data-nodeid="@method.Id()" href="@method.Path()">@method.DisplayName</a>
     }
 }
 @helper NodeMethodForm(System.Web.Mvc.HtmlHelper html, INodeMethod method, string formClass)
@@ -50,7 +51,7 @@
         if (method != null)
         {
             <div class="nodeMethod">
-                @html.Partial("Noodles/NodeMethod", method, new ViewDataDictionary {{"FormClass", formClass ?? ""}})
+                @html.Partial("Noodles/NodeMethod", method, new ViewDataDictionary { { "FormClass", formClass ?? "" } })
             </div>
         }
 }

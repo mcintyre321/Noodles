@@ -7,6 +7,15 @@ namespace Noodles
 {
     public class ShowAttribute : Attribute { }
     public class HideAttribute : Attribute { }
+    public class AutoSubmitAttribute : Attribute
+    {
+        public bool AutoSubmit { get; private set; }
+
+        public AutoSubmitAttribute(bool autoSubmit = true)
+        {
+            AutoSubmit = autoSubmit;
+        }
+    }
     public static class NodeMethodsRuleRegistry
     {
         /// <returns>
@@ -30,6 +39,21 @@ namespace Noodles
         public static ShowMethodRule ClassLevelShowByDefault = (t, mi) => mi.DeclaringType.GetCustomAttributes(typeof(ShowAttribute), true).Any() ? true : null as bool?;
         public static ShowMethodRule ClassLevelHideByDefault = (t, mi) => mi.DeclaringType.GetCustomAttributes(typeof(HideAttribute), true).Any() ? false : null as bool?;
 
+        public static bool ShowByDefault { get; set; }
+        public static List<ShowMethodRule> ShowMethodRules { get; private set; }
+
+
+        /// <returns>
+        /// true if the method should defs be auto-submitted
+        /// false if the method should defs not be auto-submitted
+        /// null when not sure
+        /// </returns>
+        public delegate bool? AutoSubmitRule(MethodInfo methodInfo);
+        public static bool AutoSubmitByDefault { get; set; }
+        public static List<AutoSubmitRule> AutoSubmitRules { get; private set; }
+
+        public static AutoSubmitRule NoAutoSubmitWhenHasParams = (mi) => mi.GetParameters().Any() ? false : null as bool?;
+        public static AutoSubmitRule AutoSubmitAttribute = (mi) => mi.GetCustomAttributes(typeof(AutoSubmitAttribute), true).Cast<AutoSubmitAttribute>().FirstOrDefault().Maybe(x => x.AutoSubmit as bool?);
 
         static NodeMethodsRuleRegistry()
         {
@@ -49,14 +73,20 @@ namespace Noodles
                                       ClassLevelShowByDefault,
                                       ClassLevelHideByDefault,
                                   };
+            AutoSubmitRules = new List<AutoSubmitRule>
+                                  {
+                                      NoAutoSubmitWhenHasParams,
+                                      AutoSubmitAttribute
+                                  };
         }
-
-        public static bool ShowByDefault { get; set; }
-        public static List<ShowMethodRule> ShowMethodRules { get; private set; }
         
         internal static NodeMethods GetNodeMethods(this object o)
         {
             return new NodeMethods(o);
+        }
+        internal static U Maybe<T, U>(this T t, Func<T, U> f) where T : class
+        {
+            return (t == null) ? default(U) : f(t);
         }
     }
 }
