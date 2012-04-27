@@ -21,7 +21,6 @@ namespace Noodles
         static NoodleResultBuilderExtension()
         {
             AddExceptionHandler<UserException>((e, cc) => cc.Controller.ViewData.ModelState.AddModelError("", e));
-            
         }
 
         public static ActionResult GetNoodleResult(this ControllerContext cc, object root, string path = null, Action<INodeMethod, object[]> doInvoke = null)
@@ -53,10 +52,13 @@ namespace Noodles
                     if (cc.HttpContext.Request.IsAjaxRequest())
                     {
                         vr.MasterName = "Noodles/_AjaxLayout";
-                        
                     }
 
                     vr.ViewData.Model = node;
+                    if (cc.HttpContext.Request.UrlReferrer != null)
+                    {
+                        vr.ViewData["nodeMethodReturnUrl"] = cc.HttpContext.Request.UrlReferrer.AbsolutePath;
+                    }
                     return vr;
                 }
             }
@@ -85,7 +87,6 @@ namespace Noodles
 
                         using (Profiler.Step("Executing action " + method.Name))
                         {
-
                             var parameters = method.Parameters 
                                 .Select(pt => pt.Locked ? pt.Value : BindObject(cc, pt.BindingParameterType, pt.Name))
                                 .ToArray();
@@ -100,7 +101,6 @@ namespace Noodles
                                 }
                                 catch (Exception ex)
                                 {
-
                                     if (ex is TargetInvocationException)
                                     {
                                         ex = ex.InnerException ?? ex;
@@ -121,34 +121,75 @@ namespace Noodles
                             }
                             else
                             {
-
                                 cc.HttpContext.Response.StatusCode = 409;
                             }
-
+                            
                             cc.HttpContext.Response.TrySkipIisCustomErrors = true;
-
-                            Logger.Trace("In ajax request");
-                            if (!msd.IsValid)
+                            
+                            if (cc.HttpContext.Request.IsAjaxRequest())
                             {
-                                var res = new PartialViewResult
+                                Logger.Trace("In ajax request");
+                                if (!msd.IsValid)
                                 {
-                                    ViewName = "Noodles/NodeMethod",
-                                    ViewData = {Model = method},
-                                };
-                                res.ViewData.ModelState.Merge(msd);
-                                return res;
+                                    var res = new PartialViewResult
+                                                  {
+                                                      ViewName = "Noodles/NodeMethod",
+                                                      ViewData = {Model = method},
+                                                  };
+                                    res.ViewData.ModelState.Merge(msd);
+                                    return res;
+                                }
+                                else
+                                {
+                                    Logger.Trace("Returning success");
+                                    var res = new PartialViewResult
+                                                  {
+                                                      ViewName = "Noodles/NodeMethodSuccess",
+                                                      ViewData = {Model = method},
+                                                  };
+
+                                    res.ViewData.ModelState.Merge(msd);
+                                    return res;
+                                }
                             }
                             else
                             {
-                                Logger.Trace("Returning success");
-                                var res = new PartialViewResult
-                                {
-                                    ViewName = "Noodles/NodeMethodSuccess",
-                                    ViewData = {Model = method},
-                                };
+                                Logger.Trace("Not ajax request");
 
-                                res.ViewData.ModelState.Merge(msd);
-                                return res;
+                                var nodeMethodReturnUrl = cc.RequestContext.HttpContext.Request["nodeMethodReturnUrl"];
+
+                                if (!msd.IsValid)
+                                {
+                                    var res = new ViewResult
+                                    {
+                                        ViewName = "Noodles/NodeMethod",
+                                        ViewData = { Model = method },
+                                    };
+                                    res.ViewData.ModelState.Merge(msd);
+                                    res.ViewData["nodeMethodReturnUrl"] = nodeMethodReturnUrl;
+
+                                    return res;
+                                }
+                                else
+                                {
+                                    Logger.Trace("Returning success");
+
+                                    if (nodeMethodReturnUrl != null)
+                                    {
+                                        return new RedirectResult(nodeMethodReturnUrl);
+                                    }
+                                    else
+                                    {
+                                        var res = new ViewResult
+                                        {
+                                            ViewName = "Noodles/NodeMethodSuccess",
+                                            ViewData = { Model = method },
+                                        };
+
+                                        res.ViewData.ModelState.Merge(msd);
+                                        return res;
+                                    }
+                                }
                             }
                         }
                     }
