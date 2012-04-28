@@ -171,7 +171,7 @@
     <None Include="Content\DataTables-1.9.0\media\images\sort_desc.png" />
     <None Include="Content\DataTables-1.9.0\media\images\sort_desc_disabled.png" />
     <None Include="Global.asax" />
-    <Content Include="Scripts\Noodles\Noodles.js" />
+    <EmbeddedResource Include="Scripts\Noodles\Noodles.js" />
     <Content Include="Views\Shared\FormFactory\_README.txt" />
     <Content Include="Views\Shared\Noodles\_README.txt" />
     <Content Include="Views\Shared\FormFactory\Property.System.String.cshtml" />
