@@ -65,13 +65,24 @@ namespace Noodles
             {
                 if (!_checkedForMessage)
                 {
-                    var messageAttribute = this._methodInfo
-                        .GetCustomAttributes(typeof (MessageAttribute), true)
-                        .OfType<MessageAttribute>()
-                        .FirstOrDefault();
-                    if (messageAttribute != null)
+                    // TODO: if a set property?
+                    string messageMethodName = Name + "_message";
+                    var messageMethod = this.Target.GetType().GetMethod(messageMethodName, looseBindingFlags)
+                        ?? this.Target.GetType().GetMethod("get_" + messageMethodName, looseBindingFlags);
+                    if (messageMethod != null)
                     {
-                        _message = messageAttribute.Message;
+                        _message = (string)messageMethod.Invoke(this.Target, null);
+                    }
+                    else
+                    {
+                        var messageAttribute = this._methodInfo
+                            .GetCustomAttributes(typeof (MessageAttribute), true)
+                            .OfType<MessageAttribute>()
+                            .FirstOrDefault();
+                        if (messageAttribute != null)
+                        {
+                            _message = messageAttribute.Message;
+                        }
                     }
                     _checkedForMessage = true;
                 }
