@@ -8,8 +8,10 @@ namespace Noodles.Helpers
     {
         public static PropertyVm ToPropertyVm(this NodeMethodParameter parameter, HtmlHelper Html)
         {
-            return new PropertyVm(Html, parameter.ParameterType, parameter.Name, parameter.Id(), parameter.DisplayName)
+            return new PropertyVm(Html, parameter.ParameterType, parameter.Name)
             {
+                Id = parameter.Id(), 
+                DisplayName = parameter.DisplayName,
                 GetCustomAttributes = () => parameter.CustomAttributes,
                 IsWritable = true,
                 Value = parameter.Value,
