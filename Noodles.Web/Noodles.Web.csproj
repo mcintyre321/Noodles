@@ -82,6 +82,11 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helpers\AttemptedValueHelper.cs" />
+    <Compile Include="Helpers\BootstrapHelper.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>BootstrapHelper.cshtml</DependentUpon>
+    </Compile>
     <Compile Include="Helpers\DataTableHelper.cs" />
     <Compile Include="Helpers\FormFactoryHelperExtensions.cs" />
     <Compile Include="ActionResultExtension.cs" />
@@ -203,7 +208,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Helpers\BootstrapHelper.cshtml">
-      <LastGenOutput>Bootstrap.generated.cs</LastGenOutput>
+      <LastGenOutput>BootstrapHelper.generated.cs</LastGenOutput>
+      <Generator>RazorGenerator</Generator>
     </Content>
   </ItemGroup>
   <ItemGroup>
