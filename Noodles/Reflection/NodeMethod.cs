@@ -154,7 +154,7 @@ namespace Noodles
             {
                 return null;
             }
-            if (value.GetType() == parameterInfo.ParameterType)
+            if (parameterInfo.ParameterType.IsAssignableFrom(value.GetType()))
             {
                 return value;
             }

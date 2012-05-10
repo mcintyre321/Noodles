@@ -36,8 +36,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="FormFactory, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\FormFactory.1.1.83\lib\net40\FormFactory.dll</HintPath>
+    <Reference Include="FormFactory, Version=1.0.4512.30171, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\FormFactory.1.1.102\lib\net40\FormFactory.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
@@ -298,16 +299,6 @@
     <Content Include="Views\Account\ChangePassword.cshtml" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Object.cshtml" />
-    <Content Include="Views\Shared\FormFactory\Form.Close.cshtml" />
-    <Content Include="Views\Shared\FormFactory\Property.System.String.cshtml" />
-    <Content Include="Views\Shared\FormFactory\Property.System.Object.cshtml" />
-    <Content Include="Views\Shared\FormFactory\Property.System.Int64.cshtml" />
-    <Content Include="Views\Shared\FormFactory\Property.System.Int32.cshtml" />
-    <Content Include="Views\Shared\FormFactory\Property.System.Enum.cshtml" />
-    <Content Include="Views\Shared\FormFactory\Property.System.Double.cshtml" />
-    <Content Include="Views\Shared\FormFactory\Property.System.DateTime.cshtml" />
-    <Content Include="Views\Shared\FormFactory\Property.System.Boolean.cshtml" />
-    <Content Include="Views\Shared\FormFactory\Property.IEnumerable.System.Object.cshtml" />
     <Content Include="Views\Shared\FormFactory\Form.Start.cshtml" />
     <Content Include="Views\Shared\FormFactory\Form.Property.Inline.cshtml" />
     <Content Include="Views\Shared\FormFactory\Form.Property.cshtml" />
@@ -319,6 +310,16 @@
     </Content>
     <Content Include="Views\Shared\Noodles\NodeMethods.cshtml" />
     <Content Include="Views\Shared\Noodles\_AjaxLayout.cshtml" />
+    <Content Include="Views\Shared\FormFactory\Property.System.String.cshtml" />
+    <Content Include="Views\Shared\FormFactory\Property.System.Object.cshtml" />
+    <Content Include="Views\Shared\FormFactory\Property.System.Int64.cshtml" />
+    <Content Include="Views\Shared\FormFactory\Property.System.Int32.cshtml" />
+    <Content Include="Views\Shared\FormFactory\Property.System.Enum.cshtml" />
+    <Content Include="Views\Shared\FormFactory\Property.System.Double.cshtml" />
+    <Content Include="Views\Shared\FormFactory\Property.System.DateTime.cshtml" />
+    <Content Include="Views\Shared\FormFactory\Property.System.Boolean.cshtml" />
+    <Content Include="Views\Shared\FormFactory\Property.IEnumerable.System.Object.cshtml" />
+    <Content Include="Views\Shared\FormFactory\Form.Close.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Noodles.Web\Noodles.Web.csproj">
