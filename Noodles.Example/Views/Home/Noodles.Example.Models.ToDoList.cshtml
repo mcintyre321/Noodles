@@ -1,4 +1,5 @@
 ﻿@using System.Web.Mvc.Html
+@using FormFactory
 @using Noodles
 @using Noodles.Example.Models
 @using Noodles
@@ -40,9 +41,9 @@
             Task = Task(t).ToHtmlString(), 
             t.Status, 
             Actions = NoodlesHelper.NodeMethodsMenuLink(t).ToHtmlString()
-        }))
+        }).Then(vm => vm.TableTools = false).Then(vm => vm.ShowPageSizes = false).Then(vm => vm.ShowSearch = false))
         <br />
         <h4>Users</h4>
-        @Html.Partial("DataTable", Html.DataTableVmFor(() => Model.Users, u => new { Email = MailToLink(u.Email).ToHtmlString(), u.Name }))
+        @Html.Partial("DataTable", Html.DataTableVmFor(() => Model.Users, u => new { Email = MailToLink(u.Email).ToHtmlString(), u.Name }).Then(vm => vm.TableTools = false).Then(vm => vm.ShowPageSizes = false).Then(vm => vm.ShowSearch = false))
     </div>
 </div>
