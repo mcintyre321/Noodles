@@ -132,7 +132,7 @@ namespace Noodles
             get { return this._parameter; }
         }
 
-        public INodeMethod NodeMethod { get { return _nodeMethod; } }
+        public NodeMethod NodeMethod { get { return _nodeMethod; } }
 
         public IEnumerable<Attribute> CustomAttributes
         {

@@ -5,8 +5,8 @@ using System.Reflection;
 
 namespace Noodles
 {
-    public delegate IEnumerable<INodeMethod> FindNodeMethodsRule(NodeMethods obj);
-    public class NodeMethods : IHasChildren, IEnumerable<INodeMethod>, IHasParent<object>, IHasName
+    public delegate IEnumerable<NodeMethod> FindNodeMethodsRule(NodeMethods obj);
+    public class NodeMethods : IHasChildren, IEnumerable<NodeMethod>, IHasParent<object>, IHasName
     {
         static NodeMethods()
         {
@@ -33,14 +33,14 @@ namespace Noodles
             return Parent.NodeMethods().SingleOrDefault(nm => nm.Name == name);
         }
 
-        public IEnumerator<INodeMethod> GetEnumerator()
+        public IEnumerator<NodeMethod> GetEnumerator()
         {
-            return FindNodeMethodsRules.SelectMany(r => r(this) ?? new INodeMethod[]{}).GetEnumerator();
+            return FindNodeMethodsRules.SelectMany(r => r(this) ?? new NodeMethod[]{}).GetEnumerator();
         }
 
         public static readonly FindNodeMethodsRule FindNodeMethodsUsingReflection = (nm) => YieldFindNodeMethodsUsingReflection(nm);
 
-        public static IEnumerable<INodeMethod> YieldFindNodeMethodsUsingReflection(NodeMethods nm)
+        public static IEnumerable<NodeMethod> YieldFindNodeMethodsUsingReflection(NodeMethods nm)
         {
             var methods = nm.Parent.GetType().GetMethods(BindingFlags.Public | BindingFlags.Instance | BindingFlags.FlattenHierarchy).ToArray();
             foreach (var info in methods)

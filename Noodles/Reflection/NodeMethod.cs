@@ -11,7 +11,7 @@ using Noodles.Attributes;
 namespace Noodles
 {
     [DebuggerDisplay("{ToString()} - Name={Name}")]
-    public class NodeMethod : INodeMethod, IHasChildren, IHasParent<NodeMethods>
+    public class NodeMethod : IHasChildren, IHasParent<NodeMethods>
     {
         public NodeMethods Parent { get; set; }
         private readonly MethodInfo _methodInfo;

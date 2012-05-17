@@ -36,14 +36,14 @@
         Actions</a>
         }
 }
-@helper NodeMethodLink(INodeMethod method)
+@helper NodeMethodLink(NodeMethod method)
     { @NodeMethodLink(method, null)}
-@helper NodeMethodLink(INodeMethod method, string additionalClasses)
+@helper NodeMethodLink(NodeMethod method, string additionalClasses)
     {
     @NodeMethodLink(method, additionalClasses, @<text>@method.DisplayName</text>)
 }
 
-@helper NodeMethodLink(INodeMethod method, string additionalClasses, Func<dynamic, HelperResult> innerHtml)
+@helper NodeMethodLink(NodeMethod method, string additionalClasses, Func<dynamic, HelperResult> innerHtml)
     {
     if (method != null)
     {
@@ -51,7 +51,7 @@
         <a class="@(nodeClass) @(additionalClasses ?? "") @(method.Target.NodeType().Name.ToLowerInvariant())-@(method.Name.ToLowerInvariant())" data-nodeid="@method.Id()" href="@method.Path()">@innerHtml(null)</a>
     }
 }
-@helper NodeMethodForm(System.Web.Mvc.HtmlHelper html, INodeMethod method, string formClass)
+@helper NodeMethodForm(System.Web.Mvc.HtmlHelper html, NodeMethod method, string formClass)
     {
         if (method != null)
         {
@@ -60,7 +60,7 @@
             </div>
         }
 }
-@helper NodeMethodForm(System.Web.Mvc.HtmlHelper html, INodeMethod method, string formClass, ViewDataDictionary dict)
+@helper NodeMethodForm(System.Web.Mvc.HtmlHelper html, NodeMethod method, string formClass, ViewDataDictionary dict)
     {
         if (method != null)
         {
@@ -69,7 +69,7 @@
             @NodeMethodForm(html, method, dict)
         }
 }
-@helper NodeMethodForm(System.Web.Mvc.HtmlHelper html, INodeMethod method, ViewDataDictionary dict)
+@helper NodeMethodForm(System.Web.Mvc.HtmlHelper html, NodeMethod method, ViewDataDictionary dict)
     {
         if (method != null)
         {
@@ -79,14 +79,14 @@
             </div>
         }
 }
-@helper NodeMethodFormInline(System.Web.Mvc.HtmlHelper html, INodeMethod method)
+@helper NodeMethodFormInline(System.Web.Mvc.HtmlHelper html, NodeMethod method)
     {
         if (method != null)
         {
             @NodeMethodFormInline(html, method, new ViewDataDictionary())
         }
 }
-@helper NodeMethodFormInline(System.Web.Mvc.HtmlHelper html, INodeMethod method, ViewDataDictionary viewData)
+@helper NodeMethodFormInline(System.Web.Mvc.HtmlHelper html, NodeMethod method, ViewDataDictionary viewData)
     {
         if (method != null)
         {

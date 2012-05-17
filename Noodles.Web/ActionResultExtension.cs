@@ -23,7 +23,7 @@ namespace Noodles
             AddExceptionHandler<UserException>((e, cc) => cc.Controller.ViewData.ModelState.AddModelError("", e));
         }
 
-        public static ActionResult GetNoodleResult(this ControllerContext cc, object root, string path = null, Action<INodeMethod, object[]> doInvoke = null)
+        public static ActionResult GetNoodleResult(this ControllerContext cc, object root, string path = null, Action<NodeMethod, object[]> doInvoke = null)
         {
             doInvoke = doInvoke ?? (DoInvoke);
 
@@ -43,7 +43,7 @@ namespace Noodles
             {
                 using (Profiler.Step("Returning view"))
                 {
-                    var viewname = typeof(INodeMethod).IsAssignableFrom(node.NodeType()) ? "Noodles/NodeMethod" :
+                    var viewname = typeof(NodeMethod).IsAssignableFrom(node.NodeType()) ? "Noodles/NodeMethod" :
                                    typeof(NodeMethods).IsAssignableFrom(node.NodeType()) ? "Noodles/NodeMethods" :
                                    FormFactory.FormHelperExtension.BestViewName(cc, node.NodeType()) ??
                                    FormFactory.FormHelperExtension.BestViewName(cc, node.NodeType(), null, t => t.Name);
@@ -83,7 +83,7 @@ namespace Noodles
                         }
                     }
                     {
-                        var method = (INodeMethod)node;
+                        var method = (NodeMethod)node;
 
                         using (Profiler.Step("Executing action " + method.Name))
                         {
@@ -198,7 +198,7 @@ namespace Noodles
         }
 
 
-        private static void DoInvoke(INodeMethod nodeMethod, object[] parameters)
+        private static void DoInvoke(NodeMethod nodeMethod, object[] parameters)
         {
             nodeMethod.Invoke(parameters);
         }

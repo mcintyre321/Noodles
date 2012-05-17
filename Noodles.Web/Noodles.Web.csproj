@@ -187,9 +187,10 @@
     <None Include="Content\DataTables-1.9.0\media\images\sort_desc.png" />
     <None Include="Content\DataTables-1.9.0\media\images\sort_desc_disabled.png" />
     <None Include="Global.asax" />
-    <EmbeddedResource Include="Scripts\Noodles\Noodles.js" />
-    <Content Include="Scripts\FormFactory\FormFactory.js" />
     <None Include="Web.config" />
+    <EmbeddedResource Include="..\Noodles.Templates\Scripts\Noodles\Noodles.js">
+      <Link>Scripts\Noodles\Noodles.js</Link>
+    </EmbeddedResource>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>

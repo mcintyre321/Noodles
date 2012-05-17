@@ -5,15 +5,15 @@ namespace Noodles
 {
     public interface IHasNodeMethods
     {
-        IEnumerable<INodeMethod> NodeMethods();
+        IEnumerable<NodeMethod> NodeMethods();
     }
     public static class NodeMethodsExtensions
     {
-        public static IEnumerable<INodeMethod> NodeMethods(this object o)
+        public static IEnumerable<NodeMethod> NodeMethods(this object o)
         {
             return o.GetNodeMethods();
         }
-        public static INodeMethod NodeMethod(this object o, string methodName)
+        public static NodeMethod NodeMethod(this object o, string methodName)
         {
             return o.NodeMethods().SingleOrDefault(m => m.Name == methodName);
         }

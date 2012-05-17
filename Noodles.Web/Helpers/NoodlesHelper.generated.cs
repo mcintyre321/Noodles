@@ -316,7 +316,7 @@ WebViewPage.WriteLiteralTo(@__razor_helper_writer, "\">\r\n        Actions</a>\r
 }
 
 
-public static System.Web.WebPages.HelperResult NodeMethodLink(INodeMethod method)
+public static System.Web.WebPages.HelperResult NodeMethodLink(NodeMethod method)
     {
 return new System.Web.WebPages.HelperResult(__razor_helper_writer => {
 
@@ -345,7 +345,7 @@ WebViewPage.WriteTo(@__razor_helper_writer, NodeMethodLink(method, null));
                                    }
 
 
-public static System.Web.WebPages.HelperResult NodeMethodLink(INodeMethod method, string additionalClasses)
+public static System.Web.WebPages.HelperResult NodeMethodLink(NodeMethod method, string additionalClasses)
     {
 return new System.Web.WebPages.HelperResult(__razor_helper_writer => {
 
@@ -395,7 +395,7 @@ WebViewPage.WriteLiteralTo(@__razor_template_writer, " ");
 }
 
 
-public static System.Web.WebPages.HelperResult NodeMethodLink(INodeMethod method, string additionalClasses, Func<dynamic, HelperResult> innerHtml)
+public static System.Web.WebPages.HelperResult NodeMethodLink(NodeMethod method, string additionalClasses, Func<dynamic, HelperResult> innerHtml)
     {
 return new System.Web.WebPages.HelperResult(__razor_helper_writer => {
 
@@ -495,7 +495,7 @@ WebViewPage.WriteLiteralTo(@__razor_helper_writer, "</a>\r\n");
 }
 
 
-public static System.Web.WebPages.HelperResult NodeMethodForm(System.Web.Mvc.HtmlHelper html, INodeMethod method, string formClass)
+public static System.Web.WebPages.HelperResult NodeMethodForm(System.Web.Mvc.HtmlHelper html, NodeMethod method, string formClass)
     {
 return new System.Web.WebPages.HelperResult(__razor_helper_writer => {
 
@@ -534,7 +534,7 @@ WebViewPage.WriteLiteralTo(@__razor_helper_writer, "\r\n            </div>\r\n")
 }
 
 
-public static System.Web.WebPages.HelperResult NodeMethodForm(System.Web.Mvc.HtmlHelper html, INodeMethod method, string formClass, ViewDataDictionary dict)
+public static System.Web.WebPages.HelperResult NodeMethodForm(System.Web.Mvc.HtmlHelper html, NodeMethod method, string formClass, ViewDataDictionary dict)
     {
 return new System.Web.WebPages.HelperResult(__razor_helper_writer => {
 
@@ -570,7 +570,7 @@ WebViewPage.WriteTo(@__razor_helper_writer, NodeMethodForm(html, method, dict));
 }
 
 
-public static System.Web.WebPages.HelperResult NodeMethodForm(System.Web.Mvc.HtmlHelper html, INodeMethod method, ViewDataDictionary dict)
+public static System.Web.WebPages.HelperResult NodeMethodForm(System.Web.Mvc.HtmlHelper html, NodeMethod method, ViewDataDictionary dict)
     {
 return new System.Web.WebPages.HelperResult(__razor_helper_writer => {
 
@@ -610,7 +610,7 @@ WebViewPage.WriteLiteralTo(@__razor_helper_writer, "\r\n            </div>\r\n")
 }
 
 
-public static System.Web.WebPages.HelperResult NodeMethodFormInline(System.Web.Mvc.HtmlHelper html, INodeMethod method)
+public static System.Web.WebPages.HelperResult NodeMethodFormInline(System.Web.Mvc.HtmlHelper html, NodeMethod method)
     {
 return new System.Web.WebPages.HelperResult(__razor_helper_writer => {
 
@@ -644,7 +644,7 @@ WebViewPage.WriteTo(@__razor_helper_writer, NodeMethodFormInline(html, method, n
 }
 
 
-public static System.Web.WebPages.HelperResult NodeMethodFormInline(System.Web.Mvc.HtmlHelper html, INodeMethod method, ViewDataDictionary viewData)
+public static System.Web.WebPages.HelperResult NodeMethodFormInline(System.Web.Mvc.HtmlHelper html, NodeMethod method, ViewDataDictionary viewData)
     {
 return new System.Web.WebPages.HelperResult(__razor_helper_writer => {
 

@@ -67,11 +67,9 @@
     <Compile Include="NodeNotFoundException.cs" />
     <Compile Include="Profiler.cs" />
     <Compile Include="Reflection\ImplicitConversionMethodHelper.cs" />
-    <Compile Include="Reflection\INodeMethod.cs" />
     <Compile Include="Reflection\NodeMethod.cs" />
     <Compile Include="Reflection\NodeMethodParameter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Reflection\NodeMethodWrapper.cs" />
     <Compile Include="Reflection\NodeMethodsRuleRegistry.cs" />
     <Compile Include="Reflection\TextExtensions.cs" />
     <Compile Include="UserException.cs" />
