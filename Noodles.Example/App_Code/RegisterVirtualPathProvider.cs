@@ -9,6 +9,8 @@ namespace WebNoodle.Example.App_Code
             System.Web.Hosting.HostingEnvironment.RegisterVirtualPathProvider(new EmbeddedResourceVirtualPathProvider.Vpp()
             {
 				{typeof(Noodles.Web.MvcApplication).Assembly, @"..\Noodles.Web"} ,
+                {typeof(Mvc.JQuery.Datatables.DataTablesData).Assembly} ,
+
                 typeof(FormFactory.Logger).Assembly,
             });
         }
