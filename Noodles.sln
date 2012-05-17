@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Noodles.Web", "Noodles.Web\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Noodles.Example", "Noodles.Example\Noodles.Example.csproj", "{B7567A03-37F7-45F7-9C11-42FCD5A25787}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Noodles.Templates", "Noodles.Templates\Noodles.Templates.csproj", "{865CA815-C948-48A7-9A65-7642C970BCFC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -25,6 +27,10 @@ Global
 		{B7567A03-37F7-45F7-9C11-42FCD5A25787}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B7567A03-37F7-45F7-9C11-42FCD5A25787}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B7567A03-37F7-45F7-9C11-42FCD5A25787}.Release|Any CPU.Build.0 = Release|Any CPU
+		{865CA815-C948-48A7-9A65-7642C970BCFC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{865CA815-C948-48A7-9A65-7642C970BCFC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{865CA815-C948-48A7-9A65-7642C970BCFC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{865CA815-C948-48A7-9A65-7642C970BCFC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

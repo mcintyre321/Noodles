@@ -34,9 +34,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="FormFactory, Version=1.0.4512.30171, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="FormFactory, Version=1.0.4520.15199, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\FormFactory.1.1.102\lib\net40\FormFactory.dll</HintPath>
+      <HintPath>..\packages\FormFactory.1.1.114\lib\net40\FormFactory.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <Private>True</Private>
@@ -100,6 +100,21 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="..\Noodles.Templates\Views\Shared\Noodles\NodeMethod.cshtml">
+      <Link>Views\Shared\Noodles\NodeMethod.cshtml</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\Noodles.Templates\Views\Shared\Noodles\NodeMethods.cshtml">
+      <Link>Views\Shared\Noodles\NodeMethods.cshtml</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\Noodles.Templates\Views\Shared\Noodles\NodeMethodSuccess.cshtml">
+      <Link>Views\Shared\Noodles\NodeMethodSuccess.cshtml</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\Noodles.Templates\Views\Shared\Noodles\_AjaxLayout.cshtml">
+      <Link>Views\Shared\Noodles\_AjaxLayout.cshtml</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\Noodles.Templates\Views\Shared\Object.cshtml">
+      <Link>Views\Shared\Object.cshtml</Link>
+    </EmbeddedResource>
     <None Include="Content\DataTables-1.9.0\docs\media\css\doc.css" />
     <None Include="Content\DataTables-1.9.0\docs\media\css\shCore.css" />
     <None Include="Content\DataTables-1.9.0\docs\media\css\shThemeDataTables.css" />
@@ -173,24 +188,7 @@
     <None Include="Content\DataTables-1.9.0\media\images\sort_desc_disabled.png" />
     <None Include="Global.asax" />
     <EmbeddedResource Include="Scripts\Noodles\Noodles.js" />
-    <Content Include="Views\Shared\FormFactory\_README.txt" />
-    <Content Include="Views\Shared\Noodles\_README.txt" />
-    <Content Include="Views\Shared\Noodles\_AjaxLayout.cshtml" />
-    <Content Include="Views\Shared\FormFactory\Property.System.String.cshtml" />
-    <Content Include="Views\Shared\FormFactory\Property.System.Object.cshtml" />
-    <Content Include="Views\Shared\FormFactory\Property.System.Int64.cshtml" />
-    <Content Include="Views\Shared\FormFactory\Property.System.Int32.cshtml" />
-    <Content Include="Views\Shared\FormFactory\Property.System.Enum.cshtml" />
-    <Content Include="Views\Shared\FormFactory\Property.System.Double.cshtml" />
-    <Content Include="Views\Shared\FormFactory\Property.System.DateTime.cshtml" />
-    <Content Include="Views\Shared\FormFactory\Property.System.Boolean.cshtml" />
-    <Content Include="Views\Shared\FormFactory\Property.IEnumerable.System.Object.cshtml" />
-    <Content Include="Views\Shared\FormFactory\Form.Start.cshtml" />
-    <Content Include="Views\Shared\FormFactory\Form.Property.Inline.cshtml" />
-    <Content Include="Views\Shared\FormFactory\Form.Property.cshtml" />
-    <Content Include="Views\Shared\FormFactory\Form.Property.Block.cshtml" />
-    <Content Include="Views\Shared\FormFactory\Form.Close.cshtml" />
-    <Content Include="Views\Shared\FormFactory\Form.Actions.cshtml" />
+    <Content Include="Scripts\FormFactory\FormFactory.js" />
     <None Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -199,9 +197,6 @@
       <DependentUpon>Web.config</DependentUpon>
     </Content>
     <None Include="Views\Web.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\Shared\Noodles\NodeMethod.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -216,17 +211,6 @@
       <Generator>RazorGenerator</Generator>
       <LastGenOutput>NoodlesHelper.generated.cs</LastGenOutput>
     </Content>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\Shared\Noodles\NodeMethods.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\Shared\Noodles\NodeMethodSuccess.cshtml">
-      <LastGenOutput>Copy of NodeActionForm.generated.cs</LastGenOutput>
-    </Content>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\Shared\Object.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Content\DataTables-1.9.0\extras\TableTools\media\images\psd\collection.psd" />
@@ -259,7 +243,7 @@
         <WebProjectProperties>
           <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>57376</DevelopmentServerPort>
+          <DevelopmentServerPort>52095</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>
           </IISUrl>
