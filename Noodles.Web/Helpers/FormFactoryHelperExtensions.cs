@@ -10,7 +10,7 @@ namespace Noodles.Helpers
         {
             return new PropertyVm(Html, parameter.ParameterType, parameter.Name)
             {
-                Id = () => parameter.Id(), 
+                GetId = () => parameter.Id(), 
                 DisplayName = parameter.DisplayName,
                 GetCustomAttributes = () => parameter.CustomAttributes,
                 Readonly = false,
