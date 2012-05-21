@@ -119,7 +119,7 @@ namespace Noodles
             return parameters;
         }
 
-        public void Invoke(object[] parameters)
+        public object Invoke(object[] parameters)
         {
             var methodParameterInfos = this.Parameters.ToArray();
             for (int index = 0; index < methodParameterInfos.Length; index++)
@@ -128,7 +128,7 @@ namespace Noodles
                 var resolvedParameterValue = GetParameterValue(parameters, methodParameter.ParameterInfo, index);
                 methodParameterInfos[index].LastValue = resolvedParameterValue;
             }
-            _methodInfo.Invoke(Target, methodParameterInfos.Select(mp => mp.LastValue).ToArray());
+            return _methodInfo.Invoke(Target, methodParameterInfos.Select(mp => mp.LastValue).ToArray());
         }
 
         private bool? _autoSubmit;
