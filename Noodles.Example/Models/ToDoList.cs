@@ -11,7 +11,7 @@ namespace Noodles.Example.Models
             this._tasks = new Tasks(this);
             var task = this._tasks.AddTask("This is an example task");
         }
-
+        
         //[Child]
         private Tasks _tasks;
 

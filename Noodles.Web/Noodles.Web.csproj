@@ -101,6 +101,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="..\Noodles.Templates\Scripts\Noodles\Noodles.js">
+      <Link>Scripts\Noodles\Noodles.js</Link>
+    </EmbeddedResource>
     <EmbeddedResource Include="..\Noodles.Templates\Views\Shared\Noodles\NodeMethod.cshtml">
       <Link>Views\Shared\Noodles\NodeMethod.cshtml</Link>
     </EmbeddedResource>
