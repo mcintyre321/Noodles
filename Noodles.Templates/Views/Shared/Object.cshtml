@@ -6,7 +6,7 @@
     <div class="span3">@Html.Partial("Noodles/NodeMethods", Model.NodeMethods())&nbsp;</div>
     <div class="span9">
         @Html.Partial("FormFactory/Form.Start", new FormVm(Html))
-        @{ Html.PropertiesFor(Model).Each(p => p.IsWritable = false).Render(); }
+        @{ Html.PropertiesFor(Model).Each(p => p.Readonly = true).Render(); }
         @Html.Partial("FormFactory/Form.Close", new FormVm(Html))
     </div>
 </div>

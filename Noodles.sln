@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Noodles.Example", "Noodles.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Noodles.Templates", "Noodles.Templates\Noodles.Templates.csproj", "{865CA815-C948-48A7-9A65-7642C970BCFC}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Example", "Example", "{76A20EC8-DC87-4CFF-9159-1343972376E0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -34,5 +36,8 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{B7567A03-37F7-45F7-9C11-42FCD5A25787} = {76A20EC8-DC87-4CFF-9159-1343972376E0}
 	EndGlobalSection
 EndGlobal
