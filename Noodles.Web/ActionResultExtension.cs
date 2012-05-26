@@ -35,7 +35,7 @@ namespace Noodles
             }
             catch (NodeNotFoundException ex)
             {
-                throw new HttpException(404, ex.Message);
+                return new HttpNotFoundResult(ex.Message);
             }
 
 
