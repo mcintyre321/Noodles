@@ -23,7 +23,7 @@ namespace Noodles
             AddExceptionHandler<UserException>((e, cc) => cc.Controller.ViewData.ModelState.AddModelError("", e));
         }
 
-        public static ActionResult GetNoodleResult(this ControllerContext cc, object root, string path = null, Action<NodeMethod, object[]> doInvoke = null)
+        public static ActionResult GetNoodleResult(this ControllerContext cc, object root, string path = null, Func<NodeMethod, object[], object> doInvoke = null)
         {
             doInvoke = doInvoke ?? (DoInvoke);
 
@@ -87,7 +87,7 @@ namespace Noodles
 
                         using (Profiler.Step("Executing action " + method.Name))
                         {
-                            var parameters = method.Parameters 
+                            var parameters = method.Parameters
                                 .Select(pt => pt.Locked ? pt.Value : BindObject(cc, pt.BindingParameterType, pt.Name))
                                 .ToArray();
                             var msd = cc.Controller.ViewData.ModelState;
@@ -96,7 +96,8 @@ namespace Noodles
                                 Logger.Trace("ModelBinding successful");
                                 try
                                 {
-                                    doInvoke(method, parameters);
+                                    var result = doInvoke(method, parameters);
+                                    if (result is ActionResult) { return (ActionResult)result; }
                                     Logger.Trace("Invoke successful");
                                 }
                                 catch (Exception ex)
@@ -123,9 +124,9 @@ namespace Noodles
                             {
                                 cc.HttpContext.Response.StatusCode = 409;
                             }
-                            
+
                             cc.HttpContext.Response.TrySkipIisCustomErrors = true;
-                            
+
                             if (cc.HttpContext.Request.IsAjaxRequest())
                             {
                                 Logger.Trace("In ajax request");
@@ -134,7 +135,7 @@ namespace Noodles
                                     var res = new PartialViewResult
                                                   {
                                                       ViewName = "Noodles/NodeMethod",
-                                                      ViewData = {Model = method},
+                                                      ViewData = { Model = method },
                                                   };
                                     res.ViewData.ModelState.Merge(msd);
                                     return res;
@@ -145,7 +146,7 @@ namespace Noodles
                                     var res = new PartialViewResult
                                                   {
                                                       ViewName = "Noodles/NodeMethodSuccess",
-                                                      ViewData = {Model = method},
+                                                      ViewData = { Model = method },
                                                   };
 
                                     res.ViewData.ModelState.Merge(msd);
@@ -198,9 +199,9 @@ namespace Noodles
         }
 
 
-        private static void DoInvoke(NodeMethod nodeMethod, object[] parameters)
+        private static object DoInvoke(NodeMethod nodeMethod, object[] parameters)
         {
-            nodeMethod.Invoke(parameters);
+            return nodeMethod.Invoke(parameters);
         }
 
         private static T BindObject<T>(ControllerContext cc, string name) where T : class
