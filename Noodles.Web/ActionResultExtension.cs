@@ -40,6 +40,7 @@ namespace Noodles
             {
                 return new HttpNotFoundResult(ex.Message);
             }
+            if (node == null) return new HttpNotFoundResult();
 
             var processorResult = Processors.Select(p => p(cc, node)).FirstOrDefault(r => r != null);
             if (processorResult != null) return processorResult;
