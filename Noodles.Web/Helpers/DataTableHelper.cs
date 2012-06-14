@@ -30,7 +30,7 @@ namespace Noodles.Helpers
             }
             var target = GetObjectAndMember(getProperty);
             var columns = typeof (TResult).GetProperties().Select(p => Tuple.Create(p.Name, p.PropertyType)).ToArray();
-            return new DataTableVm("DataTable_" + target.Item2 + "_" + target.Item1.Id(), target.Item1.Path() + "?action=getDataTable&prop=" + target.Item2 + "&transform=" + key, columns);
+            return new DataTableVm("DataTable_" + target.Item2 + "_" + target.Item1.Id(), target.Item1.Url() + "?action=getDataTable&prop=" + target.Item2 + "&transform=" + key, columns);
         }
 
 

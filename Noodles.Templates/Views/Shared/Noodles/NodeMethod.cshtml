@@ -8,7 +8,7 @@
 {
     <p>@Model.Message</p>
 }
-<form action="@Model.Path()" method="post" enctype="multipart/form-data" encoding="multipart/form-data" class="@ViewBag.FormClass">
+<form action="@Model.Url()" method="post" enctype="multipart/form-data" encoding="multipart/form-data" class="@ViewBag.FormClass">
     @{
         var nodeMethodReturnUrl = ViewData["nodeMethodReturnUrl"] ?? Request.Url.AbsolutePath;
     }

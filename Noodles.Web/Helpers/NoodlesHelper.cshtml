@@ -33,7 +33,7 @@
         var nodeMethods = obj.NodeMethods();
         if (nodeMethods.Any(nm => excludedMethodNames.Contains(nm.Name) == false))
         {
-    <a class="nodeMethodsMenuLink @(additionalClasses ?? "")" href="@nodeMethods.Path()" data-nodeid="@obj.Id()" data-excluded-methods="@excludedMethodNamesCsv">
+    <a class="nodeMethodsMenuLink @(additionalClasses ?? "")" href="@nodeMethods.Url()" data-nodeid="@obj.Id()" data-excluded-methods="@excludedMethodNamesCsv">
         Actions</a>
         }
 }
@@ -49,7 +49,7 @@
     if (method != null)
     {
         var nodeClass = method.AutoSubmit ? "nodeMethodAutoSubmit" : "nodeMethodLink";
-        <a class="@(nodeClass) @(additionalClasses ?? "") @(method.Target.NodeType().Name.ToLowerInvariant())-@(method.Name.ToLowerInvariant())" data-nodeid="@method.Id()" href="@method.Path()">@innerHtml(null)</a>
+        <a class="@(nodeClass) @(additionalClasses ?? "") @(method.Target.NodeType().Name.ToLowerInvariant())-@(method.Name.ToLowerInvariant())" data-nodeid="@method.Id()" href="@method.Url()">@innerHtml(null)</a>
     }
 }
 @helper NodeMethodForm(System.Web.Mvc.HtmlHelper html, NodeMethod method, string formClass)
