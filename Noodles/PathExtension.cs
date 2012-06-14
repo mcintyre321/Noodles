@@ -31,7 +31,7 @@ namespace Noodles
         {
             var walked = o.Walked();
             var rootPrefix = walked.First().GetUrlRoot() ?? "/";
-            return rootPrefix + String.Join("/", o.Walked().Select(w => w.GetFragment()));
+            return rootPrefix + String.Join("/", o.Walked().Skip(1).Select(w => w.GetFragment()));
         }
         
     }
