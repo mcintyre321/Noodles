@@ -4,13 +4,11 @@ using System.Globalization;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
-using System.Text;
 using System.Web.Caching;
 using System.Web.Mvc;
-using System.Web.Mvc.Html;
 using Mvc.JQuery.Datatables;
 
-namespace Noodles.Helpers
+namespace Noodles.DataTables
 {
     public static class DataTableHelper
     {

@@ -6,13 +6,13 @@ using System.Reflection;
 using System.Web;
 using System.Web.Helpers;
 using System.Web.Mvc;
-using Mvc.JQuery.Datatables;
 using Walkies;
 
 namespace Noodles
 {
-    public static class NoodleResultBuilderExtension
+    public static class ActionResultExtension
     {
+        public static List<Func<ControllerContext, object, ActionResult>> Processors = new List<Func<ControllerContext, object, ActionResult>>();
         static List<Func<Exception, ControllerContext, Action>> ModelStateExceptionHandlers = new List<Func<Exception, ControllerContext, Action>>();
         public static void AddExceptionHandler<TEx>(Action<TEx, ControllerContext> action) where TEx : Exception
         {
@@ -21,7 +21,7 @@ namespace Noodles
 
             Walkies.WalkExtension.Rules.Add((o, fragment) => fragment == "actions" ? new NodeMethods(o) : null);
         }
-        static NoodleResultBuilderExtension()
+        static ActionResultExtension()
         {
             AddExceptionHandler<UserException>((e, cc) => cc.Controller.ViewData.ModelState.AddModelError("", e));
         }
@@ -41,8 +41,10 @@ namespace Noodles
                 return new HttpNotFoundResult(ex.Message);
             }
 
+            var processorResult = Processors.Select(p => p(cc, node)).FirstOrDefault(r => r != null);
+            if (processorResult != null) return processorResult;
 
-            if (cc.HttpContext.Request.HttpMethod.ToLower() == "get")
+            if (cc.HttpContext.Request.HttpMethod.ToLowerInvariant() == "get")
             {
                 using (Profiler.Step("Returning view"))
                 {
@@ -69,22 +71,7 @@ namespace Noodles
             {
                 using (Profiler.Step("Post"))
                 {
-                    if (cc.HttpContext.Request.QueryString["action"] == "getDataTable")
-                    {
-                        using (Profiler.Step("Returning DataTable"))
-                        {
-                            var propertyName = cc.HttpContext.Request.QueryString["prop"];
-                            var queryable = node.GetType().GetProperty(propertyName).GetGetMethod().Invoke(node, null);
-                            var transformKey = cc.HttpContext.Request.QueryString["transform"];
-                            if (transformKey != null)
-                            {
-                                dynamic transform = cc.HttpContext.Cache[transformKey];
-                                queryable = transform.Invoke(queryable);
-                            }
-                            var dtr = Mvc.JQuery.Datatables.DataTablesResult.Create(queryable, BindObject<DataTablesParam>(cc, "dataTableParam"));
-                            return dtr;
-                        }
-                    }
+                    
                     {
                         var method = (NodeMethod)node;
 
@@ -207,7 +194,7 @@ namespace Noodles
             return nodeMethod.Invoke(parameters);
         }
 
-        private static T BindObject<T>(ControllerContext cc, string name) where T : class
+        public static T BindObject<T>(ControllerContext cc, string name) where T : class
         {
             return BindObject(cc, typeof(T), name) as T;
         }

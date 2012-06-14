@@ -40,6 +40,8 @@ namespace Noodles.Example
 
             RegisterGlobalFilters(GlobalFilters.Filters);
             RegisterRoutes(RouteTable.Routes);
+
+            Noodles.ActionResultExtension.Processors.Add(Noodles.DataTables.ActionResultProcessor.Rule);
         }
     }
 }

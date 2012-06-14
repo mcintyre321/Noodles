@@ -335,6 +335,10 @@
     <Content Include="Views\_ViewStart.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Noodles.DataTables\Noodles.DataTables.csproj">
+      <Project>{E2FAC8CF-7F01-4851-AA56-22BD893559C7}</Project>
+      <Name>Noodles.DataTables</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Noodles.Web\Noodles.Web.csproj">
       <Project>{4B896492-265C-49DB-8D4B-B5F4DBBBB4E3}</Project>
       <Name>Noodles.Web</Name>
