@@ -2,11 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using Walkies;
 
 namespace Noodles
 {
     public delegate IEnumerable<NodeMethod> FindNodeMethodsRule(NodeMethods obj);
-    public class NodeMethods : IHasChildren, IEnumerable<NodeMethod>, IHasParent<object>, IHasName
+    public class NodeMethods : IEnumerable<NodeMethod>, Walkies.IGetChild
     {
         static NodeMethods()
         {
@@ -25,17 +26,17 @@ namespace Noodles
 
         public NodeMethods(object node)
         {
-            Parent = node;
+            Parent = node.SetChild(this, "actions");
         }
 
-        public object GetChild(string name)
+        object IGetChild.this[string name]
         {
-            return Parent.NodeMethods().SingleOrDefault(nm => nm.Name == name);
+            get { return Parent.NodeMethods().SingleOrDefault(nm => nm.Name == name); }
         }
 
         public IEnumerator<NodeMethod> GetEnumerator()
         {
-            return FindNodeMethodsRules.SelectMany(r => r(this) ?? new NodeMethod[]{}).GetEnumerator();
+            return FindNodeMethodsRules.SelectMany(r => r(this) ?? new NodeMethod[]{}).Each(nm => nm.SetParent(this, nm.Name)).GetEnumerator();
         }
 
         public static readonly FindNodeMethodsRule FindNodeMethodsUsingReflection = (nm) => YieldFindNodeMethodsUsingReflection(nm);

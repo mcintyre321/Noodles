@@ -11,7 +11,7 @@ namespace Noodles
     {
         public static IEnumerable<NodeMethod> NodeMethods(this object o)
         {
-            return o.GetNodeMethods();
+            return new NodeMethods(o);
         }
         public static NodeMethod NodeMethod(this object o, string methodName)
         {

@@ -40,30 +40,20 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
+    <Reference Include="Walkies, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Walkies\Walkies\bin\Debug\Walkies.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Attributes\MessageAttribute.cs" />
-    <Compile Include="ParentChildPathing\ChildrenExtensions.cs" />
-    <Compile Include="ParentChildPathing\IHasChildren.cs" />
-    <Compile Include="ParentChildPathing\IHasParent.cs" />
-    <Compile Include="ParentChildPathing\ParentAttribute.cs" />
     <Compile Include="Helpers\RecurseExtension.cs" />
-    <Compile Include="ParentChildPathing\ResolveChild.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="ParentChildPathing\ParentChildPathRules.cs" />
-    <Compile Include="GenericNoodleCollection.cs" />
     <Compile Include="IdExtension.cs" />
     <Compile Include="Logger.cs" />
-    <Compile Include="NameExtension.cs" />
     <Compile Include="NodeMethodsExtensions.cs" />
     <Compile Include="NodeTypeExtension.cs" />
-    <Compile Include="ParentChildPathing\ParentExtensions.cs" />
-    <Compile Include="ParentChildPathing\ResolveParent.cs" />
-    <Compile Include="ParentChildPathing\WeakTableChildStore.cs" />
-    <Compile Include="Pathing\PathExtension.cs" />
+    <Compile Include="PathExtension.cs" />
     <Compile Include="Reflection\NodeMethods.cs" />
-    <Compile Include="Pathing\ResolveNodeFromPathExtension.cs" />
     <Compile Include="NodeNotFoundException.cs" />
     <Compile Include="Profiler.cs" />
     <Compile Include="Reflection\ImplicitConversionMethodHelper.cs" />
@@ -79,6 +69,9 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="NodeMethods\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

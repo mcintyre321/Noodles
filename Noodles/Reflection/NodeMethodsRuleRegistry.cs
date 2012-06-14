@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using Walkies;
 
 namespace Noodles
 {
@@ -31,7 +32,7 @@ namespace Noodles
         public static ShowMethodRule HideValueMethods = (t, mi) => mi.Name.ToLowerInvariant() != "set_value" && mi.Name.EndsWith("_value", StringComparison.InvariantCultureIgnoreCase) ? false : null as bool?; //choices should be hidden
         public static ShowMethodRule HideChoiceMethods = (t, mi) => mi.Name.EndsWith("_choices", StringComparison.InvariantCultureIgnoreCase) ? false : null as bool?; //choices should be hidden
         public static ShowMethodRule HideSuggestionsMethods = (t, mi) => mi.Name.EndsWith("_suggestions", StringComparison.InvariantCultureIgnoreCase) ? false : null as bool?; //choices should be hidden
-        public static ShowMethodRule HideGetChildMethods = (t, mi) => (t is IHasChildren && mi.Name == "GetChild") ? false : null as bool?;
+        public static ShowMethodRule HideGetChildMethods = (t, mi) => (t is IGetChild && mi.Name == "Item") ? false : null as bool?;
         public static ShowMethodRule HideHasNodeMethods = (t, mi) => (t is IHasNodeMethods && mi.Name == "NodeMethods") ? false : null as bool?;
         public static ShowMethodRule HideUndercoredMethods = (t, mi) => mi.Name.StartsWith("_") ? false : null as bool?;
         public static ShowMethodRule HidePropertyGetters = (t, mi) => mi.Name.StartsWith("get_") ? false : null as bool?;
@@ -79,11 +80,7 @@ namespace Noodles
                                       AutoSubmitAttribute
                                   };
         }
-        
-        internal static NodeMethods GetNodeMethods(this object o)
-        {
-            return new NodeMethods(o);
-        }
+
         internal static U Maybe<T, U>(this T t, Func<T, U> f) where T : class
         {
             return (t == null) ? default(U) : f(t);

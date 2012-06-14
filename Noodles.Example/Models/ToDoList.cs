@@ -1,18 +1,18 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
+using Walkies;
 
 namespace Noodles.Example.Models
 {
-    public class ToDoList : IHasChildren
+    public class ToDoList : IGetChild
     {
         public ToDoList()
         {
-            this._tasks = new Tasks(this);
+            this._tasks = new Tasks().SetParent(this, "tasks");
             var task = this._tasks.AddTask("This is an example task");
         }
         
-        //[Child]
+        [Child]
         private Tasks _tasks;
 
         public IEnumerable<Task> Tasks { get { return _tasks; } }
@@ -48,10 +48,12 @@ namespace Noodles.Example.Models
             _tasks.RemoveComplete();
         }
 
-        public object GetChild(string name)
+        object IGetChild.this[string name]
         {
-            if (name == "tasks") return _tasks;
-            return null;
+            get
+            {
+                return name == "tasks" ? _tasks : null;
+            }
         }
     }
 
@@ -67,45 +69,5 @@ namespace Noodles.Example.Models
         public int Id { get; set; }
         public string Name { get; set; }
         public string Email { get; set; }
-    }
-
-    [Show]
-    public class Tasks : IEnumerable<Task>
-    {
-        private readonly List<Task> _tasks = new List<Task>();
-
-        public Tasks(ToDoList parent)
-        {
-            Parent = parent;
-            this._tasks = new List<Task>();
-        }
-
-        public Task AddTask(string note)
-        {
-            var item = new Task(this) {Text = note};
-            _tasks.Add(item);
-            return item;
-        }
-
-        public IEnumerator<Task> GetEnumerator()
-        {
-            return _tasks.GetEnumerator();
-        }
-
-        IEnumerator IEnumerable.GetEnumerator()
-        {
-            return GetEnumerator();
-        }
-
-        [Parent]
-        public ToDoList Parent { get; private set; }
-
-        [Name]
-        public string Name { get { return "tasks"; } }
-
-        public void RemoveComplete()
-        {
-            this._tasks.RemoveAll(t => t.Completed);
-        }
     }
 }

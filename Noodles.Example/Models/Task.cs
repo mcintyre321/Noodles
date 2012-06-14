@@ -1,26 +1,23 @@
 using System;
 using System.Collections.Generic;
+using Walkies;
 
 namespace Noodles.Example.Models
 {
+    [Show] 
     public class Task
     {
-        [Parent]
-        private readonly Tasks _parent;
-
-        public Task(Tasks parent)
+        public Task()
         {
-            _parent = parent;
             Name = Guid.NewGuid().ToString();
         }
 
         public string Text { get; set; }
         public bool Completed { get; set; }
 
-        [Name]
         public string Name { get; private set; }
 
-        public string Status { get; [Show] set; }
+        public string Status { get; set; }
         public IEnumerable<string> Status_choices()
         {
             return "Good,Bad,Ugly".Split(',');

@@ -7,11 +7,12 @@ using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
 using Noodles.Attributes;
+using Walkies;
 
 namespace Noodles
 {
     [DebuggerDisplay("{ToString()} - Name={Name}")]
-    public class NodeMethod : IHasChildren, IHasParent<NodeMethods>
+    public class NodeMethod : IGetChild
     {
         public NodeMethods Parent { get; set; }
         private readonly MethodInfo _methodInfo;
@@ -31,8 +32,7 @@ namespace Noodles
         }
 
         private BindingFlags looseBindingFlags = BindingFlags.IgnoreCase | BindingFlags.FlattenHierarchy | BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic;
-        
-        [Name]
+
         public string Name { get { return _methodInfo.Name; } }
 
         public string DisplayName
@@ -76,7 +76,7 @@ namespace Noodles
                     else
                     {
                         var messageAttribute = this._methodInfo
-                            .GetCustomAttributes(typeof (MessageAttribute), true)
+                            .GetCustomAttributes(typeof(MessageAttribute), true)
                             .OfType<MessageAttribute>()
                             .FirstOrDefault();
                         if (messageAttribute != null)
@@ -221,12 +221,15 @@ namespace Noodles
             }
         }
 
-        
-        public object GetChild(string name)
+
+        object IGetChild.this[string name]
         {
-            return this.Parameters.SingleOrDefault(p => p.Name == name);
+            get
+            {
+                return this.Parameters.SingleOrDefault(p => p.Name == name);
+            }
         }
- 
+
 
         public bool Equals(NodeMethod other)
         {
@@ -239,8 +242,8 @@ namespace Noodles
         {
             if (ReferenceEquals(null, obj)) return false;
             if (ReferenceEquals(this, obj)) return true;
-            if (obj.GetType() != typeof (NodeMethod)) return false;
-            return Equals((NodeMethod) obj);
+            if (obj.GetType() != typeof(NodeMethod)) return false;
+            return Equals((NodeMethod)obj);
         }
 
         public override int GetHashCode()

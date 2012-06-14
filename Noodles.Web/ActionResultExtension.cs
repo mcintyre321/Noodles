@@ -7,6 +7,7 @@ using System.Web;
 using System.Web.Helpers;
 using System.Web.Mvc;
 using Mvc.JQuery.Datatables;
+using Walkies;
 
 namespace Noodles
 {
@@ -17,6 +18,8 @@ namespace Noodles
         {
             ModelStateExceptionHandlers.Add((e, msd) => (e as TEx) == null ? null as Action : () => action((TEx)e, msd));
             ModelStateExceptionHandlers.Add((e, msd) => (e as NodeNotFoundException) == null ? null as Action : () => action((TEx)e, msd));
+
+            Walkies.WalkExtension.Rules.Add((o, fragment) => fragment == "actions" ? new NodeMethods(o) : null);
         }
         static NoodleResultBuilderExtension()
         {
@@ -31,7 +34,7 @@ namespace Noodles
             object node = null;
             try
             {
-                node = root.FindNodeFromPath(path);
+                node = root.Walk(path.Trim('/')).Last();
             }
             catch (NodeNotFoundException ex)
             {

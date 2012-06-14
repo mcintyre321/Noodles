@@ -7,7 +7,7 @@ using System.Reflection;
 
 namespace Noodles
 {
-    public class NodeMethodParameter : IHasName
+    public class NodeMethodParameter
     {
         private readonly NodeMethod _nodeMethod;
         private readonly MethodInfo _mi;
@@ -36,7 +36,7 @@ namespace Noodles
         {
             get
             {
-                if (typeof(IHasName).IsAssignableFrom(_parameter.ParameterType)) return typeof(String);
+                //if (typeof(IHasName).IsAssignableFrom(_parameter.ParameterType)) return typeof(String);
                 return _parameter.ParameterType;
             }
         }
