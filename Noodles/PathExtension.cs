@@ -30,7 +30,10 @@ namespace Noodles
         public static string Url(this object o)
         {
             var walked = o.Walked();
-            var rootPrefix = walked.First().GetUrlRoot() ?? "/";
+            var rootPrefix = walked.First().GetUrlRoot() ?? "";
+            if (!rootPrefix.EndsWith("/")) rootPrefix += "/";
+            if (!rootPrefix.StartsWith("/")) rootPrefix = "/" + rootPrefix;
+
             return rootPrefix + String.Join("/", o.Walked().Skip(1).Select(w => w.GetFragment()));
         }
         
