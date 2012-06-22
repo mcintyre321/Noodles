@@ -260,5 +260,10 @@ namespace Noodles
         {
             return !Equals(left, right);
         }
+
+        public T GetAttribute<T>()
+        {
+            return (T) _methodInfo.GetCustomAttributes(typeof (T), true).SingleOrDefault();
+        }
     }
 }

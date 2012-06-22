@@ -13,7 +13,7 @@ namespace Noodles.Example.Controllers
 
         public ActionResult Index(string path)
         {
-            var root = Noodles.Web.PathExtension.SetUrlRoot(home, this.ControllerContext);
+            var root = Noodles.Web.SetUrlRootExtension.SetUrlRoot(home, this.ControllerContext);
             var actionResult = this.ControllerContext.GetNoodleResult(root);
             return actionResult;
         }

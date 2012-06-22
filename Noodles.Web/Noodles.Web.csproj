@@ -78,7 +78,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\RegisterWebNoodle.cs" />
-    <Compile Include="Class1.cs" />
+    <Compile Include="SetUrlRootExtension.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>

@@ -6,6 +6,7 @@ using System.Reflection;
 using System.Web;
 using System.Web.Helpers;
 using System.Web.Mvc;
+using System.Web.Services.Protocols;
 using Walkies;
 
 namespace Noodles
@@ -21,14 +22,90 @@ namespace Noodles
 
             Walkies.WalkExtension.Rules.Add((o, fragment) => fragment == "actions" ? new NodeMethods(o) : null);
         }
+
         static ActionResultExtension()
         {
             AddExceptionHandler<UserException>((e, cc) => cc.Controller.ViewData.ModelState.AddModelError("", e));
         }
 
+        private static ActionResult ProcessNodeMethodCall(ControllerContext cc, object node, Func<NodeMethod, object[], object> doInvoke)
+        {
+            var method = node as NodeMethod;
+            if (method == null) return null;
+
+            var httpMethod = cc.HttpContext.Request.HttpMethod;
+            var isInvoke = httpMethod == "POST" || (httpMethod == "GET" && method.GetAttribute<HttpGetAttribute>() != null);
+            if (!isInvoke) return null;
+            var parameters = method.Parameters
+                .Select(pt => pt.Locked ? pt.Value : BindObject(cc, pt.BindingParameterType, pt.Name))
+                .ToArray();
+            var msd = cc.Controller.ViewData.ModelState;
+            if (msd.IsValid)
+            {
+                Logger.Trace("ModelBinding successful");
+                try
+                {
+                    var result = doInvoke(method, parameters) as ActionResult;
+                    if (result != null) return result;
+                }
+                catch (Exception ex)
+                {
+                    if (ex is TargetInvocationException)
+                    {
+                        ex = ex.InnerException ?? ex;
+                    }
+                    Action handle = ModelStateExceptionHandlers.Select(h => h(ex, cc)).FirstOrDefault(h => h != null);
+
+                    if (handle != null)
+                    {
+                        cc.HttpContext.Response.StatusCode = 409;
+                        handle();
+                    }
+                    else
+                    {
+                        cc.HttpContext.Response.StatusCode = 500;
+                        throw;
+                    }
+                }
+            }
+            else
+            {
+                cc.HttpContext.Response.StatusCode = 409;
+            }
+
+            cc.HttpContext.Response.TrySkipIisCustomErrors = true;
+
+            var nodeMethodReturnUrl = cc.RequestContext.HttpContext.Request["nodeMethodReturnUrl"];
+            if (!cc.HttpContext.Request.IsAjaxRequest() && msd.IsValid)
+            {
+                return new RedirectResult(nodeMethodReturnUrl);
+            }
+
+            var viewName = msd.IsValid ? "Noodles/NodeMethodSuccess" : "Noodles/NodeMethod";
+            ViewResultBase res;
+            if (cc.HttpContext.Request.IsAjaxRequest())
+            {
+                res = new PartialViewResult
+                {
+                    ViewName = viewName,
+                    ViewData = { Model = method },
+                };
+            }
+            else
+            {
+                res = new ViewResult
+                {
+                    ViewName = viewName,
+                    ViewData = { Model = method },
+                };
+            }
+            res.ViewData.ModelState.Merge(msd);
+            res.ViewData["nodeMethodReturnUrl"] = nodeMethodReturnUrl;
+            return res;
+        }
+
         public static ActionResult GetNoodleResult(this ControllerContext cc, object root, string path = null, Func<NodeMethod, object[], object> doInvoke = null)
         {
-            doInvoke = doInvoke ?? (DoInvoke);
 
             path = path ?? cc.RouteData.Values["path"] as string ?? "/";
             object node = null;
@@ -42,17 +119,31 @@ namespace Noodles
             }
             if (node == null) return new HttpNotFoundResult();
 
-            var processorResult = Processors.Select(p => p(cc, node)).FirstOrDefault(r => r != null);
+            var processorResult = Processors.Select(p => p(cc, node)).FirstOrDefault(r => r != null)
+                                  ?? ProcessNodeMethodCall(cc, node, doInvoke ?? DoInvoke)
+                                  ?? ProcessGet(cc, node);
             if (processorResult != null) return processorResult;
 
-            if (cc.HttpContext.Request.HttpMethod.ToLowerInvariant() == "get")
+
+            var httpMethod = cc.HttpContext.Request.HttpMethod;
+
+            ActionResult noodleResult;
+            return new HttpStatusCodeResult((int)System.Net.HttpStatusCode.BadRequest);
+        }
+
+        private static ActionResult ProcessGet(ControllerContext cc, object node)
+        {
+            if (cc.RequestContext.HttpContext.Request.HttpMethod == "GET")
             {
                 using (Profiler.Step("Returning view"))
                 {
-                    var viewname = typeof(NodeMethod).IsAssignableFrom(node.NodeType()) ? "Noodles/NodeMethod" :
-                                   typeof(NodeMethods).IsAssignableFrom(node.NodeType()) ? "Noodles/NodeMethods" :
-                                   FormFactory.FormHelperExtension.BestViewName(cc, node.NodeType()) ??
-                                   FormFactory.FormHelperExtension.BestViewName(cc, node.NodeType(), null, t => t.Name);
+                    var viewname = typeof(NodeMethod).IsAssignableFrom(node.NodeType())
+                                       ? "Noodles/NodeMethod"
+                                       : typeof(NodeMethods).IsAssignableFrom(node.NodeType())
+                                             ? "Noodles/NodeMethods"
+                                             : FormFactory.FormHelperExtension.BestViewName(cc, node.NodeType()) ??
+                                               FormFactory.FormHelperExtension.BestViewName(cc, node.NodeType(), null,
+                                                                                            t => t.Name);
 
                     var vr = new ViewResult { ViewName = viewname, ViewData = cc.Controller.ViewData };
                     if (cc.HttpContext.Request.IsAjaxRequest())
@@ -68,125 +159,7 @@ namespace Noodles
                     return vr;
                 }
             }
-            else //must be a post
-            {
-                using (Profiler.Step("Post"))
-                {
-                    
-                    {
-                        var method = (NodeMethod)node;
-
-                        using (Profiler.Step("Executing action " + method.Name))
-                        {
-                            var parameters = method.Parameters
-                                .Select(pt => pt.Locked ? pt.Value : BindObject(cc, pt.BindingParameterType, pt.Name))
-                                .ToArray();
-                            var msd = cc.Controller.ViewData.ModelState;
-                            if (msd.IsValid)
-                            {
-                                Logger.Trace("ModelBinding successful");
-                                try
-                                {
-                                    var result = doInvoke(method, parameters);
-                                    if (result is ActionResult) { return (ActionResult)result; }
-                                    Logger.Trace("Invoke successful");
-                                }
-                                catch (Exception ex)
-                                {
-                                    if (ex is TargetInvocationException)
-                                    {
-                                        ex = ex.InnerException ?? ex;
-                                    }
-                                    Action handle = ModelStateExceptionHandlers.Select(h => h(ex, cc)).FirstOrDefault(h => h != null);
-
-                                    if (handle != null)
-                                    {
-                                        cc.HttpContext.Response.StatusCode = 409;
-                                        handle();
-                                    }
-                                    else
-                                    {
-                                        cc.HttpContext.Response.StatusCode = 500;
-                                        throw;
-                                    }
-                                }
-                            }
-                            else
-                            {
-                                cc.HttpContext.Response.StatusCode = 409;
-                            }
-
-                            cc.HttpContext.Response.TrySkipIisCustomErrors = true;
-
-                            if (cc.HttpContext.Request.IsAjaxRequest())
-                            {
-                                Logger.Trace("In ajax request");
-                                if (!msd.IsValid)
-                                {
-                                    var res = new PartialViewResult
-                                                  {
-                                                      ViewName = "Noodles/NodeMethod",
-                                                      ViewData = { Model = method },
-                                                  };
-                                    res.ViewData.ModelState.Merge(msd);
-                                    return res;
-                                }
-                                else
-                                {
-                                    Logger.Trace("Returning success");
-                                    var res = new PartialViewResult
-                                                  {
-                                                      ViewName = "Noodles/NodeMethodSuccess",
-                                                      ViewData = { Model = method },
-                                                  };
-
-                                    res.ViewData.ModelState.Merge(msd);
-                                    return res;
-                                }
-                            }
-                            else
-                            {
-                                Logger.Trace("Not ajax request");
-
-                                var nodeMethodReturnUrl = cc.RequestContext.HttpContext.Request["nodeMethodReturnUrl"];
-
-                                if (!msd.IsValid)
-                                {
-                                    var res = new ViewResult
-                                    {
-                                        ViewName = "Noodles/NodeMethod",
-                                        ViewData = { Model = method },
-                                    };
-                                    res.ViewData.ModelState.Merge(msd);
-                                    res.ViewData["nodeMethodReturnUrl"] = nodeMethodReturnUrl;
-
-                                    return res;
-                                }
-                                else
-                                {
-                                    Logger.Trace("Returning success");
-
-                                    if (nodeMethodReturnUrl != null)
-                                    {
-                                        return new RedirectResult(nodeMethodReturnUrl);
-                                    }
-                                    else
-                                    {
-                                        var res = new ViewResult
-                                        {
-                                            ViewName = "Noodles/NodeMethodSuccess",
-                                            ViewData = { Model = method },
-                                        };
-
-                                        res.ViewData.ModelState.Merge(msd);
-                                        return res;
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
+            return null;
         }
 
 
