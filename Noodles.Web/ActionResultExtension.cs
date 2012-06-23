@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.Linq;
 using System.Reflection;
 using System.Web;
@@ -174,10 +175,12 @@ namespace Noodles
         }
         private static object BindObject(ControllerContext cc, Type desiredType, string name)
         {
+            var nameValueCollection = new NameValueCollection
+            {
+                cc.HttpContext.Request.Unvalidated().Form, cc.HttpContext.Request.QueryString
+            };
 
-            var formCollection = cc.HttpContext.Request.Unvalidated().Form;
-
-            var valueProvider = new NameValueCollectionValueProvider(formCollection, null);
+            var valueProvider = new NameValueCollectionValueProvider(nameValueCollection, null);
 
             var metadata = ModelMetadataProviders.Current.GetMetadataForType(null, desiredType);
             var bindingContext = new ModelBindingContext
