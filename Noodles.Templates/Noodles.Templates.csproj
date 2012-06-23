@@ -31,8 +31,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="FormFactory">
-      <HintPath>..\packages\FormFactory.1.2.130\lib\net40\FormFactory.dll</HintPath>
+    <Reference Include="FormFactory, Version=1.0.4557.26063, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\FormFactory.1.2.163\lib\net40\FormFactory.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Web.Mvc">
       <HintPath>..\packages\Mvc3Futures.3.0.20105.0\lib\Microsoft.Web.Mvc.dll</HintPath>

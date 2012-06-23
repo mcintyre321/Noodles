@@ -142,9 +142,7 @@ namespace Noodles
                                        ? "Noodles/NodeMethod"
                                        : typeof(NodeMethods).IsAssignableFrom(node.NodeType())
                                              ? "Noodles/NodeMethods"
-                                             : FormFactory.FormHelperExtension.BestViewName(cc, node.NodeType()) ??
-                                               FormFactory.FormHelperExtension.BestViewName(cc, node.NodeType(), null,
-                                                                                            t => t.Name);
+                                             : FormFactory.FormHelperExtension.BestViewName(cc, node.NodeType());
 
                     var vr = new ViewResult { ViewName = viewname, ViewData = cc.Controller.ViewData };
                     if (cc.HttpContext.Request.IsAjaxRequest())
