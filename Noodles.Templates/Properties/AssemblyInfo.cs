@@ -6,7 +6,7 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("Noodles.Templates")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("Noodles transforms your object model into a web app. Install this library to customise the cshtml template files, or if you don't want to use the EmbeddedResourceVirtualPathProvider to load your views")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Microsoft")]
 [assembly: AssemblyProduct("Noodles.Templates")]

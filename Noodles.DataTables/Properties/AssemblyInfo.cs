@@ -6,7 +6,7 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("Noodles.DataTables")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("Noodles transforms your object modelinto a web app. This is a library to integrate Noodles with AJAX jquery datatables")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("Noodles.DataTables")]
