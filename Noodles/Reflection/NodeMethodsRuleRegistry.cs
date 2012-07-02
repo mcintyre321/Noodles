@@ -67,7 +67,6 @@ namespace Noodles
         {
             ShowMethodRules = new List<ShowMethodRule>()
                                   {
-                                      ShowAttributedMethods,
                                       HideHideAttributedMethods,
                                       HideValuesMethods,
                                       HideValueMethods,
@@ -78,6 +77,7 @@ namespace Noodles
                                       HideUndercoredMethods,
                                       HidePropertyGetters,
                                       HideSystemObjectMembers,
+                                      ShowAttributedMethods,
                                       ClassLevelShowByDefault,
                                       ClassLevelHideByDefault,
                                   };
