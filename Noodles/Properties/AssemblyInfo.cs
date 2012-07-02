@@ -6,7 +6,7 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("Noodles")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("Noodles transforms your object modelinto a web app. This is the core library without a dependency on ASP MVC")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Harry McIntyre")]
 [assembly: AssemblyProduct("Noodles")]
