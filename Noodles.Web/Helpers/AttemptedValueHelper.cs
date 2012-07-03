@@ -6,9 +6,12 @@ namespace Noodles.Helpers
     {
         public static string AttemptedValue<T>(this ViewDataDictionary<T> vd, string name)
         {
+            if (vd.ModelState == null) return null;
             if (vd.ModelState.ContainsKey(name))
             {
-                return vd.ModelState[name].Value.AttemptedValue;
+                var modelState = vd.ModelState[name];
+                if (modelState == null || modelState.Value == null) return null;
+                return modelState.Value.AttemptedValue;
             }
             return null;
         }
