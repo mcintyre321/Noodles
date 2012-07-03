@@ -20,7 +20,7 @@ namespace Noodles.Web.Helpers
     using System.Web;
     using System.Web.Helpers;
     
-    #line 2 "Helpers\BootstrapHelper.cshtml"
+    #line 2 "BootstrapHelper.cshtml"
     using System.Web.Mvc;
     
     #line default
@@ -41,20 +41,20 @@ return new System.Web.WebPages.HelperResult(__razor_helper_writer => {
 
 
 
-#line 3 "Helpers\BootstrapHelper.cshtml"
+#line 3 "BootstrapHelper.cshtml"
                                                                                            
 #line default
 #line hidden
 
 
-#line 3 "Helpers\BootstrapHelper.cshtml"
+#line 3 "BootstrapHelper.cshtml"
                                                 WebViewPage.WriteTo(@__razor_helper_writer, DropdownLinksButton(buttonTitle, links, null));
 
 #line default
 #line hidden
 
 
-#line 3 "Helpers\BootstrapHelper.cshtml"
+#line 3 "BootstrapHelper.cshtml"
                                                                                                                                          
 #line default
 #line hidden
@@ -70,7 +70,7 @@ return new System.Web.WebPages.HelperResult(__razor_helper_writer => {
 
 
 
-#line 5 "Helpers\BootstrapHelper.cshtml"
+#line 5 "BootstrapHelper.cshtml"
  
 
 #line default
@@ -80,7 +80,7 @@ WebViewPage.WriteLiteralTo(@__razor_helper_writer, "    <div class=\"btn-group\"
 
 
 
-#line 7 "Helpers\BootstrapHelper.cshtml"
+#line 7 "BootstrapHelper.cshtml"
 WebViewPage.WriteTo(@__razor_helper_writer, additionalClasses ?? "");
 
 #line default
@@ -90,7 +90,7 @@ WebViewPage.WriteLiteralTo(@__razor_helper_writer, "\" data-toggle=\"dropdown\" 
 
 
 
-#line 7 "Helpers\BootstrapHelper.cshtml"
+#line 7 "BootstrapHelper.cshtml"
                                                        WebViewPage.WriteTo(@__razor_helper_writer, buttonTitle);
 
 #line default
@@ -101,7 +101,7 @@ WebViewPage.WriteLiteralTo(@__razor_helper_writer, " <span class=\"caret\"></spa
 
 
 
-#line 9 "Helpers\BootstrapHelper.cshtml"
+#line 9 "BootstrapHelper.cshtml"
 WebViewPage.WriteTo(@__razor_helper_writer, links(null));
 
 #line default
@@ -111,7 +111,7 @@ WebViewPage.WriteLiteralTo(@__razor_helper_writer, "\r\n        </ul>\r\n    </d
 
 
 
-#line 12 "Helpers\BootstrapHelper.cshtml"
+#line 12 "BootstrapHelper.cshtml"
 
 #line default
 #line hidden
@@ -127,7 +127,7 @@ return new System.Web.WebPages.HelperResult(__razor_helper_writer => {
 
 
 
-#line 15 "Helpers\BootstrapHelper.cshtml"
+#line 15 "BootstrapHelper.cshtml"
      
 
 #line default
@@ -138,7 +138,7 @@ WebViewPage.WriteLiteralTo(@__razor_helper_writer, "    <div class=\"modal\">\r\
 
 
 
-#line 19 "Helpers\BootstrapHelper.cshtml"
+#line 19 "BootstrapHelper.cshtml"
 WebViewPage.WriteTo(@__razor_helper_writer, header);
 
 #line default
@@ -148,7 +148,7 @@ WebViewPage.WriteLiteralTo(@__razor_helper_writer, "</h3>\r\n        </div>\r\n 
 
 
 
-#line 22 "Helpers\BootstrapHelper.cshtml"
+#line 22 "BootstrapHelper.cshtml"
 WebViewPage.WriteTo(@__razor_helper_writer, body(null));
 
 #line default
@@ -158,7 +158,7 @@ WebViewPage.WriteLiteralTo(@__razor_helper_writer, "\r\n        </div>\r\n      
 
 
 
-#line 25 "Helpers\BootstrapHelper.cshtml"
+#line 25 "BootstrapHelper.cshtml"
 WebViewPage.WriteTo(@__razor_helper_writer, footer(null));
 
 #line default
@@ -168,7 +168,7 @@ WebViewPage.WriteLiteralTo(@__razor_helper_writer, "\r\n        </div>\r\n    </
 
 
 
-#line 28 "Helpers\BootstrapHelper.cshtml"
+#line 28 "BootstrapHelper.cshtml"
 
 #line default
 #line hidden
