@@ -33,8 +33,7 @@
         var nodeMethods = obj.NodeMethods();
         if (nodeMethods.Any(nm => excludedMethodNames.Contains(nm.Name) == false))
         {
-    <a class="nodeMethodsMenuLink @(additionalClasses ?? "")" href="@nodeMethods.Url()" data-nodeid="@obj.Id()" data-excluded-methods="@excludedMethodNamesCsv">
-        Actions</a>
+    <a class="nodeMethodsMenuLink @(additionalClasses ?? "")" href="@nodeMethods.Url()" data-nodeid="@obj.Id()" data-excluded-methods="@excludedMethodNamesCsv">Actions</a>
         }
 }
 @helper NodeMethodLink(NodeMethod method)
@@ -43,22 +42,21 @@
     {
     @NodeMethodLink(method, additionalClasses, @<text>@method.DisplayName</text>)
 }
-
 @helper NodeMethodLink(NodeMethod method, string additionalClasses, Func<dynamic, HelperResult> innerHtml)
     {
-    if (method != null)
-    {
-        var nodeClass = method.AutoSubmit ? "nodeMethodAutoSubmit" : "nodeMethodLink";
-        <a class="@(nodeClass) @(additionalClasses ?? "") @(method.Target.NodeType().Name.ToLowerInvariant())-@(method.Name.ToLowerInvariant())" data-nodeid="@method.Id()" href="@method.Url()">@innerHtml(null)</a>
-    }
+        if (method != null)
+        {
+            var nodeClass = method.AutoSubmit ? "nodeMethodAutoSubmit" : "nodeMethodLink";
+    <a class="@(nodeClass) @(additionalClasses ?? "") @(method.Target.NodeType().Name.ToClassName())-@(method.Name.ToClassName())" data-nodeid="@method.Id()" href="@method.Url()">@innerHtml(null)</a>
+        }
 }
 @helper NodeMethodForm(System.Web.Mvc.HtmlHelper html, NodeMethod method, string formClass)
     {
         if (method != null)
         {
-            <div class="nodeMethod">
-                @html.Partial("Noodles/NodeMethod", method, new ViewDataDictionary { { "FormClass", formClass ?? "" } })
-            </div>
+    <div class="nodeMethod">
+        @html.Partial("Noodles/NodeMethod", method, new ViewDataDictionary { { "FormClass", formClass ?? "" } })
+    </div>
         }
 }
 @helper NodeMethodForm(System.Web.Mvc.HtmlHelper html, NodeMethod method, string formClass, ViewDataDictionary dict)
@@ -67,7 +65,7 @@
         {
             dict = dict ?? new ViewDataDictionary();
             dict["FormClass"] = formClass;
-            @NodeMethodForm(html, method, dict)
+    @NodeMethodForm(html, method, dict)
         }
 }
 @helper NodeMethodForm(System.Web.Mvc.HtmlHelper html, NodeMethod method, ViewDataDictionary dict)
@@ -75,16 +73,16 @@
         if (method != null)
         {
             dict = dict ?? new ViewDataDictionary();
-            <div class="nodeMethod">
-                @html.Partial("Noodles/NodeMethod", method, dict)
-            </div>
+    <div class="nodeMethod">
+        @html.Partial("Noodles/NodeMethod", method, dict)
+    </div>
         }
 }
 @helper NodeMethodFormInline(System.Web.Mvc.HtmlHelper html, NodeMethod method)
     {
         if (method != null)
         {
-            @NodeMethodFormInline(html, method, new ViewDataDictionary())
+    @NodeMethodFormInline(html, method, new ViewDataDictionary())
         }
 }
 @helper NodeMethodFormInline(System.Web.Mvc.HtmlHelper html, NodeMethod method, ViewDataDictionary viewData)
@@ -93,6 +91,6 @@
         {
             viewData = viewData ?? new ViewDataDictionary();
             viewData.Add("Inline", true);
-            @NodeMethodForm(html, method, "form-inline", viewData)
+    @NodeMethodForm(html, method, "form-inline", viewData)
         }
 }

@@ -54,7 +54,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Scripts\Noodles\Noodles.js" />
+    <Content Include="Scripts\Noodles\Noodles.js" />
     <Content Include="Views\Shared\Noodles\NodeMethod.cshtml" />
   </ItemGroup>
   <ItemGroup>

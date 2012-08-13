@@ -78,6 +78,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\RegisterWebNoodle.cs" />
+    <Compile Include="HelperExtensions.cs" />
     <Compile Include="SetUrlRootExtension.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -138,10 +139,10 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Helpers\NoodlesHelper.cshtml">
+    <None Include="Helpers\NoodlesHelper.cshtml">
       <Generator>RazorGenerator</Generator>
       <LastGenOutput>NoodlesHelper.generated.cs</LastGenOutput>
-    </Content>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Noodles\Noodles.csproj">
