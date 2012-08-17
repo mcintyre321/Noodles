@@ -139,10 +139,10 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Helpers\NoodlesHelper.cshtml">
+    <Content Include="Helpers\NoodlesHelper.cshtml">
       <Generator>RazorGenerator</Generator>
       <LastGenOutput>NoodlesHelper.generated.cs</LastGenOutput>
-    </None>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Noodles\Noodles.csproj">

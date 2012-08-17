@@ -55,7 +55,7 @@ namespace Noodles.Web.Helpers
     #line default
     #line hidden
     
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("RazorGenerator", "1.3.0.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("RazorGenerator", "1.4.1.0")]
     public static class NoodlesHelper
     {
 
