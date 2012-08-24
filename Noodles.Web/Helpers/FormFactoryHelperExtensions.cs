@@ -8,7 +8,7 @@ namespace Noodles.Helpers
     {
         public static PropertyVm ToPropertyVm(this NodeMethodParameter parameter, HtmlHelper Html)
         {
-            return new PropertyVm(Html, parameter.ParameterType, parameter.Name)
+            var vm = new PropertyVm(Html, parameter.ParameterType, parameter.Name)
             {
                 GetId = () => parameter.Id(), 
                 DisplayName = parameter.DisplayName,
@@ -18,8 +18,9 @@ namespace Noodles.Helpers
                 Choices = parameter.Choices,
                 Suggestions = parameter.Suggestions,
                 Source = parameter,
-
             };
+            vm.IsHidden |= parameter.Locked;
+            return vm;
         }
     }
 }
