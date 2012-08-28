@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Noodles.Web.Helpers.Icons;
 using Walkies;
 
 namespace Noodles.Example.Models
@@ -42,7 +43,7 @@ namespace Noodles.Example.Models
         }
          
 
-        [Show]
+        [Show][Icon("minus-sign")]
         public void ClearCompletedTasks()
         {
             _tasks.RemoveComplete();

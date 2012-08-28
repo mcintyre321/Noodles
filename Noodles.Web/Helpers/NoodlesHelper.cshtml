@@ -3,7 +3,9 @@
 @using System.Web.Mvc.Html
 @using Noodles
 @using Noodles.Helpers
+@using Noodles.Web
 @using Noodles.Web.Helpers
+@using Noodles.Web.Helpers.Icons
 @helper NodeMethodsDropdown(object obj)
     { @NodeMethodsDropdown(obj, null) }
 @helper NodeMethodsDropdown(object obj, string additionalClasses)
@@ -42,12 +44,20 @@
     {
     @NodeMethodLink(method, additionalClasses, @<text>@method.DisplayName</text>)
 }
+@helper Icon(IconAttribute att){
+    if (att != null)
+    {
+        <i class="icon-@att.IconName"></i>
+    }
+}
+
 @helper NodeMethodLink(NodeMethod method, string additionalClasses, Func<dynamic, HelperResult> innerHtml)
     {
         if (method != null)
         {
             var nodeClass = method.AutoSubmit ? "nodeMethodAutoSubmit" : "nodeMethodLink";
-    <a class="@(nodeClass) @(additionalClasses ?? "") @(method.Target.NodeType().Name.ToClassName())-@(method.Name.ToClassName())" data-nodeid="@method.Id()" href="@method.Url()">@innerHtml(null)</a>
+            var icon = method.GetAttribute<IconAttribute>();
+    <a class="@(nodeClass) @(additionalClasses ?? "") @(method.Target.NodeType().Name.ToClassName())-@(method.Name.ToClassName())" data-nodeid="@method.Id()" href="@method.Url()">@Icon(icon)@innerHtml(null)</a>
         }
 }
 @helper NodeMethodForm(System.Web.Mvc.HtmlHelper html, NodeMethod method, string formClass)

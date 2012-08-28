@@ -1,0 +1,15 @@
+﻿<#@ template language="C#" #>
+<#@ assembly name="System.Core" #>
+<#@ import namespace="System.Linq" #>
+namespace Noodles.Web.Helpers.Icons
+{
+<#
+        var wc = new System.Net.WebClient();
+		var s = wc.DownloadString(@"http://fortawesome.github.com/Font-Awesome/");
+		var regex = new System.Text.RegularExpressions.Regex("class=\"icon\\-([a-z]+)");
+		var values = string.Join(", ", regex.Matches(s).Cast<System.Text.RegularExpressions.Match>().Select (m => m.Groups[1].Value).Distinct().OrderBy(m => m));
+        values = values.Replace(" lock", " @lock");
+        wc.Dispose();
+#>
+    public enum IconNames { <#= values #> }
+}
