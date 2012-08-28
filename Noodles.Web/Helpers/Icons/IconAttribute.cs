@@ -4,16 +4,11 @@ namespace Noodles.Web.Helpers.Icons
 {
     public class IconAttribute : Attribute
     {
-        public string IconName { get; private set; }
+        public string[] Parts { get; set; }
 
-        public IconAttribute(string iconName)
+        public IconAttribute(params string[] parts)
         {
-            IconName = iconName;
+            Parts = parts;
         }
-        public IconAttribute(IconNames iconName)
-        {
-            IconName = iconName.ToString().ToLowerInvariant().Replace("@", "");
-        }
-
     }
 }

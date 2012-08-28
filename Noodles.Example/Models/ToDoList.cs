@@ -43,7 +43,7 @@ namespace Noodles.Example.Models
         }
          
 
-        [Show][Icon("minus-sign")]
+        [Show][Icon("minus-sign", "white")]
         public void ClearCompletedTasks()
         {
             _tasks.RemoveComplete();

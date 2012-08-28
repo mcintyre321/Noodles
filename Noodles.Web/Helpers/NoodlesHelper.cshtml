@@ -47,7 +47,8 @@
 @helper Icon(IconAttribute att){
     if (att != null)
     {
-        <i class="icon-@att.IconName"></i>
+        var joinedParts = "icon-" + string.Join(" icon-", att.Parts);
+        <i class="@joinedParts"></i>
     }
 }
 
