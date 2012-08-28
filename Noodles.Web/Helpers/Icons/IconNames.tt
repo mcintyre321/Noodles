@@ -10,7 +10,7 @@ namespace Noodles.Web.Helpers.Icons
 		var values = string.Join("\r\n", regex.Matches(s)
                            .Cast<System.Text.RegularExpressions.Match>()
                            .Select (m => m.Groups[1].Value).Distinct().OrderBy(m => m)
-                           .Select(i => " public static string " + i.Replace("lock", "@lock").Replace("un@lock", "unlock") + " = \"" + i + "\"; "));
+                           .Select(i => " public const string " + i.Replace("lock", "@lock").Replace("un@lock", "unlock") + " = \"" + i + "\"; "));
         
         wc.Dispose();
 #>
