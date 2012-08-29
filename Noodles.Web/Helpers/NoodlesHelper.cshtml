@@ -44,7 +44,8 @@
     {
     @NodeMethodLink(method, additionalClasses, @<text>@method.DisplayName</text>)
 }
-@helper Icon(IconAttribute att){
+@helper Icon(NodeMethod nm){
+    var att = nm.GetAttribute<IconAttribute>();
     if (att != null)
     {
         var joinedParts = "icon-" + string.Join(" icon-", att.Parts);
@@ -57,8 +58,7 @@
         if (method != null)
         {
             var nodeClass = method.AutoSubmit ? "nodeMethodAutoSubmit" : "nodeMethodLink";
-            var icon = method.GetAttribute<IconAttribute>();
-    <a class="@(nodeClass) @(additionalClasses ?? "") @(method.Target.NodeType().Name.ToClassName())-@(method.Name.ToClassName())" data-nodeid="@method.Id()" href="@method.Url()">@Icon(icon)@innerHtml(null)</a>
+    <a class="@(nodeClass) @(additionalClasses ?? "") @(method.Target.NodeType().Name.ToClassName())-@(method.Name.ToClassName())" data-nodeid="@method.Id()" href="@method.Url()">@Icon(method)@innerHtml(null)</a>
         }
 }
 @helper NodeMethodForm(System.Web.Mvc.HtmlHelper html, NodeMethod method, string formClass)

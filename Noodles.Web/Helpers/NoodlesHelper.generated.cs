@@ -413,13 +413,14 @@ WebViewPage.WriteLiteralTo(@__razor_template_writer, " ");
 }
 
 
-public static System.Web.WebPages.HelperResult Icon(IconAttribute att){
+public static System.Web.WebPages.HelperResult Icon(NodeMethod nm){
 return new System.Web.WebPages.HelperResult(__razor_helper_writer => {
 
 
 
 #line 47 "..\..\Helpers\NoodlesHelper.cshtml"
-                                
+                            
+    var att = nm.GetAttribute<IconAttribute>();
     if (att != null)
     {
         var joinedParts = "icon-" + string.Join(" icon-", att.Parts);
@@ -431,7 +432,7 @@ WebViewPage.WriteLiteralTo(@__razor_helper_writer, "        <i class=\"");
 
 
 
-#line 51 "..\..\Helpers\NoodlesHelper.cshtml"
+#line 52 "..\..\Helpers\NoodlesHelper.cshtml"
 WebViewPage.WriteTo(@__razor_helper_writer, joinedParts);
 
 #line default
@@ -441,7 +442,7 @@ WebViewPage.WriteLiteralTo(@__razor_helper_writer, "\"></i>\r\n");
 
 
 
-#line 52 "..\..\Helpers\NoodlesHelper.cshtml"
+#line 53 "..\..\Helpers\NoodlesHelper.cshtml"
     }
 
 #line default
@@ -458,12 +459,11 @@ return new System.Web.WebPages.HelperResult(__razor_helper_writer => {
 
 
 
-#line 56 "..\..\Helpers\NoodlesHelper.cshtml"
+#line 57 "..\..\Helpers\NoodlesHelper.cshtml"
      
         if (method != null)
         {
             var nodeClass = method.AutoSubmit ? "nodeMethodAutoSubmit" : "nodeMethodLink";
-            var icon = method.GetAttribute<IconAttribute>();
 
 #line default
 #line hidden
@@ -533,7 +533,7 @@ WebViewPage.WriteLiteralTo(@__razor_helper_writer, "\">");
 
 
 #line 61 "..\..\Helpers\NoodlesHelper.cshtml"
-                                                                                                                                        WebViewPage.WriteTo(@__razor_helper_writer, Icon(icon));
+                                                                                                                                        WebViewPage.WriteTo(@__razor_helper_writer, Icon(method));
 
 #line default
 #line hidden
@@ -541,7 +541,7 @@ WebViewPage.WriteLiteralTo(@__razor_helper_writer, "\">");
 
 
 #line 61 "..\..\Helpers\NoodlesHelper.cshtml"
-                                                                                                                                                   WebViewPage.WriteTo(@__razor_helper_writer, innerHtml(null));
+                                                                                                                                                     WebViewPage.WriteTo(@__razor_helper_writer, innerHtml(null));
 
 #line default
 #line hidden
