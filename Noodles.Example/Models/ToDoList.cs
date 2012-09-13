@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using Noodles.Web.Helpers.Icons;
 using Walkies;
@@ -13,7 +14,10 @@ namespace Noodles.Example.Models
             this._tasks = new Tasks().SetParent(this, "tasks");
             var task = this._tasks.AddTask("This is an example task");
         }
-        
+
+        public string Description { get; [Show] [DataType(DataType.MultilineText)] set;
+        }
+
         [Child]
         private Tasks _tasks;
 

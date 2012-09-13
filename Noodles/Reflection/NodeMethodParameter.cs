@@ -136,7 +136,14 @@ namespace Noodles
 
         public IEnumerable<Attribute> CustomAttributes
         {
-            get { return this._parameter.GetCustomAttributes(false).Cast<Attribute>(); }
+            get
+            {
+                if (_mi.Name.StartsWith("set_"))
+                {
+                    return _mi.GetCustomAttributes(false).Cast<Attribute>();
+                }
+                return this._parameter.GetCustomAttributes(false).Cast<Attribute>();
+            }
         }
 
         public bool Locked { get; set; }
