@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Noodles.Web.Helpers.Icons;
 using Walkies;
@@ -17,8 +18,9 @@ namespace Noodles.Example.Models
         private Tasks _tasks;
 
         public IEnumerable<Task> Tasks { get { return _tasks; } }
+        
         [Show]
-        public void AddTask(string taskDescription)
+        public void AddTask([MyStringLength(1, 20)] string taskDescription)
         {
             if (string.IsNullOrWhiteSpace(taskDescription)) throw new UserException("Task description cannot be empty");
             _tasks.AddTask(taskDescription);

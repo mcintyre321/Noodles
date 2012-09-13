@@ -2,6 +2,8 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.Specialized;
+using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Reflection;
 using System.Web;
@@ -38,7 +40,7 @@ namespace Noodles
             var isInvoke = httpMethod == "POST" || (httpMethod == "GET" && method.GetAttribute<HttpGetAttribute>() != null);
             if (!isInvoke) return null;
             var parameters = method.Parameters
-                .Select(pt => pt.Locked ? pt.Value : BindObject(cc, pt.BindingParameterType, pt.Name))
+                .Select(pt => pt.Locked ? pt.Value : BindObject(cc, pt.BindingParameterType, pt.Name, pt.CustomAttributes, pt.DisplayName))
                 .ToArray();
             var msd = cc.Controller.ViewData.ModelState;
             if (msd.IsValid)
@@ -169,10 +171,12 @@ namespace Noodles
 
         public static T BindObject<T>(ControllerContext cc, string name) where T : class
         {
-            return BindObject(cc, typeof(T), name) as T;
+            return BindObject(cc, typeof(T), name, null, null) as T;
         }
-        private static object BindObject(ControllerContext cc, Type desiredType, string name)
+        private static object BindObject(ControllerContext cc, Type desiredType, string name, IEnumerable<Attribute> attributes, string displayName)
         {
+            attributes = attributes ?? new Attribute[] {};
+            displayName = displayName ?? name.Sentencise(true);
             var nameValueCollection = new NameValueCollection
             {
                 cc.HttpContext.Request.Unvalidated().Form, cc.HttpContext.Request.QueryString
@@ -181,6 +185,8 @@ namespace Noodles
             var valueProvider = new NameValueCollectionValueProvider(nameValueCollection, null);
 
             var metadata = ModelMetadataProviders.Current.GetMetadataForType(null, desiredType);
+            metadata.DisplayName = displayName;
+            ApplyAttributeMetaData(metadata, attributes);
             var bindingContext = new ModelBindingContext
             {
                 ModelName = name,
@@ -189,10 +195,124 @@ namespace Noodles
                 ModelState = cc.Controller.ViewData.ModelState
             };
 
+            
             var binder = ModelBinders.Binders.GetBinder(desiredType, true);
             var output = binder.BindModel(cc, bindingContext);
 
+            foreach (var va in attributes.OfType<ValidationAttribute>())
+            {
+                if (!va.IsValid(output))
+                {
+                    bindingContext.ModelState.AddModelError(name, va.FormatErrorMessage(displayName));
+                }
+            }
+
             return output;
+        }
+
+        
+
+        private static void ApplyAttributeMetaData(ModelMetadata metadata, IEnumerable<Attribute> attributes)
+        {
+            var attributeList = new List<Attribute>(attributes);
+            DisplayColumnAttribute displayColumnAttribute = attributeList.OfType<DisplayColumnAttribute>().FirstOrDefault();
+            var result = metadata;
+
+            // Do [HiddenInput] before [UIHint], so you can override the template hint
+            HiddenInputAttribute hiddenInputAttribute = attributeList.OfType<HiddenInputAttribute>().FirstOrDefault();
+            if (hiddenInputAttribute != null)
+            {
+                result.TemplateHint = "HiddenInput";
+                result.HideSurroundingHtml = !hiddenInputAttribute.DisplayValue;
+            }
+
+            // We prefer [UIHint("...", PresentationLayer = "MVC")] but will fall back to [UIHint("...")]
+            IEnumerable<UIHintAttribute> uiHintAttributes = attributeList.OfType<UIHintAttribute>();
+            UIHintAttribute uiHintAttribute = uiHintAttributes.FirstOrDefault(a => String.Equals(a.PresentationLayer, "MVC", StringComparison.OrdinalIgnoreCase))
+                                           ?? uiHintAttributes.FirstOrDefault(a => String.IsNullOrEmpty(a.PresentationLayer));
+            if (uiHintAttribute != null)
+            {
+                result.TemplateHint = uiHintAttribute.UIHint;
+            }
+
+            DataTypeAttribute dataTypeAttribute = attributeList.OfType<DataTypeAttribute>().FirstOrDefault();
+            if (dataTypeAttribute != null)
+            {
+                result.DataTypeName = dataTypeAttribute.ToString();
+            }
+
+            EditableAttribute editable = attributes.OfType<EditableAttribute>().FirstOrDefault();
+            if (editable != null)
+            {
+                result.IsReadOnly = !editable.AllowEdit;
+            }
+            else
+            {
+                ReadOnlyAttribute readOnlyAttribute = attributeList.OfType<ReadOnlyAttribute>().FirstOrDefault();
+                if (readOnlyAttribute != null)
+                {
+                    result.IsReadOnly = readOnlyAttribute.IsReadOnly;
+                }
+            }
+
+            DisplayFormatAttribute displayFormatAttribute = attributeList.OfType<DisplayFormatAttribute>().FirstOrDefault();
+            if (displayFormatAttribute == null && dataTypeAttribute != null)
+            {
+                displayFormatAttribute = dataTypeAttribute.DisplayFormat;
+            }
+            if (displayFormatAttribute != null)
+            {
+                result.NullDisplayText = displayFormatAttribute.NullDisplayText;
+                result.DisplayFormatString = displayFormatAttribute.DataFormatString;
+                result.ConvertEmptyStringToNull = displayFormatAttribute.ConvertEmptyStringToNull;
+
+                if (displayFormatAttribute.ApplyFormatInEditMode)
+                {
+                    result.EditFormatString = displayFormatAttribute.DataFormatString;
+                }
+
+                if (!displayFormatAttribute.HtmlEncode && String.IsNullOrWhiteSpace(result.DataTypeName))
+                {
+                    result.DataTypeName = DataType.Html.ToString();
+                }
+            }
+
+            ScaffoldColumnAttribute scaffoldColumnAttribute = attributeList.OfType<ScaffoldColumnAttribute>().FirstOrDefault();
+            if (scaffoldColumnAttribute != null)
+            {
+                result.ShowForDisplay = result.ShowForEdit = scaffoldColumnAttribute.Scaffold;
+            }
+
+            DisplayAttribute display = attributes.OfType<DisplayAttribute>().FirstOrDefault();
+            string name = null;
+            if (display != null)
+            {
+                result.Description = display.GetDescription();
+                result.ShortDisplayName = display.GetShortName();
+                result.Watermark = display.GetPrompt();
+                result.Order = display.GetOrder() ?? ModelMetadata.DefaultOrder;
+
+                name = display.GetName();
+            }
+
+            if (name != null)
+            {
+                result.DisplayName = name;
+            }
+            else
+            {
+                DisplayNameAttribute displayNameAttribute = attributeList.OfType<DisplayNameAttribute>().FirstOrDefault();
+                if (displayNameAttribute != null)
+                {
+                    result.DisplayName = displayNameAttribute.DisplayName;
+                }
+            }
+
+            RequiredAttribute requiredAttribute = attributeList.OfType<RequiredAttribute>().FirstOrDefault();
+            if (requiredAttribute != null)
+            {
+                result.IsRequired = true;
+            }
         }
     }
 }

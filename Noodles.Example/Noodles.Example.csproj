@@ -39,9 +39,9 @@
     <Reference Include="EmbeddedResourceVirtualPathProvider">
       <HintPath>..\packages\EmbeddedResourceVirtualPathProvider.1.2.5\lib\net40\EmbeddedResourceVirtualPathProvider.dll</HintPath>
     </Reference>
-    <Reference Include="FormFactory, Version=1.0.4557.26063, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="FormFactory, Version=1.0.4631.295, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\FormFactory.1.2.163\lib\net40\FormFactory.dll</HintPath>
+      <HintPath>..\packages\FormFactory.1.2.212\lib\net40\FormFactory.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
@@ -94,6 +94,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountModels.cs" />
+    <Compile Include="Models\MyStringLengthAttribute.cs" />
     <Compile Include="Models\Task.cs" />
     <Compile Include="Models\Tasks.cs" />
     <Compile Include="Models\ToDoList.cs" />
