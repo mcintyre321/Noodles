@@ -35,9 +35,9 @@
       <Private>True</Private>
       <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
     </Reference>
-    <Reference Include="Mvc.JQuery.Datatables, Version=1.0.4595.40590, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="Mvc.JQuery.Datatables, Version=1.0.4640.21660, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Mvc.JQuery.Datatables.1.2.25\lib\net40\Mvc.JQuery.Datatables.dll</HintPath>
+      <HintPath>..\packages\Mvc.JQuery.Datatables.1.2.30\lib\net40\Mvc.JQuery.Datatables.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -98,10 +98,8 @@
     <Content Include="Scripts\DataTables-1.9.1\media\js\jquery.dataTables.js" />
     <Content Include="Scripts\DataTables-1.9.1\media\js\jquery.dataTables.min.js" />
     <Content Include="Scripts\DataTables-1.9.1\media\js\jquery.js" />
-    <Content Include="Scripts\DataTables\jquery.dataTables.js" />
     <Content Include="Scripts\jquery-1.4.4.js" />
     <Content Include="Scripts\jquery-1.4.4.min.js" />
-    <Content Include="Scripts\jquery.dataTables.columnFilter.js" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
