@@ -35,9 +35,9 @@
       <Private>True</Private>
       <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
     </Reference>
-    <Reference Include="Mvc.JQuery.Datatables, Version=1.0.4640.21660, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="Mvc.JQuery.Datatables, Version=1.0.4640.30471, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Mvc.JQuery.Datatables.1.2.30\lib\net40\Mvc.JQuery.Datatables.dll</HintPath>
+      <HintPath>..\packages\Mvc.JQuery.Datatables.1.2.31\lib\net40\Mvc.JQuery.Datatables.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -58,46 +58,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Scripts\DataTables-1.9.1\docs\media\js\doc.js" />
-    <Content Include="Scripts\DataTables-1.9.1\docs\media\js\jquery.js" />
-    <Content Include="Scripts\DataTables-1.9.1\docs\media\js\shBrushJScript.js" />
-    <Content Include="Scripts\DataTables-1.9.1\docs\media\js\shCore.js" />
-    <Content Include="Scripts\DataTables-1.9.1\extras\AutoFill\media\docs\media\js\doc.js" />
-    <Content Include="Scripts\DataTables-1.9.1\extras\AutoFill\media\docs\media\js\jquery.js" />
-    <Content Include="Scripts\DataTables-1.9.1\extras\AutoFill\media\docs\media\js\shBrushJScript.js" />
-    <Content Include="Scripts\DataTables-1.9.1\extras\AutoFill\media\docs\media\js\shCore.js" />
-    <Content Include="Scripts\DataTables-1.9.1\extras\AutoFill\media\js\AutoFill.js" />
-    <Content Include="Scripts\DataTables-1.9.1\extras\AutoFill\media\js\AutoFill.min.js" />
-    <Content Include="Scripts\DataTables-1.9.1\extras\ColReorder\media\docs\media\js\doc.js" />
-    <Content Include="Scripts\DataTables-1.9.1\extras\ColReorder\media\docs\media\js\jquery.js" />
-    <Content Include="Scripts\DataTables-1.9.1\extras\ColReorder\media\docs\media\js\shBrushJScript.js" />
-    <Content Include="Scripts\DataTables-1.9.1\extras\ColReorder\media\docs\media\js\shCore.js" />
-    <Content Include="Scripts\DataTables-1.9.1\extras\ColReorder\media\js\ColReorder.js" />
-    <Content Include="Scripts\DataTables-1.9.1\extras\ColReorder\media\js\ColReorder.min.js" />
-    <Content Include="Scripts\DataTables-1.9.1\extras\ColVis\media\docs\media\js\doc.js" />
-    <Content Include="Scripts\DataTables-1.9.1\extras\ColVis\media\docs\media\js\jquery.js" />
-    <Content Include="Scripts\DataTables-1.9.1\extras\ColVis\media\docs\media\js\shBrushJScript.js" />
-    <Content Include="Scripts\DataTables-1.9.1\extras\ColVis\media\docs\media\js\shCore.js" />
-    <Content Include="Scripts\DataTables-1.9.1\extras\ColVis\media\js\ColVis.js" />
-    <Content Include="Scripts\DataTables-1.9.1\extras\ColVis\media\js\ColVis.min.js" />
-    <Content Include="Scripts\DataTables-1.9.1\extras\FixedColumns\docs\media\js\doc.js" />
-    <Content Include="Scripts\DataTables-1.9.1\extras\FixedColumns\docs\media\js\jquery.js" />
-    <Content Include="Scripts\DataTables-1.9.1\extras\FixedColumns\docs\media\js\shBrushJScript.js" />
-    <Content Include="Scripts\DataTables-1.9.1\extras\FixedColumns\docs\media\js\shCore.js" />
-    <Content Include="Scripts\DataTables-1.9.1\extras\FixedColumns\media\js\FixedColumns.js" />
-    <Content Include="Scripts\DataTables-1.9.1\extras\FixedColumns\media\js\FixedColumns.min.js" />
-    <Content Include="Scripts\DataTables-1.9.1\extras\Scroller\media\docs\media\js\doc.js" />
-    <Content Include="Scripts\DataTables-1.9.1\extras\Scroller\media\docs\media\js\jquery.js" />
-    <Content Include="Scripts\DataTables-1.9.1\extras\Scroller\media\docs\media\js\shBrushJScript.js" />
-    <Content Include="Scripts\DataTables-1.9.1\extras\Scroller\media\docs\media\js\shCore.js" />
-    <Content Include="Scripts\DataTables-1.9.1\extras\Scroller\media\js\Scroller.js" />
-    <Content Include="Scripts\DataTables-1.9.1\extras\Scroller\media\js\Scroller.min.js" />
-    <Content Include="Scripts\DataTables-1.9.1\extras\TableTools\media\js\TableTools.js" />
-    <Content Include="Scripts\DataTables-1.9.1\extras\TableTools\media\js\TableTools.min.js" />
-    <Content Include="Scripts\DataTables-1.9.1\extras\TableTools\media\js\ZeroClipboard.js" />
-    <Content Include="Scripts\DataTables-1.9.1\media\js\jquery.dataTables.js" />
-    <Content Include="Scripts\DataTables-1.9.1\media\js\jquery.dataTables.min.js" />
-    <Content Include="Scripts\DataTables-1.9.1\media\js\jquery.js" />
     <Content Include="Scripts\jquery-1.4.4.js" />
     <Content Include="Scripts\jquery-1.4.4.min.js" />
   </ItemGroup>
