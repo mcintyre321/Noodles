@@ -40,7 +40,7 @@ namespace Noodles
             var walked = o.Walked();
             var rootPrefix = walked.First().GetUrlRoot() ?? "";
             if (!rootPrefix.EndsWith("/")) rootPrefix += "/";
-            if (!rootPrefix.StartsWith("/")) rootPrefix = "/" + rootPrefix;
+            if (!rootPrefix.StartsWith("/") && rootPrefix.StartsWith("http:") == false) rootPrefix = "/" + rootPrefix;
 
             return rootPrefix + String.Join("/", o.Walked().Skip(1).Select(w => w.GetFragment()));
         }
