@@ -9,7 +9,7 @@ namespace Noodles
 {
     public static class PathExtension
     {
-        static ConditionalWeakTable<object, string> urlRoots = new ConditionalWeakTable<object, string>();
+        static ConditionalWeakTable<object, object> urlRoots = new ConditionalWeakTable<object, object>();
 
         public static T SetUrlRoot<T>(this T root, string urlRoot)
         {
@@ -17,9 +17,17 @@ namespace Noodles
             urlRoots.GetValue(root, r => urlRoot);
             return root;
         }
+        public static T SetUrlRoot<T>(this T root, Func<string> getUrlRoot)
+        {
+            urlRoots.Remove(root);
+            urlRoots.GetValue(root, r => getUrlRoot);
+            return root;
+        }
         public static string GetUrlRoot<T>(this T root)
         {
-            return urlRoots.GetValue(root, r => null) as string;
+            var value = urlRoots.GetValue(root, r => null);
+            if (value as Func<string> != null) return ((Func<string>) value)();
+            return value as string;
         }
 
         public static string Path(this object o)
