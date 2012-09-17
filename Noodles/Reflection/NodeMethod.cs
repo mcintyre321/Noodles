@@ -7,6 +7,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
 using Noodles.Attributes;
+using Noodles.Reflection;
 using Walkies;
 
 namespace Noodles
@@ -154,34 +155,26 @@ namespace Noodles
             }
         }
 
+
+
+        
+
         private object GetParameterValue(object[] parameters, ParameterInfo parameterInfo, int index)
         {
-            var value = parameters[index];
-
-            if (value == null) //the saved parameter was null
+            foreach (var fix in NodeMethodParameterFixes.Registry)
             {
-                return null;
-            }
-
-            {   //fix enum types
-                var underlyingType = (Nullable.GetUnderlyingType(parameterInfo.ParameterType) ??
-                                      parameterInfo.ParameterType);
-                if (underlyingType.IsEnum) //its an enum or a nullable enum
+                object result;
+                if (fix(parameters, parameterInfo, index, out result))
                 {
-                    if (Nullable.GetUnderlyingType(parameterInfo.ParameterType) != null &&
-                        string.IsNullOrWhiteSpace(value.ToString()))
-                    {
-                        return null; //is nullable and is empty, so must be null
-                    }
-
-                    if (value as long? != null) //is it an int representation of an enum?
-                    {
-                        return Enum.ToObject(underlyingType, (long) value);
-                    }
-                    return Enum.Parse(underlyingType, value.ToString());
+                    return result;
                 }
             }
-            return value;
+            if (parameters.Length < index)
+            {
+                throw new NotEnoughParametersForNodeMethodException(this, parameterInfo, parameters);
+            }
+        
+            return parameters[index];
         }
        
 
@@ -227,6 +220,19 @@ namespace Noodles
         public T GetAttribute<T>()
         {
             return (T) _methodInfo.GetCustomAttributes(typeof (T), true).SingleOrDefault();
+        }
+    }
+
+    public class NotEnoughParametersForNodeMethodException : Exception
+    {
+        public object[] Parameters { get; set; }
+        public ParameterInfo ParameterInfo { get; set; }
+        public NodeMethod NodeMethod { get; set; }
+
+        public NotEnoughParametersForNodeMethodException(NodeMethod nodeMethod, ParameterInfo parameterInfo, object[] parameters)
+        {
+            Parameters = parameters;
+            throw new NotImplementedException();
         }
     }
 }

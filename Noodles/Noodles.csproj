@@ -52,6 +52,7 @@
     <Compile Include="NodeMethodsExtensions.cs" />
     <Compile Include="NodeTypeExtension.cs" />
     <Compile Include="PathExtension.cs" />
+    <Compile Include="Reflection\NodeMethodParameterFixes.cs" />
     <Compile Include="Reflection\NodeMethods.cs" />
     <Compile Include="NodeNotFoundException.cs" />
     <Compile Include="Profiler.cs" />
