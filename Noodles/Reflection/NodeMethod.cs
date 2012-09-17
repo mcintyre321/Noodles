@@ -126,7 +126,7 @@ namespace Noodles
             for (int index = 0; index < methodParameterInfos.Length; index++)
             {
                 var nodeMethodParameter = methodParameterInfos[index];
-                var resolvedParameterValue = GetParameterValue(parameters, nodeMethodParameter.ParameterInfo, index);
+                var resolvedParameterValue = GetParameterValue(parameters, nodeMethodParameter, index);
                 methodParameterInfos[index].LastValue = resolvedParameterValue;
             }
             parameters = methodParameterInfos.Select(mp => mp.LastValue).ToArray();
@@ -159,7 +159,7 @@ namespace Noodles
 
         
 
-        private object GetParameterValue(object[] parameters, ParameterInfo parameterInfo, int index)
+        private object GetParameterValue(object[] parameters, NodeMethodParameter parameterInfo, int index)
         {
             foreach (var fix in NodeMethodParameterFixes.Registry)
             {
@@ -225,14 +225,15 @@ namespace Noodles
 
     public class NotEnoughParametersForNodeMethodException : Exception
     {
-        public object[] Parameters { get; set; }
-        public ParameterInfo ParameterInfo { get; set; }
         public NodeMethod NodeMethod { get; set; }
+        public NodeMethodParameter ParameterInfo { get; set; }
+        public object[] Parameters { get; set; }
 
-        public NotEnoughParametersForNodeMethodException(NodeMethod nodeMethod, ParameterInfo parameterInfo, object[] parameters)
+        public NotEnoughParametersForNodeMethodException(NodeMethod nodeMethod, NodeMethodParameter parameterInfo, object[] parameters)
         {
+            NodeMethod = nodeMethod;
+            ParameterInfo = parameterInfo;
             Parameters = parameters;
-            throw new NotImplementedException();
         }
     }
 }

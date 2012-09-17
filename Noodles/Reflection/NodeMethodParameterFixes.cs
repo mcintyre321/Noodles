@@ -6,14 +6,14 @@ using System.Text;
 
 namespace Noodles.Reflection
 {
-    public delegate bool ParameterValueGetter(object[] parameters, ParameterInfo parameterInfo, int index, out object result);
+    public delegate bool ParameterValueGetter(object[] parameters, NodeMethodParameter parameterInfo, int index, out object result);
 
     public static class NodeMethodParameterFixes
     {
 
 
         public static readonly ParameterValueGetter ImplicitCast =
-            (object[] parameters, ParameterInfo parameterInfo, int index, out object result) =>
+            (object[] parameters, NodeMethodParameter parameterInfo, int index, out object result) =>
             {
                 var value = parameters[index];
                 var implicitConverter = ImplicitConversionMethodHelper.ImplicitConversionMethod(value.GetType(), parameterInfo.ParameterType);
@@ -27,21 +27,21 @@ namespace Noodles.Reflection
             };
 
         public static readonly ParameterValueGetter Downcast =
-            (object[] parameters, ParameterInfo parameterInfo, int index, out object result) =>
+            (object[] parameters, NodeMethodParameter parameterInfo, int index, out object result) =>
             {
                 result = parameters[index];
                 return parameterInfo.ParameterType.IsAssignableFrom(result.GetType());
             };
 
         public static readonly ParameterValueGetter NullOnNewOptional =
-            (object[] parameters, ParameterInfo parameterInfo, int index, out object result) =>
+            (object[] parameters, NodeMethodParameter parameterInfo, int index, out object result) =>
             {
                 result = null;
-                return index >= parameters.Length && parameterInfo.IsOptional;
+                return index >= parameters.Length && parameterInfo.ParameterInfo.IsOptional;
             };
 
         public static readonly ParameterValueGetter FixEnumTypes =
-            (object[] parameters, ParameterInfo parameterInfo, int index, out object result) =>
+            (object[] parameters, NodeMethodParameter parameterInfo, int index, out object result) =>
             {
                 var underlyingType = (Nullable.GetUnderlyingType(parameterInfo.ParameterType) ??
                                       parameterInfo.ParameterType);
@@ -68,14 +68,14 @@ namespace Noodles.Reflection
             };
 
         public static readonly ParameterValueGetter NullToNull =
-            (object[] parameters, ParameterInfo parameterinfo, int index, out object result) =>
+            (object[] parameters, NodeMethodParameter parameterinfo, int index, out object result) =>
             {
                 result = null;
                 var value = parameters[index];
                 return value == null;
             };
 
-        public static ParameterValueGetter ChangeType = (object[] parameters, ParameterInfo parameterInfo, int index, out object result) =>
+        public static ParameterValueGetter ChangeType = (object[] parameters, NodeMethodParameter parameterInfo, int index, out object result) =>
         {
             var obj = parameters[index];
             var t = parameterInfo.ParameterType;
