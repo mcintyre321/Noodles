@@ -16,9 +16,7 @@ namespace Noodles.Reflection
             (object[] parameters, ParameterInfo parameterInfo, int index, out object result) =>
             {
                 var value = parameters[index];
-                var implicitConverter = ImplicitConversionMethodHelper.ImplicitConversionMethod(value.GetType(),
-                                                                                                parameterInfo.
-                                                                                                    ParameterType);
+                var implicitConverter = ImplicitConversionMethodHelper.ImplicitConversionMethod(value.GetType(), parameterInfo.ParameterType);
                 if (implicitConverter != null)
                 {
                     result = implicitConverter.Invoke(null, new object[] { value });
@@ -92,7 +90,7 @@ namespace Noodles.Reflection
                 result = Convert.ChangeType(obj, u);
                 return true;
             }
-            result = Convert.ChangeType(obj, u);
+            result = Convert.ChangeType(obj, t);
             return true;
         };
 
