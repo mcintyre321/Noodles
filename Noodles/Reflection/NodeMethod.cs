@@ -124,11 +124,13 @@ namespace Noodles
             var methodParameterInfos = this.Parameters.ToArray();
             for (int index = 0; index < methodParameterInfos.Length; index++)
             {
-                var methodParameter = methodParameterInfos[index];
-                var resolvedParameterValue = GetParameterValue(parameters, methodParameter.ParameterInfo, index);
+                var nodeMethodParameter = methodParameterInfos[index];
+                var resolvedParameterValue = GetParameterValue(parameters, nodeMethodParameter.ParameterInfo, index);
                 methodParameterInfos[index].LastValue = resolvedParameterValue;
             }
-            return _methodInfo.Invoke(Target, methodParameterInfos.Select(mp => mp.LastValue).ToArray());
+            parameters = methodParameterInfos.Select(mp => mp.LastValue).ToArray();
+
+            return _methodInfo.Invoke(Target, parameters.ToArray());
         }
 
         private bool? _autoSubmit;
@@ -160,10 +162,25 @@ namespace Noodles
             {
                 return null;
             }
-            //if (!parameterInfo.ParameterType.IsAssignableFrom(value.GetType()))
-            //{
-            //    return value;
-            //}
+
+            {   //fix enum types
+                var underlyingType = (Nullable.GetUnderlyingType(parameterInfo.ParameterType) ??
+                                      parameterInfo.ParameterType);
+                if (underlyingType.IsEnum) //its an enum or a nullable enum
+                {
+                    if (Nullable.GetUnderlyingType(parameterInfo.ParameterType) != null &&
+                        string.IsNullOrWhiteSpace(value.ToString()))
+                    {
+                        return null; //is nullable and is empty, so must be null
+                    }
+
+                    if (value as long? != null) //is it an int representation of an enum?
+                    {
+                        return Enum.ToObject(underlyingType, (long) value);
+                    }
+                    return Enum.Parse(underlyingType, value.ToString());
+                }
+            }
             return value;
         }
        
