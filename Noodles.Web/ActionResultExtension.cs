@@ -10,6 +10,7 @@ using System.Web;
 using System.Web.Helpers;
 using System.Web.Mvc;
 using System.Web.Services.Protocols;
+using Noodles.Web.Models;
 using Walkies;
 
 namespace Noodles
@@ -43,13 +44,15 @@ namespace Noodles
                 .Select(pt => pt.Locked ? pt.Value : BindObject(cc, pt.BindingParameterType, pt.Name, pt.CustomAttributes, pt.DisplayName))
                 .ToArray();
             var msd = cc.Controller.ViewData.ModelState;
+
+            object result = null;
             if (msd.IsValid)
             {
                 Logger.Trace("ModelBinding successful");
                 try
                 {
-                    var result = doInvoke(method, parameters) as ActionResult;
-                    if (result != null) return result;
+                    result = doInvoke(method, parameters);
+                    if (result is ActionResult) return (ActionResult)result;
                 }
                 catch (Exception ex)
                 {
@@ -84,23 +87,16 @@ namespace Noodles
                 return new RedirectResult(nodeMethodReturnUrl);
             }
 
-            var viewName = msd.IsValid ? "Noodles/NodeMethodSuccess" : "Noodles/NodeMethod";
-            ViewResultBase res;
-            if (cc.HttpContext.Request.IsAjaxRequest())
+            ViewResultBase res = cc.HttpContext.Request.IsAjaxRequest() ? (ViewResultBase)new PartialViewResult() : new ViewResult();
+            if (msd.IsValid)
             {
-                res = new PartialViewResult
-                {
-                    ViewName = viewName,
-                    ViewData = { Model = method },
-                };
+                res.ViewName = "Noodles/NodeMethodSuccess";
+                res.ViewData.Model = new NodeMethodSuccessVm(method, result);
             }
             else
             {
-                res = new ViewResult
-                {
-                    ViewName = viewName,
-                    ViewData = { Model = method },
-                };
+                res.ViewName = "Noodles/NodeMethod";
+                res.ViewData.Model = method;
             }
             res.ViewData.ModelState.Merge(msd);
             res.ViewData["nodeMethodReturnUrl"] = nodeMethodReturnUrl;

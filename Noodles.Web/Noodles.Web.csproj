@@ -85,6 +85,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>IconNames.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\NodeMethodSuccessVm.cs" />
     <Compile Include="SetUrlRootExtension.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -124,6 +125,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="..\Noodles.Templates\Views\Shared\Object.cshtml">
       <Link>Views\Shared\Object.cshtml</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\Noodles.Templates\Views\Shared\Success.System.Object.cshtml">
+      <Link>Views\Shared\Success.System.Object.cshtml</Link>
     </EmbeddedResource>
     <None Include="Global.asax" />
     <None Include="Helpers\Icons\IconNames.tt">

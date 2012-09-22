@@ -74,6 +74,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+    <Content Include="Views\Shared\Success.System.Object.cshtml" />
     <None Include="Views\Web.config" />
   </ItemGroup>
   <ItemGroup>

@@ -26,12 +26,7 @@ namespace Noodles
         }
 
         public object Target { get; private set; }
-
-        public string SuccessMessage
-        {
-            get { return null; } //TODO: need a system for specify friendly success messages
-        }
-
+        
         private BindingFlags looseBindingFlags = BindingFlags.IgnoreCase | BindingFlags.FlattenHierarchy | BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic;
 
         public string Name { get { return _methodInfo.Name; } }
