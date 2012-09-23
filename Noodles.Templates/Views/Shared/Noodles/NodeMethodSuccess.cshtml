@@ -6,9 +6,13 @@
     <span class="message">Your request has been processed</span>
     @if (Model.Result != null)
     {
-        <div class="result-content">
-            @Html.BestPartial(Model.Result, prefix: "Success.")
-        </div>
+        var bestViewName = Html.BestViewName(Model.Result.GetType(), prefix: "Success.");
+        if (bestViewName != null)
+        {
+            <div class="result-content">
+                @Html.Partial(bestViewName, Model.Result)
+            </div>
+        }
     }
 </div>
 @Html.Partial("Noodles/NodeMethod", Model.Method)

@@ -126,9 +126,6 @@
     <EmbeddedResource Include="..\Noodles.Templates\Views\Shared\Object.cshtml">
       <Link>Views\Shared\Object.cshtml</Link>
     </EmbeddedResource>
-    <EmbeddedResource Include="..\Noodles.Templates\Views\Shared\Success.System.Object.cshtml">
-      <Link>Views\Shared\Success.System.Object.cshtml</Link>
-    </EmbeddedResource>
     <None Include="Global.asax" />
     <None Include="Helpers\Icons\IconNames.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
