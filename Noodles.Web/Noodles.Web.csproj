@@ -85,6 +85,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>IconNames.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\NodeMethodSuccessVm.cs" />
     <Compile Include="SetUrlRootExtension.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
