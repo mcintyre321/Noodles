@@ -62,6 +62,11 @@ namespace Noodles
                     var getter = property.GetGetMethod(true);
                     return getter.Invoke(_nodeMethod.Target, null);
                 }
+                var getDefault = _mi.DeclaringType.GetMethod(_mi.Name + "_" + _parameter.Name + "_default");
+                if (getDefault != null)
+                {
+                    return getDefault.Invoke(_nodeMethod.Target, null);
+                }
                 return null;
             }
             set { _value = value; }
