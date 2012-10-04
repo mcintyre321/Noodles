@@ -1,4 +1,6 @@
-﻿using System.Web.Mvc;
+﻿using System.ComponentModel.DataAnnotations;
+using System.Linq;
+using System.Web.Mvc;
 using System.Web.Mvc;
 using FormFactory;
 
@@ -14,6 +16,7 @@ namespace Noodles.Helpers
                 DisplayName = parameter.DisplayName,
                 GetCustomAttributes = () => parameter.CustomAttributes,
                 Readonly = false,
+                IsHidden = parameter.CustomAttributes.OfType<DataTypeAttribute>().Any(x => x.CustomDataType == "Hidden"),
                 Value = parameter.Value,
                 Choices = parameter.Choices,
                 Suggestions = parameter.Suggestions,
