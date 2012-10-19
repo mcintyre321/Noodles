@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Globalization;
 using System.Linq;
 using System.Linq.Expressions;
@@ -27,17 +28,18 @@ namespace Noodles.DataTables
                 helper.ViewContext.HttpContext.Cache.Add(key, objTransform, null, DateTime.MaxValue, System.Web.Caching.Cache.NoSlidingExpiration, CacheItemPriority.NotRemovable, null);
             }
             var target = GetObjectAndMember(getProperty);
-            var columns = typeof (TResult).GetProperties().Select(p => Tuple.Create(p.Name, p.PropertyType)).ToArray();
+            var columns = typeof(TResult).GetProperties().Select(p => ColDef.Create(p.Name, p.Name, p.PropertyType)).ToArray();
             return new DataTableVm("DataTable_" + target.Item2 + "_" + target.Item1.Id(), target.Item1.Url() + "?action=getDataTable&prop=" + target.Item2 + "&transform=" + key, columns);
         }
 
 
-        private static Tuple<object, string, T> GetObjectAndMember<T>(Expression<Func<T>> getProperty)
+        private static Tuple<object, string, string, T> GetObjectAndMember<T>(Expression<Func<T>> getProperty)
         {
             dynamic exp = getProperty;
             var memberName = (string)exp.Body.Member.Name;
             var info = exp.Body.Expression.Member as object;
             object noodleObject = null;
+            var displayNameAtt = null as DisplayNameAttribute;
             if (info is PropertyInfo)
             {
                 noodleObject = exp.Body.Expression.Expression.Value.Model;
@@ -53,7 +55,7 @@ namespace Noodles.DataTables
                     "The static reflection code hasn't been able to figure out the object properly. Feel free to improve it!");
             }
             var queryable = (T)noodleObject.GetType().GetProperty(memberName).GetGetMethod().Invoke(noodleObject, null);
-            return Tuple.Create(noodleObject, memberName, queryable);
+            return Tuple.Create(noodleObject, memberName, memberName, queryable);
         }
     }
 }
