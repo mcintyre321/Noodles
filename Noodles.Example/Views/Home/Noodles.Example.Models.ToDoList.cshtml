@@ -42,7 +42,7 @@
         @Html.Partial("DataTable", Html.DataTableVmFor(() => Model.Tasks, t => new
         {
             Task = Task(t).ToHtmlString(), 
-            t.Status, 
+            Status = @NoodlesHelper.NodeMethodIconLink(t.NodeMethod("set_Status"), "", "edit") + t.Status, 
             Actions = NoodlesHelper.NodeMethodsMenuLink(t).ToHtmlString()
         }).Then(vm => vm.TableTools = false).Then(vm => vm.ShowPageSizes = false).Then(vm => vm.ShowSearch = false))
         <br />

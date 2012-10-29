@@ -89,52 +89,58 @@ $(document).ready(function () {
     });
     var showMethodForm = function ($link) {
 
-        //var panelId = $(this).attr("id") + "panel";
         var methodsPanelId = "method-" + $link.attr("data-nodeid");
-        $("#" + methodsPanelId).modal({ show: true, backdrop: true });
-        $("#" + methodsPanelId + " :input:visible:enabled:first").focus();
-    };
-
-    $(".submitMethod").live('click', function (e) {
-
-        var $container = $(this).closest(".nodeMethod");
-        var $form = $container.find("form");
-        var ajaxOptions = {
-            url: $form.attr('action'),
-            type: "POST",
-            data: $form.serialize(),
-            success: function (data) {
-                window.location.reload();
-            },
-
-            error: function (jqXhr, textStatus, errorThrown) {
-                if (errorThrown == "Conflict") {
-                    var $html = $(jqXhr.responseText);
-                    if ($container.hasClass("modal")) {
-                        var $buttons = $html.find("button").remove();
-                        $container.find(".modal-footer").empty().append($buttons);
-                    } else if ($form.hasClass("form-inline")) {
-                        $html.find("div.controls").css("display", "inline");
-                        $html.find("div.control-group").css("display", "inline");
-                        $html.addClass("form-inline");
+        var $method = $("#" + methodsPanelId).clone();
+        $method.modal({ show: true, backdrop: true });
+        $method.find(":input:visible:enabled:first").focus();
+        $(".submitMethod", $method).on('click', function (e) {
+            var $container = $(this).closest(".nodeMethod");
+            var $form = $container.is("form") ? $container : $container.find("form");
+            var ajaxOptions = {
+                url: $form.attr('action'),
+                type: "POST",
+                data: $form.serialize(),
+                success: function (data) {
+                    if ($link) {
+                        var $table = $link.closest(".dataTable");
+                        if ($table.length) {
+                            $table.dataTable().fnDraw(false);
+                            $method.modal("hide");
+                            return;
+                        }
                     }
-                    $form.replaceWith($html);
+                    window.location.reload();
+                },
+
+                error: function (jqXhr, textStatus, errorThrown) {
+                    if (errorThrown == "Conflict") {
+                        var $html = $(jqXhr.responseText);
+                        if ($container.hasClass("modal")) {
+                            var $buttons = $html.find("button").remove();
+                            $container.find(".modal-footer").empty().append($buttons);
+                        } else if ($form.hasClass("form-inline")) {
+                            $html.find("div.controls").css("display", "inline");
+                            $html.find("div.control-group").css("display", "inline");
+                            $html.addClass("form-inline");
+                        }
+                        $form.replaceWith($html);
+                    }
+                },
+                complete: function () {
+                    //$("#ProgressDialog").dialog("close");
                 }
-            },
-            complete: function () {
-                //$("#ProgressDialog").dialog("close");
+            };
+            var $fileInputs = $(":file", $form);
+            if ($fileInputs.length) {
+                $.extend(ajaxOptions, {
+                    data: $form.serializeArray(),
+                    files: $(":file", $form),
+                    iframe: true,
+                    processData: false
+                });
             }
-        };
-        var $fileInputs = $(":file", $form);
-        if ($fileInputs.length) {
-            $.extend(ajaxOptions, {
-                data: $form.serializeArray(),
-                files: $(":file", $form),
-                iframe: true,
-                processData: false
-            });
-        }
-        $.ajax(ajaxOptions);
-        return false;
-    });
+            $.ajax(ajaxOptions);
+            return false;
+        });
+    };
 });

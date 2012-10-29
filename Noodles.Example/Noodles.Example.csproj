@@ -210,8 +210,6 @@
     <Content Include="Views\Home\Noodles.Example.Models.ToDoList.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Helpers\NoodlesHelper.cshtml" />
-    <Content Include="Helpers\BootstrapHelper.cshtml" />
     <Content Include="Views\Web.config" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_LogOnPartial.cshtml" />
