@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using Walkies;
 
 namespace Noodles.Example.Models
@@ -14,7 +15,8 @@ namespace Noodles.Example.Models
 
         public string Text { get; set; }
         public bool Completed { get; set; }
-
+    [DataType(DataType.Date)]
+        public DateTimeOffset DueDate { get; set; }
         public string Name { get; private set; }
 
         public string Status { get; set; }

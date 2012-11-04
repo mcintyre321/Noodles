@@ -41,7 +41,8 @@
         <br/>
         @Html.Partial("DataTable", Html.DataTableVmFor(() => Model.Tasks, t => new
         {
-            Task = Task(t).ToHtmlString(), 
+            Task = Task(t).ToHtmlString(),
+            DueDate = @NoodlesHelper.NodeMethodIconLink(t.NodeMethod("set_DueDate"), "", "edit") + t.DueDate.ToString("s"),
             Status = @NoodlesHelper.NodeMethodIconLink(t.NodeMethod("set_Status"), "", "edit") + t.Status, 
             Actions = NoodlesHelper.NodeMethodsMenuLink(t).ToHtmlString()
         }).Then(vm => vm.TableTools = false).Then(vm => vm.ShowPageSizes = false).Then(vm => vm.ShowSearch = false))
