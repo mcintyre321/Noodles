@@ -12,7 +12,6 @@ namespace Noodles.Helpers
         {
             var vm = new PropertyVm(Html, parameter.ParameterType, parameter.Name)
             {
-                GetId = () => parameter.Id(), 
                 DisplayName = parameter.DisplayName,
                 GetCustomAttributes = () => parameter.CustomAttributes,
                 Readonly = false,

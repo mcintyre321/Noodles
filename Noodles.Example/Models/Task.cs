@@ -20,10 +20,18 @@ namespace Noodles.Example.Models
         public string Name { get; private set; }
 
         public string Status { get; set; }
-        public IEnumerable<string> Status_choices()
+        public IEnumerable<string> Status_suggestions()
         {
             return "Good,Bad,Ugly".Split(',');
         }
 
+        public TaskType Type { get; set; }
+
+    }
+
+    public enum TaskType
+    {
+        Task,
+        Bug
     }
 }

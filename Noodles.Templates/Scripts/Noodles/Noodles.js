@@ -90,7 +90,7 @@ $(document).ready(function () {
     var showMethodForm = function ($link) {
 
         var methodsPanelId = "method-" + $link.attr("data-nodeid");
-        var $method = $("#" + methodsPanelId).clone();
+        var $method = $("#" + methodsPanelId);
         $method.modal({ show: true, backdrop: true });
         $method.find(":input:visible:enabled:first").focus();
         $(".submitMethod", $method).on('click', function (e) {
@@ -106,6 +106,7 @@ $(document).ready(function () {
                         if ($table.length) {
                             $table.dataTable().fnDraw(false);
                             $method.modal("hide");
+                            $method.remove();
                             return;
                         }
                     }
