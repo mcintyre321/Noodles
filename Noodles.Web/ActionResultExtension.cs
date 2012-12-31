@@ -309,11 +309,11 @@ namespace Noodles
             }
         }
     }
-    class NoodleViewResult : ViewResult
+    public class NoodleViewResult : ViewResult
     {
 
     }
-    class NoodlePartialViewResult : PartialViewResult
+    public class NoodlePartialViewResult : PartialViewResult
     {
 
     }
