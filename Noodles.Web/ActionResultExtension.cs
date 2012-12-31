@@ -87,7 +87,7 @@ namespace Noodles
                 return new RedirectResult(nodeMethodReturnUrl);
             }
 
-            ViewResultBase res = cc.HttpContext.Request.IsAjaxRequest() ? (ViewResultBase)new PartialViewResult() : new ViewResult();
+            ViewResultBase res = cc.HttpContext.Request.IsAjaxRequest() ? (ViewResultBase)new NoodlePartialViewResult() : new NoodleViewResult();
             if (msd.IsValid)
             {
                 res.ViewName = "Noodles/NodeMethodSuccess";
@@ -140,7 +140,7 @@ namespace Noodles
                                              ? "Noodles/NodeMethods"
                                              : FormFactory.FormHelperExtension.BestViewName(cc, node.NodeType());
 
-                    var vr = new ViewResult { ViewName = viewname, ViewData = cc.Controller.ViewData };
+                    var vr = new NoodleViewResult { ViewName = viewname, ViewData = cc.Controller.ViewData };
                     if (cc.HttpContext.Request.IsAjaxRequest())
                     {
                         vr.MasterName = "Noodles/_AjaxLayout";
@@ -309,4 +309,13 @@ namespace Noodles
             }
         }
     }
+    class NoodleViewResult : ViewResult
+    {
+
+    }
+    class NoodlePartialViewResult : PartialViewResult
+    {
+
+    }
+
 }
