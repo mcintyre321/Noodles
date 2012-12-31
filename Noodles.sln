@@ -1,6 +1,8 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 11.00
-# Visual Studio 2010
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Example", "Example", "{76A20EC8-DC87-4CFF-9159-1343972376E0}"
+EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Noodles", "Noodles\Noodles.csproj", "{3F8BA73C-2F1C-4F24-A5D9-B3243FA6A495}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Noodles.Web", "Noodles.Web\Noodles.Web.csproj", "{4B896492-265C-49DB-8D4B-B5F4DBBBB4E3}"
@@ -8,8 +10,6 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Noodles.Example", "Noodles.Example\Noodles.Example.csproj", "{B7567A03-37F7-45F7-9C11-42FCD5A25787}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Noodles.Templates", "Noodles.Templates\Noodles.Templates.csproj", "{865CA815-C948-48A7-9A65-7642C970BCFC}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Example", "Example", "{76A20EC8-DC87-4CFF-9159-1343972376E0}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Noodles.DataTables", "Noodles.DataTables\Noodles.DataTables.csproj", "{E2FAC8CF-7F01-4851-AA56-22BD893559C7}"
 EndProject

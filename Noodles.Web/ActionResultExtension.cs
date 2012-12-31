@@ -12,7 +12,7 @@ using System.Web.Mvc;
 using System.Web.Services.Protocols;
 using Noodles.Web.Models;
 using Walkies;
-
+ 
 namespace Noodles
 {
     public static class ActionResultExtension
@@ -124,14 +124,12 @@ namespace Noodles
             if (processorResult != null) return processorResult;
 
 
-            var httpMethod = cc.HttpContext.Request.HttpMethod;
-
-            ActionResult noodleResult;
             return new HttpStatusCodeResult((int)System.Net.HttpStatusCode.BadRequest);
         }
 
         private static ActionResult ProcessGet(ControllerContext cc, object node)
         {
+            if (node is ActionResult) return (ActionResult) node;
             if (cc.RequestContext.HttpContext.Request.HttpMethod == "GET")
             {
                 using (Profiler.Step("Returning view"))
