@@ -46,7 +46,8 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
     <Reference Include="Walkies, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Walkies.1.2.12\lib\net40\Walkies.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Walkies.1.2.28\lib\net40\Walkies.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
