@@ -130,6 +130,7 @@ namespace Noodles
         }
 
         private bool? _autoSubmit;
+
         public bool AutoSubmit
         {
             get
@@ -150,9 +151,11 @@ namespace Noodles
             }
         }
 
+        public Type ReturnType
+        {
+            get { return _methodInfo.ReturnType; }
+        }
 
-
-        
 
         private object GetParameterValue(object[] parameters, NodeMethodParameter parameterInfo, int index)
         {
@@ -215,6 +218,12 @@ namespace Noodles
         public T GetAttribute<T>()
         {
             return (T) _methodInfo.GetCustomAttributes(typeof (T), true).SingleOrDefault();
+        }
+
+        public object Invoke(IDictionary<string, object> parameterDictionary)
+        {
+            var parameters = this.Parameters.Select(p => p.Name).Select(name => parameterDictionary[name]).ToArray();
+            return Invoke(parameters);
         }
     }
 

@@ -1,0 +1,51 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+</head>
+<body>
+    <fieldset>
+        <legend>Properties</legend>
+        {{#Properties}}
+        <label for="{{Name}}">{{Name}}</label>
+        <input type="text" data-type="{{Type}}" name="{{Name}}" {{#Readonly}}readonly="readonly"{{/Readonly}} value="{{Value}}" />
+        {{#Readonly}}
+        <form action="{{Setter.Url}}" method="PUT">
+            <input type="submit" value="Save"/>
+        </form>
+        "{{/Readonly}}
+        
+        {{/Properties}}
+
+    </fieldset>
+    <fieldset>
+        <legend>Actions</legend>
+        {{#Actions}}
+        <fieldset>
+            <legend>{{Name}}</legend>
+            <form action="{{Url}}" method="POST">
+                {{#Properties}}
+                <label for="{{Name}}">{{Name}}</label>
+                <input type="text" data-type="{{Type}}" name="{{Name}}" value="{{Value}}" />
+                {{/Properties}}
+                <input type="submit" value="Execute"/>
+            </form>
+        </fieldset>
+        {{/Actions}}
+
+    </fieldset>
+    <fieldset>
+        <legend>Links</legend>
+        {{#Links}}
+        <fieldset>
+            <a href="{{Url}}" rel="{{Relationship}}">{{Name}}</a>
+            
+        </fieldset>
+        {{/Links}}
+
+    </fieldset>
+
+</body>
+</html>

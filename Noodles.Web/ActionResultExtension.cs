@@ -41,7 +41,7 @@ namespace Noodles
             var isInvoke = httpMethod == "POST" || (httpMethod == "GET" && method.GetAttribute<HttpGetAttribute>() != null);
             if (!isInvoke) return null;
             var parameters = method.Parameters
-                .Select(pt => pt.Locked ? pt.Value : BindObject(cc, pt.BindingParameterType, pt.Name, pt.CustomAttributes, pt.DisplayName))
+                .Select(pt => pt.Locked ? pt.Value : BindObject(cc, pt.ParameterType, pt.Name, pt.CustomAttributes, pt.DisplayName))
                 .ToArray();
             var msd = cc.Controller.ViewData.ModelState;
 

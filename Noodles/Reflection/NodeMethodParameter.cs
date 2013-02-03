@@ -32,14 +32,6 @@ namespace Noodles
                 return _parameter.ParameterType;
             }
         }
-        public Type BindingParameterType
-        {
-            get
-            {
-                //if (typeof(IHasName).IsAssignableFrom(_parameter.ParameterType)) return typeof(String);
-                return _parameter.ParameterType;
-            }
-        }
 
         public string Name
         {
