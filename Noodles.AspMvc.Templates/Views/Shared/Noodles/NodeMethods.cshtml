@@ -1,0 +1,13 @@
+﻿@using AspMvc.Helpers
+@using Noodles
+@using System.Linq
+@using Noodles.Helpers
+@using Noodles.Web.Helpers
+@model IEnumerable<NodeMethod>
+@if (Model.Any())
+{
+    foreach (var nodeMethod in Model)
+    {
+        @NoodlesHelper.NodeMethodLink(nodeMethod)
+    }
+}

@@ -1,0 +1,19 @@
+﻿@using Noodles
+@using Noodles.AspMvc.Helpers
+@using Noodles.AspMvc.Helpers.Icons
+@using Noodles.Web.Helpers
+@using Noodles.Web.Helpers.Icons
+@model Noodles.Example.Domain.Task
+ 
+<div class="btn-group">
+    <button class="btn"><a  href="@Model.Url()">@Model.GetName()</a>&nbsp;<i class="icon-@(Model.Completed ? IconNames.check : IconNames.check_empty)"></i></button>
+    <button class="btn dropdown-toggle" data-toggle="dropdown">
+        <span class="caret"></span>
+    </button>
+    <ul class="dropdown-menu">
+        @foreach (var method in Model.NodeMethods())
+        {
+        <li>@NoodlesHelper.NodeMethodLink(method)</li>
+        }
+    </ul>
+</div>

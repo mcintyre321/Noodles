@@ -5,19 +5,21 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Example", "Example", "{76A2
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Noodles", "Noodles\Noodles.csproj", "{3F8BA73C-2F1C-4F24-A5D9-B3243FA6A495}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Noodles.Web", "Noodles.Web\Noodles.Web.csproj", "{4B896492-265C-49DB-8D4B-B5F4DBBBB4E3}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Noodles.Templates", "Noodles.Templates\Noodles.Templates.csproj", "{865CA815-C948-48A7-9A65-7642C970BCFC}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Noodles.DataTables", "Noodles.DataTables\Noodles.DataTables.csproj", "{E2FAC8CF-7F01-4851-AA56-22BD893559C7}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Noodles.Example", "Noodles.Example\Noodles.Example.csproj", "{B7567A03-37F7-45F7-9C11-42FCD5A25787}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Noodles.WebApi", "Noodles.WebApi\Noodles.WebApi.csproj", "{73245B43-FEFA-41A8-A6F3-34B2EC0B2E88}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Noodles.Example.WebApi", "Noodles.Example.WebApi\Noodles.Example.WebApi.csproj", "{50387F7F-2801-49E0-958F-827AA0228F8F}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Noodles.Example.Domain", "Noodles.Example.Domain\Noodles.Example.Domain.csproj", "{D727F0A4-DC44-4D08-94B0-465F2CDB1AEA}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "AspMvc", "AspMvc", "{D1856F94-75EA-4DE2-9976-9D547B36A858}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Noodles.AspMvc", "Noodles.AspMvc\Noodles.AspMvc.csproj", "{4B896492-265C-49DB-8D4B-B5F4DBBBB4E3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Noodles.AspMvc.Templates", "Noodles.AspMvc.Templates\Noodles.AspMvc.Templates.csproj", "{865CA815-C948-48A7-9A65-7642C970BCFC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Noodles.AspMvc.DataTables", "Noodles.AspMvc.DataTables\Noodles.AspMvc.DataTables.csproj", "{E2FAC8CF-7F01-4851-AA56-22BD893559C7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Noodles.Example.Web", "Noodles.Example.Web\Noodles.Example.Web.csproj", "{B7567A03-37F7-45F7-9C11-42FCD5A25787}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -29,6 +31,18 @@ Global
 		{3F8BA73C-2F1C-4F24-A5D9-B3243FA6A495}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3F8BA73C-2F1C-4F24-A5D9-B3243FA6A495}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3F8BA73C-2F1C-4F24-A5D9-B3243FA6A495}.Release|Any CPU.Build.0 = Release|Any CPU
+		{73245B43-FEFA-41A8-A6F3-34B2EC0B2E88}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{73245B43-FEFA-41A8-A6F3-34B2EC0B2E88}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{73245B43-FEFA-41A8-A6F3-34B2EC0B2E88}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{73245B43-FEFA-41A8-A6F3-34B2EC0B2E88}.Release|Any CPU.Build.0 = Release|Any CPU
+		{50387F7F-2801-49E0-958F-827AA0228F8F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{50387F7F-2801-49E0-958F-827AA0228F8F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{50387F7F-2801-49E0-958F-827AA0228F8F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{50387F7F-2801-49E0-958F-827AA0228F8F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D727F0A4-DC44-4D08-94B0-465F2CDB1AEA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D727F0A4-DC44-4D08-94B0-465F2CDB1AEA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D727F0A4-DC44-4D08-94B0-465F2CDB1AEA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D727F0A4-DC44-4D08-94B0-465F2CDB1AEA}.Release|Any CPU.Build.0 = Release|Any CPU
 		{4B896492-265C-49DB-8D4B-B5F4DBBBB4E3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{4B896492-265C-49DB-8D4B-B5F4DBBBB4E3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4B896492-265C-49DB-8D4B-B5F4DBBBB4E3}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -45,25 +59,16 @@ Global
 		{B7567A03-37F7-45F7-9C11-42FCD5A25787}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B7567A03-37F7-45F7-9C11-42FCD5A25787}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B7567A03-37F7-45F7-9C11-42FCD5A25787}.Release|Any CPU.Build.0 = Release|Any CPU
-		{73245B43-FEFA-41A8-A6F3-34B2EC0B2E88}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{73245B43-FEFA-41A8-A6F3-34B2EC0B2E88}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{73245B43-FEFA-41A8-A6F3-34B2EC0B2E88}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{73245B43-FEFA-41A8-A6F3-34B2EC0B2E88}.Release|Any CPU.Build.0 = Release|Any CPU
-		{50387F7F-2801-49E0-958F-827AA0228F8F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{50387F7F-2801-49E0-958F-827AA0228F8F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{50387F7F-2801-49E0-958F-827AA0228F8F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{50387F7F-2801-49E0-958F-827AA0228F8F}.Release|Any CPU.Build.0 = Release|Any CPU
-		{D727F0A4-DC44-4D08-94B0-465F2CDB1AEA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{D727F0A4-DC44-4D08-94B0-465F2CDB1AEA}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{D727F0A4-DC44-4D08-94B0-465F2CDB1AEA}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{D727F0A4-DC44-4D08-94B0-465F2CDB1AEA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{B7567A03-37F7-45F7-9C11-42FCD5A25787} = {76A20EC8-DC87-4CFF-9159-1343972376E0}
 		{50387F7F-2801-49E0-958F-827AA0228F8F} = {76A20EC8-DC87-4CFF-9159-1343972376E0}
 		{D727F0A4-DC44-4D08-94B0-465F2CDB1AEA} = {76A20EC8-DC87-4CFF-9159-1343972376E0}
+		{B7567A03-37F7-45F7-9C11-42FCD5A25787} = {76A20EC8-DC87-4CFF-9159-1343972376E0}
+		{4B896492-265C-49DB-8D4B-B5F4DBBBB4E3} = {D1856F94-75EA-4DE2-9976-9D547B36A858}
+		{865CA815-C948-48A7-9A65-7642C970BCFC} = {D1856F94-75EA-4DE2-9976-9D547B36A858}
+		{E2FAC8CF-7F01-4851-AA56-22BD893559C7} = {D1856F94-75EA-4DE2-9976-9D547B36A858}
 	EndGlobalSection
 EndGlobal
