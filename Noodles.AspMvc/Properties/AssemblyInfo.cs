@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Noodles.Web")]
+[assembly: AssemblyTitle("Noodles.AspMvc")]
 [assembly: AssemblyDescription("Noodles transforms your object model into a web app. This assembly contains stuff to make Noodles work with ASP MVC")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Microsoft")]
-[assembly: AssemblyProduct("Noodles.Web")]
+[assembly: AssemblyProduct("Noodles.AspMvc")]
 [assembly: AssemblyCopyright("Copyright © Microsoft 2012")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
