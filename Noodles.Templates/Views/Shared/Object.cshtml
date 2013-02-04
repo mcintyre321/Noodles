@@ -21,24 +21,24 @@
                 <li class="active">@Model.GetName()</li>
             </ul>
         } 
-
-        @foreach(var property in Model.NodeProperties())
-            {
-                var vm = property.ToPropertyVm(Html);
-                Html.RenderPartial("FormFactory/Form.Property", vm, ViewData);
+        <div class="noodles-properties-region">
+            @foreach(var property in Model.NodeProperties())
+        {
+            var vm = property.ToPropertyVm(Html);
+                @Html.Partial("FormFactory/Form.Property", vm, ViewData);
             }
-
-
-        @foreach(var group in Model.KnownChildren().GroupBy(o => o.GetType()))
+        </div>
+        <div class="noodles-links-region">
+            @foreach(var group in Model.KnownChildren().GroupBy(o => o.GetType()))
         {
             <h4>@Noodles.TextExtensions.Sentencise(group.Key.Name)s</h4>
-        <span class="btn-toolbar">@foreach (var node in group)
+            <span class="btn-toolbar">@foreach (var node in group)
                                     {
                                         @Html.BestPartial(node, group.Key, "Link.")
                                     }
-        </span>
-        }
-        <br />
+            </span>
+            }
+        </div>
         <div class="well">
             @foreach(var method in Model.NodeMethods())
             {

@@ -133,11 +133,15 @@ namespace Noodles
         {
             get
             {
+                var parameterAtts = this._parameter.GetCustomAttributes(false).Cast<Attribute>();
                 if (_mi.Name.StartsWith("set_"))
                 {
-                    return _mi.GetCustomAttributes(false).Cast<Attribute>();
+                    var propertyAtts = _mi.DeclaringType.GetProperty(_mi.Name.Substring(4))
+                        .GetCustomAttributes().Cast<Attribute>();
+                    var methodAtts = _mi.GetCustomAttributes(false).Cast<Attribute>();
+                    return parameterAtts.Concat(methodAtts).Concat(propertyAtts);
                 }
-                return this._parameter.GetCustomAttributes(false).Cast<Attribute>();
+                return parameterAtts;
             }
         }
 
