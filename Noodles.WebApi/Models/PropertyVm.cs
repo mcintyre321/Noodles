@@ -1,7 +1,6 @@
 using System.Reflection;
-using Noodles.WebApi.Models;
 
-namespace Noodles.Example.WebApi.Models
+namespace Noodles.WebApi.Models
 {
     public class PropertyVm
     {

@@ -8,16 +8,15 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Routing;
-using Noodles.Example.WebApi.Models;
 using Noodles.WebApi.Models;
 using Walkies;
 
-namespace Noodles.Example.WebApi
+namespace Noodles.WebApi
 {
 
-    public class NoodlesHandler : HttpMessageHandler
+    public class NoodlesHttpMessageHandler : HttpMessageHandler
     {
-        static NoodlesHandler() 
+        static NoodlesHttpMessageHandler () 
         {
             //ModelStateExceptionHandlers.Add((e, msd) => (e as TEx) == null ? null as Action : () => action((TEx)e, msd));
             //ModelStateExceptionHandlers.Add((e, msd) => (e as NodeNotFoundException) == null ? null as Action : () => action((TEx)e, msd));
@@ -35,7 +34,7 @@ namespace Noodles.Example.WebApi
         private readonly Func<HttpRequestMessage, object> _getRootObject;
         private Func<NodeMethod, object[], object> _doInvoke;
 
-        public NoodlesHandler(Func<HttpRequestMessage, object> getRootObject, Func<NodeMethod, object[], object> doInvoke = null)
+        public NoodlesHttpMessageHandler(Func<HttpRequestMessage, object> getRootObject, Func<NodeMethod, object[], object> doInvoke = null)
         {
             _getRootObject = getRootObject;
             _doInvoke = doInvoke ?? ((nm, parameters) => nm.Invoke(parameters));
@@ -87,16 +86,12 @@ namespace Noodles.Example.WebApi
 
             if (!isInvoke) return null;
 
-            var routeData = request.Properties["MS_HttpRouteData"] as HttpRouteData;
-           
-            var config = (HttpConfiguration)request.Properties["MS_HttpConfiguration"];
             var parameters = await new PostParameterBinder()
                 .BindParameters(nodeMethod, request, cancellationToken);
             object result = null;
             try
             {
                 result = _doInvoke(nodeMethod, parameters);
-                //if (result is ActionResult) return (ActionResult)result;
             }
             catch (Exception ex)
             {
@@ -104,50 +99,10 @@ namespace Noodles.Example.WebApi
                 {
                     ex = ex.InnerException ?? ex;
                 }
-                //Action handle = ModelStateExceptionHandlers.Select(h => h(ex, cc)).FirstOrDefault(h => h != null);
-
-                //if (handle != null)
-                //{
-                //    //cc.HttpContext.Response.StatusCode = 409;
-                //    handle();
-                //}
-                //else
-                //{
-                    //cc.HttpContext.Response.StatusCode = 500;
                     throw;
-                //}
             }
-            //var msd = cc.Controller.ViewData.ModelState;
-
-            //object result = null;
-            
-            //else
-            //{
-            //    cc.HttpContext.Response.StatusCode = 409;
-            //}
-
-            //cc.HttpContext.Response.TrySkipIisCustomErrors = true;
-
-            //var nodeMethodReturnUrl = cc.RequestContext.HttpContext.Request["nodeMethodReturnUrl"];
-            //if (!cc.HttpContext.Request.IsAjaxRequest() && msd.IsValid)
-            //{
-            //    return new RedirectResult(nodeMethodReturnUrl);
-            //}
-            var response = request.CreateResponse(HttpStatusCode.OK, new NodeMethodInvokeSuccess(nodeMethod));
-            //ViewResultBase res = cc.HttpContext.Request.IsAjaxRequest() ? (ViewResultBase)new NoodlePartialViewResult() : new NoodleViewResult();
-            //if (msd.IsValid)
-            //{
-            //    res.ViewName = "Noodles/NodeMethodSuccess";
-            //    res.ViewData.Model = new NodeMethodSuccessVm(method, result);
-            //}
-            //else
-            //{
-            //    res.ViewName = "Noodles/Action";
-            //    res.ViewData.Model = method;
-            //}
-            //res.ViewData.ModelState.Merge(msd);
-            //res.ViewData["nodeMethodReturnUrl"] = nodeMethodReturnUrl;
-            //return res;
+            var response = request.CreateResponse(HttpStatusCode.RedirectMethod);
+            response.Headers.Location = new Uri(nodeMethod.Parent.Parent.Url(), UriKind.RelativeOrAbsolute);
             return response;
         }
         private Task<HttpResponseMessage> ReturnObject(HttpRequestMessage request, CancellationToken token, object target)

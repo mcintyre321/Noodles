@@ -5,6 +5,7 @@ using System.Web.Http.ModelBinding;
 using System.Web.Http.Routing;
 using System.Web.Http.SelfHost;
 using Noodles.Example.Domain;
+using Noodles.WebApi;
 
 namespace Noodles.Example.WebApi
 {
@@ -27,7 +28,7 @@ namespace Noodles.Example.WebApi
                     new HttpRouteValueDictionary("route"),
                     constraints: null,
                     dataTokens: null,
-                    handler: new NoodlesHandler((r) => todoList)
+                    handler: new NoodlesHttpMessageHandler((r) => todoList)
                     ));
                 server = new HttpSelfHostServer(config);
 

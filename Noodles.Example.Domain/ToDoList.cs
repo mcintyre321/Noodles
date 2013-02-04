@@ -1,33 +1,51 @@
-﻿using System;
+using System;
+using System.Collections;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using Walkies;
 
 namespace Noodles.Example.Domain
 {
+    [Show]
     [Name("{Description}")]
-    public class ToDoList
+    public class ToDoList : IEnumerable<Task>, IHasChildren
     {
+        private readonly List<Task> _tasks = new List<Task>();
+
         public ToDoList()
         {
+            this._tasks = new List<Task>();
             this.UniqueId = Guid.NewGuid().ToString();
-            this.Tasks = new Tasks();
-            Tasks.AddTask("This is an example task");
-            this.Description = "An example todo list";
         }
 
         [Show]
-        public string Description
+        public void AddTask([MyStringLength(1, 20)] string taskDescription)
         {
-            get;
-            [DataType(DataType.MultilineText)]
-            set;
+            if (string.IsNullOrWhiteSpace(taskDescription)) throw new UserException("Task description cannot be empty");
+            _tasks.Add(new Task() { Text = taskDescription });
         }
 
-        [Child]
-        public Tasks Tasks { get; private set; }
+        [Show]
+        public void ClearCompletedTasks()
+        {
+            this._tasks.RemoveAll(t => t.Completed);
+        }
+
+        public IEnumerator<Task> GetEnumerator()
+        {
+            return _tasks.GetEnumerator();
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return GetEnumerator();
+        }
+
+        [Show]
+        public string Description { get; set; }
 
         public string UniqueId { get; private set; }
+         
+        public IEnumerable<Tuple<string, object>> Children { get { return _tasks.Select(i => Tuple.Create(i.UniqueId, (object)i)); } }
     }
 }

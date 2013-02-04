@@ -5,12 +5,10 @@ using System.Linq;
 using System.Net;
 using System.Net.Http.Formatting;
 using System.Net.Http.Headers;
-using System.Reflection;
-using System.Text;
 using System.Threading.Tasks;
 using Nustache.Core;
 
-namespace Noodles.Example.WebApi
+namespace Noodles.WebApi
 {
     public class HtmlMediaTypeFormatter : MediaTypeFormatter
     {

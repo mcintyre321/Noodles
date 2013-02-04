@@ -4,26 +4,30 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Noodles.Example.Domain
 {
-    [Show]
     public class Task
     {
         public Task()
         {
-            Name = Guid.NewGuid().ToString();
+            this.UniqueId = Guid.NewGuid().ToString();
         }
 
+        public string UniqueId { get; set; }
+
+        [Show]
         public string Text { get; set; }
+        [Show]
         public bool Completed { get; set; }
+        [Show]
         [DataType(DataType.Date)]
         public DateTimeOffset DueDate { get; set; }
-        public string Name { get; private set; }
 
+        [Show]
         public string Status { get; set; }
         public IEnumerable<string> Status_suggestions()
         {
             return "Good,Bad,Ugly".Split(',');
         }
-
+        [Show]
         public TaskType Type { get; set; }
 
     }

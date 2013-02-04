@@ -53,7 +53,7 @@
     <Reference Include="System.Xml" />
     <Reference Include="Walkies, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Walkies.1.2.32\lib\net40\Walkies.dll</HintPath>
+      <HintPath>..\packages\Walkies.1.2.33\lib\net40\Walkies.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -62,7 +62,7 @@
     <Compile Include="Models\PropertyVm.cs" />
     <Compile Include="Models\ResourceVm.cs" />
     <Compile Include="NodeMethodInvokeSuccess.cs" />
-    <Compile Include="NoodlesHandler.cs" />
+    <Compile Include="NoodlesHttpMessageHandler.cs" />
     <Compile Include="NoodlesHttpProcessor.cs" />
     <Compile Include="PostParameterBinder.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

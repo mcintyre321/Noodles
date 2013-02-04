@@ -1,4 +1,4 @@
-namespace Noodles.Example.WebApi.Models
+namespace Noodles.WebApi.Models
 {
     public class LinkVm
     {

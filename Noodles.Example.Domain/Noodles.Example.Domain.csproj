@@ -43,14 +43,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Application.cs" />
     <Compile Include="MyStringLengthAttribute.cs" />
     <Compile Include="Task.cs" />
-    <Compile Include="Tasks.cs" />
-    <Compile Include="TaskType.cs" />
     <Compile Include="ToDoList.cs" />
+    <Compile Include="TaskType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ToDoLists.cs" />
+    <Compile Include="Application.cs" />
     <Compile Include="User.cs" />
     <Compile Include="UserVm.cs" />
   </ItemGroup>

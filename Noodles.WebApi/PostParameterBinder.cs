@@ -1,23 +1,12 @@
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Collections.Specialized;
-using System.Globalization;
 using System.Linq;
 using System.Net.Http;
-using System.Net.Http.Formatting;
-using System.Net.Http.Headers;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Web.Http;
-using System.Web.Http.Controllers;
-using System.Web.Http.Metadata;
 using System.Web.Http.ModelBinding;
 using System.Web.Http.Validation;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 
-namespace Noodles.Example.WebApi
+namespace Noodles.WebApi
 {
     public class PostParameterBinder
     {

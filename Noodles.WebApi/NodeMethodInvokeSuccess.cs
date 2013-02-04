@@ -1,6 +1,4 @@
-using Noodles.Example.WebApi.Models;
-
-namespace Noodles.Example.WebApi
+namespace Noodles.WebApi
 {
     public class NodeMethodInvokeSuccess
     {

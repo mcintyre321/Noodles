@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using Noodles.Example.WebApi.Models;
 using Walkies;
 
 namespace Noodles.WebApi.Models
@@ -22,6 +21,7 @@ namespace Noodles.WebApi.Models
         public ResourceVm(object target)
         {
             this.Name = target.GetName();
+            
             this.Url = target.Url();
             this.Type = target.GetType().Name;
 
