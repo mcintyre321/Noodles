@@ -4,14 +4,19 @@
 namespace Noodles.Web.Helpers.Icons
 {
 <#
-        var wc = new System.Net.WebClient();
+      var wc = new System.Net.WebClient();
 		var s = wc.DownloadString(@"http://fortawesome.github.com/Font-Awesome/");
-		var regex = new System.Text.RegularExpressions.Regex("class=\"icon\\-([a-z]+)");
+		var regex = new System.Text.RegularExpressions.Regex("class=\"icon(\\-([a-z]+))+");
+		
 		var values = string.Join("\r\n", regex.Matches(s)
                            .Cast<System.Text.RegularExpressions.Match>()
-                           .Select (m => m.Groups[1].Value).Distinct().OrderBy(m => m)
-                           .Select(i => " public const string " + i.Replace("lock", "@lock").Replace("un@lock", "unlock") + " = \"" + i + "\"; "));
-        
+                           .Select (m => m.Value.Substring(12)).Distinct().OrderBy(m => m)
+                           .Select(i => " public const string " 
+						   + i.Replace("lock", "@lock")
+							  .Replace("un@lock", "unlock") 
+							  .Replace("double", "@double")
+							  .Replace("-", "_")
+							  + " = \"" + i + "\"; "));
         wc.Dispose();
 #>
     public static class IconNames { <#= values #> }

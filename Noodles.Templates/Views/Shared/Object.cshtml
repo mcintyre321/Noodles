@@ -12,31 +12,31 @@
         </div>
         @if  (Model.Ancestors().Any())
         {
-    <ul class="breadcrumb">
-        @foreach (var item in Model.Ancestors().Reverse())
-        {
-            <li><a href="@item.Url()">@item.GetName()</a>
-                <span class="divider">/</span></li>
-        }
-        <li class="active">@Model.GetName()</li>
-    </ul>
+            <ul class="breadcrumb">
+                @foreach (var item in Model.Ancestors().Reverse())
+                {
+                    <li><a href="@item.Url()">@item.GetName()</a>
+                        <span class="divider">/</span></li>
+                }
+                <li class="active">@Model.GetName()</li>
+            </ul>
         } 
-        
+
         @foreach(var property in Model.NodeProperties())
-        {
-            var vm = property.ToPropertyVm(Html);
-            Html.RenderPartial("FormFactory/Form.Property", vm, ViewData);
-        }
+            {
+                var vm = property.ToPropertyVm(Html);
+                Html.RenderPartial("FormFactory/Form.Property", vm, ViewData);
+            }
 
 
         @foreach(var group in Model.KnownChildren().GroupBy(o => o.GetType()))
         {
             <h4>@Noodles.TextExtensions.Sentencise(group.Key.Name)s</h4>
-            <span class="btn-toolbar">@foreach (var node in group)
+        <span class="btn-toolbar">@foreach (var node in group)
                                     {
                                         @Html.BestPartial(node, group.Key, "Link.")
                                     }
-            </span>
+        </span>
         }
         <br />
         <div class="well">
