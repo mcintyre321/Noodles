@@ -34,9 +34,15 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Castle.Core">
+      <HintPath>..\packages\Castle.Core.2.5.2\lib\NET35\Castle.Core.dll</HintPath>
+    </Reference>
     <Reference Include="FormFactory, Version=1.0.4783.951, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\FormFactory.1.2.226\lib\net40\FormFactory.dll</HintPath>
+    </Reference>
+    <Reference Include="Harden">
+      <HintPath>..\packages\Harden.1.2.6\lib\net40\Harden.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <Private>True</Private>
@@ -81,7 +87,7 @@
     <Reference Include="System.Xml" />
     <Reference Include="Walkies, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Walkies.1.2.33\lib\net40\Walkies.dll</HintPath>
+      <HintPath>..\packages\Walkies.1.2.34\lib\net40\Walkies.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -109,6 +115,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+    <Content Include="Views\Shared\Link.Object.cshtml" />
     <None Include="Views\Web.config" />
   </ItemGroup>
   <ItemGroup>

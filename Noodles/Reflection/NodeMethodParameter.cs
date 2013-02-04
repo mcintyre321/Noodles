@@ -37,8 +37,6 @@ namespace Noodles
         {
             get
             {
-                if (_mi.Name.StartsWith("set_") && _parameter.Name == "value")
-                    return _mi.Name.Substring(4); 
                 return _parameter.Name;
             }
         }

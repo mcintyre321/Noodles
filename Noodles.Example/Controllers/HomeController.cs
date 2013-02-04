@@ -1,19 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
-using Noodles.Example.Models;
-using Noodles;
+﻿using System.Web.Mvc;
+using Noodles.Example.Domain;
+
 namespace Noodles.Example.Controllers
 {
     public class HomeController : Controller
     {
-        static ToDoList home = new ToDoList();
+        static Application application = new Application();
 
         public ActionResult Index(string path)
         {
-            var root = Noodles.Web.SetUrlRootExtension.SetUrlRoot(home, this.ControllerContext);
+            var root = Noodles.Web.SetUrlRootExtension.SetUrlRoot(application, this.ControllerContext);
             var actionResult = this.ControllerContext.GetNoodleResult(root);
             return actionResult;
         }

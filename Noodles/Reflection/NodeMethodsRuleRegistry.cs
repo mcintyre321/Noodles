@@ -38,12 +38,25 @@ namespace Noodles
         public static ShowMethodRule HideSystemObjectMembers = (t, mi) => mi.DeclaringType == typeof(System.Object) ? false : null as bool?;
         public static ShowMethodRule ShowAttributedMethods = (t, mi) =>
         {
-            if (ShowByDefault == false && mi.GetCustomAttributes(typeof (ShowAttribute), true).Any())
+            if (ShowByDefault == false && mi.GetCustomAttributes(typeof(ShowAttribute), true).Any())
             {
                 return true;
             }
             return null as bool?;
         };
+        public static ShowMethodRule ShowAttributedPropertiesetters = (t, mi) =>
+        {
+            if (mi.Name.StartsWith("set_"))
+            {
+                var pi = mi.DeclaringType.GetProperty(mi.Name.Substring(4));
+                if (ShowByDefault == false && pi.GetCustomAttributes(typeof (ShowAttribute), true).Any())
+                {
+                    return true;
+                }
+            }
+            return null as bool?;
+        };
+
         public static ShowMethodRule ClassLevelShowByDefault = (t, mi) => mi.DeclaringType.GetCustomAttributes(typeof(ShowAttribute), true).Any() ? true : null as bool?;
         public static ShowMethodRule ClassLevelHideByDefault = (t, mi) => mi.DeclaringType.GetCustomAttributes(typeof(HideAttribute), true).Any() ? false : null as bool?;
 
@@ -78,6 +91,7 @@ namespace Noodles
                                       HidePropertyGetters,
                                       HideSystemObjectMembers,
                                       ShowAttributedMethods,
+                                      ShowAttributedPropertiesetters,
                                       ClassLevelShowByDefault,
                                       ClassLevelHideByDefault,
                                   };

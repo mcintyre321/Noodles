@@ -16,12 +16,9 @@ namespace Noodles.WebApi
 
     public class NoodlesHttpMessageHandler : HttpMessageHandler
     {
-        static NoodlesHttpMessageHandler () 
+        static NoodlesHttpMessageHandler()
         {
-            //ModelStateExceptionHandlers.Add((e, msd) => (e as TEx) == null ? null as Action : () => action((TEx)e, msd));
-            //ModelStateExceptionHandlers.Add((e, msd) => (e as NodeNotFoundException) == null ? null as Action : () => action((TEx)e, msd));
-
-            Walkies.WalkExtension.Rules.Add((o, fragment) => fragment == "actions" ? new NodeMethods(o) : null);
+            Configuration.Initialise();
         }
         public ICollection<NoodlesHttpProcessor> Processors = new List<NoodlesHttpProcessor>();
         IEnumerable<NoodlesHttpProcessor> DefaultProcessors()
@@ -73,7 +70,7 @@ namespace Noodles.WebApi
         {
             var tcs = new TaskCompletionSource<T>();
             tcs.SetResult(t);
-            return tcs.Task; 
+            return tcs.Task;
         }
 
         private async Task<HttpResponseMessage> InvokeNodeMethod(HttpRequestMessage request, CancellationToken cancellationToken, object target)
@@ -99,10 +96,10 @@ namespace Noodles.WebApi
                 {
                     ex = ex.InnerException ?? ex;
                 }
-                    throw;
+                throw;
             }
             var response = request.CreateResponse(HttpStatusCode.RedirectMethod);
-            response.Headers.Location = new Uri(nodeMethod.Parent.Parent.Url(), UriKind.RelativeOrAbsolute);
+            response.Headers.Location = new Uri(nodeMethod.Parent().Url(), UriKind.RelativeOrAbsolute);
             return response;
         }
         private Task<HttpResponseMessage> ReturnObject(HttpRequestMessage request, CancellationToken token, object target)

@@ -47,9 +47,15 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Castle.Core">
+      <HintPath>..\packages\Castle.Core.2.5.2\lib\NET35\Castle.Core.dll</HintPath>
+    </Reference>
     <Reference Include="FormFactory, Version=1.0.4783.951, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\FormFactory.1.2.226\lib\net40\FormFactory.dll</HintPath>
+    </Reference>
+    <Reference Include="Harden">
+      <HintPath>..\packages\Harden.1.2.6\lib\net40\Harden.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <Private>True</Private>
@@ -104,7 +110,7 @@
     <Reference Include="System.Xml.Linq" />
     <Reference Include="Walkies, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Walkies.1.2.33\lib\net40\Walkies.dll</HintPath>
+      <HintPath>..\packages\Walkies.1.2.34\lib\net40\Walkies.dll</HintPath>
     </Reference>
     <Reference Include="WebActivator, Version=1.5.3.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -113,6 +119,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\RegisterWebNoodle.cs" />
+    <Compile Include="Helpers\BootstrapHelper.generated.cs" />
     <Compile Include="Helpers\Icons\IconAttribute.cs" />
     <Compile Include="HelperExtensions.cs" />
     <Compile Include="Helpers\Icons\IconNames.cs">
@@ -120,24 +127,15 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>IconNames.tt</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\NoodlesHelper.generated.cs" />
     <Compile Include="Models\NodeMethodSuccessVm.cs" />
     <Compile Include="SetUrlRootExtension.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helpers\AttemptedValueHelper.cs" />
-    <Compile Include="Helpers\BootstrapHelper.generated.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>BootstrapHelper.cshtml</DependentUpon>
-    </Compile>
     <Compile Include="Helpers\FormFactoryHelperExtensions.cs" />
     <Compile Include="ActionResultExtension.cs" />
-    <Compile Include="Helpers\NoodlesHelper.generated.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>NoodlesHelper.cshtml</DependentUpon>
-    </Compile>
     <Compile Include="Infrastructure\GlobalFixUserExceptionsAttribute.cs" />
     <Compile Include="Infrastructure\ModelStateTempDataTransferAttribute.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -149,9 +147,6 @@
     <EmbeddedResource Include="..\Noodles.Templates\Views\Shared\Noodles\NodeMethod.cshtml">
       <Link>Views\Shared\Noodles\NodeMethod.cshtml</Link>
     </EmbeddedResource>
-    <EmbeddedResource Include="..\Noodles.Templates\Views\Shared\Noodles\NodeMethods.cshtml">
-      <Link>Views\Shared\Noodles\NodeMethods.cshtml</Link>
-    </EmbeddedResource>
     <EmbeddedResource Include="..\Noodles.Templates\Views\Shared\Noodles\NodeMethodSuccess.cshtml">
       <Link>Views\Shared\Noodles\NodeMethodSuccess.cshtml</Link>
     </EmbeddedResource>
@@ -160,6 +155,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="..\Noodles.Templates\Views\Shared\Object.cshtml">
       <Link>Views\Shared\Object.cshtml</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\Noodles.Templates\Views\Shared\Noodles\NodeMethods.cshtml">
+      <Link>Views\Shared\Noodles\NodeMethods.cshtml</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\Noodles.Templates\Views\Shared\Link.Object.cshtml">
+      <Link>Views\Shared\Link.Object.cshtml</Link>
     </EmbeddedResource>
     <None Include="Global.asax" />
     <None Include="Helpers\Icons\IconNames.tt">
@@ -180,14 +181,12 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Helpers\BootstrapHelper.cshtml">
-      <LastGenOutput>BootstrapHelper.generated.cs</LastGenOutput>
       <Generator>RazorGenerator</Generator>
     </Content>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Helpers\NoodlesHelper.cshtml">
       <Generator>RazorGenerator</Generator>
-      <LastGenOutput>NoodlesHelper.generated.cs</LastGenOutput>
     </Content>
   </ItemGroup>
   <ItemGroup>

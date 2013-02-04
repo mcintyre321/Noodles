@@ -7,14 +7,14 @@ using Walkies;
 namespace Noodles.Example.Domain
 {
     [Name("{Description}")]
-    public class ToDoList : IHasChildren
+    public class ToDoList
     {
+        [Children]
         private readonly List<Task> _tasks = new List<Task>();
 
         public ToDoList()
         {
             this._tasks = new List<Task>();
-            this.UniqueId = Guid.NewGuid().ToString();
         }
 
         [Show]
@@ -37,9 +37,5 @@ namespace Noodles.Example.Domain
 
         [Show]
         public string Description { get; set; }
-
-        public string UniqueId { get; private set; }
-         
-        public IEnumerable<Tuple<string, object>> Children { get { return _tasks.Select(i => Tuple.Create(i.UniqueId, (object)i)); } }
     }
 }

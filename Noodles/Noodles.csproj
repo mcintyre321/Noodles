@@ -36,6 +36,12 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Castle.Core">
+      <HintPath>..\packages\Castle.Core.2.5.2\lib\NET35\Castle.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Harden">
+      <HintPath>..\packages\Harden.1.2.6\lib\net40\Harden.dll</HintPath>
+    </Reference>
     <Reference Include="Siggs">
       <HintPath>..\packages\Siggs.1.2.2\lib\net45\Siggs.dll</HintPath>
     </Reference>
@@ -48,21 +54,24 @@
     <Reference Include="System.Xml" />
     <Reference Include="Walkies, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Walkies.1.2.33\lib\net40\Walkies.dll</HintPath>
+      <HintPath>..\packages\Walkies.1.2.34\lib\net40\Walkies.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Attributes\MessageAttribute.cs" />
+    <Compile Include="Configuration.cs" />
     <Compile Include="Helpers\FormattableObject.cs" />
     <Compile Include="Helpers\RecurseExtension.cs" />
     <Compile Include="IdExtension.cs" />
     <Compile Include="Logger.cs" />
     <Compile Include="Name.cs" />
-    <Compile Include="NodeMethodsExtensions.cs" />
+    <Compile Include="NodeExtensions.cs" />
     <Compile Include="NodeTypeExtension.cs" />
     <Compile Include="PathExtension.cs" />
+    <Compile Include="Reflection\NodePropertiesRuleRegistry.cs" />
+    <Compile Include="Reflection\NodePropertiesReflectionLogic.cs" />
     <Compile Include="Reflection\NodeMethodParameterFixes.cs" />
-    <Compile Include="Reflection\NodeMethods.cs" />
+    <Compile Include="Reflection\NodeMethodsReflectionLogic.cs" />
     <Compile Include="NodeNotFoundException.cs" />
     <Compile Include="Profiler.cs" />
     <Compile Include="Reflection\ImplicitConversionMethodHelper.cs" />

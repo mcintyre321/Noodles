@@ -7,8 +7,9 @@ using Walkies;
 namespace Noodles.Example.Domain
 {
     [Name("Your to do lists")]
-    public class Application : IHasChildren
+    public class Application
     {
+        [Children]
         private List<ToDoList> _items = new List<ToDoList>();
 
         public Application()
@@ -26,14 +27,9 @@ namespace Noodles.Example.Domain
         public void AddList([MyStringLength(1, 20)] string listName)
         {
             if (string.IsNullOrWhiteSpace(listName)) throw new UserException("Task description cannot be empty");
-            var item = new ToDoList() {Description = listName}.SetParent(this, l => l.UniqueId);
+            var item = new ToDoList() {Description = listName};
             _items.Add(item);
         }
-
-
-        public IEnumerable<Tuple<string, object>> Children
-        {
-            get { return _items.Select(i => Tuple.Create(i.GetName(), (object) i)); }
-        }
+         
     }
 }

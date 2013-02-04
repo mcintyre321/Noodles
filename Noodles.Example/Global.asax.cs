@@ -24,7 +24,7 @@ namespace Noodles.Example
 
             routes.MapRoute(
                            "Home", // Route name
-                           "asdf/{*path}", // URL with parameters
+                           "{*path}", // URL with parameters
                            new { controller = "Home", action = "Index", path = "/" } // Parameter defaults
                        );
             routes.MapRoute(

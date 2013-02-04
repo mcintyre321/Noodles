@@ -1,6 +1,4 @@
-using System.Reflection;
-using System.Linq;
-namespace WebNoodle.Example.App_Code
+namespace Noodles.Example
 {
     public class RegisterVirtualPathProvider
     {

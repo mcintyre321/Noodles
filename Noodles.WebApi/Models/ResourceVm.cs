@@ -25,9 +25,7 @@ namespace Noodles.WebApi.Models
             this.Url = target.Url();
             this.Type = target.GetType().Name;
 
-            Properties = target.GetType().GetProperties(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic)
-                .Where(p => p.GetCustomAttribute<ShowAttribute>() != null)
-                .Select(p => new PropertyVm(target, p)).ToArray();
+            Properties = target.NodeProperties().Select(nm => new PropertyVm(nm)).ToArray();
             Actions = target.NodeMethods().Select(nm => new ResourceVm(nm)).ToArray();
             var links = new List<LinkVm>();
 
@@ -44,7 +42,7 @@ namespace Noodles.WebApi.Models
             this.Type = method.GetType().Name;
 
             Properties = method.Parameters.Select(p => new PropertyVm(p)).ToArray();
-            this.Links = new[] { new LinkVm(method.Parent.Parent, "parent", "Parent") };
+            this.Links = new[] { new LinkVm(method.Parent(), "parent", "Parent") };
             Actions = new ResourceVm[]{};
         }
 

@@ -15,7 +15,6 @@ namespace Noodles
     [DebuggerDisplay("{ToString()} - Name={Name}")]
     public class NodeMethod : IGetChild
     {
-        public NodeMethods Parent { get; set; }
         private readonly MethodInfo _methodInfo;
 
         public Type SignatureType
@@ -23,11 +22,11 @@ namespace Noodles
             get { return Siggs.SiggsExtensions.GetTypeForMethodInfo(_methodInfo); }
         }
 
-        public NodeMethod(object behaviour, NodeMethods parent, MethodInfo methodInfo)
+        public NodeMethod(object target, MethodInfo methodInfo)
         {
-            Parent = parent;
             _methodInfo = methodInfo;
-            Target = behaviour;
+            Target = target;
+            this.SetParent(target, this.Name);
         }
 
         public object Target { get; private set; }

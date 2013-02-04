@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using System.Net.Http;
 using System.Threading;
@@ -19,7 +20,7 @@ namespace Noodles.WebApi
             var modelState = new ModelStateDictionary();
             var logger = new ModelStateFormatterLogger(modelState, "model");
             var obj = await formatter.ReadFromStreamAsync(nm.SignatureType, stream, request.Content, logger);
-            return obj.GetType().GetProperties().Select(pi => pi.GetValue(obj, null)).ToArray();
+            return obj == null ? Enumerable.Empty<object>().ToArray() : obj.GetType().GetProperties().Select(pi => pi.GetValue(obj, null)).ToArray();
         }
 
     }

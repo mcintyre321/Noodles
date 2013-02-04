@@ -7,13 +7,6 @@ namespace Noodles.Example.Domain
     [Name("{Text}")]
     public class Task
     {
-        public Task()
-        {
-            this.UniqueId = Guid.NewGuid().ToString();
-        }
-
-        public string UniqueId { get; set; }
-
         [Show]
         public string Text { get; set; }
         [Show]

@@ -24,12 +24,12 @@ namespace Noodles
             ModelStateExceptionHandlers.Add((e, msd) => (e as TEx) == null ? null as Action : () => action((TEx)e, msd));
             ModelStateExceptionHandlers.Add((e, msd) => (e as NodeNotFoundException) == null ? null as Action : () => action((TEx)e, msd));
 
-            Walkies.WalkExtension.Rules.Add((o, fragment) => fragment == "actions" ? new NodeMethods(o) : null);
         }
 
         static ActionResultExtension()
         {
             AddExceptionHandler<UserException>((e, cc) => cc.Controller.ViewData.ModelState.AddModelError("", e));
+            Noodles.Configuration.Initialise();
         }
 
         private static ActionResult ProcessNodeMethodCall(ControllerContext cc, object node, Func<NodeMethod, object[], object> doInvoke)
@@ -136,7 +136,7 @@ namespace Noodles
                 {
                     var viewname = typeof(NodeMethod).IsAssignableFrom(node.NodeType())
                                        ? "Noodles/NodeMethod"
-                                       : typeof(NodeMethods).IsAssignableFrom(node.NodeType())
+                                       : typeof(NodeMethodsReflectionLogic).IsAssignableFrom(node.NodeType())
                                              ? "Noodles/NodeMethods"
                                              : FormFactory.FormHelperExtension.BestViewName(cc, node.NodeType());
 

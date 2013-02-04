@@ -1,0 +1,16 @@
+﻿@using Noodles
+@using Noodles.Web.Helpers
+@model Noodles.Example.Domain.Task
+ 
+<div class="btn-group">
+    <a class="btn" href="@Model.Url()">@Model.GetName()</a>
+    <button class="btn dropdown-toggle" data-toggle="dropdown">
+        <span class="caret"></span>
+    </button>
+    <ul class="dropdown-menu">
+        @foreach (var method in Model.NodeMethods())
+        {
+        <li>@NoodlesHelper.NodeMethodLink(method)</li>
+        }
+    </ul>
+</div>

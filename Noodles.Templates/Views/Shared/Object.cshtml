@@ -1,12 +1,49 @@
 ﻿@using System.Web.Mvc.Html
 @using FormFactory
 @using Noodles
+@using Noodles.Web.Helpers
+@using Walkies
 @model object
 <div class="row">
-    <div class="span3">@Html.Partial("Noodles/NodeMethods", Model.NodeMethods())&nbsp;</div>
-    <div class="span9">
-        @Html.Partial("FormFactory/Form.Start", new FormVm(Html))
-        @{ Html.PropertiesFor(Model).Each(p => p.Readonly = true).Render(); }
-        @Html.Partial("FormFactory/Form.Close", new FormVm(Html))
+    <div class="span12">
+
+        <div class="page-header">
+            <h1>@Model.GetName()</h1>
+        </div>
+        @if  (Model.Ancestors().Any())
+        {
+    <ul class="breadcrumb">
+        @foreach (var item in Model.Ancestors().Reverse())
+        {
+            <li><a href="@item.Url()">@item.GetName()</a>
+                <span class="divider">/</span></li>
+        }
+        <li class="active">@Model.GetName()</li>
+    </ul>
+        } 
+        
+        @foreach(var property in Model.NodeProperties())
+        {
+            var vm = property.ToPropertyVm(Html);
+            Html.RenderPartial("FormFactory/Form.Property", vm, ViewData);
+        }
+
+
+        @foreach(var group in Model.KnownChildren().GroupBy(o => o.GetType()))
+        {
+            <h4>@Noodles.TextExtensions.Sentencise(group.Key.Name)s</h4>
+            <span class="btn-toolbar">@foreach (var node in group)
+                                    {
+                                        @Html.BestPartial(node, group.Key, "Link.")
+                                    }
+            </span>
+        }
+        <br />
+        <div class="well">
+            @foreach(var method in Model.NodeMethods())
+            {
+                @NoodlesHelper.NodeMethodLink(method, "btn")
+            }
+        </div>
     </div>
 </div>
