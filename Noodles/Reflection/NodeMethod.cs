@@ -18,6 +18,11 @@ namespace Noodles
         public NodeMethods Parent { get; set; }
         private readonly MethodInfo _methodInfo;
 
+        public Type SignatureType
+        {
+            get { return Siggs.SiggsExtensions.GetTypeForMethodInfo(_methodInfo); }
+        }
+
         public NodeMethod(object behaviour, NodeMethods parent, MethodInfo methodInfo)
         {
             Parent = parent;

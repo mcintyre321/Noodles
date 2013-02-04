@@ -7,6 +7,10 @@
 </head>
 <body>
     <fieldset>
+        <legend>Self</legend>
+        <a href="{{Url}}">{{Type}}: {{Name}}</a>
+    </fieldset>
+    <fieldset>
         <legend>Properties</legend>
         {{#Properties}}
         <label for="{{Name}}">{{Name}}</label>
@@ -39,10 +43,7 @@
     <fieldset>
         <legend>Links</legend>
         {{#Links}}
-        <fieldset>
             <a href="{{Url}}" rel="{{Relationship}}">{{Name}}</a>
-            
-        </fieldset>
         {{/Links}}
 
     </fieldset>

@@ -1,10 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Noodles;
+using Noodles.Example.Models;
 using Noodles.Web.Helpers.Icons;
 using Walkies;
 
-namespace Noodles.Example.Models
+namespace WebNoodle.Example.Models
 {
     [Show]
     public class Tasks : IEnumerable<Task>, IGetChild

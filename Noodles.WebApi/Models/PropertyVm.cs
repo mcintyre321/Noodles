@@ -1,4 +1,5 @@
 using System.Reflection;
+using Noodles.WebApi.Models;
 
 namespace Noodles.Example.WebApi.Models
 {

@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Routing;
 using Noodles.Example.WebApi.Models;
+using Noodles.WebApi.Models;
 using Walkies;
 
 namespace Noodles.Example.WebApi
@@ -86,17 +87,12 @@ namespace Noodles.Example.WebApi
             var routeData = request.Properties["MS_HttpRouteData"] as HttpRouteData;
            
             var config = (HttpConfiguration)request.Properties["MS_HttpConfiguration"];
-            var nodeMethodHttpControllerDescriptor = new NodeMethodHttpControllerDescriptor();
-            var nodeMethodHttpActionDescriptor = new NodeMethodHttpActionDescriptor(nodeMethod, config)
-            {
-                ControllerDescriptor = nodeMethodHttpControllerDescriptor
-            };
-            var parameterBindings = nodeMethodHttpActionDescriptor.GetParameters();
-            var parameters = await new JsonPostVariableParameterBinder(parameterBindings).BindParameters(nodeMethod, request, cancellationToken);
+            var parameters = await new PostParameterBinder()
+                .BindParameters(nodeMethod, request, cancellationToken);
             object result = null;
             try
             {
-                result = _doInvoke(nodeMethod, parameters.ToArray());
+                result = _doInvoke(nodeMethod, parameters);
                 //if (result is ActionResult) return (ActionResult)result;
             }
             catch (Exception ex)

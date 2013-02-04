@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using Noodles.Web.Helpers.Icons;
 using Walkies;
+using WebNoodle.Example.Models;
 
 namespace Noodles.Example.Models
 {

@@ -7,7 +7,6 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Web.Http.Controllers;
 using System.Web.Http.Metadata;
-using Task = Noodles.Example.Domain.Task;
 
 namespace Noodles.Example.WebApi
 {

@@ -15,12 +15,19 @@ namespace Noodles.Example.Domain
         {
             this._tasks = new List<Task>();
         }
-
-        public Task AddTask(string note)
+        
+        [Show]
+        public void AddTask([MyStringLength(1, 20)] string taskDescription)
         {
-            var item = new Task() { Text = note }.SetParent(this, t => t.Name);
+            if (string.IsNullOrWhiteSpace(taskDescription)) throw new UserException("Task description cannot be empty");
+            var item = new Task() { Text = taskDescription }.SetParent(this, t => t.Name);
             _tasks.Add(item);
-            return item;
+        }
+
+        [Show]
+        public void ClearCompletedTasks()
+        {
+            this._tasks.RemoveAll(t => t.Completed);
         }
 
         public IEnumerator<Task> GetEnumerator()
@@ -35,14 +42,11 @@ namespace Noodles.Example.Domain
 
         public string Name { get { return "tasks"; } }
 
-        public void RemoveComplete()
-        {
-            this._tasks.RemoveAll(t => t.Completed);
-        }
-
         public object this[string fragment]
         {
             get { return _tasks.SingleOrDefault(t => t.Name == fragment); }
         }
+
+       
     }
 }

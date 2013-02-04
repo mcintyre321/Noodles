@@ -22,7 +22,7 @@ namespace Noodles.Example.WebApi
                 {
                 };
                 config.Formatters.Add(new HtmlMediaTypeFormatter());
-                var todoList = new ToDoList();
+                var todoList = new Application();
                 config.Routes.Add("Noodles", config.Routes.CreateRoute("{*path}",
                     new HttpRouteValueDictionary("route"),
                     constraints: null,

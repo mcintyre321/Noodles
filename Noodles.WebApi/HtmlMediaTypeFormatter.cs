@@ -12,10 +12,9 @@ using Nustache.Core;
 
 namespace Noodles.Example.WebApi
 {
-    internal class HtmlMediaTypeFormatter : MediaTypeFormatter
+    public class HtmlMediaTypeFormatter : MediaTypeFormatter
     {
-        public static ConcurrentDictionary<string, Func<object, string>> Templates =
-            new ConcurrentDictionary<string, Func<object, string>>();
+        public static ConcurrentDictionary<string, string> Templates = new ConcurrentDictionary<string, string>();
 
         public HtmlMediaTypeFormatter()
         {
@@ -24,7 +23,7 @@ namespace Noodles.Example.WebApi
 
         public override bool CanReadType(Type type)
         {
-            throw new NotImplementedException();
+            return false;
         }
 
         public override bool CanWriteType(Type type)
