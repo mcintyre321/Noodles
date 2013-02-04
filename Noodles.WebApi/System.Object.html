@@ -14,7 +14,7 @@
         <legend>Properties</legend>
         {{#Properties}}
         <label for="{{Name}}">{{Name}}</label>
-        <input type="text" data-type="{{Type}}" name="{{Name}}" {{#Readonly}}readonly="readonly"{{/Readonly}} value="{{Value}}" />
+        <input type="text" data-type="{{Type}}" name="{{Name}}" readonly="readonly" value="{{Value}}" />
         {{#Readonly}}
         <form action="{{Setter.Url}}" method="PUT">
             <input type="submit" value="Save"/>

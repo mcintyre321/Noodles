@@ -6,9 +6,8 @@ using Walkies;
 
 namespace Noodles.Example.Domain
 {
-    [Show]
     [Name("{Description}")]
-    public class ToDoList : IEnumerable<Task>, IHasChildren
+    public class ToDoList : IHasChildren
     {
         private readonly List<Task> _tasks = new List<Task>();
 
@@ -34,11 +33,6 @@ namespace Noodles.Example.Domain
         public IEnumerator<Task> GetEnumerator()
         {
             return _tasks.GetEnumerator();
-        }
-
-        IEnumerator IEnumerable.GetEnumerator()
-        {
-            return GetEnumerator();
         }
 
         [Show]
