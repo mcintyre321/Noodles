@@ -30,15 +30,16 @@
         </div>
         <div class="noodles-links-region">
             @foreach(var group in Model.KnownChildren().GroupBy(o => o.GetType()))
-        {
-            <h4>@Noodles.TextExtensions.Sentencise(group.Key.Name)s</h4>
+            {
+                <h4>@Noodles.TextExtensions.Sentencise(group.Key.Name)s</h4>
             <span class="btn-toolbar">@foreach (var node in group)
-                                    {
-                                        @Html.BestPartial(node, group.Key, "Link.")
-                                    }
+                                          {
+                                              @Html.BestPartial(node, group.Key, "Link.")
+                                          }
             </span>
             }
         </div>
+        <br />
         <div class="well">
             @foreach(var method in Model.NodeMethods())
             {
