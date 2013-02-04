@@ -1,12 +1,8 @@
-﻿using System;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Noodles.Example.Models;
-using Walkies;
+﻿using Walkies;
 
 namespace Noodles.Example.Domain
 {
+    [Name("To Do List Application")]
     public class Application
     {
         public Application()

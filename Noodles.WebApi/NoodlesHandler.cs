@@ -57,6 +57,9 @@ namespace Noodles.Example.WebApi
             {
                 return (request.CreateErrorResponse(HttpStatusCode.NotFound, ex.Message));
             }
+            if (target == null)
+                return (request.CreateErrorResponse(HttpStatusCode.NotFound, "Not Found"));
+
 
             foreach (var processor in Processors.Concat(DefaultProcessors()))
             {

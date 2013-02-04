@@ -21,7 +21,7 @@ namespace Noodles.WebApi.Models
 
         public ResourceVm(object target)
         {
-            this.Name = target.GetFragment();
+            this.Name = target.GetName();
             this.Url = target.Url();
             this.Type = target.GetType().Name;
 

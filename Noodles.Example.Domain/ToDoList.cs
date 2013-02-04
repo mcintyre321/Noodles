@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
-using Noodles.Example.Models;
 using Walkies;
 
 namespace Noodles.Example.Domain
 {
+    [Name("{Description}")]
     public class ToDoList
     {
         public ToDoList()

@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using Noodles.Example.Models;
 
 namespace Noodles.Example.Domain
 {

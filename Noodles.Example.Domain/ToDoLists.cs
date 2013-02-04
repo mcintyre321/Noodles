@@ -1,10 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
-using Noodles.Example.Models;
 using Walkies;
 
 namespace Noodles.Example.Domain
 {
+    [Name("Your to do lists")]
     public class ToDoLists : IEnumerable<ToDoList>
     {
 

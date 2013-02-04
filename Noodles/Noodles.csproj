@@ -53,9 +53,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Attributes\MessageAttribute.cs" />
+    <Compile Include="Helpers\FormattableObject.cs" />
     <Compile Include="Helpers\RecurseExtension.cs" />
     <Compile Include="IdExtension.cs" />
     <Compile Include="Logger.cs" />
+    <Compile Include="Name.cs" />
     <Compile Include="NodeMethodsExtensions.cs" />
     <Compile Include="NodeTypeExtension.cs" />
     <Compile Include="PathExtension.cs" />

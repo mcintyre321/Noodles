@@ -8,7 +8,7 @@ namespace Noodles.Example.WebApi.Models
         public LinkVm(object obj, string relationship, string name)
         {
             Relationship = relationship;
-            Name = name;
+            Name = obj.GetName();
             this.Url = obj.Url();
         }
     }

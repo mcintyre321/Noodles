@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using Noodles.Example.Models;
 using Walkies;
 
 namespace Noodles.Example.Domain

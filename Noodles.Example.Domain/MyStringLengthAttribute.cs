@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace Noodles.Example.Models
+namespace Noodles.Example.Domain
 {
     public class MyStringLengthAttribute : ValidationAttribute
     {
