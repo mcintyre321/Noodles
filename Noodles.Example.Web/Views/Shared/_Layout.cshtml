@@ -1,5 +1,4 @@
-﻿@using Mvc.JQuery.Datatables
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -19,18 +18,17 @@
     <link rel="stylesheet" href="/Content/font-awesome.min.css">
     <link rel="stylesheet" href="/Content/themes/base/jquery-ui.css">
 
-    @Html.DataTableIncludes()
+    @Mvc.JQuery.Datatables.DataTablesHelper.DataTableIncludes(Html)
 
 </head>
 <body>
     <div class="navbar navbar-fixed-top">
         <div class="navbar-inner">
             <div class="container">
-                @Html.ActionLink("My MVC Application", "Index", "Home", new { @class = "brand" })
+                <a href="/" class="brand">NoodleToDo</a>
                 <div class="nav-collapse">
                     <ul class="nav">
                         <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                        <li>@Html.ActionLink("About", "About", "Home")</li>
                     </ul>
                     <ul class="nav pull-right">
                         <li>@Html.Partial("_LogOnPartial")</li>
