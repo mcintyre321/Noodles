@@ -19,6 +19,7 @@ Simply mark your classes up to indicate relationships between domain objects, an
 
 ##Features##
 
+ * MIT Licence
  * Routable within existing ASP MVC and WebAPi applications. You can use it just for your admin area if you want.
  * Customisable UI conventions
  * Call methods via Post-Redirect-Get, with automatic client-side validation
@@ -35,17 +36,17 @@ Simply mark your classes up to indicate relationships between domain objects, an
 For MVC
 
     Install-Package Noodles
-    Install-Package EmbeddedResourceVirtualPathProvider
     Install-Package Noodles.AspMvc
-
+    Install-Package EmbeddedResourceVirtualPathProvider
+    
 For WebApi
 
     Install-Package Noodles
     Install-Package Noodles.WebApi (for WebApi)
 
-**c.** Create your domain model, marked up with [ShowAttribute] to expose properties and methods, and [Parent] and [Child] attributes to indicate relationships between objects. Use [Harden][2] methods and attributes to secure your system.
+**c.** Create your [domain model][3], marked up with [ShowAttribute] to expose properties and methods, and [Parent] and [Child] attributes to indicate relationships between objects. Use [Harden][2] methods and attributes to secure your system.
 
-**d.** add a wildcard route to your application, giving it the 'Root' object of your object graph.
+**d.** add a wildcard route to your application ([AspMvc][4] / [WebApi][5]), and for MVC, [a controller][6], passing the root of your object graph.
 
 ##Future work##
 
@@ -54,6 +55,15 @@ For WebApi
  - PJax
  - Inline property editing
 
+##Finally##
+
+Please don't be a vacuum - emails, tweets, follows and questions actively sought after!
+
+thanks - Harry McIntyre @mcintyre321
 
   [1]: https://github.com/mcintyre321/Harden
   [2]: https://github.com/mcintyre321/Harden
+  [3]: https://github.com/mcintyre321/Noodles/blob/master/Noodles.Example.Domain/Application.cs
+  [4]: https://github.com/mcintyre321/Noodles/blob/master/Noodles.Example.Web/Global.asax.cs
+  [5]: https://github.com/mcintyre321/Noodles/blob/master/Noodles.Example.WebApi/Program.cs
+  [6]: https://github.com/mcintyre321/Noodles/blob/master/Noodles.Example.Web/Controllers/NoodlesController.cs
