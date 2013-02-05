@@ -4,7 +4,7 @@ using Noodles.Example.Domain;
 
 namespace Noodles.Example.Controllers
 {
-    public class HomeController : Controller
+    public class NoodlesController : Controller
     {
         static Application application = new Application();
 

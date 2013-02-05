@@ -130,7 +130,7 @@
   <ItemGroup>
     <Content Include="App_Code\RegisterVirtualPathProvider.cs" />
     <Compile Include="App_Start\RegisterDatatablesModelBinder.cs" />
-    <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\NoodlesController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -272,8 +272,8 @@
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_LogOnPartial.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="Views\Home\About.cshtml" />
+    <Content Include="Views\Noodles\Index.cshtml" />
+    <Content Include="Views\Noodles\About.cshtml" />
     <Content Include="Views\Account\Register.cshtml" />
     <Content Include="Views\Account\LogOn.cshtml" />
     <Content Include="Views\Account\ChangePasswordSuccess.cshtml" />

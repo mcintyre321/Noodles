@@ -23,12 +23,14 @@ namespace Noodles.Example
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
-
+            //This is the registration for noodles. note the wildcard 'path' parameter
             routes.MapRoute(
-                           "Home", // Route name
+                           "Noodles", // Route name
                            "{*path}", // URL with parameters
-                           new { controller = "Home", action = "Index", path = "/" } // Parameter defaults
+                           new { controller = "Noodles", action = "Index", path = "/" } // Parameter defaults
                        );
+
+            
             routes.MapRoute(
                             "Default", // Route name
                             "{controller}/{action}/{id}", // URL with parameters
