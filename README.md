@@ -19,6 +19,7 @@ Simply mark your classes up to indicate relationships between domain objects, an
 
 ##Features##
 
+ * MIT Licence
  * Routable within existing ASP MVC and WebAPi applications. You can use it just for your admin area if you want.
  * Customisable UI conventions
  * Call methods via Post-Redirect-Get, with automatic client-side validation
@@ -45,7 +46,7 @@ For WebApi
 
 **c.** Create your [domain model][3], marked up with [ShowAttribute] to expose properties and methods, and [Parent] and [Child] attributes to indicate relationships between objects. Use [Harden][2] methods and attributes to secure your system.
 
-**d.** add a wildcard route to your application ([AspMvc][4][WebApi][5]), , giving it the 'Root' object of your object graph.
+**d.** add a wildcard route to your application ([AspMvc][4] / [WebApi][5]), , giving it the 'Root' object of your object graph.
 
 ##Future work##
 
@@ -54,6 +55,11 @@ For WebApi
  - PJax
  - Inline property editing
 
+##Finally##
+
+Please don't be a vacuum - emails, tweets, follows and questions actively sought after!
+
+thanks - Harry McIntyre @mcintyre321
 
   [1]: https://github.com/mcintyre321/Harden
   [2]: https://github.com/mcintyre321/Harden
