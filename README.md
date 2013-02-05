@@ -48,6 +48,10 @@ For WebApi
 
 **d.** add a wildcard route to your application ([AspMvc][4] / [WebApi][5]), and for MVC, [a controller][6], passing the root of your object graph.
 
+**e** at this point you should be able to start your app, and have a functional, but plain application. Reference the scripts and css files from the [example layout][7] and you're set!
+
+alternatively, check out the [Example][8] [projects][9]!
+
 ##Future work##
 
  - Mobile UI
@@ -67,3 +71,6 @@ thanks - Harry McIntyre @mcintyre321
   [4]: https://github.com/mcintyre321/Noodles/blob/master/Noodles.Example.Web/Global.asax.cs
   [5]: https://github.com/mcintyre321/Noodles/blob/master/Noodles.Example.WebApi/Program.cs
   [6]: https://github.com/mcintyre321/Noodles/blob/master/Noodles.Example.Web/Controllers/NoodlesController.cs
+  [7]: https://github.com/mcintyre321/Noodles/blob/master/Noodles.Example.Web/Views/Shared/_Layout.cshtml
+  [8]: https://github.com/mcintyre321/Noodles/tree/master/Noodles.Example.Web
+  [9]: https://github.com/mcintyre321/Noodles/tree/master/Noodles.Example.WebApi
