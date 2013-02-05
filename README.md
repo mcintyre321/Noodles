@@ -46,7 +46,7 @@ For WebApi
 
 **c.** Create your [domain model][3], marked up with [ShowAttribute] to expose properties and methods, and [Parent] and [Child] attributes to indicate relationships between objects. Use [Harden][2] methods and attributes to secure your system.
 
-**d.** add a wildcard route to your application ([AspMvc][4] / [WebApi][5]), , giving it the 'Root' object of your object graph.
+**d.** add a wildcard route to your application ([AspMvc][4] / [WebApi][5]), and for MVC, [a controller][6], passing the root of your object graph.
 
 ##Future work##
 
@@ -66,3 +66,4 @@ thanks - Harry McIntyre @mcintyre321
   [3]: https://github.com/mcintyre321/Noodles/blob/master/Noodles.Example.Domain/Application.cs
   [4]: https://github.com/mcintyre321/Noodles/blob/master/Noodles.Example.Web/Global.asax.cs
   [5]: https://github.com/mcintyre321/Noodles/blob/master/Noodles.Example.WebApi/Program.cs
+  [6]: https://github.com/mcintyre321/Noodles/blob/master/Noodles.Example.Web/Controllers/NoodlesController.cs
