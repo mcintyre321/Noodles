@@ -25,6 +25,7 @@ Example MVC application: http://noodles.example.web.5.9.55.208.xip.io/
  * Control access to properties and actions dynamically using [Harden][2]
  * Built on top of standard ASP MVC/WebApi
  * Database agnostic. You have control over persistence, so you can use SQL, Raven/Mongo/Couch or something clever you have rolled yourself.
+ * Realtime UI sync using SignalR
 
 ## Getting started##
 
