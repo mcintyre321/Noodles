@@ -157,7 +157,9 @@ namespace Noodles.AspMvc
 
         private static object DoInvoke(NodeMethod nodeMethod, object[] parameters)
         {
-            return nodeMethod.Invoke(parameters);
+            var doInvoke = nodeMethod.Invoke(parameters);
+            NoodlesHub.NotifyClientOfChangeTo(nodeMethod.Target.Url());
+            return doInvoke;
         }
 
         public static T BindObject<T>(ControllerContext cc, string name) where T : class

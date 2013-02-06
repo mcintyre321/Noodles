@@ -116,6 +116,8 @@
   <ItemGroup>
     <None Include="packages.config" />
     <Content Include="Views\Shared\Link.Object.cshtml" />
+    <Content Include="Scripts\Noodles\Noodles.SignalR.js" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
     <None Include="Views\Web.config" />
   </ItemGroup>
   <ItemGroup>
