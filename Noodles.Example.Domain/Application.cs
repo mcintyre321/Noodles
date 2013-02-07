@@ -9,8 +9,8 @@ namespace Noodles.Example.Domain
     [Name("Your to do lists")]
     public class Application
     {
-        [Show] [Child(Walkable = true)]
-        private List<ToDoList> _items = new List<ToDoList>();
+        [Children]
+        private IList<ToDoList> _lists = new List<ToDoList>();
 
         public Application()
         {
@@ -20,7 +20,7 @@ namespace Noodles.Example.Domain
             };
             toDoList.AddTask("Milk");
             toDoList.AddTask("Bread");
-            _items.Add(toDoList);
+            _lists.Add(toDoList);
         }
 
         [Show]
@@ -28,7 +28,7 @@ namespace Noodles.Example.Domain
         {
             if (string.IsNullOrWhiteSpace(listName)) throw new UserException("Task description cannot be empty");
             var item = new ToDoList() {Description = listName};
-            _items.Add(item);
+            _lists.Add(item);
         }
          
     }

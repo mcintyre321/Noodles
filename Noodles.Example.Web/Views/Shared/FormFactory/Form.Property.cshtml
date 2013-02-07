@@ -1,0 +1,20 @@
+﻿@using System.ComponentModel.DataAnnotations
+@using FormFactory
+@model PropertyVm
+@{
+    if (Model.IsHidden)
+    {
+        <div style="display: none">@Html.BestProperty(Model)</div>
+    }
+    else
+    {
+        if (ViewBag.Inline ?? false)
+        {
+            Html.RenderPartial("FormFactory/Form.Property.Inline", Model, ViewData);
+        }
+        else
+        {
+            Html.RenderPartial("FormFactory/Form.Property.Block", Model, ViewData);
+        }
+    }
+}

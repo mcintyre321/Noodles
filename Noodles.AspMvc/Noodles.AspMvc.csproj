@@ -47,12 +47,13 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Castle.Core">
-      <HintPath>..\packages\Castle.Core.2.5.2\lib\NET35\Castle.Core.dll</HintPath>
-    </Reference>
-    <Reference Include="FormFactory, Version=1.0.4786.39492, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="Castle.Core, Version=3.1.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\FormFactory.1.2.233\lib\net40\FormFactory.dll</HintPath>
+      <HintPath>..\packages\Castle.Core.3.1.0\lib\net40-client\Castle.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="FormFactory, Version=1.0.4786.41360, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\FormFactory.1.2.234\lib\net40\FormFactory.dll</HintPath>
     </Reference>
     <Reference Include="Harden">
       <HintPath>..\packages\Harden.1.2.6\lib\net40\Harden.dll</HintPath>
@@ -184,18 +185,25 @@
     <EmbeddedResource Include="..\Noodles.AspMvc.Templates\Views\Shared\_Layout.cshtml">
       <Link>Views\Shared\_Layout.cshtml</Link>
     </EmbeddedResource>
+    <EmbeddedResource Include="..\Noodles.AspMvc.Templates\Views\_ViewStart.cshtml">
+      <Link>Views\_ViewStart.cshtml</Link>
+    </EmbeddedResource>
     <None Include="Global.asax" />
     <None Include="Helpers\Icons\IconNames.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>IconNames.cs</LastGenOutput>
     </None>
+    <None Include="Scripts\jquery-1.9.1.intellisense.js" />
+    <EmbeddedResource Include="..\Noodles.AspMvc.Templates\Content\bootstrap-overrides.css">
+      <Link>Content\bootstrap-overrides.css</Link>
+    </EmbeddedResource>
+    <Content Include="Scripts\jquery-1.9.1.js" />
+    <Content Include="Scripts\jquery-1.9.1.min.js" />
+    <Content Include="Scripts\jquery-1.9.1.min.map" />
     <None Include="Web.config" />
-    <None Include="Scripts\jquery-1.6.4-vsdoc.js" />
     <EmbeddedResource Include="..\Noodles.AspMvc.Templates\Scripts\Noodles\Noodles.SignalR.js">
       <Link>Scripts\Noodles\Noodles.SignalR.js</Link>
     </EmbeddedResource>
-    <None Include="Scripts\jquery-1.6.4.js" />
-    <None Include="Scripts\jquery-1.6.4.min.js" />
     <None Include="Scripts\jquery.signalR-1.0.0-rc2.js" />
     <None Include="Scripts\jquery.signalR-1.0.0-rc2.min.js" />
     <Content Include="Web.Debug.config">
@@ -225,9 +233,7 @@
       <Name>Noodles</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Content\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
