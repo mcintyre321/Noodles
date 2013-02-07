@@ -1,12 +1,10 @@
 #Noodles#
 
-
-
-Noodles is a .NET library for building model driven web/API applications on top of ASP MVC or WebApi.
+Noodles is a .NET library for building model driven web/API applications on top of ASP MVC or WebApi. Basically you write your business logic and it gets transformed into a 21st century web application.
 
 Simply mark your classes up to indicate relationships between domain objects, and to expose methods and properties. Add a route to the Mvc or WebApi handler, and you have generated your web application!
 
-Example MVC application: http://noodles.example.web.5.9.55.208.xip.io/
+####Live Example MVC application: http://noodles.example.web.5.9.55.208.xip.io/####
 
 ## Key Benefits ##
 
@@ -25,10 +23,11 @@ Example MVC application: http://noodles.example.web.5.9.55.208.xip.io/
  * Control access to properties and actions dynamically using [Harden][2]
  * Built on top of standard ASP MVC/WebApi
  * Database agnostic. You have control over persistence, so you can use SQL, Raven/Mongo/Couch or something clever you have rolled yourself.
+ * Realtime UI sync using SignalR
 
 ## Getting started##
 
-**a.** Create, or have a .NET 4.5 MVC4 or WebApi application.
+**a.** Create an empty MVC4 or WebApi application
 
 **b.** Install the following Nuget packages (the dependencies aren't set up yet, sorry!)
 
@@ -47,7 +46,7 @@ For WebApi
 
 **d.** add a wildcard route to your application ([AspMvc][4] / [WebApi][5]), and for MVC, [a controller][6], passing the root of your object graph.
 
-**e** at this point you should be able to start your app, and have a functional, but plain application. Reference the scripts and css files from the [example layout][7] and you're set!
+**e** at this point you should be able to start your app, and have a functional application. Amazing!
 
 alternatively, check out the [Example][8] [projects][9]!
 
