@@ -14,14 +14,5 @@ namespace Noodles
         {
             return o.NodeMethods().SingleOrDefault(m => m.Name.ToLowerInvariant() == methodName.ToLowerInvariant());
         }
-        public static IEnumerable<NodeProperty> NodeProperties(this object o)
-        {
-            return NodePropertiesReflectionLogic.YieldFindNodePropertiesUsingReflection(o);
-        }
-        public static NodeProperty NodeProperty(this object o, string propertyName)
-        {
-            return o.NodeProperties().SingleOrDefault(m => m.Name.ToLowerInvariant() == propertyName.ToLowerInvariant());
-        }
-
     }
 }

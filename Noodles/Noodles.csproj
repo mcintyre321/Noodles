@@ -68,8 +68,9 @@
     <Compile Include="NodeExtensions.cs" />
     <Compile Include="NodeTypeExtension.cs" />
     <Compile Include="PathExtension.cs" />
+    <Compile Include="Reflection\NodeFieldsRuleRegistry.cs" />
     <Compile Include="Reflection\NodePropertiesRuleRegistry.cs" />
-    <Compile Include="Reflection\NodePropertiesReflectionLogic.cs" />
+    <Compile Include="Reflection\NodePropertiesExtension.cs" />
     <Compile Include="Reflection\NodeMethodParameterFixes.cs" />
     <Compile Include="Reflection\NodeMethodsReflectionLogic.cs" />
     <Compile Include="NodeNotFoundException.cs" />
@@ -79,6 +80,7 @@
     <Compile Include="Reflection\NodeMethodParameter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Reflection\NodeMethodsRuleRegistry.cs" />
+    <Compile Include="Reflection\NodeProperty.cs" />
     <Compile Include="Reflection\TextExtensions.cs" />
     <Compile Include="UserException.cs" />
   </ItemGroup>

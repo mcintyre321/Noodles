@@ -7,6 +7,8 @@ using System.Linq;
 using System.Reflection;
 using System.Web.Helpers;
 using System.Web.Mvc;
+using FormFactory;
+using Noodles.AspMvc.Helpers;
 using Noodles.AspMvc.Models;
 using Walkies;
 
@@ -27,6 +29,12 @@ namespace Noodles.AspMvc
         {
             AddExceptionHandler<UserException>((e, cc) => cc.Controller.ViewData.ModelState.AddModelError("", e));
             Noodles.Configuration.Initialise();
+            FormFactory.VmHelper.GetPropertyVms = GetPropertyVms;
+        }
+
+        private static IEnumerable<PropertyVm> GetPropertyVms(HtmlHelper htmlHelper, object o, Type arg3)
+        {
+            return o.NodeProperties().Select(p => p.ToPropertyVm(htmlHelper));
         }
 
         private static ActionResult ProcessNodeMethodCall(ControllerContext cc, object node, Func<NodeMethod, object[], object> doInvoke)

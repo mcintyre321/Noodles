@@ -9,7 +9,7 @@ namespace Noodles.Example.Domain
     [Name("Your to do lists")]
     public class Application
     {
-        [Children]
+        [Show] [Child(Walkable = true)]
         private List<ToDoList> _items = new List<ToDoList>();
 
         public Application()

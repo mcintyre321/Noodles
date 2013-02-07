@@ -9,9 +9,9 @@ namespace Noodles.Example.Domain
     [Name("{Description}")]
     public class ToDoList
     {
-        [Children]
+        [Child]
         private readonly List<Task> _tasks = new List<Task>();
-
+        [Show] public IEnumerable<Task> Tasks{get { return _tasks; }} 
         public ToDoList()
         {
             this._tasks = new List<Task>();
