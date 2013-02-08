@@ -146,7 +146,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>IconNames.tt</DependentUpon>
     </Compile>
-    <Compile Include="Helpers\NoodlesHelper.generated.cs" />
+    <Compile Include="Helpers\NoodlesHelper1.generated.cs" />
     <Compile Include="Models\NodeMethodSuccessVm.cs" />
     <Compile Include="NoodlesHub.cs" />
     <Compile Include="SetUrlRootExtension.cs" />
@@ -221,6 +221,7 @@
   <ItemGroup>
     <Content Include="Helpers\NoodlesHelper.cshtml">
       <Generator>RazorGenerator</Generator>
+      <LastGenOutput>NoodlesHelper1.generated.cs</LastGenOutput>
     </Content>
   </ItemGroup>
   <ItemGroup>
