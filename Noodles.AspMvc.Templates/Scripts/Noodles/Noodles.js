@@ -96,11 +96,20 @@ $(document).ready(function () {
         $(".submitMethod", $method).on('click', function (e) {
             var $container = $(this).closest(".nodeMethod");
             var $form = $container.is("form") ? $container : $container.find("form");
-            var ajaxOptions = {
-                url: $form.attr('action'),
-                type: "POST",
-                data: $form.serialize(),
-                success: function (data) {
+            var formdata = false;
+            if (window.FormData){
+                formdata = new FormData($form[0]);
+            };
+
+            var formAction = $form.attr('action');
+            $.ajax({
+                url         : formAction,
+                data        : formdata ? formdata : $form.serialize(),
+                cache       : false,
+                contentType : false,
+                processData : false,
+                type        : 'POST',
+                success     : function(data, textStatus, jqXHR){
                     if ($link) {
                         var $table = $link.closest(".dataTable");
                         if ($table.length) {
@@ -112,7 +121,6 @@ $(document).ready(function () {
                     }
                     window.location.reload();
                 },
-
                 error: function (jqXhr, textStatus, errorThrown) {
                     if (errorThrown == "Conflict") {
                         var $html = $(jqXhr.responseText);
@@ -130,7 +138,7 @@ $(document).ready(function () {
                 complete: function () {
                     //$("#ProgressDialog").dialog("close");
                 }
-            };
+            });
             var $fileInputs = $(":file", $form);
             if ($fileInputs.length) {
                 $.extend(ajaxOptions, {

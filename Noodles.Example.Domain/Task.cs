@@ -10,6 +10,9 @@ namespace Noodles.Example.Domain
         [Show]
         public string Text { get; set; }
         [Show]
+        public string Notes { get; set; }
+
+        [Show]
         public bool Completed { get; set; }
         [Show]
         [DataType(DataType.Date)]
