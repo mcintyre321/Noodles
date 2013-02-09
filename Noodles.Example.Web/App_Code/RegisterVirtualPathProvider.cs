@@ -6,7 +6,7 @@ namespace Noodles.Example
         {
             System.Web.Hosting.HostingEnvironment.RegisterVirtualPathProvider(new EmbeddedResourceVirtualPathProvider.Vpp()
             {
-				{typeof(AspMvc.MvcApplication).Assembly, @"..\Noodles.AspMvc"} ,
+				{typeof(AspMvc.NoodlesHub).Assembly, @"..\Noodles.AspMvc"} ,
                 {typeof(Mvc.JQuery.Datatables.DataTablesData).Assembly} ,
 
                 typeof(FormFactory.Logger).Assembly,

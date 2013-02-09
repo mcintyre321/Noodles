@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,20 +9,22 @@ namespace Noodles
 {
     public static class NodePropertiesExtension
     {
-        public static IEnumerable<NodeProperty> NodeProperties(this object o)
+        public static IEnumerable<NodeProperty> NodeProperties(this object o, Type fallback = null)
         {
-            return YieldFindNodePropertiesUsingReflection(o).Concat(YieldFindNodeFieldsUsingReflection(o));
+            return YieldFindNodePropertiesUsingReflection(o, fallback).Concat(YieldFindNodeFieldsUsingReflection(o));
         }
 
-        public static NodeProperty NodeProperty(this object o, string propertyName)
+        public static NodeProperty NodeProperty(this object o, string propertyName, Type fallback = null)
         {
-            return o.NodeProperties().SingleOrDefault(m => m.Name.ToLowerInvariant() == propertyName.ToLowerInvariant());
+            return o.NodeProperties(fallback).SingleOrDefault(m => m.Name.ToLowerInvariant() == propertyName.ToLowerInvariant());
         }
 
-        public static IEnumerable<NodeProperty> YieldFindNodePropertiesUsingReflection(object target)
+        public static IEnumerable<NodeProperty> YieldFindNodePropertiesUsingReflection(object target, Type fallback)
         {
+
             const BindingFlags bindingFlags = BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.FlattenHierarchy;
-            var propertyInfos = target.GetType().GetProperties(bindingFlags).ToArray();
+            var type = target == null ? fallback : target.GetType();
+            var propertyInfos = type.GetProperties(bindingFlags).ToArray();
             foreach (var info in propertyInfos)
             {
                 bool? ruleResult = null;

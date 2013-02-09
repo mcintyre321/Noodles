@@ -32,8 +32,9 @@ namespace Noodles.AspMvc
             FormFactory.VmHelper.GetPropertyVms = GetPropertyVms;
         }
 
-        private static IEnumerable<PropertyVm> GetPropertyVms(HtmlHelper htmlHelper, object o, Type arg3)
+        private static IEnumerable<PropertyVm> GetPropertyVms(HtmlHelper htmlHelper, object o, Type arg)
         {
+            if (o == null) o = Activator.CreateInstance(arg);
             return o.NodeProperties().Select(p => p.ToPropertyVm(htmlHelper));
         }
 
