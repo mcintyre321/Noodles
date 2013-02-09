@@ -27,7 +27,10 @@
             {
                 <div class="noodles-property" data-noodles-fragment-id="noodle-object-property-@property.Name">
                     @{
-                        @Html.Partial("FormFactory/Form.Property", property.ToPropertyVm(Html), ViewData);
+                        var propertyVm = property.ToPropertyVm(Html);
+                        propertyVm.Readonly = true;
+                        @Html.Partial("FormFactory/Form.Property", propertyVm, ViewData)
+                        ;
                     }
                 </div>
             }

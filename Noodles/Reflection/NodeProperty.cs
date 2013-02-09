@@ -16,6 +16,7 @@ namespace Noodles
             PropertyType = info.PropertyType;
             Name = info.Name;
             DisplayName = GetDisplayName(info);
+            Readonly = target.NodeMethod("set_" + this.Name) == null;
         }
         public NodeProperty(object target, FieldInfo info)
         {
@@ -24,6 +25,7 @@ namespace Noodles
             PropertyType = info.FieldType;
             Name = info.Name;
             DisplayName = GetDisplayName(info);
+            Readonly = target.NodeMethod("set_" + this.Name) == null;
         }
 
 
@@ -37,6 +39,8 @@ namespace Noodles
         {
             get { return _getCustomAttributes(); }
         }
+
+        public bool Readonly { get; private set; }
 
         string GetDisplayName(PropertyInfo info)
         {

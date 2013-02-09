@@ -17,10 +17,9 @@ namespace Noodles.Example.Domain
         }
 
         [Show]
-        public void AddTask([MyStringLength(1, 20)] string taskDescription)
+        public void AddTask(Task task)
         {
-            if (string.IsNullOrWhiteSpace(taskDescription)) throw new UserException("Task description cannot be empty");
-            _tasks.Add(new Task() { Text = taskDescription });
+            _tasks.Add(task);
         }
 
         [Show]

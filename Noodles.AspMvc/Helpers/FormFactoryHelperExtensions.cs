@@ -30,7 +30,7 @@ namespace Noodles.AspMvc.Helpers
             {
                 DisplayName = property.DisplayName,
                 GetCustomAttributes = () => property.CustomAttributes,
-                Readonly = true,
+                Readonly = property.Readonly,
                 Value = property.Value,
                 IsHidden = false, //parameter.CustomAttributes.OfType<DataTypeAttribute>().Any(x => x.CustomDataType == "Hidden"),
                 Source = property,

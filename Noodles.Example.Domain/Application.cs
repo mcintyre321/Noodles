@@ -18,8 +18,6 @@ namespace Noodles.Example.Domain
             {
                 Description = "Shopping List"
             };
-            toDoList.AddTask("Milk");
-            toDoList.AddTask("Bread");
             _lists.Add(toDoList);
         }
 
