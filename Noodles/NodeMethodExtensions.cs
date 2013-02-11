@@ -15,5 +15,10 @@ namespace Noodles
         {
             return o.NodeMethods().SingleOrDefault(m => m.Name.ToLowerInvariant() == methodName.ToLowerInvariant());
         }
+
+        public static IEnumerable<IInvokeable> Actions(this object obj)
+        {
+            return obj.NodeMethods().Cast<IInvokeable>().Concat(obj.NodeProperties().Where(p => !p.Readonly).Select(p => p.Setter));
+        }
     }
 }

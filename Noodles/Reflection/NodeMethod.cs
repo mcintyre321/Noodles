@@ -90,6 +90,11 @@ namespace Noodles
             }
         }
 
+        public string Url
+        {
+            get { return this.Url(); }
+        }
+
 
         private IEnumerable<NodeMethodParameter> _parameters;
 
@@ -243,6 +248,8 @@ namespace Noodles
         string DisplayName { get; }
         object Target { get; }
         string Message { get; }
+        string Url { get; }
+        bool AutoSubmit { get; }
         object Invoke(IDictionary<string, object> parameterDictionary);
         object Invoke(object[] parameters);
         T GetAttribute<T>() where T : Attribute;

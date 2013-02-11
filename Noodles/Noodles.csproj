@@ -66,6 +66,7 @@
     <Compile Include="Helpers\RecurseExtension.cs" />
     <Compile Include="Helpers\ThenExtension.cs" />
     <Compile Include="IdExtension.cs" />
+    <Compile Include="LinksExtension.cs" />
     <Compile Include="Logger.cs" />
     <Compile Include="Name.cs" />
     <Compile Include="NodeMethodExtensions.cs" />
@@ -90,9 +91,7 @@
   <ItemGroup>
     <WCFMetadata Include="Service References\" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="NodeMethods\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>

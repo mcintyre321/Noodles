@@ -10,27 +10,42 @@ namespace Noodles
 {
     public static class NameExtension
     {
-        static ConcurrentDictionary<Type, string> lookup = new ConcurrentDictionary<Type, string>();
-        public static string GetName(this object o)
+        static ConcurrentDictionary<object, string> lookup = new ConcurrentDictionary<object, string>();
+        public static T SetName<T>(this T obj, string name)
         {
-            var type = o.GetType();
-            var format = lookup.GetOrAdd(type, (t) =>
+            lookup.GetOrAdd(obj, o => name);
+            return obj;
+        }
+
+        public static string GetName(this object obj)
+        {
+            var format = lookup.GetOrAdd(obj, (o) =>
             {
-                var name = t.GetCustomAttributes(false).OfType<NameAttribute>().SingleOrDefault();
-                if (name == null) return o.GetType().Name.Sentencise();
-                return name.Name;
+                var f = NameAttribute.GetNameAttribute(o.GetType());
+                if (f == null) f = o.GetType().Name;
+                return f;
+
             });
-            return FormattableObject.ToString(o, format);
+            return obj.ToString(format);
             ;
         }
     }
 
     public class NameAttribute : Attribute
     {
+        static ConcurrentDictionary<Type, string> lookup = new ConcurrentDictionary<Type, string>();
+
         public string Name { get; set; }
         public NameAttribute(string name)
         {
             Name = name;
+        }
+
+        public static string GetNameAttribute(Type t)
+        {
+            var name = t.GetCustomAttributes(false).OfType<NameAttribute>().SingleOrDefault();
+            if (name == null) return null;
+            return name.Name;
         }
     }
 }

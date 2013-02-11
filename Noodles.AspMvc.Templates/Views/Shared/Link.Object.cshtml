@@ -5,13 +5,21 @@
  
 <div class="btn-group">
     <div class="btn"><a href="@Model.Url()">@Model.GetName()</a></div>
-    <button class="btn dropdown-toggle" data-toggle="dropdown">
-        <span class="caret"></span>
-    </button>
-    <ul class="dropdown-menu">
-        @foreach (var method in Model.NodeMethods())
+
+    @{
+
+        var actions = Model.Actions();
+        if (actions.Any())
         {
-        <li>@NoodlesHelper.NodeMethodLink(method)</li>
+  <button class="btn dropdown-toggle" data-toggle="dropdown">
+      <span class="caret"></span>
+  </button>
+    <ul class="dropdown-menu">
+        @foreach (var method in actions)
+             {
+                 <li>@NoodlesHelper.NodeMethodLink(method)</li>
         }
     </ul>
+    }
+    }
 </div>

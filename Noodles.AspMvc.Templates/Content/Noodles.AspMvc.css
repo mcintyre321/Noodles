@@ -1,4 +1,8 @@
-﻿/* Make setter forms inline*/
+﻿.inline-children > * {
+    display: inline-block;
+}
+
+/* Make setter forms inline*/
 [data-node-getter] > * {
     display: inline-block;
 }

@@ -6,7 +6,9 @@ using Walkies;
 
 namespace Noodles
 {
-    public class ShowAttribute : Attribute { }
+    public class ShowAttribute : Attribute {
+        public string UiHint { get; set; }
+    }
     public class HideAttribute : Attribute { }
     public class AutoSubmitAttribute : Attribute
     {

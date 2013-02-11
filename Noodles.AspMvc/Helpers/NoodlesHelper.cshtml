@@ -1,4 +1,5 @@
 ﻿@* Generator: MvcHelper *@
+@using System.Collections
 @using System.Web.Mvc
 @using System.Web.Mvc.Html
 @using Noodles
@@ -7,6 +8,7 @@
 @using Noodles.AspMvc.Helpers.Icons
 @using Noodles.Helpers
 @using Noodles.AspMvc.Helpers
+@using FormFactory
 @using Noodles.AspMvc.Helpers.Icons
 @helper NodeMethodsDropdown(object obj)
 { @NodeMethodsDropdown(obj, null) }
@@ -40,13 +42,13 @@
     <a class="nodeMethodsMenuLink @(additionalClasses ?? "")" href="@nodeMethods.Url()" data-nodeid="@obj.Id()" data-excluded-methods="@excludedMethodNamesCsv">Actions</a>
     }
 }
-@helper NodeMethodLink(NodeMethod method)
+@helper NodeMethodLink(IInvokeable method)
 { @NodeMethodLink(method, null)}
-@helper NodeMethodLink(NodeMethod method, string additionalClasses)
+@helper NodeMethodLink(IInvokeable method, string additionalClasses)
 {
     @NodeMethodLink(method, additionalClasses, @<text>@method.DisplayName</text>)
 }
-@helper Icon(NodeMethod nm)
+@helper Icon(IInvokeable nm)
 {
     var att = nm.GetAttribute<IconAttribute>();
     if (att != null)
@@ -55,11 +57,11 @@
     <i class="@joinedParts"></i>
     }
 }
-@helper NodeMethodIconLink(NodeMethod method, string additionalClasses, string iconName)
+@helper NodeMethodIconLink(IInvokeable method, string additionalClasses, string iconName)
 {
     @NodeMethodLink(method, "", @<i class="icon-@iconName"></i>)
 }
-@helper NodeMethodLink(NodeMethod method, string additionalClasses, Func<dynamic, HelperResult> innerHtml)
+@helper NodeMethodLink(IInvokeable method, string additionalClasses, Func<dynamic, HelperResult> innerHtml)
 {
     if (method != null)
     {
@@ -67,14 +69,14 @@
     <a class="@(nodeClass) @(additionalClasses ?? "") @(method.Target.NodeType().Name.ToClassName())-@(method.Name.ToClassName())" data-nodeid="@method.Id()" href="@method.Url()">@Icon(method)@innerHtml(null)</a>
     }
 }
-@helper NodeMethodForm(System.Web.Mvc.HtmlHelper html, NodeMethod method, string formClass)
+@helper NodeMethodForm(System.Web.Mvc.HtmlHelper html, IInvokeable method, string formClass)
 {
     if (method != null)
     {
     @html.Partial("Noodles/NodeMethod", method, new ViewDataDictionary { { "FormClass", formClass ?? "" } })
     }
 }
-@helper NodeMethodForm(System.Web.Mvc.HtmlHelper html, NodeMethod method, string formClass, ViewDataDictionary dict)
+@helper NodeMethodForm(System.Web.Mvc.HtmlHelper html, IInvokeable method, string formClass, ViewDataDictionary dict)
 {
     if (method != null)
     {
@@ -83,7 +85,7 @@
     @NodeMethodForm(html, method, dict)
     }
 }
-@helper NodeMethodForm(System.Web.Mvc.HtmlHelper html, NodeMethod method, ViewDataDictionary dict)
+@helper NodeMethodForm(System.Web.Mvc.HtmlHelper html, IInvokeable method, ViewDataDictionary dict)
 {
     if (method != null)
     {
@@ -119,7 +121,24 @@
 
             propertyVm.Readonly = true;
             <div data-node-getter="@property.Name">
-                @Html.Partial("FormFactory/Form.Property", propertyVm)
+                <div class="control-group">
+                    <label class="control-label">@property.DisplayName</label>
+                    <div class="controls">
+
+                        @{
+                            var att = property.CustomAttributes.OfType<ShowAttribute>().SingleOrDefault();
+                            if (att != null && !string.IsNullOrWhiteSpace(att.UiHint))
+                            {
+                                @Html.BestPartial(property.Value, property.Value == null ? property.PropertyType : property.Value.GetType(), att.UiHint + ".")
+                            }
+                            else
+                            {
+                            @Html.BestProperty(property.ToPropertyVm(Html).Then(p => p.Readonly = true))
+                            }
+                        }
+
+                    </div>
+                </div>
                 @if (!property.Readonly)
                 {
                     <a class="show-setter" href="#edit @property.DisplayName"><i class="icon-edit "></i></a>

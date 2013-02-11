@@ -6,20 +6,20 @@ using Walkies;
 
 namespace Noodles.Example.Domain
 {
-    [Name("{Description}")]
-    public class ToDoList : List<Task>
+    [Name("{ListName}")]
+    public class ToDoList
     {
-        [Show]
+        [Show(UiHint = "List")]
         public IList<Task> Tasks = new List<Task>();
         public ToDoList()
         {
-            this.Tasks = new List<Task>();
+            this.Tasks = new List<Task>().SetParent(this, "Tasks").SetName("Tasks");
         }
 
         [Show]
         public void AddTask(Task task)
         {
-            Tasks.Add(task);
+            Tasks.Add(task.SetParent(Tasks, Guid.NewGuid().ToString()));
         }
 
         [Show]
@@ -33,7 +33,7 @@ namespace Noodles.Example.Domain
             return Tasks.GetEnumerator();
         }
 
-        [Show]
-        public string Description { get; set; }
+        [Show][MyStringLength(1, 20)] 
+        public string ListName { get; set; }
     }
 }
