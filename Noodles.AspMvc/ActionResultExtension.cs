@@ -38,9 +38,9 @@ namespace Noodles.AspMvc
             return o.NodeProperties().Select(p => p.ToPropertyVm(htmlHelper));
         }
 
-        private static ActionResult ProcessNodeMethodCall(ControllerContext cc, object node, Func<NodeMethod, object[], object> doInvoke)
+        private static ActionResult ProcessNodeMethodCall(ControllerContext cc, object node, Func<IInvokeable, object[], object> doInvoke)
         {
-            var method = node as NodeMethod;
+            var method = node as IInvokeable;
             if (method == null) return null;
 
             var httpMethod = cc.HttpContext.Request.HttpMethod;
@@ -97,7 +97,7 @@ namespace Noodles.AspMvc
             if (msd.IsValid)
             {
                 res.ViewName = "Noodles/NodeMethodSuccess";
-                res.ViewData.Model = new NodeMethodSuccessVm(method, result);
+                res.ViewData.Model = new InvokeSuccessVm(method, result);
             }
             else
             {
@@ -109,7 +109,7 @@ namespace Noodles.AspMvc
             return res;
         }
 
-        public static ActionResult GetNoodleResult(this ControllerContext cc, object root, string path = null, Func<NodeMethod, object[], object> doInvoke = null)
+        public static ActionResult GetNoodleResult(this ControllerContext cc, object root, string path = null, Func<IInvokeable, object[], object> doInvoke = null)
         {
 
             path = path ?? cc.RouteData.Values["path"] as string ?? "/";
@@ -164,7 +164,7 @@ namespace Noodles.AspMvc
         }
 
 
-        private static object DoInvoke(NodeMethod nodeMethod, object[] parameters)
+        private static object DoInvoke(IInvokeable nodeMethod, object[] parameters)
         {
             var doInvoke = nodeMethod.Invoke(parameters);
             NoodlesHub.NotifyClientOfChangeTo(nodeMethod.Target.Url());

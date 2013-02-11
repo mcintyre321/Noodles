@@ -7,30 +7,30 @@ using Walkies;
 namespace Noodles.Example.Domain
 {
     [Name("{Description}")]
-    public class ToDoList
+    public class ToDoList : List<Task>
     {
-        [Children]
-        private readonly List<Task> _tasks = new List<Task>();
+        [Show]
+        public IList<Task> Tasks = new List<Task>();
         public ToDoList()
         {
-            this._tasks = new List<Task>();
+            this.Tasks = new List<Task>();
         }
 
         [Show]
         public void AddTask(Task task)
         {
-            _tasks.Add(task);
+            Tasks.Add(task);
         }
 
         [Show]
         public void ClearCompletedTasks()
         {
-            this._tasks.RemoveAll(t => t.Completed);
+            this.Tasks.Where(t => t.Completed).ToList().ForEach(t => Tasks.Remove(t));
         }
 
         public IEnumerator<Task> GetEnumerator()
         {
-            return _tasks.GetEnumerator();
+            return Tasks.GetEnumerator();
         }
 
         [Show]

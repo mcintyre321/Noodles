@@ -4,7 +4,7 @@
 @using Noodles
 @using Noodles.Helpers
 @using Noodles.AspMvc.Helpers
-@model NodeMethod
+@model IInvokeable
 @if (Model.Message != null)
 {
     <p>@Model.Message</p>
@@ -22,14 +22,14 @@
             </div>
         </div>
     }
-    @if (Context.Request.IsAjaxRequest())
+   @if (Context.Request.IsAjaxRequest())
     {
         @Html.AntiForgeryToken()
     }
-    @foreach (var parameter in Model.Parameters)
+     @foreach (var parameter in Model.Parameters)
     {
         var vm = parameter.ToPropertyVm(Html);
-        Html.RenderPartial("FormFactory/Form.Property", vm, ViewData);
+        Html.RenderPartial("FormFactory/Form.Property", vm);
     }
     <button class="submitMethod btn btn-primary">@Model.DisplayName</button>
 </form>

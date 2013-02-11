@@ -56,7 +56,7 @@
     <Reference Include="System.Xml" />
     <Reference Include="Walkies, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Walkies.1.2.34\lib\net40\Walkies.dll</HintPath>
+      <HintPath>..\packages\Walkies.1.2.35\lib\net40\Walkies.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -64,10 +64,11 @@
     <Compile Include="Configuration.cs" />
     <Compile Include="Helpers\FormattableObject.cs" />
     <Compile Include="Helpers\RecurseExtension.cs" />
+    <Compile Include="Helpers\ThenExtension.cs" />
     <Compile Include="IdExtension.cs" />
     <Compile Include="Logger.cs" />
     <Compile Include="Name.cs" />
-    <Compile Include="NodeExtensions.cs" />
+    <Compile Include="NodeMethodExtensions.cs" />
     <Compile Include="NodeTypeExtension.cs" />
     <Compile Include="PathExtension.cs" />
     <Compile Include="Reflection\NodeFieldsRuleRegistry.cs" />

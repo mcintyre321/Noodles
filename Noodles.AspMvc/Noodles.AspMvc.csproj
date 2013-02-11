@@ -129,7 +129,7 @@
     <Reference Include="System.Xml.Linq" />
     <Reference Include="Walkies, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Walkies.1.2.34\lib\net40\Walkies.dll</HintPath>
+      <HintPath>..\packages\Walkies.1.2.35\lib\net40\Walkies.dll</HintPath>
     </Reference>
     <Reference Include="WebActivator, Version=1.5.3.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -146,8 +146,12 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>IconNames.tt</DependentUpon>
     </Compile>
-    <Compile Include="Helpers\NoodlesHelper1.generated.cs" />
-    <Compile Include="Models\NodeMethodSuccessVm.cs" />
+    <Compile Include="Helpers\NoodlesHelper1.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>NoodlesHelper.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Models\InvokeSuccessVm.cs" />
     <Compile Include="NoodlesHub.cs" />
     <Compile Include="SetUrlRootExtension.cs" />
     <Compile Include="Helpers\AttemptedValueHelper.cs" />
@@ -202,6 +206,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Scripts\jquery.signalR-1.0.0-rc2.js" />
     <EmbeddedResource Include="Scripts\jquery.signalR-1.0.0-rc2.min.js" />
+    <EmbeddedResource Include="..\Noodles.AspMvc.Templates\Content\Noodles.AspMvc.css">
+      <Link>Content\Noodles.AspMvc.css</Link>
+    </EmbeddedResource>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>

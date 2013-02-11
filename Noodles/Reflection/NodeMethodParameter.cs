@@ -91,7 +91,9 @@ namespace Noodles
             {
                 return _displayName ?? (_displayName = GetDisplayName());
             }
+            set { _displayName = value; }
         }
+
         string GetDisplayName()
         {
             var att = this._parameter.GetCustomAttributes(typeof(DisplayNameAttribute), true).OfType<DisplayNameAttribute>().FirstOrDefault();

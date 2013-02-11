@@ -13,33 +13,39 @@ namespace Noodles
         /// false if the Property should defs be hidden
         /// null when not sure
         /// </returns>
-        public delegate bool? ShowPropertyRule(object target, PropertyInfo PropertyInfo);
+        public delegate bool? ShowPropertyRule(object target, PropertyInfo propertyInfo);
 
-        public static ShowPropertyRule HideHideAttributedProperties = (t, mi) => mi.GetCustomAttributes(typeof(HideAttribute), true).Any() ? false : null as bool?;
-        public static ShowPropertyRule HideGetChildProperties = (t, mi) => (t is IGetChild && mi.Name == "Item") ? false : null as bool?;
-        public static ShowPropertyRule HideUndercoredProperties = (t, mi) => ShowByDefault && mi.Name.StartsWith("_") ? false : null as bool?;
-        public static ShowPropertyRule HidePropertiesetters = (t, mi) => mi.Name.StartsWith("set_") ? false : null as bool?;
-        public static ShowPropertyRule HideSystemObjectMembers = (t, mi) => mi.DeclaringType == typeof(System.Object) ? false : null as bool?;
-        public static ShowPropertyRule ShowAttributedProperties = (t, mi) =>
+        public static ShowPropertyRule HideHideAttributedProperties = (t, propertyInfo) => propertyInfo.GetCustomAttributes(typeof(HideAttribute), true).Any() ? false : null as bool?;
+        public static ShowPropertyRule HideGetChildProperties = (t, propertyInfo) => (t is IGetChild && propertyInfo.Name == "Item") ? false : null as bool?;
+        public static ShowPropertyRule HideUndercoredProperties = (t, propertyInfo) => ShowByDefault && propertyInfo.Name.StartsWith("_") ? false : null as bool?;
+        public static ShowPropertyRule HideSystemObjectMembers = (t, propertyInfo) => propertyInfo.DeclaringType == typeof(System.Object) ? false : null as bool?;
+        public static ShowPropertyRule ShowAttributedProperties = (t, propertyInfo) =>
         {
-            if (ShowByDefault == false && mi.GetCustomAttributes(typeof(ShowAttribute), true).Any())
+            if (ShowByDefault == false && propertyInfo.GetCustomAttributes(typeof(ShowAttribute), true).Any())
             {
                 return true;
             }
             return null as bool?;
         };
-        public static ShowPropertyRule ShowAttributedPropertiesetters = (t, mi) =>
+        public static ShowPropertyRule ShowAttributedPropertyGetters = (t, propertyInfo) =>
         {
-            if (mi.Name.StartsWith("get_"))
+            var methodInfo = propertyInfo.DeclaringType.GetMethod("get_" + propertyInfo.Name);
+            if (methodInfo != null && ShowByDefault == false && methodInfo.GetCustomAttributes(typeof (ShowAttribute), true).Any())
             {
-                var pi = mi.DeclaringType.GetProperty(mi.Name.Substring(4));
-                if (ShowByDefault == false && pi.GetCustomAttributes(typeof (ShowAttribute), true).Any())
-                {
-                    return true;
-                }
+                return true;
             }
             return null as bool?;
         };
+        public static ShowPropertyRule ShowAttributedPropertySetters = (t, propertyInfo) =>
+        {
+            var methodInfo = propertyInfo.DeclaringType.GetMethod("set_" + propertyInfo.Name);
+            if (methodInfo != null && ShowByDefault == false && methodInfo.GetCustomAttributes(typeof (ShowAttribute), true).Any())
+            {
+                return true;
+            }
+            return null as bool?;
+        };
+
 
         public static ShowPropertyRule ClassLevelShowByDefault = (t, mi) => mi.DeclaringType.GetCustomAttributes(typeof(ShowAttribute), true).Any() ? true : null as bool?;
         public static ShowPropertyRule ClassLevelHideByDefault = (t, mi) => mi.DeclaringType.GetCustomAttributes(typeof(HideAttribute), true).Any() ? false : null as bool?;
@@ -52,15 +58,8 @@ namespace Noodles
         {
             ShowPropertyRules = new List<ShowPropertyRule>()
                                   {
-                                      HideHideAttributedProperties,
-                                      HideGetChildProperties,
-                                      HideUndercoredProperties,
-                                      HidePropertiesetters,
-                                      HideSystemObjectMembers,
                                       ShowAttributedProperties,
-                                      ShowAttributedPropertiesetters,
-                                      ClassLevelShowByDefault,
-                                      ClassLevelHideByDefault,
+                                      ShowAttributedPropertyGetters,
                                   };
         }
 

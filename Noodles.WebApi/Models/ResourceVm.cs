@@ -35,7 +35,7 @@ namespace Noodles.WebApi.Models
             this.Links = links.ToArray();
         }
 
-        public ResourceVm(NodeMethod method)
+        public ResourceVm(IInvokeable method)
         {
             this.Url = method.Url();
             this.Name = method.Name;

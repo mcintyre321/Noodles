@@ -9,15 +9,15 @@
 @using Noodles.AspMvc.Helpers
 @using Noodles.AspMvc.Helpers.Icons
 @helper NodeMethodsDropdown(object obj)
-    { @NodeMethodsDropdown(obj, null) }
+{ @NodeMethodsDropdown(obj, null) }
 @helper NodeMethodsDropdown(object obj, string additionalClasses)
-    { @NodeMethodsDropdown(obj, null, null) }
+{ @NodeMethodsDropdown(obj, null, null) }
 @helper NodeMethodsDropdown(object obj, string additionalClasses, string excludedMethodNamesCsv)
+{
+    var excludedMethodNames = (excludedMethodNamesCsv ?? "").Split(',');
+    var filteredNodeMethods = obj.NodeMethods().Where(nm => excludedMethodNames.Contains(nm.Name) == false);
+    if (filteredNodeMethods.Any())
     {
-        var excludedMethodNames = (excludedMethodNamesCsv ?? "").Split(',');
-        var filteredNodeMethods = obj.NodeMethods().Where(nm => excludedMethodNames.Contains(nm.Name) == false);
-        if (filteredNodeMethods.Any())
-        {
     @BootstrapHelper.DropdownLinksButton("Actions",
                 @<text>
     @foreach (var method in filteredNodeMethods)
@@ -25,33 +25,34 @@
         @NodeMethodLink(method)
     }
     </text>, additionalClasses)
-        }
+    }
 }
 @helper NodeMethodsMenuLink(object obj)
-    { @NodeMethodsMenuLink(obj, null) }
+{ @NodeMethodsMenuLink(obj, null) }
 @helper NodeMethodsMenuLink(object obj, string additionalClasses)
-    { @NodeMethodsMenuLink(obj, additionalClasses, null) }
+{ @NodeMethodsMenuLink(obj, additionalClasses, null) }
 @helper NodeMethodsMenuLink(object obj, string additionalClasses, string excludedMethodNamesCsv)
+{
+    var excludedMethodNames = (excludedMethodNamesCsv ?? "").Split(',');
+    var nodeMethods = obj.NodeMethods();
+    if (nodeMethods.Any(nm => excludedMethodNames.Contains(nm.Name) == false))
     {
-        var excludedMethodNames = (excludedMethodNamesCsv ?? "").Split(',');
-        var nodeMethods = obj.NodeMethods();
-        if (nodeMethods.Any(nm => excludedMethodNames.Contains(nm.Name) == false))
-        {
     <a class="nodeMethodsMenuLink @(additionalClasses ?? "")" href="@nodeMethods.Url()" data-nodeid="@obj.Id()" data-excluded-methods="@excludedMethodNamesCsv">Actions</a>
-        }
+    }
 }
 @helper NodeMethodLink(NodeMethod method)
-    { @NodeMethodLink(method, null)}
+{ @NodeMethodLink(method, null)}
 @helper NodeMethodLink(NodeMethod method, string additionalClasses)
-    {
+{
     @NodeMethodLink(method, additionalClasses, @<text>@method.DisplayName</text>)
 }
-@helper Icon(NodeMethod nm){
+@helper Icon(NodeMethod nm)
+{
     var att = nm.GetAttribute<IconAttribute>();
     if (att != null)
     {
         var joinedParts = "icon-" + string.Join(" icon-", att.Parts);
-        <i class="@joinedParts"></i>
+    <i class="@joinedParts"></i>
     }
 }
 @helper NodeMethodIconLink(NodeMethod method, string additionalClasses, string iconName)
@@ -59,52 +60,78 @@
     @NodeMethodLink(method, "", @<i class="icon-@iconName"></i>)
 }
 @helper NodeMethodLink(NodeMethod method, string additionalClasses, Func<dynamic, HelperResult> innerHtml)
+{
+    if (method != null)
     {
-        if (method != null)
-        {
-            var nodeClass = method.AutoSubmit ? "nodeMethodAutoSubmit" : "nodeMethodLink";
+        var nodeClass = method.AutoSubmit ? "nodeMethodAutoSubmit" : "nodeMethodLink";
     <a class="@(nodeClass) @(additionalClasses ?? "") @(method.Target.NodeType().Name.ToClassName())-@(method.Name.ToClassName())" data-nodeid="@method.Id()" href="@method.Url()">@Icon(method)@innerHtml(null)</a>
-        }
+    }
 }
 @helper NodeMethodForm(System.Web.Mvc.HtmlHelper html, NodeMethod method, string formClass)
+{
+    if (method != null)
     {
-        if (method != null)
-        {
-        @html.Partial("Noodles/NodeMethod", method, new ViewDataDictionary { { "FormClass", formClass ?? "" } })
-        }
+    @html.Partial("Noodles/NodeMethod", method, new ViewDataDictionary { { "FormClass", formClass ?? "" } })
+    }
 }
 @helper NodeMethodForm(System.Web.Mvc.HtmlHelper html, NodeMethod method, string formClass, ViewDataDictionary dict)
+{
+    if (method != null)
     {
-        if (method != null)
-        {
-            dict = dict ?? new ViewDataDictionary();
-            dict["FormClass"] = formClass;
+        dict = dict ?? new ViewDataDictionary();
+        dict["FormClass"] = formClass;
     @NodeMethodForm(html, method, dict)
-        }
+    }
 }
 @helper NodeMethodForm(System.Web.Mvc.HtmlHelper html, NodeMethod method, ViewDataDictionary dict)
+{
+    if (method != null)
     {
-        if (method != null)
-        {
-            dict = dict ?? new ViewDataDictionary();
+        dict = dict ?? new ViewDataDictionary();
     <div class="nodeMethod">
         @html.Partial("Noodles/NodeMethod", method, dict)
     </div>
-        }
+    }
 }
 @helper NodeMethodFormInline(System.Web.Mvc.HtmlHelper html, NodeMethod method)
+{
+    if (method != null)
     {
-        if (method != null)
-        {
     @NodeMethodFormInline(html, method, new ViewDataDictionary())
-        }
+    }
 }
 @helper NodeMethodFormInline(System.Web.Mvc.HtmlHelper html, NodeMethod method, ViewDataDictionary viewData)
+{
+    if (method != null)
     {
-        if (method != null)
-        {
-            viewData = viewData ?? new ViewDataDictionary();
-            viewData.Add("Inline", true);
+        viewData = viewData ?? new ViewDataDictionary();
+        viewData.Add("Inline", true);
     @NodeMethodForm(html, method, "form-inline", viewData)
+    }
+}
+
+@helper Property(System.Web.Mvc.HtmlHelper Html, NodeProperty property)
+{
+    <div data-node-property="@property.Name">
+        @{
+            
+            var propertyVm = property.ToPropertyVm(Html);
+
+            propertyVm.Readonly = true;
+            <div data-node-getter="@property.Name">
+                @Html.Partial("FormFactory/Form.Property", propertyVm)
+                @if (!property.Readonly)
+                {
+                    <i class="icon-edit show-setter"></i>
+                }
+            </div>
+            if (!property.Readonly)
+            {
+                
+            <div data-node-setter="@property.Name">
+                @Html.Partial("Noodles/NodeMethod", property)
+            </div>
+            }
         }
+    </div>
 }

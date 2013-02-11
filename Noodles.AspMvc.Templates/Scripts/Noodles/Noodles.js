@@ -1,7 +1,17 @@
 ﻿//amaze
 $(document).ready(function () {
 
+    $(document).on("click", ".show-setter", function () {
+        var $property = $(this).closest("[data-node-property]");
+        var $setter = $property.find("> [data-node-setter]");
+        var $getter = $property.find("> [data-node-getter]");
+        $getter.fadeOut(function () {
+            $setter.fadeIn(function () {
+                $setter.find('input,textarea,select').filter(':enabled:visible:not([readonly="readonly"]):not([type="hidden"])').first().focus();
 
+            });
+        });
+    });
     $(".popover .close").live('click', function (e) { $(this).closest(".popover").hide(); });
 
     $(".nodeMethodsMenuLink").live('click', function (e) {
@@ -97,19 +107,19 @@ $(document).ready(function () {
             var $container = $(this).closest(".nodeMethod");
             var $form = $container.is("form") ? $container : $container.find("form");
             var formdata = false;
-            if (window.FormData){
+            if (window.FormData) {
                 formdata = new FormData($form[0]);
             };
 
             var formAction = $form.attr('action');
             $.ajax({
-                url         : formAction,
-                data        : formdata ? formdata : $form.serialize(),
-                cache       : false,
-                contentType : false,
-                processData : false,
-                type        : 'POST',
-                success     : function(data, textStatus, jqXHR){
+                url: formAction,
+                data: formdata ? formdata : $form.serialize(),
+                cache: false,
+                contentType: false,
+                processData: false,
+                type: 'POST',
+                success: function (data, textStatus, jqXHR) {
                     if ($link) {
                         var $table = $link.closest(".dataTable");
                         if ($table.length) {

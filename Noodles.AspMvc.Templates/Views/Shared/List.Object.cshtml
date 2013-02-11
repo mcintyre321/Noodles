@@ -1,0 +1,7 @@
+﻿@model IEnumerable<object>
+<ul>
+    @foreach (var o in Model)
+    {
+        <li>@Html.BestPartial(o, o.GetType(), "Link.")</li>
+    }
+</ul>

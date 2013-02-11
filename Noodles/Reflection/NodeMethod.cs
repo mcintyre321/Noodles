@@ -13,7 +13,7 @@ using Walkies;
 namespace Noodles
 {
     [DebuggerDisplay("{ToString()} - Name={Name}")]
-    public class NodeMethod : IGetChild
+    public class NodeMethod : IGetChild, IInvokeable
     {
         private readonly MethodInfo _methodInfo;
 
@@ -93,35 +93,39 @@ namespace Noodles
 
         private IEnumerable<NodeMethodParameter> _parameters;
 
+        public bool Active { get { return true; }}
+
         public IEnumerable<NodeMethodParameter> Parameters
         {
             get
             {
-                return _parameters ?? (_parameters = LoadParameters());
-            }
-        }
-
-        private IEnumerable<NodeMethodParameter> LoadParameters()
-        {
-            var parameters = _methodInfo.GetParameters().Select(p => new NodeMethodParameter(this, _methodInfo, p)).ToArray();
-            var methodName = this._methodInfo.Name.StartsWith("set_")
-                                 ? _methodInfo.Name.Substring(4)
-                                 : _methodInfo.Name;
-            var valuesMethod = Target.GetType().GetMethod(methodName + "_values", looseBindingFlags);
-            if (valuesMethod != null)
-            {
-                var parameterValues = ((IEnumerable<object>)valuesMethod.Invoke(Target, new object[] { })).ToArray();
-                for (int i = 0; i < parameterValues.Length; i++)
+                Func<IEnumerable<NodeMethodParameter>> loadParameters = () =>
                 {
-                    parameters[i].Value = parameterValues[i];
-                }
+                    var parameters =
+                        _methodInfo.GetParameters().Select(p => new NodeMethodParameter(this, _methodInfo, p)).ToArray();
+                    var methodName = this._methodInfo.Name.StartsWith("set_")
+                                         ? _methodInfo.Name.Substring(4)
+                                         : _methodInfo.Name;
+                    var valuesMethod = Target.GetType().GetMethod(methodName + "_values", looseBindingFlags);
+                    if (valuesMethod != null)
+                    {
+                        var parameterValues =
+                            ((IEnumerable<object>) valuesMethod.Invoke(Target, new object[] {})).ToArray();
+                        for (int i = 0; i < parameterValues.Length; i++)
+                        {
+                            parameters[i].Value = parameterValues[i];
+                        }
+                    }
+                    return parameters;
+                };
+                
+                return _parameters ?? (_parameters = loadParameters());
             }
-            return parameters;
         }
 
         public object Invoke(object[] parameters)
         {
-            var methodParameterInfos = this.Parameters.ToArray();
+            var methodParameterInfos = ((IInvokeable)this).Parameters.ToArray();
             for (int index = 0; index < methodParameterInfos.Length; index++)
             {
                 var nodeMethodParameter = methodParameterInfos[index];
@@ -184,7 +188,7 @@ namespace Noodles
         {
             get
             {
-                return this.Parameters.SingleOrDefault(p => p.Name == name);
+                return ((IInvokeable)this).Parameters.SingleOrDefault(p => p.Name == name);
             }
         }
 
@@ -219,16 +223,29 @@ namespace Noodles
             return !Equals(left, right);
         }
 
-        public T GetAttribute<T>()
+        public T GetAttribute<T>() where T:Attribute
         {
             return (T) _methodInfo.GetCustomAttributes(typeof (T), true).SingleOrDefault();
         }
 
         public object Invoke(IDictionary<string, object> parameterDictionary)
         {
-            var parameters = this.Parameters.Select(p => p.Name).Select(name => parameterDictionary[name]).ToArray();
-            return Invoke(parameters);
+            var parameters = ((IInvokeable)this).Parameters.Select(p => p.Name).Select(name => parameterDictionary[name]).ToArray();
+            return ((IInvokeable)this).Invoke(parameters);
         }
+    }
+
+    public interface IInvokeable
+    {
+        bool Active { get; }
+        IEnumerable<NodeMethodParameter> Parameters { get; }
+        string Name { get; }
+        string DisplayName { get; }
+        object Target { get; }
+        string Message { get; }
+        object Invoke(IDictionary<string, object> parameterDictionary);
+        object Invoke(object[] parameters);
+        T GetAttribute<T>() where T : Attribute;
     }
 
     public class NotEnoughParametersForNodeMethodException : Exception

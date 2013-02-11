@@ -4,55 +4,50 @@
 @using Noodles.AspMvc.Helpers
 @using Walkies
 @model object
-
 <div class="noodles-object" data-noodles-node-url="@Model.Url()">
     <div class="row">
         <div class="span12">
             <div class="page-header noodles-object-name" data-noodles-fragment-id="noodle-object-name">
                 <h1>@Model.GetName()</h1>
             </div>
-        @if  (Model.Ancestors().Any())
-        {
-            <ul class="breadcrumb">
-                @foreach (var item in Model.Ancestors().Reverse())
-                {
-                    <li><a href="@item.Url()">@item.GetName()</a>
-                        <span class="divider">/</span></li>
-                }
-                <li class="active" data-noodles-fragment-id="noodle-breadcrumb-name">@Model.GetName()</li>
-            </ul>
-            } 
-        <div class="noodles-properties">
-            @foreach(var property in Model.NodeProperties())
+            @if (Model.Ancestors().Any())
             {
-                <div class="noodles-property" data-noodles-fragment-id="noodle-object-property-@property.Name">
-                    @{
-                        var propertyVm = property.ToPropertyVm(Html);
-                        propertyVm.Readonly = true;
-                        @Html.Partial("FormFactory/Form.Property", propertyVm, ViewData)
-                        ;
-                    }
-                </div>
-            }
-        </div>
-            <div class="noodles-links" data-noodles-fragment-id="noodle-object-links">
-            @foreach(var group in Model.KnownChildren().GroupBy(o => o.GetType()))
-            {
-                <h4>@Noodles.TextExtensions.Sentencise(group.Key.Name)s</h4>
-                <span class="btn-toolbar">
-                    @foreach (var node in group)
+                <ul class="breadcrumb">
+                    @foreach (var item in Model.Ancestors().Reverse())
                     {
-                        @Html.BestPartial(node, group.Key, "Link.")
+                        <li><a href="@item.Url()">@item.GetName()</a>
+                            <span class="divider">/</span></li>
                     }
-                </span>
+                    <li class="active" data-noodles-fragment-id="noodle-breadcrumb-name">@Model.GetName()</li>
+                </ul>
+            }
+            <div class="noodles-properties">
+                @foreach (var property in Model.NodeProperties())
+                {
+                    <div class="noodles-property" data-noodles-fragment-id="noodle-object-property-@property.Name">
+                        @{
+                            @NoodlesHelper.Property(Html, property)
+                        }
+                    </div>
+                }
+            </div>
+            <div class="noodles-links" data-noodles-fragment-id="noodle-object-links">
+                @foreach (var group in Model.KnownChildren().GroupBy(o => o.GetType()).OrderBy(g => g.Count()))
+                {
+                    <span class="btn-toolbar">
+                        @foreach (var node in group)
+                        {
+                            @Html.BestPartial(node, group.Key, "Link.")
+                        }
+                    </span>
                 }
             </div>
             <br />
             <div class="well" data-noodles-fragment-id="noodle-object-actions">
-                @foreach(var method in Model.NodeMethods())
-            {
-                @NoodlesHelper.NodeMethodLink(method, "btn")
-            }
+                @foreach (var method in Model.NodeMethods())
+                {
+                    @NoodlesHelper.NodeMethodLink(method, "btn")
+                }
             </div>
         </div>
     </div>

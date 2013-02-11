@@ -20,9 +20,8 @@ namespace Noodles
         {
             return to.GetMethods(BindingFlags.Public | BindingFlags.DeclaredOnly | BindingFlags.Static)
                 .Where(x => x.Name == "op_Implicit")
-                .Where(x => to.IsAssignableFrom(x.ReturnType))
-                .Where(x => x.GetParameters().Single().ParameterType == from)
-                .FirstOrDefault();
+                .Where(x => to.IsAssignableFrom(x.ReturnType)).
+                FirstOrDefault(x => x.GetParameters().Single().ParameterType == @from);
         }
 
     }

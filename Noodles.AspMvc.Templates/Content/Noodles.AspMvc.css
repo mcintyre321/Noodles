@@ -1,0 +1,20 @@
+﻿/* Make setter forms inline*/
+[data-node-getter] > * {
+    display: inline-block;
+}
+
+/* Make setter forms inline*/
+[data-node-setter] > form > * {
+    display: inline-block;
+}
+
+[data-node-setter] > form > button {
+    top: -4px;
+    position: relative;
+}
+
+/* Make setter forms initially invisible*/
+/* Make setter forms inline*/
+[data-node-setter]{
+    display: none;
+}

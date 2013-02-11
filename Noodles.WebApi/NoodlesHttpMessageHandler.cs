@@ -31,7 +31,7 @@ namespace Noodles.WebApi
         private readonly Func<HttpRequestMessage, object> _getRootObject;
         private Func<NodeMethod, object[], object> _doInvoke;
 
-        public NoodlesHttpMessageHandler(Func<HttpRequestMessage, object> getRootObject, Func<NodeMethod, object[], object> doInvoke = null)
+        public NoodlesHttpMessageHandler(Func<HttpRequestMessage, object> getRootObject, Func<IInvokeable, object[], object> doInvoke = null)
         {
             _getRootObject = getRootObject;
             _doInvoke = doInvoke ?? ((nm, parameters) => nm.Invoke(parameters));

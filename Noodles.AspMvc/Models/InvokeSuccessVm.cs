@@ -1,11 +1,11 @@
 namespace Noodles.AspMvc.Models
 {
-    public class NodeMethodSuccessVm
+    public class InvokeSuccessVm
     {
-        public NodeMethod Method { get; set; }
+        public IInvokeable Method { get; set; }
         public object Result { get; set; }
 
-        public NodeMethodSuccessVm(NodeMethod method, object result)
+        public InvokeSuccessVm(IInvokeable method, object result)
         {
             Method = method;
             Result = result;
