@@ -905,11 +905,12 @@ WebViewPage.WriteTo(@__razor_helper_writer, Html.Partial("Noodles/NodeMethod", p
 #line default
 #line hidden
 
-WebViewPage.WriteLiteralTo(@__razor_helper_writer, "\r\n            </div>\r\n");
+WebViewPage.WriteLiteralTo(@__razor_helper_writer, "\r\n                <div class=\"btn btn-inverse hide-setter\">Cancel</div>\r\n        " +
+"    </div>\r\n");
 
 
 
-#line 134 "..\..\Helpers\NoodlesHelper.cshtml"
+#line 135 "..\..\Helpers\NoodlesHelper.cshtml"
             }
         
 
@@ -920,7 +921,7 @@ WebViewPage.WriteLiteralTo(@__razor_helper_writer, "    </div>\r\n");
 
 
 
-#line 137 "..\..\Helpers\NoodlesHelper.cshtml"
+#line 138 "..\..\Helpers\NoodlesHelper.cshtml"
 
 #line default
 #line hidden

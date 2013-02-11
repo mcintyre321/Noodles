@@ -7,6 +7,13 @@
 [data-node-setter] > form > * {
     display: inline-block;
 }
+[data-node-setter] > * {
+    display: inline-block;
+}
+[data-node-setter] > .hide-setter {
+    position: relative;
+    top: -4px;
+}
 
 [data-node-setter] > form > button {
     top: -4px;

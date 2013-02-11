@@ -12,6 +12,15 @@ $(document).ready(function () {
             });
         });
     });
+    $(document).on("click", ".hide-setter", function () {
+        var $property = $(this).closest("[data-node-property]");
+        var $setter = $property.find("> [data-node-setter]");
+        var $getter = $property.find("> [data-node-getter]");
+        $setter.fadeOut(function () {
+            $getter.fadeIn();
+        });
+    });
+
     $(".popover .close").live('click', function (e) { $(this).closest(".popover").hide(); });
 
     $(".nodeMethodsMenuLink").live('click', function (e) {
