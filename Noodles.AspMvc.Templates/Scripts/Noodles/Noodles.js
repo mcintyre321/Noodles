@@ -126,14 +126,14 @@ $(document).ready(function () {
             };
 
             var formAction = $form.attr('action');
-            $.ajax({
+            var ajaxOptions = {
                 url: formAction,
                 data: formdata ? formdata : $form.serialize(),
                 cache: false,
                 contentType: false,
                 processData: false,
                 type: 'POST',
-                success: function (data, textStatus, jqXHR) {
+                success: function(data, textStatus, jqXHR) {
                     if ($link) {
                         var $table = $link.closest(".dataTable");
                         if ($table.length) {
@@ -145,7 +145,7 @@ $(document).ready(function () {
                     }
                     window.location.reload();
                 },
-                error: function (jqXhr, textStatus, errorThrown) {
+                error: function(jqXhr, textStatus, errorThrown) {
                     if (errorThrown == "Conflict") {
                         var $html = $(jqXhr.responseText);
                         if ($container.hasClass("modal")) {
@@ -159,19 +159,10 @@ $(document).ready(function () {
                         $form.replaceWith($html);
                     }
                 },
-                complete: function () {
+                complete: function() {
                     //$("#ProgressDialog").dialog("close");
                 }
-            });
-            var $fileInputs = $(":file", $form);
-            if ($fileInputs.length) {
-                $.extend(ajaxOptions, {
-                    data: $form.serializeArray(),
-                    files: $(":file", $form),
-                    iframe: true,
-                    processData: false
-                });
-            }
+            };
             $.ajax(ajaxOptions);
             return false;
         });

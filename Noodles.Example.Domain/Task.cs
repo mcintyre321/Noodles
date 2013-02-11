@@ -4,11 +4,11 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Noodles.Example.Domain
 {
-    [Name("{Text}")]
+    [Name("{Title}")]
     public class Task
     {
-        [Show]
-        public string Text { get; set; }
+        [Show][Required][StringLength(30)]
+        public string Title { get; set; }
         [Show]
         public string Notes { get; set; }
 
