@@ -122,7 +122,7 @@
                 @Html.Partial("FormFactory/Form.Property", propertyVm)
                 @if (!property.Readonly)
                 {
-                    <i class="icon-edit show-setter"></i>
+                    <a class="show-setter" href="#edit @property.DisplayName"><i class="icon-edit "></i></a>
                 }
             </div>
             if (!property.Readonly)
@@ -130,7 +130,7 @@
                 
             <div data-node-setter="@property.Name">
                 @Html.Partial("Noodles/NodeMethod", property)
-                <div class="btn btn-inverse hide-setter">Cancel</div>
+                <button class="btn btn-inverse hide-setter">Cancel</button>
             </div>
             }
         }

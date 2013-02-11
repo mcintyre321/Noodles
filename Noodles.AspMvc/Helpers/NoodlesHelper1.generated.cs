@@ -863,7 +863,17 @@ WebViewPage.WriteLiteralTo(@__razor_helper_writer, "\r\n");
 #line default
 #line hidden
 
-WebViewPage.WriteLiteralTo(@__razor_helper_writer, "                    <i class=\"icon-edit show-setter\"></i>\r\n");
+WebViewPage.WriteLiteralTo(@__razor_helper_writer, "                    <a class=\"show-setter\" href=\"#edit ");
+
+
+
+#line 125 "..\..\Helpers\NoodlesHelper.cshtml"
+            WebViewPage.WriteTo(@__razor_helper_writer, property.DisplayName);
+
+#line default
+#line hidden
+
+WebViewPage.WriteLiteralTo(@__razor_helper_writer, "\"><i class=\"icon-edit \"></i></a>\r\n");
 
 
 
@@ -905,8 +915,8 @@ WebViewPage.WriteTo(@__razor_helper_writer, Html.Partial("Noodles/NodeMethod", p
 #line default
 #line hidden
 
-WebViewPage.WriteLiteralTo(@__razor_helper_writer, "\r\n                <div class=\"btn btn-inverse hide-setter\">Cancel</div>\r\n        " +
-"    </div>\r\n");
+WebViewPage.WriteLiteralTo(@__razor_helper_writer, "\r\n                <button class=\"btn btn-inverse hide-setter\">Cancel</button>\r\n  " +
+"          </div>\r\n");
 
 
 

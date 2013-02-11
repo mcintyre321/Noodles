@@ -1,7 +1,7 @@
 ﻿//amaze
 $(document).ready(function () {
-
-    $(document).on("click", ".show-setter", function () {
+    
+    $(document).on("click", ".show-setter", function (e) {
         var $property = $(this).closest("[data-node-property]");
         var $setter = $property.find("> [data-node-setter]");
         var $getter = $property.find("> [data-node-getter]");
@@ -11,14 +11,19 @@ $(document).ready(function () {
 
             });
         });
+        e.preventDefault();
+        return false;
     });
-    $(document).on("click", ".hide-setter", function () {
+    $(document).on("click", ".hide-setter", function (e) {
         var $property = $(this).closest("[data-node-property]");
         var $setter = $property.find("> [data-node-setter]");
         var $getter = $property.find("> [data-node-getter]");
         $setter.fadeOut(function () {
             $getter.fadeIn();
         });
+
+        e.preventDefault();
+        return false;
     });
 
     $(".popover .close").live('click', function (e) { $(this).closest(".popover").hide(); });
