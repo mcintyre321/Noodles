@@ -63,7 +63,7 @@
     </Reference>
     <Reference Include="FormFactory.Templates, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\FormFactory.Templates.1.2.234\lib\net40\FormFactory.Templates.dll</HintPath>
+      <HintPath>..\packages\FormFactory.Templates.1.2.238\lib\net40\FormFactory.Templates.dll</HintPath>
     </Reference>
     <Reference Include="Harden">
       <HintPath>..\packages\Harden.1.2.6\lib\net40\Harden.dll</HintPath>
@@ -236,14 +236,14 @@
     <Content Include="Content\themes\base\minified\jquery.ui.theme.min.css" />
     <Content Include="Content\themes\base\minified\jquery.ui.tooltip.min.css" />
     <Content Include="Global.asax" />
-    <Content Include="Scripts\bootstrap.js" />
-    <Content Include="Scripts\bootstrap.min.js" />
-    <Content Include="Scripts\FormFactory\FormFactory.js" />
     <Content Include="Content\font\fontawesome-webfont.woff" />
     <Content Include="Content\font\fontawesome-webfont.ttf" />
     <Content Include="Content\font\fontawesome-webfont.eot" />
     <Content Include="Content\font\FontAwesome.otf" />
     <None Include="Scripts\jquery-1.9.1.intellisense.js" />
+    <Content Include="Scripts\bootstrap.js" />
+    <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Scripts\FormFactory\FormFactory.js" />
     <Content Include="Scripts\jquery-1.9.1.js" />
     <Content Include="Scripts\jquery-1.9.1.min.js" />
     <Content Include="Scripts\jquery-migrate-1.1.0.js" />
@@ -260,6 +260,7 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.dynamic.js" />
     <Content Include="Scripts\modernizr-1.7.js" />
     <Content Include="Scripts\modernizr-1.7.min.js" />
+    <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Views\Shared\FormFactory\_README.txt" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
