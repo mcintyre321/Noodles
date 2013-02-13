@@ -193,6 +193,11 @@
     <EmbeddedResource Include="..\Noodles.AspMvc.Templates\Views\Shared\List.Object.cshtml">
       <Link>Views\Shared\List.Object.cshtml</Link>
     </EmbeddedResource>
+    <EmbeddedResource Include="Content\font\fontawesome-webfont.svg" />
+    <EmbeddedResource Include="Content\font\fontawesome-webfont.woff" />
+    <EmbeddedResource Include="Content\font\fontawesome-webfont.ttf" />
+    <EmbeddedResource Include="Content\font\fontawesome-webfont.eot" />
+    <EmbeddedResource Include="Content\font\FontAwesome.otf" />
     <None Include="Helpers\Icons\IconNames.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>IconNames.cs</LastGenOutput>
@@ -217,8 +222,11 @@
     <EmbeddedResource Include="Content\bootstrap-responsive.min.css" />
     <EmbeddedResource Include="Content\bootstrap.css" />
     <EmbeddedResource Include="Content\bootstrap.min.css" />
-    <Content Include="Content\images\glyphicons-halflings-white.png" />
-    <Content Include="Content\images\glyphicons-halflings.png" />
+    <EmbeddedResource Include="Content\font-awesome-ie7.min.css" />
+    <EmbeddedResource Include="Content\font-awesome.css" />
+    <EmbeddedResource Include="Content\font-awesome.min.css" />
+    <EmbeddedResource Include="Content\images\glyphicons-halflings-white.png" />
+    <EmbeddedResource Include="Content\images\glyphicons-halflings.png" />
     <EmbeddedResource Include="Content\themes\base\images\animated-overlay.gif" />
     <EmbeddedResource Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
     <EmbeddedResource Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
