@@ -93,7 +93,7 @@ namespace Noodles
         {
             get { return _getCustomAttributes(); }
         }
-
+        
         public bool Readonly { get { return Setter == null; } }
 
         string GetDisplayName(PropertyInfo info)

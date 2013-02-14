@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using Walkies;
 
@@ -9,6 +10,12 @@ namespace Noodles.Example.Domain
     [Name("{ListName}")]
     public class ToDoList
     {
+
+        [Show]
+        [StringLength(20)]
+        [Required]
+        public string ListName { get; set; }
+        
         [Show(UiHint = "List")]
         public IList<Task> Tasks = new List<Task>();
         public ToDoList()
@@ -33,7 +40,5 @@ namespace Noodles.Example.Domain
             return Tasks.GetEnumerator();
         }
 
-        [Show][MyStringLength(1, 20)] 
-        public string ListName { get; set; }
     }
 }

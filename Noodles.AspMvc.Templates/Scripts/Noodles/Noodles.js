@@ -9,6 +9,7 @@ $(document).ready(function () {
             $setter.fadeIn(function () {
                 $setter.find('input,textarea,select').filter(':enabled:visible:not([readonly="readonly"]):not([type="hidden"])').first().focus();
 
+                $.validator.unobtrusive.parseDynamicContent($setter);
             });
         });
         e.preventDefault();
@@ -117,54 +118,59 @@ $(document).ready(function () {
         var $method = $("#" + methodsPanelId);
         $method.modal({ show: true, backdrop: true });
         $method.find(":input:visible:enabled:first").focus();
-        $(".submitMethod", $method).on('click', function (e) {
-            var $container = $(this).closest(".nodeMethod");
-            var $form = $container.is("form") ? $container : $container.find("form");
-            var formdata = false;
-            if (window.FormData) {
-                formdata = new FormData($form[0]);
-            };
 
-            var formAction = $form.attr('action');
-            var ajaxOptions = {
-                url: formAction,
-                data: formdata ? formdata : $form.serialize(),
-                cache: false,
-                contentType: false,
-                processData: false,
-                type: 'POST',
-                success: function(data, textStatus, jqXHR) {
-                    if ($link) {
-                        var $table = $link.closest(".dataTable");
-                        if ($table.length) {
-                            $table.dataTable().fnDraw(false);
-                            $method.modal("hide");
-                            $method.remove();
-                            return;
-                        }
-                    }
-                    window.location.reload();
-                },
-                error: function(jqXhr, textStatus, errorThrown) {
-                    if (errorThrown == "Conflict") {
-                        var $html = $(jqXhr.responseText);
-                        if ($container.hasClass("modal")) {
-                            var $buttons = $html.find("button").remove();
-                            $container.find(".modal-footer").empty().append($buttons);
-                        } else if ($form.hasClass("form-inline")) {
-                            $html.find("div.controls").css("display", "inline");
-                            $html.find("div.control-group").css("display", "inline");
-                            $html.addClass("form-inline");
-                        }
-                        $form.replaceWith($html);
-                    }
-                },
-                complete: function() {
-                    //$("#ProgressDialog").dialog("close");
-                }
-            };
-            $.ajax(ajaxOptions);
-            return false;
-        });
+        $.validator.unobtrusive.parseDynamicContent($method);
+
     };
+    $(document).on("click", ".submitMethod", function (e) {
+        var $container = $(this).closest(".nodeMethod");
+        var $form = $container.is("form") ? $container : $container.find("form");
+        var formdata = false;
+        if (window.FormData) {
+            formdata = new FormData($form[0]);
+        };
+
+        var formAction = $form.attr('action');
+        var ajaxOptions = {
+            url: formAction,
+            data: formdata ? formdata : $form.serialize(),
+            cache: false,
+            contentType: false,
+            processData: false,
+            type: 'POST',
+            success: function (data, textStatus, jqXHR) {
+                //if ($link) {
+                //    var $table = $link.closest(".dataTable");
+                //    if ($table.length) {
+                //        $table.dataTable().fnDraw(false);
+                //        $method.modal("hide");
+                //        $method.remove();
+                //        return;
+                //    }
+                //}
+                window.location.reload();
+            },
+            error: function (jqXhr, textStatus, errorThrown) {
+                if (errorThrown == "Conflict") {
+                    var $html = $(jqXhr.responseText);
+                    if ($container.hasClass("modal")) {
+                        var $buttons = $html.find("button").remove();
+                        $container.find(".modal-footer").empty().append($buttons);
+                    } else if ($form.hasClass("form-inline")) {
+                        $html.find("div.controls").css("display", "inline");
+                        $html.find("div.control-group").css("display", "inline");
+                        $html.addClass("form-inline");
+                    }
+                    $form.replaceWith($html);
+                    $.validator.unobtrusive.parseDynamicContent($form);
+
+                }
+            },
+            complete: function () {
+                //$("#ProgressDialog").dialog("close");
+            }
+        };
+        $.ajax(ajaxOptions);
+        return false;
+    });
 });
