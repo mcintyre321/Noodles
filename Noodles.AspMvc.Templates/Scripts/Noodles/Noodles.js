@@ -9,7 +9,7 @@ $(document).ready(function () {
             $setter.fadeIn(function () {
                 $setter.find('input,textarea,select').filter(':enabled:visible:not([readonly="readonly"]):not([type="hidden"])').first().focus();
 
-                $.validator.unobtrusive.parseDynamicContent($setter);
+                $.validator.unobtrusive.parseDynamicContent($setter.find("input,textarea,select"));
             });
         });
         e.preventDefault();
@@ -119,7 +119,7 @@ $(document).ready(function () {
         $method.modal({ show: true, backdrop: true });
         $method.find(":input:visible:enabled:first").focus();
 
-        $.validator.unobtrusive.parseDynamicContent($method);
+        $.validator.unobtrusive.parseDynamicContent($method.find("form").find("input,textarea,select").first());
 
     };
     $(document).on("click", ".submitMethod", function (e) {
@@ -162,7 +162,7 @@ $(document).ready(function () {
                         $html.addClass("form-inline");
                     }
                     $form.replaceWith($html);
-                    $.validator.unobtrusive.parseDynamicContent($form);
+                    $.validator.unobtrusive.parseDynamicContent($form.find("input,textarea,select").first());
 
                 }
             },
