@@ -65,7 +65,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="HtmlMediaTypeFormatter.cs" />
-    <Compile Include="NodeMethodInvokeSuccess.cs" />
     <Compile Include="NoodlesHttpMessageHandler.cs" />
     <Compile Include="NoodlesHttpProcessor.cs" />
     <Compile Include="NoodlesToWebApiResultMapper.cs" />

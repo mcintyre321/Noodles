@@ -15,18 +15,20 @@ namespace Noodles.Example.Domain
         [StringLength(20)]
         [Required]
         public string ListName { get; set; }
-        
+
         [Show(UiHint = "List")]
-        public IList<Task> Tasks = new List<Task>();
+        [Collection]
+        public IList<Task> Tasks { get; set; }
         public ToDoList()
         {
-            this.Tasks = new List<Task>().SetParent(this, "Tasks").SetName("Tasks");
+            Tasks = new List<Task>();
+            this.Tasks = new List<Task>();
         }
 
         [Show]
         public void AddTask(Task task)
         {
-            Tasks.Add(task.SetParent(Tasks, Guid.NewGuid().ToString()));
+            Tasks.Add(task);
         }
 
         [Show]

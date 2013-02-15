@@ -6,8 +6,8 @@
 <div class="btn-group">
     <div class="btn">
         <a href="@Model.Url">
-
-            <i class="icon-@(Model.Target.Completed ? IconNames.check : IconNames.check_empty)"></i>@Model.GetDisplayName()</a>
+            <i class="icon-@(Model.Target.Completed ? IconNames.check : IconNames.check_empty)"></i>@Model.DisplayName
+        </a>
     </div>
 
     @{

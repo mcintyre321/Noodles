@@ -16,12 +16,13 @@ namespace Noodles.Example.Domain
 
         public Application()
         {
-            Lists = new List<ToDoList>().SetParent(this, "Lists").SetName("Lists");
+            Lists = new List<ToDoList>();
             var toDoList = new ToDoList()
             {
                 ListName = "Shopping List"
             };
             AddList(toDoList);
+            toDoList.AddTask(new Task() {Title = "Milk"});
         }
 
         [Show]

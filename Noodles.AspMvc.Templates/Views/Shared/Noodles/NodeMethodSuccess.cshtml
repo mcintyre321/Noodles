@@ -1,18 +1,18 @@
 ﻿@using System.Web.Mvc.Html
 @using FormFactory
-@model Noodles.AspMvc.Models.InvokeSuccessVm
+@model Noodles.Requests.Results.InvokeSuccessResult
 <div class="result alert alert-success">
     <a class="close" data-dismiss="alert">×</a>
     <span class="message">Your request has been processed</span>
-    @if (Model.Result != null)
+    @if (Model.Invokeable != null)
     {
-        var bestViewName = Html.BestViewName(Model.Result.GetType(), prefix: "Success.");
+        var bestViewName = Html.BestViewName(Model.Invokeable.GetType(), prefix: "Success.");
         if (bestViewName != null)
         {
             <div class="result-content">
-                @Html.Partial(bestViewName, Model.Result)
+                @Html.Partial(bestViewName, Model.Invokeable)
             </div>
         }
     }
 </div>
-@Html.Partial("Noodles/NodeMethod", Model.Method)
+@Html.Partial("Noodles/NodeMethod", Model.Invokeable)

@@ -28,6 +28,7 @@ namespace Noodles.Requests
 
         public static async Task<Result> ProcessInvoke(TContext context, NoodlesRequest request, INode node, Func<IInvokeable, object[], object> doInvoke)
         {
+            doInvoke = doInvoke ?? DoInvoke;
             var invokeable = node as IInvokeable;
             if (invokeable == null) return await NullTask();
 
@@ -82,6 +83,11 @@ namespace Noodles.Requests
             {
                 return new InvokeSuccessResult(invokeable);
             }
+        }
+
+        private static object DoInvoke(IInvokeable invokeable, object[] args)
+        {
+            return invokeable.Invoke(args);
         }
 
         private static Result MapResultToNoodleResult(object result)

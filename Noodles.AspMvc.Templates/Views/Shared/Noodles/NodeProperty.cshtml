@@ -29,12 +29,12 @@
 
                 </div>
             </div>
-            @if (!property.Readonly)
+            @if (!property.IsCollection && !property.Readonly)
             {
                 <a class="show-setter" href="#edit @property.DisplayName"><i class="icon-edit "></i></a>
             }
         </div>
-        if (!property.Readonly)
+        if (!property.IsCollection && !property.Readonly)
         {
                 
         <div data-node-setter="@property.Name">

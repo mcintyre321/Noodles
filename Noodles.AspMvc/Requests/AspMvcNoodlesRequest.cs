@@ -19,6 +19,7 @@ namespace Noodles.AspMvc.Requests
         public AspMvcNoodlesRequest(ControllerContext cc)
         {
             _cc = cc;
+            this.IsInvoke = cc.HttpContext.Request.HttpMethod == "POST";
         }
 
         public override string RootUrl

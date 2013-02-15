@@ -33,7 +33,7 @@ namespace Noodles.AspMvc.Requests
             res.ViewData.Model = result.Invokeable;
             if (context.HttpContext.Request.IsAjaxRequest())
             {
-                res.MasterName = "Shared/Noodles/_AjaxLayout.cshtml";
+                res.MasterName = "Noodles/_AjaxLayout";
             }
             return res;
         }
@@ -61,11 +61,12 @@ namespace Noodles.AspMvc.Requests
             var res = new System.Web.Mvc.ViewResult();
             if (context.HttpContext.Request.IsAjaxRequest())
             {
-                res.MasterName = "Shared/Noodles/_AjaxLayout.cshtml";
+                res.MasterName = "Noodles/_AjaxLayout";
             }
             res.ViewName = "Noodles/NodeMethodSuccess";
-            res.ViewData.Model = result.Invokeable;
+            res.ViewData.Model = result;
             return res;
         }
+
     }
 }
