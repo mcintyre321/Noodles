@@ -72,7 +72,6 @@
     <Compile Include="NodeMethodExtensions.cs" />
     <Compile Include="NodeTypeExtension.cs" />
     <Compile Include="PathExtension.cs" />
-    <Compile Include="Reflection\NodeFieldsRuleRegistry.cs" />
     <Compile Include="Reflection\NodePropertiesRuleRegistry.cs" />
     <Compile Include="Reflection\NodePropertiesExtension.cs" />
     <Compile Include="Reflection\NodeMethodParameterFixes.cs" />

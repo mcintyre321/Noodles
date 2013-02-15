@@ -12,7 +12,7 @@ namespace Noodles
     {
         public static IEnumerable<NodeProperty> NodeProperties(this object o, Resource resource, Type fallback = null)
         {
-            return YieldFindNodePropertiesUsingReflection(resource, o, fallback).Concat(YieldFindNodeFieldsUsingReflection(o));
+            return YieldFindNodePropertiesUsingReflection(resource, o, fallback);
         }
 
         public static NodeProperty NodeProperty(this object o, Resource resource, string propertyName, Type fallback = null)
@@ -36,27 +36,10 @@ namespace Noodles
                 }
                 if (ruleResult ?? NodePropertiesRuleRegistry.ShowByDefault)
                 {
-                    yield return new NodeProperty(target, info);
+                    yield return new NodeProperty(node, target, info);
                 }
             }
         }
-        public static IEnumerable<NodeProperty> YieldFindNodeFieldsUsingReflection(object target)
-        {
-            const BindingFlags bindingFlags = BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.FlattenHierarchy;
-            var propertyInfos = target.GetType().GetFields(bindingFlags).ToArray();
-            foreach (var info in propertyInfos)
-            {
-                bool? ruleResult = null;
-                foreach (var rule in NodeFieldsRuleRegistry.ShowFieldRules)
-                {
-                    ruleResult = rule(target, info);
-                    if (ruleResult.HasValue) break;
-                }
-                if (ruleResult ?? NodeFieldsRuleRegistry.ShowByDefault)
-                {
-                    yield return new NodeProperty(target, info);
-                }
-            }
-        }
+       
     }
 }

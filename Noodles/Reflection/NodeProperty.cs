@@ -17,7 +17,7 @@ namespace Noodles
         private readonly Func<IEnumerable<Attribute>> _getCustomAttributes;
         private object _value;
 
-        public NodeProperty(object target, PropertyInfo info)
+        public NodeProperty(Resource parent, object target, PropertyInfo info)
         {
             _target = target;
             _getCustomAttributes = info.GetCustomAttributes;
@@ -33,20 +33,10 @@ namespace Noodles
                     Setter = new NodeMethod(this, target, setter);
                 }
             }
-            this.SetParent(Target, this.Name);
+            this.Parent = parent;
         }
 
-        public NodeProperty(object target, FieldInfo info)
-        {
-            _target = target;
-            _getCustomAttributes = info.GetCustomAttributes;
-            Value = info.GetValue(target);
-            PropertyType = info.FieldType;
-            Name = info.Name;
-            DisplayName = GetDisplayName(info);
-
-            this.SetParent(Target, this.Name);
-        }
+         
 
         public NodeMethod Setter { get; set; }
 
