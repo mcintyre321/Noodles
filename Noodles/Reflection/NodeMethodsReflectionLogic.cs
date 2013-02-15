@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using Noodles.Requests;
 using Walkies;
 
 namespace Noodles
@@ -16,7 +17,7 @@ namespace Noodles
         public static List<FindNodeMethodsRule> FindNodeMethodsRules { get; private set; }
 
         public static FindNodeMethodsRule UseIHasNodeMethod = nm => nm.Parent() is IHasNodeMethods ? ((IHasNodeMethods)nm.Parent()).NodeMethods() : null;
-        public static IEnumerable<NodeMethod> YieldFindNodeMethodsUsingReflection(object target)
+        public static IEnumerable<NodeMethod> YieldFindNodeMethodsUsingReflection(object target, Resource resource)
         {
             var methods = target.GetType().GetMethods(BindingFlags.Public | BindingFlags.Instance | BindingFlags.FlattenHierarchy).ToArray();
             foreach (var info in methods)
@@ -29,7 +30,7 @@ namespace Noodles
                 }
                 if (ruleResult ?? NodeMethodsRuleRegistry.ShowByDefault)
                 {
-                    yield return new NodeMethod(target, info);
+                    yield return new NodeMethod(resource, target, info);
                 }
             }
         }

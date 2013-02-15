@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Noodles.Example.Domain
 {
-    [Name("{Title}")]
+    [DisplayName("{Title}")]
     public class Task
     {
         [Show][Required][StringLength(30)]

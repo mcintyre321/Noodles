@@ -104,7 +104,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Shared\Noodles\_AjaxLayout.cshtml" />
-    <Content Include="Views\Shared\Noodles\_README.txt" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Shared\Noodles\NodeMethods.cshtml" />
@@ -115,14 +114,13 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Shared\Object.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="packages.config" />
     <Content Include="Views\Shared\Link.Object.cshtml" />
     <Content Include="Scripts\Noodles\Noodles.SignalR.js" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Shared\List.Object.cshtml" />
+    <Content Include="Views\Shared\Noodles\Node.cshtml" />
+    <Content Include="Views\Shared\Noodles\NodeProperty.cshtml" />
     <None Include="Views\Web.config" />
     <Content Include="Views\_ViewStart.cshtml" />
   </ItemGroup>

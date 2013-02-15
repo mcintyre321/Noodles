@@ -17,10 +17,7 @@ namespace Noodles
             NodePropertiesRuleRegistry.ShowPropertyRules.Add((o, info) => Harden.Allow.Get(o, info) ? null as bool? : false);
 
 
-            //Enable finding node methods on objects
-            Walkies.WalkExtension.Rules.Add((o, fragment) => o.NodeMethod(fragment));
-            Walkies.WalkExtension.Rules.Add((o, fragment) => o.NodeProperty(fragment));
-        
+            
         }
         
         public static void Initialise()

@@ -4,10 +4,11 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Reflection;
+using Noodles.Requests;
 
 namespace Noodles
 {
-    public class NodeMethodParameter
+    public class NodeMethodParameter : INode
     {
         private readonly NodeMethod _nodeMethod;
         private readonly MethodInfo _mi;
@@ -94,9 +95,16 @@ namespace Noodles
             set { _displayName = value; }
         }
 
+        public string Url
+        {
+            get { return Parent.Url + Fragment + "/"; }
+        }
+
+        public INode Parent { get; set; }
+
         string GetDisplayName()
         {
-            var att = this._parameter.GetCustomAttributes(typeof(DisplayNameAttribute), true).OfType<DisplayNameAttribute>().FirstOrDefault();
+            var att = this._parameter.GetCustomAttributes(typeof(System.ComponentModel.DisplayNameAttribute), true).OfType<System.ComponentModel.DisplayNameAttribute>().FirstOrDefault();
             if (att == null)
             {
                 return Name.Replace("_", "").Sentencise();
@@ -148,5 +156,12 @@ namespace Noodles
         }
 
         public bool Locked { get; set; }
+
+        public INode GetChild(string fragment)
+        {
+            return null;
+        }
+
+        public string Fragment { get { return Name; }}
     }
 }

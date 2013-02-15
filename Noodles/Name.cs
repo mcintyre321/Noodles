@@ -17,11 +17,11 @@ namespace Noodles
             return obj;
         }
 
-        public static string GetName(this object obj)
+        public static string GetDisplayName(this object obj)
         {
             var format = lookup.GetOrAdd(obj, (o) =>
             {
-                var f = NameAttribute.GetNameAttribute(o.GetType());
+                var f = DisplayNameAttribute.GetNameAttribute(o.GetType());
                 if (f == null) f = o.GetType().Name;
                 return f;
 
@@ -31,19 +31,19 @@ namespace Noodles
         }
     }
 
-    public class NameAttribute : Attribute
+    public class DisplayNameAttribute : Attribute
     {
         static ConcurrentDictionary<Type, string> lookup = new ConcurrentDictionary<Type, string>();
 
         public string Name { get; set; }
-        public NameAttribute(string name)
+        public DisplayNameAttribute(string name)
         {
             Name = name;
         }
 
         public static string GetNameAttribute(Type t)
         {
-            var name = t.GetCustomAttributes(false).OfType<NameAttribute>().SingleOrDefault();
+            var name = t.GetCustomAttributes(false).OfType<DisplayNameAttribute>().SingleOrDefault();
             if (name == null) return null;
             return name.Name;
         }

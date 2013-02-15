@@ -6,7 +6,7 @@ using Walkies;
 
 namespace Noodles.Example.Domain
 {
-    [Name("Your to do lists")]
+    [DisplayName("Your to do lists")]
     public class Application
     {
 

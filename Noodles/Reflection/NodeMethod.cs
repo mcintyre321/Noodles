@@ -8,29 +8,27 @@ using System.Linq;
 using System.Reflection;
 using Noodles.Attributes;
 using Noodles.Reflection;
+using Noodles.Requests;
 using Walkies;
 
 namespace Noodles
 {
     [DebuggerDisplay("{ToString()} - Name={Name}")]
-    public class NodeMethod : IGetChild, IInvokeable
+    public class NodeMethod : IInvokeable, INode
     {
         private readonly MethodInfo _methodInfo;
 
-        public Type SignatureType
-        {
-            get { return Siggs.SiggsExtensions.GetTypeForMethodInfo(_methodInfo); }
-        }
+        
 
-        public NodeMethod(object target, MethodInfo methodInfo)
+        public NodeMethod(INode parent, object target, MethodInfo methodInfo)
         {
             _methodInfo = methodInfo;
+            Parent = parent;
             Target = target;
-            this.SetParent(target, this.Name);
         }
 
         public object Target { get; private set; }
-        
+
         private BindingFlags looseBindingFlags = BindingFlags.IgnoreCase | BindingFlags.FlattenHierarchy | BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic;
 
         public string Name { get { return _methodInfo.Name; } }
@@ -46,7 +44,7 @@ namespace Noodles
 
         private string GetDisplayName()
         {
-            var att = this._methodInfo.GetCustomAttributes(typeof(DisplayNameAttribute), true).OfType<DisplayNameAttribute>().FirstOrDefault();
+            var att = this._methodInfo.GetCustomAttributes(typeof(System.ComponentModel.DisplayNameAttribute), true).OfType<System.ComponentModel.DisplayNameAttribute>().FirstOrDefault();
             if (att == null)
             {
                 return Name.Replace("_", "").Sentencise();
@@ -92,13 +90,15 @@ namespace Noodles
 
         public string Url
         {
-            get { return this.Url(); }
+            get { return this.Parent.Url +  this.Fragment + "/"; }
         }
+
+        public INode Parent { get; private set; }
 
 
         private IEnumerable<NodeMethodParameter> _parameters;
 
-        public bool Active { get { return true; }}
+        public bool Active { get { return true; } }
 
         public IEnumerable<NodeMethodParameter> Parameters
         {
@@ -115,7 +115,7 @@ namespace Noodles
                     if (valuesMethod != null)
                     {
                         var parameterValues =
-                            ((IEnumerable<object>) valuesMethod.Invoke(Target, new object[] {})).ToArray();
+                            ((IEnumerable<object>)valuesMethod.Invoke(Target, new object[] { })).ToArray();
                         for (int i = 0; i < parameterValues.Length; i++)
                         {
                             parameters[i].Value = parameterValues[i];
@@ -123,7 +123,7 @@ namespace Noodles
                     }
                     return parameters;
                 };
-                
+
                 return _parameters ?? (_parameters = loadParameters());
             }
         }
@@ -184,17 +184,20 @@ namespace Noodles
             {
                 throw new NotEnoughParametersForNodeMethodException(this, parameterInfo, parameters);
             }
-        
+
             return parameters[index];
         }
-       
 
-        object IGetChild.this[string name]
+        public INode GetChild(string fragment)
         {
-            get
-            {
-                return ((IInvokeable)this).Parameters.SingleOrDefault(p => p.Name == name);
-            }
+            return ((IInvokeable)this).Parameters.SingleOrDefault(p => p.Name == fragment);
+        }
+
+        public string Fragment { get { return Name; } }
+
+        public Type SignatureType
+        {
+            get { return Siggs.SiggsExtensions.GetTypeForMethodInfo(_methodInfo); }
         }
 
 
@@ -218,6 +221,7 @@ namespace Noodles
             return this.Path().GetHashCode();
         }
 
+
         public static bool operator ==(NodeMethod left, NodeMethod right)
         {
             return Equals(left, right);
@@ -228,9 +232,9 @@ namespace Noodles
             return !Equals(left, right);
         }
 
-        public T GetAttribute<T>() where T:Attribute
+        public T GetAttribute<T>() where T : Attribute
         {
-            return (T) _methodInfo.GetCustomAttributes(typeof (T), true).SingleOrDefault();
+            return (T)_methodInfo.GetCustomAttributes(typeof(T), true).SingleOrDefault();
         }
 
         public object Invoke(IDictionary<string, object> parameterDictionary)
@@ -250,6 +254,7 @@ namespace Noodles
         string Message { get; }
         string Url { get; }
         bool AutoSubmit { get; }
+        Type SignatureType { get; }
         object Invoke(IDictionary<string, object> parameterDictionary);
         object Invoke(object[] parameters);
         T GetAttribute<T>() where T : Attribute;

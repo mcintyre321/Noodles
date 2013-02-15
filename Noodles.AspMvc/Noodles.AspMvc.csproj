@@ -154,6 +154,9 @@
     </Compile>
     <Compile Include="Models\InvokeSuccessVm.cs" />
     <Compile Include="NoodlesHub.cs" />
+    <Compile Include="Requests\AspMvcNoodleHandler.cs" />
+    <Compile Include="Requests\AspMvcNoodlesRequest.cs" />
+    <Compile Include="Requests\NoodleResultToActionResultMapper.cs" />
     <Compile Include="SetUrlRootExtension.cs" />
     <Compile Include="Helpers\AttemptedValueHelper.cs" />
     <Compile Include="Helpers\FormFactoryHelperExtensions.cs" />
@@ -175,9 +178,6 @@
     <EmbeddedResource Include="..\Noodles.AspMvc.Templates\Views\Shared\Noodles\_AjaxLayout.cshtml">
       <Link>Views\Shared\Noodles\_AjaxLayout.cshtml</Link>
     </EmbeddedResource>
-    <EmbeddedResource Include="..\Noodles.AspMvc.Templates\Views\Shared\Object.cshtml">
-      <Link>Views\Shared\Object.cshtml</Link>
-    </EmbeddedResource>
     <EmbeddedResource Include="..\Noodles.AspMvc.Templates\Views\Shared\Noodles\NodeMethods.cshtml">
       <Link>Views\Shared\Noodles\NodeMethods.cshtml</Link>
     </EmbeddedResource>
@@ -198,6 +198,12 @@
     <EmbeddedResource Include="Content\font\fontawesome-webfont.ttf" />
     <EmbeddedResource Include="Content\font\fontawesome-webfont.eot" />
     <EmbeddedResource Include="Content\font\FontAwesome.otf" />
+    <EmbeddedResource Include="..\Noodles.AspMvc.Templates\Views\Shared\Noodles\Node.cshtml">
+      <Link>Views\Shared\Noodles\Node.cshtml</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\Noodles.AspMvc.Templates\Views\Shared\Noodles\NodeProperty.cshtml">
+      <Link>Views\Shared\Noodles\NodeProperty.cshtml</Link>
+    </EmbeddedResource>
     <None Include="Helpers\Icons\IconNames.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>IconNames.cs</LastGenOutput>

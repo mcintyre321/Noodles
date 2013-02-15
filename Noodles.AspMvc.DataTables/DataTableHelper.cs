@@ -29,33 +29,34 @@ namespace Noodles.AspMvc.DataTables
             }
             var target = GetObjectAndMember(getProperty);
             var columns = typeof(TResult).GetProperties().Select(p => ColDef.Create(p.Name, p.Name, p.PropertyType)).ToArray();
-            return new DataTableVm("DataTable_" + target.Item2 + "_" + target.Item1.Id(), target.Item1.Url() + "?action=getDataTable&prop=" + target.Item2 + "&transform=" + key, columns);
+            return new DataTableVm("DataTable_" + target.Item2 + "_" + target.Item1.Id(), target.Item1.Url + "?action=getDataTable&prop=" + target.Item2 + "&transform=" + key, columns);
         }
 
 
-        private static Tuple<object, string, string, T> GetObjectAndMember<T>(Expression<Func<T>> getProperty)
+        private static Tuple<NodeProperty, string, string, T> GetObjectAndMember<T>(Expression<Func<T>> getProperty)
         {
-            dynamic exp = getProperty;
-            var memberName = (string)exp.Body.Member.Name;
-            var info = exp.Body.Expression.Member as object;
-            object noodleObject = null;
-            var displayNameAtt = null as DisplayNameAttribute;
-            if (info is PropertyInfo)
-            {
-                noodleObject = exp.Body.Expression.Expression.Value.Model;
-            }
-            else if (info is FieldInfo)
-            {
-                var fi = (FieldInfo)info;
-                noodleObject = fi.GetValue(exp.Body.Expression.Expression.Value);
-            }
-            else
-            {
-                throw new NotImplementedException(
-                    "The static reflection code hasn't been able to figure out the object properly. Feel free to improve it!");
-            }
-            var queryable = (T)noodleObject.GetType().GetProperty(memberName).GetGetMethod().Invoke(noodleObject, null);
-            return Tuple.Create(noodleObject, memberName, memberName, queryable);
+            throw new NotImplementedException();
+            //dynamic exp = getProperty;
+            //var memberName = (string)exp.Body.Member.Name;
+            //var info = exp.Body.Expression.Member as object;
+            //object noodleObject = null;
+            //var displayNameAtt = null as System.ComponentModel.DisplayNameAttribute;
+            //if (info is PropertyInfo)
+            //{
+            //    noodleObject = exp.Body.Expression.Expression.Value.Model;
+            //}
+            //else if (info is FieldInfo)
+            //{
+            //    var fi = (FieldInfo)info;
+            //    noodleObject = fi.GetValue(exp.Body.Expression.Expression.Value);
+            //}
+            //else
+            //{
+            //    throw new NotImplementedException(
+            //        "The static reflection code hasn't been able to figure out the object properly. Feel free to improve it!");
+            //}
+            //var queryable = (T)noodleObject.GetType().GetProperty(memberName).GetGetMethod().Invoke(noodleObject, null);
+            //return Tuple.Create(noodleObject, memberName, memberName, queryable);
         }
     }
 }

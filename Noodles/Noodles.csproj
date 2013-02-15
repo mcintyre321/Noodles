@@ -86,6 +86,20 @@
     <Compile Include="Reflection\NodeMethodsRuleRegistry.cs" />
     <Compile Include="Reflection\NodeProperty.cs" />
     <Compile Include="Reflection\TextExtensions.cs" />
+    <Compile Include="Requests\ArgumentBindingException.cs" />
+    <Compile Include="Requests\Results\BadRequestResult.cs" />
+    <Compile Include="Requests\DefaultProcessors.cs" />
+    <Compile Include="Requests\Handler.cs" />
+    <Compile Include="Requests\Results\InvokeSuccessResult.cs" />
+    <Compile Include="Requests\Resource.cs" />
+    <Compile Include="Requests\NoodleResultMapper.cs" />
+    <Compile Include="Requests\Results\NoodlesErrorResult.cs" />
+    <Compile Include="Requests\Results\NotFoundResult.cs" />
+    <Compile Include="Requests\RequestProcessor.cs" />
+    <Compile Include="Requests\NoodlesRequest.cs" />
+    <Compile Include="Requests\Results\NoodlesResult.cs" />
+    <Compile Include="Requests\Results\NoodlesValidationErrorResult.cs" />
+    <Compile Include="Requests\Results\NoodlesViewResult.cs" />
     <Compile Include="UserException.cs" />
   </ItemGroup>
   <ItemGroup>

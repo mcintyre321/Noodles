@@ -35,7 +35,7 @@ namespace Noodles
             return o.WalkedPath("/");
         }
 
-        public static string Url(this object o)
+        public static string Urlz(this object o)
         {
             var walked = o.Walked();
             var rootPrefix = walked.First().GetUrlRoot() ?? "";

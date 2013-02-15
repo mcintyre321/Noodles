@@ -3,23 +3,24 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using Noodles.Requests;
 using Walkies;
 
 namespace Noodles
 {
     public static class NodePropertiesExtension
     {
-        public static IEnumerable<NodeProperty> NodeProperties(this object o, Type fallback = null)
+        public static IEnumerable<NodeProperty> NodeProperties(this object o, Resource resource, Type fallback = null)
         {
-            return YieldFindNodePropertiesUsingReflection(o, fallback).Concat(YieldFindNodeFieldsUsingReflection(o));
+            return YieldFindNodePropertiesUsingReflection(resource, o, fallback).Concat(YieldFindNodeFieldsUsingReflection(o));
         }
 
-        public static NodeProperty NodeProperty(this object o, string propertyName, Type fallback = null)
+        public static NodeProperty NodeProperty(this object o, Resource resource, string propertyName, Type fallback = null)
         {
-            return o.NodeProperties(fallback).SingleOrDefault(m => m.Name.ToLowerInvariant() == propertyName.ToLowerInvariant());
+            return o.NodeProperties(resource, fallback).SingleOrDefault(m => m.Name.ToLowerInvariant() == propertyName.ToLowerInvariant());
         }
 
-        public static IEnumerable<NodeProperty> YieldFindNodePropertiesUsingReflection(object target, Type fallback)
+        public static IEnumerable<NodeProperty> YieldFindNodePropertiesUsingReflection(Resource node, object target, Type fallback)
         {
 
             const BindingFlags bindingFlags = BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.FlattenHierarchy;

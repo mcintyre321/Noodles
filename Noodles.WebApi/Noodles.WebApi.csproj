@@ -65,12 +65,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="HtmlMediaTypeFormatter.cs" />
-    <Compile Include="Models\LinkVm.cs" />
-    <Compile Include="Models\PropertyVm.cs" />
-    <Compile Include="Models\ResourceVm.cs" />
     <Compile Include="NodeMethodInvokeSuccess.cs" />
     <Compile Include="NoodlesHttpMessageHandler.cs" />
     <Compile Include="NoodlesHttpProcessor.cs" />
+    <Compile Include="NoodlesToWebApiResultMapper.cs" />
     <Compile Include="PostParameterBinder.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SimplePostVariableParameterBinding.cs" />
@@ -86,6 +84,9 @@
       <Project>{3f8ba73c-2f1c-4f24-a5d9-b3243fa6a495}</Project>
       <Name>Noodles</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Models\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

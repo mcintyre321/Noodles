@@ -12,7 +12,7 @@ namespace Noodles.WebApi
     public class PostParameterBinder
     {
 
-        public async Task<object[]> BindParameters(NodeMethod nm, HttpRequestMessage request, CancellationToken cancellationToken)
+        public async Task<object[]> BindParameters(IInvokeable nm, HttpRequestMessage request, CancellationToken cancellationToken)
         {
             var config = (HttpConfiguration) request.Properties["MS_HttpConfiguration"];
             var formatter = config.Formatters.FindReader(nm.SignatureType, request.Content.Headers.ContentType);

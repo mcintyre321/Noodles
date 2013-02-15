@@ -1,17 +1,17 @@
 ﻿@using Noodles
 @using Noodles.AspMvc.Helpers
 @using Noodles.AspMvc.Helpers.Icons
-@model Noodles.Example.Domain.Task
- 
+@model Noodles.Requests.Resource<Noodles.Example.Domain.Task>
+
 <div class="btn-group">
     <div class="btn">
-        <a href="@Model.Url()">
+        <a href="@Model.Url">
 
-            <i class="icon-@(Model.Completed ? IconNames.check : IconNames.check_empty)"></i>@Model.GetName()</a>
+            <i class="icon-@(Model.Target.Completed ? IconNames.check : IconNames.check_empty)"></i>@Model.GetDisplayName()</a>
     </div>
 
     @{
-        var actions = Model.Actions();
+        var actions = Model.NodeMethods;
         if (actions.Any())
         {
         <button class="btn dropdown-toggle" data-toggle="dropdown">

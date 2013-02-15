@@ -49,7 +49,7 @@ namespace Noodles.Example
             RegisterGlobalFilters(GlobalFilters.Filters);
             RegisterRoutes(RouteTable.Routes);
 
-            ActionResultExtension.Processors.Add(ActionResultProcessor.Rule);
+            //ActionResultExtension.Processors.Add(ActionResultProcessor.Rule);
         }
     }
 }

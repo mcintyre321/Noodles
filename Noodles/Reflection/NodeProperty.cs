@@ -5,12 +5,13 @@ using System.ComponentModel;
 using System.Linq;
 using System.Reflection;
 using Noodles.Helpers;
+using Noodles.Requests;
 using Walkies;
 
 namespace Noodles
 {
-    [Name("{DisplayName}")]
-    public class NodeProperty : IInvokeable, IGetChild
+    [DisplayName("{DisplayName}")]
+    public class NodeProperty : IInvokeable, INode
     {
         private readonly object _target;
         private readonly Func<IEnumerable<Attribute>> _getCustomAttributes;
@@ -29,7 +30,7 @@ namespace Noodles
             {
                 if (Harden.Allow.Set(target, info))
                 {
-                    Setter = new NodeMethod(target, setter);
+                    Setter = new NodeMethod(this, target, setter);
                 }
             }
             this.SetParent(Target, this.Name);
@@ -70,8 +71,10 @@ namespace Noodles
             get { return _target; }
         }
 
-        public string Url { get { return this.Url(); } }
+        public string Url { get { return this.Parent.Url + this.Fragment + "/"; } }
+        public INode Parent { get; set; }
         public bool AutoSubmit { get { return false; } }
+        public Type SignatureType { get { return Setter.SignatureType; } }
 
         public object Invoke(IDictionary<string, object> parameterDictionary)
         {
@@ -98,7 +101,7 @@ namespace Noodles
 
         string GetDisplayName(PropertyInfo info)
         {
-            var att = info.GetCustomAttributes(typeof(DisplayNameAttribute), true).OfType<DisplayNameAttribute>().FirstOrDefault();
+            var att = info.GetCustomAttributes(typeof(System.ComponentModel.DisplayNameAttribute), true).OfType<System.ComponentModel.DisplayNameAttribute>().FirstOrDefault();
             if (att == null)
             {
                 return Name.Replace("_", "").Sentencise();
@@ -107,21 +110,19 @@ namespace Noodles
         }
         string GetDisplayName(FieldInfo info)
         {
-            var att = info.GetCustomAttributes(typeof(DisplayNameAttribute), true).OfType<DisplayNameAttribute>().FirstOrDefault();
+            var att = info.GetCustomAttributes(typeof(System.ComponentModel.DisplayNameAttribute), true).OfType<System.ComponentModel.DisplayNameAttribute>().FirstOrDefault();
             if (att == null)
             {
                 return Name.Replace("_", "").Sentencise();
             }
             return att.DisplayName;
         }
-
-        #region Implementation of IGetChild
-
-        object IGetChild.this[string fragment]
+         
+        public INode GetChild(string fragment)
         {
-            get { return (Value as IEnumerable<object> ?? Enumerable.Empty<object>()).SingleOrDefault(o => o.GetFragment().ToLowerInvariant() == fragment.ToLowerInvariant()); }
+            return null;
         }
 
-        #endregion
+        public string Fragment { get { return Name; }}
     }
 }

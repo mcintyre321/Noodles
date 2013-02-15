@@ -10,18 +10,18 @@
 @using Noodles.AspMvc.Helpers
 @using FormFactory
 @using Noodles.AspMvc.Helpers.Icons
-@helper NodeMethodsDropdown(object obj)
+@using Noodles.Requests
+@helper NodeMethodsDropdown(Resource obj)
 { @NodeMethodsDropdown(obj, null) }
-@helper NodeMethodsDropdown(object obj, string additionalClasses)
+@helper NodeMethodsDropdown(Resource obj, string additionalClasses)
 { @NodeMethodsDropdown(obj, null, null) }
-@helper NodeMethodsDropdown(object obj, string additionalClasses, string excludedMethodNamesCsv)
+@helper NodeMethodsDropdown(Resource obj, string additionalClasses, string excludedMethodNamesCsv)
 {
     var excludedMethodNames = (excludedMethodNamesCsv ?? "").Split(',');
-    var filteredNodeMethods = obj.NodeMethods().Where(nm => excludedMethodNames.Contains(nm.Name) == false);
+    var filteredNodeMethods = obj.Target.NodeMethods(obj).Where(nm => excludedMethodNames.Contains(nm.Name) == false);
     if (filteredNodeMethods.Any())
     {
-    @BootstrapHelper.DropdownLinksButton("Actions",
-                @<text>
+    @BootstrapHelper.DropdownLinksButton("Actions", @<text>
     @foreach (var method in filteredNodeMethods)
     {
         @NodeMethodLink(method)
@@ -29,19 +29,7 @@
     </text>, additionalClasses)
     }
 }
-@helper NodeMethodsMenuLink(object obj)
-{ @NodeMethodsMenuLink(obj, null) }
-@helper NodeMethodsMenuLink(object obj, string additionalClasses)
-{ @NodeMethodsMenuLink(obj, additionalClasses, null) }
-@helper NodeMethodsMenuLink(object obj, string additionalClasses, string excludedMethodNamesCsv)
-{
-    var excludedMethodNames = (excludedMethodNamesCsv ?? "").Split(',');
-    var nodeMethods = obj.NodeMethods();
-    if (nodeMethods.Any(nm => excludedMethodNames.Contains(nm.Name) == false))
-    {
-    <a class="nodeMethodsMenuLink @(additionalClasses ?? "")" href="@nodeMethods.Url()" data-nodeid="@obj.Id()" data-excluded-methods="@excludedMethodNamesCsv">Actions</a>
-    }
-}
+
 @helper NodeMethodLink(IInvokeable method)
 { @NodeMethodLink(method, null)}
 @helper NodeMethodLink(IInvokeable method, string additionalClasses)
@@ -66,7 +54,7 @@
     if (method != null)
     {
         var nodeClass = method.AutoSubmit ? "nodeMethodAutoSubmit" : "nodeMethodLink";
-    <a class="@(nodeClass) @(additionalClasses ?? "") @(method.Target.NodeType().Name.ToClassName())-@(method.Name.ToClassName())" data-nodeid="@method.Id()" href="@method.Url()">@Icon(method)@innerHtml(null)</a>
+    <a class="@(nodeClass) @(additionalClasses ?? "") @(method.Target.NodeType().Name.ToClassName())-@(method.Name.ToClassName())" data-nodeid="@method.Id()" href="@method.Url">@Icon(method)@innerHtml(null)</a>
     }
 }
 @helper NodeMethodForm(System.Web.Mvc.HtmlHelper html, IInvokeable method, string formClass)
@@ -133,7 +121,7 @@
                             }
                             else
                             {
-                            @Html.BestProperty(property.ToPropertyVm(Html).Then(p => p.Readonly = true))
+                                @Html.BestProperty(property.ToPropertyVm(Html).Then(p => p.Readonly = true))
                             }
                         }
 
