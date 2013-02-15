@@ -6,6 +6,10 @@ using Walkies;
 
 namespace Noodles
 {
+    public class CollectionAttribute : Attribute
+    {
+        public string UiHint { get; set; }
+    }
     public class ShowAttribute : Attribute {
         public string UiHint { get; set; }
     }

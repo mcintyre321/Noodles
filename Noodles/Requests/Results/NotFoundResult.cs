@@ -1,6 +1,6 @@
 namespace Noodles.Requests.Results
 {
-    public class NotFoundResult : NoodlesResult
+    public class NotFoundResult : Result
     {
         public INode FurthestNode { get; set; }
         public string Fragment { get; set; }

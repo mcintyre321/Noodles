@@ -204,6 +204,12 @@
     <EmbeddedResource Include="..\Noodles.AspMvc.Templates\Views\Shared\Noodles\NodeProperty.cshtml">
       <Link>Views\Shared\Noodles\NodeProperty.cshtml</Link>
     </EmbeddedResource>
+    <EmbeddedResource Include="..\Noodles.AspMvc.Templates\Views\Shared\Noodles\Collection.cshtml">
+      <Link>Views\Shared\Noodles\Collection.cshtml</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\Noodles.AspMvc.Templates\Views\Shared\Noodles\Link.cshtml">
+      <Link>Views\Shared\Noodles\Link.cshtml</Link>
+    </EmbeddedResource>
     <None Include="Helpers\Icons\IconNames.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>IconNames.cs</LastGenOutput>

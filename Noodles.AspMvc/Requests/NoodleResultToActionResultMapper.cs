@@ -4,6 +4,7 @@ using System.Web;
 using System.Web.Mvc;
 using Noodles.Requests;
 using Noodles.Requests.Results;
+using ViewResult = Noodles.Requests.Results.ViewResult;
 
 namespace Noodles.AspMvc.Requests
 {
@@ -14,7 +15,7 @@ namespace Noodles.AspMvc.Requests
             return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
         }
 
-        public override ActionResult Map(ControllerContext context, NoodlesErrorResult result)
+        public override ActionResult Map(ControllerContext context, ErrorResult result)
         {
             return new HttpStatusCodeResult(HttpStatusCode.InternalServerError);
         }
@@ -24,10 +25,10 @@ namespace Noodles.AspMvc.Requests
             return new HttpStatusCodeResult(HttpStatusCode.NotFound);
         }
 
-        public override ActionResult Map(ControllerContext context, NoodlesValidationErrorResult result)
+        public override ActionResult Map(ControllerContext context, ValidationErrorResult result)
         {
             context.HttpContext.Response.StatusCode = 409;
-            var res = new ViewResult();
+            var res = new System.Web.Mvc.ViewResult();
             res.ViewName = "Noodles/NodeMethod";
             res.ViewData.Model = result.Invokeable;
             if (context.HttpContext.Request.IsAjaxRequest())
@@ -37,9 +38,9 @@ namespace Noodles.AspMvc.Requests
             return res;
         }
 
-        public override ActionResult Map(ControllerContext context, NoodlesViewResult result)
+        public override ActionResult Map(ControllerContext context, ViewResult result)
         {
-            var res = new ViewResult();
+            var res = new System.Web.Mvc.ViewResult();
             if (result.Node is IInvokeable)
             {
                 res.ViewName = "Noodles/NodeMethod";
@@ -57,7 +58,7 @@ namespace Noodles.AspMvc.Requests
 
         public override ActionResult Map(ControllerContext context, InvokeSuccessResult result)
         {
-            var res = new ViewResult();
+            var res = new System.Web.Mvc.ViewResult();
             if (context.HttpContext.Request.IsAjaxRequest())
             {
                 res.MasterName = "Shared/Noodles/_AjaxLayout.cshtml";

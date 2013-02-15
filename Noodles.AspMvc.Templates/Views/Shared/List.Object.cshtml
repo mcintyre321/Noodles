@@ -1,9 +1,7 @@
 ﻿@using FormFactory
 @model IEnumerable<object>
-@Model
-@*<div class="inline-children">
-    @foreach (var o in Model)
-    {
-        @Html.BestPartial(o, o.GetType(), "Link.")
-    }
-</div>*@
+<ul class="inline-children">
+    
+    Html.BestPartial(Model, Model.GetType())
+</ul>
+

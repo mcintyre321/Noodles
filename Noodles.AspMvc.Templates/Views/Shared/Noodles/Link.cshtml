@@ -1,0 +1,21 @@
+﻿@using Noodles
+@using Noodles.AspMvc.Helpers
+@model Noodles.Requests.Resource
+<div class="btn-group">
+    <div class="btn"><a href="@Model.Url">@Model.DisplayName</a></div>
+
+@{
+    var actions = Model.NodeMethods;
+    if (actions.Any())
+    {
+  <button class="btn dropdown-toggle" data-toggle="dropdown">
+      <span class="caret"></span>
+  </button>
+    <ul class="dropdown-menu">
+        @foreach (var method in actions)
+        {
+            <li>@NoodlesHelper.NodeMethodLink(method)</li>
+        }
+    </ul>
+    }
+}

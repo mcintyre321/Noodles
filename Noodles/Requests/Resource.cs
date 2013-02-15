@@ -2,11 +2,25 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Noodles.Helpers;
+using Walkies;
 
 namespace Noodles.Requests
 {
     public class Resource : INode
     {
+        protected Resource(object target, INode parent)
+        {
+            Target = target;
+            Parent = parent;
+            var fragment = target.GetFragment();
+            if (fragment == null)
+            {
+                fragment = Guid.NewGuid().ToString();
+                target.SetFragment(fragment);
+            }
+            Fragment = fragment;
+        }
+
         public object Target { get; protected set; }
 
         public string DisplayName
@@ -18,7 +32,7 @@ namespace Noodles.Requests
         {
             var child = Walkies.WalkExtension.Child(Target, fragment);
             if (child != null) return CreateGeneric(child, this);
-        
+
             var method = Target.NodeMethods(this).SingleOrDefault(nm => nm.Name.ToLowerInvariant() == fragment.ToLowerInvariant());
             if (method != null) return method;
 
@@ -27,7 +41,7 @@ namespace Noodles.Requests
             return null;
         }
 
-        public static Resource CreateGeneric(object target, Resource parent)
+        public static Resource CreateGeneric(object target, INode parent)
         {
             var type = target.GetType();
             var nodeType = typeof(Resource<>).MakeGenericType(type);
@@ -35,6 +49,8 @@ namespace Noodles.Requests
         }
 
         private string _url;
+
+
         public string Url
         {
             get { return _url ?? (Parent.Url + Fragment + "/"); }
@@ -45,11 +61,10 @@ namespace Noodles.Requests
 
         public IEnumerable<NodeMethod> NodeMethods { get { return Target.NodeMethods(this); } }
         public IEnumerable<NodeProperty> NodeProperties { get { return Target.NodeProperties(this); } }
-
         public INode Parent { get; protected set; }
-        public IEnumerable<Resource> ChildResources { get { yield break; } }
         public IEnumerable<INode> Ancestors { get { return this.AncestorsAndSelf.Skip(1); } }
         public IEnumerable<INode> AncestorsAndSelf { get { return (this).Recurse<INode>(n => n.Parent); } }
+        public IEnumerable<INode> Children { get { return (this.Target.KnownChildren().Select(c => Resource.CreateGeneric(c, this))); } }
     }
 
     public interface INode
@@ -68,10 +83,8 @@ namespace Noodles.Requests
     {
         public new T Target { get { return (T)base.Target; } }
 
-        public Resource(T target, Resource parent)
+        public Resource(T target, INode parent):base(target, parent)
         {
-            base.Target = target;
-            base.Parent = parent;
         }
     }
 }

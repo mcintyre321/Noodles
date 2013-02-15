@@ -4,5 +4,5 @@ using Noodles.Requests.Results;
 
 namespace Noodles.Requests
 {
-    public delegate Task<NoodlesResult> RequestProcessor<TContext>(TContext context, NoodlesRequest request, INode node, Func<IInvokeable, object[], object> doInvoke);
+    public delegate Task<Result> RequestProcessor<TContext>(TContext context, NoodlesRequest request, INode node, Func<IInvokeable, object[], object> doInvoke);
 }

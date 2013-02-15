@@ -1,12 +1,10 @@
-using Noodles.Requests.Results;
-
-namespace Noodles.Requests
+namespace Noodles.Requests.Results
 {
-    public class NoodlesValidationErrorResult : NoodlesResult
+    public class ValidationErrorResult : Result
     {
         private IInvokeable _invokeable;
 
-        public NoodlesValidationErrorResult(IInvokeable invokeable)
+        public ValidationErrorResult(IInvokeable invokeable)
         {
             _invokeable = invokeable;
         }

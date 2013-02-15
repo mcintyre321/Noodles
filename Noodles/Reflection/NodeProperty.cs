@@ -110,7 +110,35 @@ namespace Noodles
          
         public INode GetChild(string fragment)
         {
-            return null;
+            var items = Items ?? Enumerable.Empty<INode>();
+            return items.FirstOrDefault(n => n.Fragment.ToLowerInvariant() == fragment.ToLowerInvariant());
+        }
+
+        public IQueryable<Resource> Items
+        {
+            get
+            {
+                var collectionAttribute = CollectionAttribute;
+                if (collectionAttribute != null && Value is IEnumerable)
+                {
+                    var queryable = Value as IQueryable;
+                    if (queryable != null)
+                    {
+                        return queryable.Cast<object>().Select(r => Resource.CreateGeneric(r, this));
+                    }
+                    return ((IEnumerable)Value).Cast<object>().AsQueryable().Select(r => Resource.CreateGeneric(r, this));
+                }
+                return null;
+            }
+        }
+
+        private CollectionAttribute CollectionAttribute
+        {
+            get { return this.CustomAttributes.OfType<CollectionAttribute>().SingleOrDefault(); }
+        }
+        public bool IsCollection
+        {
+            get { return CollectionAttribute != null; }
         }
 
         public string Fragment { get { return Name; }}

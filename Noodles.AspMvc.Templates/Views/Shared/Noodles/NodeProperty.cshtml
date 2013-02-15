@@ -19,15 +19,13 @@
             <div class="control-group">
                 <label class="control-label">@property.DisplayName</label>
                 <div class="controls">
-
-                        @if (showAttribute != null && !string.IsNullOrWhiteSpace(showAttribute.UiHint))
-                        {
-                        @Html.BestPartial(property.Value, property.Value == null ? property.PropertyType : property.Value.GetType(), showAttribute.UiHint + ".")
-                        }
-                        else
-                        {
+                    @if(Model.IsCollection)
+                    {
+                        @Html.Partial("Noodles/Collection", Model)    
+                    }else
+                    {
                         @Html.BestProperty(property.ToPropertyVm(Html).Then(p => p.Readonly = true))
-                        }
+                    }
 
                 </div>
             </div>

@@ -1,6 +1,6 @@
 namespace Noodles.Requests.Results
 {
-    public class BadRequestResult : Result
+    public class ErrorResult : Result
     {
     }
 }

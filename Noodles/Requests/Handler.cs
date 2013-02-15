@@ -20,7 +20,7 @@ namespace Noodles.Requests
         };
 
         
-        public async Task<NoodlesResult> HandleRequest(TContext cc, NoodlesRequest request, object root, string[] path, Func<IInvokeable, object[], object> doInvoke = null)
+        public async Task<Result> HandleRequest(TContext cc, NoodlesRequest request, object root, string[] path, Func<IInvokeable, object[], object> doInvoke = null)
         {
             var rootResource = Resource.CreateGeneric(root, null);
             rootResource.Url = request.RootUrl;

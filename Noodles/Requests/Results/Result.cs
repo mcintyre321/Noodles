@@ -1,6 +1,6 @@
 namespace Noodles.Requests.Results
 {
-    public class NoodlesResult
+    public class Result
     {
     }
 }

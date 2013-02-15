@@ -1,6 +1,6 @@
 namespace Noodles.Requests.Results
 {
-    public class InvokeSuccessResult : NoodlesResult
+    public class InvokeSuccessResult : Result
     {
         private IInvokeable _invokeable;
 

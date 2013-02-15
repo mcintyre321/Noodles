@@ -9,24 +9,24 @@ namespace Noodles.Requests
 {
     public class DefaultProcessors<TContext>
     {
-        public static async Task<NoodlesResult> Read(TContext context1, NoodlesRequest request, INode node, Func<IInvokeable, object[], object> doinvoke)
+        public static async Task<Result> Read(TContext context1, NoodlesRequest request, INode node, Func<IInvokeable, object[], object> doinvoke)
         {
             var result = MapResultToNoodleResult(node);
             if (result != null) return await Task.Factory.StartNew(() => result);
             if (!request.IsInvoke)
             {
-                return await Task.Factory.StartNew<NoodlesResult>(() => new NoodlesViewResult(node));
+                return await Task.Factory.StartNew<Result>(() => new ViewResult(node));
             }
-            return await Task.Factory.StartNew<NoodlesResult>(() => null);
+            return await Task.Factory.StartNew<Result>(() => null);
         }
 
-        static Task<NoodlesResult> NullTask()
+        static Task<Result> NullTask()
         {
-            return Task.Factory.StartNew<NoodlesResult>(() => null);
+            return Task.Factory.StartNew<Result>(() => null);
         }
 
 
-        public static async Task<NoodlesResult> ProcessInvoke(TContext context, NoodlesRequest request, INode node, Func<IInvokeable, object[], object> doInvoke)
+        public static async Task<Result> ProcessInvoke(TContext context, NoodlesRequest request, INode node, Func<IInvokeable, object[], object> doInvoke)
         {
             var invokeable = node as IInvokeable;
             if (invokeable == null) return await NullTask();
@@ -60,7 +60,7 @@ namespace Noodles.Requests
                     {
                         ex = ex.InnerException ?? ex;
                     }
-                    Func<NoodlesResult> handle = null;
+                    Func<Result> handle = null;
                     // ModelStateExceptionHandlers.Select(h => h(ex, cc)).FirstOrDefault(h => h != null);
 
                     if (handle != null) //there is a handler for this exception
@@ -70,13 +70,13 @@ namespace Noodles.Requests
                     }
                     else
                     {
-                        return new NoodlesErrorResult();
+                        return new ErrorResult();
                     }
                 }
             }
             else
             {
-                return new NoodlesValidationErrorResult(invokeable);
+                return new ValidationErrorResult(invokeable);
             }
 
             {
@@ -84,9 +84,9 @@ namespace Noodles.Requests
             }
         }
 
-        private static NoodlesResult MapResultToNoodleResult(object result)
+        private static Result MapResultToNoodleResult(object result)
         {
-            if (result is INode) return new NoodlesViewResult((INode) result);
+            if (result is INode) return new ViewResult((INode) result);
             return null;
         }
 

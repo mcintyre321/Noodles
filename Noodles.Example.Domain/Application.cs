@@ -9,8 +9,10 @@ namespace Noodles.Example.Domain
     [DisplayName("Your to do lists")]
     public class Application
     {
-
-        [Show(UiHint = "List")] public List<ToDoList> Lists { get; private set; }
+        public string Test { get { return "hello"; } }
+        [Collection]
+        [Show(UiHint = "List")] 
+        public List<ToDoList> Lists { get; private set; }
 
         public Application()
         {

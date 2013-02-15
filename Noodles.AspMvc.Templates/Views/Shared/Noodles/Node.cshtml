@@ -31,10 +31,10 @@
                 }
             </div>
             <div class="noodles-links" data-noodles-fragment-id="noodle-object-links">
-                @foreach (var node in Model.ChildResources)
+                @foreach (var node in Model.Children)
                 {
                     <span class="btn-toolbar">
-                        @Html.BestPartial(node, node.Target.GetType(), "Link.")
+                        @Html.Partial("Noodles/Link", node)
                     </span>
                 }
             </div>
