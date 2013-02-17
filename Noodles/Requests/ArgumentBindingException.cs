@@ -2,7 +2,10 @@ using System;
 
 namespace Noodles.Requests
 {
-    internal class ArgumentBindingException : Exception
+    public class ArgumentBindingException : Exception
     {
+        public ArgumentBindingException()
+        {
+        }
     }
 }

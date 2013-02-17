@@ -73,6 +73,11 @@ namespace Noodles.AspMvc.Requests
                 }
             }
 
+            if (!bindingContext.ModelState.IsValid)
+            {
+                throw new ArgumentBindingException();
+            }
+
             return output;
         }
 

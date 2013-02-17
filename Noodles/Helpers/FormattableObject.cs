@@ -65,14 +65,14 @@ namespace Noodles.Helpers
                         result = retrievedType.InvokeMember("ToString",
                                                             BindingFlags.Public | BindingFlags.NonPublic |
                                                             BindingFlags.Instance | BindingFlags.InvokeMethod | BindingFlags.IgnoreCase
-                                                            , null, retrievedObject, null) as string;
+                                                            , null, retrievedObject ?? "", null) as string;
                     }
                     else //format info
                     {
                         result = retrievedType.InvokeMember("ToString",
                                                             BindingFlags.Public | BindingFlags.NonPublic |
                                                             BindingFlags.Instance | BindingFlags.InvokeMethod | BindingFlags.IgnoreCase
-                                                            , null, retrievedObject, new object[] { toFormat, formatProvider }) as string;
+                                                            , null, retrievedObject ?? "", new object[] { toFormat, formatProvider }) as string;
                     }
                     sb.Append(result);
                 }

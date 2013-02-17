@@ -26,7 +26,7 @@ namespace Noodles
             Name = info.Name;
             DisplayName = GetDisplayName(info);
             var setter = info.GetSetMethod();
-            if (setter != null)
+            if (setter != null && !IsCollection)
             {
                 if (Harden.Allow.Set(target, info))
                 {
@@ -53,7 +53,11 @@ namespace Noodles
         }
 
         public bool Active { get { return !Readonly; } }
-        public IEnumerable<NodeMethodParameter> Parameters { get{ return Setter.Parameters.Then(p => p.DisplayName = this.DisplayName);}}
+        public IEnumerable<NodeMethodParameter> Parameters { get
+        {
+            if (Setter == null) return Enumerable.Empty<NodeMethodParameter>();
+            return Setter.Parameters.Then(p => p.DisplayName = this.DisplayName);
+        }}
         public string Name { get; private set; }
 
         public object Target

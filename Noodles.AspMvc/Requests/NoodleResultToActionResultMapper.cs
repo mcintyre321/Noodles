@@ -31,6 +31,7 @@ namespace Noodles.AspMvc.Requests
             var res = new System.Web.Mvc.ViewResult();
             res.ViewName = "Noodles/NodeMethod";
             res.ViewData.Model = result.Invokeable;
+            res.ViewData.ModelState.Merge(context.Controller.ViewData.ModelState);
             if (context.HttpContext.Request.IsAjaxRequest())
             {
                 res.MasterName = "Noodles/_AjaxLayout";

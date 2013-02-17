@@ -42,7 +42,7 @@ namespace Noodles.Requests
             }
             catch (ArgumentBindingException ex)
             {
-
+                return new ValidationErrorResult(invokeable);
             }
             object result = null;
             var errors = new List<object>();
