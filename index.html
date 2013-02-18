@@ -1,0 +1,123 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Noodles by mcintyre321</title>
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+    <script src="javascripts/respond.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <!--[if lt IE 8]>
+    <link rel="stylesheet" href="stylesheets/ie.css">
+    <![endif]-->
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
+  </head>
+  <body>
+      <div id="header">
+        <nav>
+          <li class="fork"><a href="https://github.com/mcintyre321/Noodles">View On GitHub</a></li>
+          <li class="downloads"><a href="https://github.com/mcintyre321/Noodles/zipball/master">ZIP</a></li>
+          <li class="downloads"><a href="https://github.com/mcintyre321/Noodles/tarball/master">TAR</a></li>
+          <li class="title">DOWNLOADS</li>
+        </nav>
+      </div><!-- end header -->
+
+    <div class="wrapper">
+
+      <section>
+        <div id="title">
+          <h1>Noodles</h1>
+          <p>a .NET library for building model driven web/API/mobile* applications on top of ASP MVC or WebApi - SEE BELOW!</p>
+          <hr>
+          <span class="credits left">Project maintained by <a href="https://github.com/mcintyre321">mcintyre321</a></span>
+          <span class="credits right">Hosted on GitHub Pages &mdash; Theme by <a href="http://twitter.com/#!/michigangraham">mattgraham</a></span>
+        </div>
+
+        <h4>Live Example MVC application: <a href="http://noodles.example.web.5.9.55.208.xip.io/">http://noodles.example.web.5.9.55.208.xip.io/</a>
+</h4>
+
+<p>Simply mark your classes up to indicate relationships between domain objects, and to expose methods and properties. Add a route to the Mvc or WebApi handler, and you have generated your web application!</p>
+
+<h2>Key Benefits</h2>
+
+<ul>
+<li>Standardised UI convention across your site</li>
+<li>Standardised API interaction</li>
+<li>Very fast development</li>
+<li>Dynamic, cross cutting security features</li>
+<li>Opt in - you can use it for your whole app, or just alongside a standard app</li>
+</ul><h2>Features</h2>
+
+<ul>
+<li>MIT Licence</li>
+<li>Routable within existing ASP MVC and WebAPi applications. You can use it just for your admin area if you want.</li>
+<li>Customisable UI conventions</li>
+<li>Call methods via Post-Redirect-Get, with automatic client-side validation</li>
+<li>Control access to properties and actions dynamically using <a href="https://github.com/mcintyre321/Harden">Harden</a>
+</li>
+<li>Built on top of standard ASP MVC/WebApi</li>
+<li>Database agnostic. You have control over persistence, so you can use SQL, Raven/Mongo/Couch or something clever you have rolled yourself.</li>
+<li>Realtime UI sync using SignalR</li>
+</ul><h2>Getting started</h2>
+
+<p><strong>a.</strong> Create an empty MVC4 or WebApi application</p>
+
+<p><strong>b.</strong> Install the following Nuget packages (the dependencies aren't set up yet, sorry!)</p>
+
+<p>For MVC</p>
+
+<pre><code>Install-Package Noodles
+Install-Package Noodles.AspMvc
+Install-Package EmbeddedResourceVirtualPathProvider
+</code></pre>
+
+<p>For WebApi</p>
+
+<pre><code>Install-Package Noodles
+Install-Package Noodles.WebApi (for WebApi)
+</code></pre>
+
+<p><strong>c.</strong> Create your <a href="https://github.com/mcintyre321/Noodles/blob/master/Noodles.Example.Domain/Application.cs">domain model</a>, marked up with [ShowAttribute] to expose properties and methods, and [Parent] and [Child] attributes to indicate relationships between objects. Use <a href="https://github.com/mcintyre321/Harden">Harden</a> methods and attributes to secure your system.</p>
+
+<p><strong>d.</strong> add a wildcard route to your application (<a href="https://github.com/mcintyre321/Noodles/blob/master/Noodles.Example.Web/Global.asax.cs">AspMvc</a> / <a href="https://github.com/mcintyre321/Noodles/blob/master/Noodles.Example.WebApi/Program.cs">WebApi</a>), and for MVC, <a href="https://github.com/mcintyre321/Noodles/blob/master/Noodles.Example.Web/Controllers/NoodlesController.cs">a controller</a>, passing the root of your object graph.</p>
+
+<p><strong>e</strong> at this point you should be able to start your app, and have a functional application. Amazing!</p>
+
+<p>alternatively, check out the <a href="https://github.com/mcintyre321/Noodles/tree/master/Noodles.Example.Web">Example</a> <a href="https://github.com/mcintyre321/Noodles/tree/master/Noodles.Example.WebApi">projects</a>!</p>
+
+<h2>Future work</h2>
+
+<ul>
+<li>Mobile UI</li>
+<li>Realtime object sync using SignalR</li>
+<li>PJax</li>
+<li>Inline property editing</li>
+</ul><h2>Finally</h2>
+
+<p>Please don't be a vacuum - emails, tweets, follows and questions actively sought after!</p>
+
+<p>thanks - Harry McIntyre <a href="https://github.com/mcintyre321" class="user-mention">@mcintyre321</a></p>
+
+<p><a href="http://githalytics.com/mcintyre321/Noodles"><img src="https://cruel-carlota.pagodabox.com/caba06ced732280266dfe94e5b4de886" alt="githalytics.com alpha" title="githalytics.com"></a></p>
+      </section>
+
+    </div>
+    <!--[if !IE]><script>fixScale(document);</script><![endif]-->
+              <script type="text/javascript">
+            var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+            document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+          </script>
+          <script type="text/javascript">
+            try {
+              var pageTracker = _gat._getTracker("UA-28478221-1");
+            pageTracker._trackPageview();
+            } catch(err) {}
+          </script>
+
+  </body>
+</html>
