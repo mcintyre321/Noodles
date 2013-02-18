@@ -153,7 +153,6 @@
       <DependentUpon>NoodlesHelper.cshtml</DependentUpon>
     </Compile>
     <Compile Include="Models\InvokeSuccessVm.cs" />
-    <Compile Include="NoodlesHub.cs" />
     <Compile Include="Requests\AspMvcNoodleHandler.cs" />
     <Compile Include="Requests\AspMvcNoodlesRequest.cs" />
     <Compile Include="Requests\NoodleResultToActionResultMapper.cs" />
@@ -222,9 +221,6 @@
     <EmbeddedResource Include="Scripts\jquery-1.9.1.min.js" />
     <EmbeddedResource Include="Scripts\jquery-1.9.1.min.map" />
     <None Include="Web.config" />
-    <EmbeddedResource Include="..\Noodles.AspMvc.Templates\Scripts\Noodles\Noodles.SignalR.js">
-      <Link>Scripts\Noodles\Noodles.SignalR.js</Link>
-    </EmbeddedResource>
     <EmbeddedResource Include="Scripts\jquery.signalR-1.0.0-rc2.js" />
     <EmbeddedResource Include="Scripts\jquery.signalR-1.0.0-rc2.min.js" />
     <EmbeddedResource Include="..\Noodles.AspMvc.Templates\Content\Noodles.AspMvc.css">

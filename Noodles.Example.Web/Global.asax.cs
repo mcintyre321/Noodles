@@ -21,7 +21,6 @@ namespace Noodles.Example
 
         public static void RegisterRoutes(RouteCollection routes)
         {
-            RouteTable.Routes.MapHubs();
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
             //This is the registration for noodles. note the wildcard 'path' parameter
