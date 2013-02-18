@@ -4,6 +4,7 @@
 @using Noodles
 @using Noodles.Helpers
 @using Noodles.AspMvc.Helpers
+@using Noodles.Requests
 @model Noodles.Requests.Resource
 <div class="noodles-object" data-noodles-node-url="@Model.Url">
     <div class="row">
@@ -11,7 +12,7 @@
             @if (Model.Ancestors.Any())
             {
                 <ul class="breadcrumb">
-                    @foreach (var item in Model.Ancestors.Reverse())
+                    @foreach (var item in Model.Ancestors.Where(a => a is Resource).Reverse())
                     {
                         <li><a href="@item.Url">@item.DisplayName</a><span class="divider">/</span></li>
                     }

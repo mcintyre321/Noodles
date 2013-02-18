@@ -151,7 +151,7 @@ $(document).ready(function () {
                 window.location.reload();
             },
             error: function (jqXhr, textStatus, errorThrown) {
-                if (errorThrown == "Conflict") {
+                if (errorThrown == "Bad Request") {
                     var $html = $(jqXhr.responseText);
                     if ($container.hasClass("modal")) {
                         var $buttons = $html.find("button").remove();

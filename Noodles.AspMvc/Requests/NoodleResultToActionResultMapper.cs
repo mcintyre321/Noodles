@@ -27,7 +27,7 @@ namespace Noodles.AspMvc.Requests
 
         public override ActionResult Map(ControllerContext context, ValidationErrorResult result)
         {
-            context.HttpContext.Response.StatusCode = 409;
+            context.HttpContext.Response.StatusCode = (int)HttpStatusCode.BadRequest;
             var res = new System.Web.Mvc.ViewResult();
             res.ViewName = "Noodles/NodeMethod";
             res.ViewData.Model = result.Invokeable;
