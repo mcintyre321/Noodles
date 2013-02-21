@@ -22,6 +22,11 @@ namespace Noodles
 
         public static IEnumerable<NodeProperty> YieldFindNodePropertiesUsingReflection(Resource node, object target, Type fallback)
         {
+            return
+                YieldFindPropertInfosUsingReflection(target, fallback).Select(pi => new NodeProperty(node, target, pi));
+        }
+        public static IEnumerable<PropertyInfo> YieldFindPropertInfosUsingReflection(this object target, Type fallback)
+        {
 
             const BindingFlags bindingFlags = BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.FlattenHierarchy;
             var type = target == null ? fallback : target.GetType();
@@ -36,7 +41,7 @@ namespace Noodles
                 }
                 if (ruleResult ?? NodePropertiesRuleRegistry.ShowByDefault)
                 {
-                    yield return new NodeProperty(node, target, info);
+                    yield return info;
                 }
             }
         }

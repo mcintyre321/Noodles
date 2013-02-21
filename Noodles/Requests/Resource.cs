@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using Noodles.Helpers;
 using Walkies;
 
@@ -8,6 +9,7 @@ namespace Noodles.Requests
 {
     public class Resource : INode
     {
+
         protected Resource(object target, INode parent)
         {
             Target = target;

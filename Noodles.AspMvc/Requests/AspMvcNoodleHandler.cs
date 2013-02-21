@@ -31,12 +31,7 @@ namespace Noodles.AspMvc.Requests
         private static IEnumerable<PropertyVm> GetPropertyVms(HtmlHelper htmlHelper, object o, Type type, Func<HtmlHelper, object, Type, IEnumerable<PropertyVm>> fallback)
         {
             if (o == null) o = Activator.CreateInstance(type);
-            var resource = o as Resource;
-            if (resource !=  null)
-            {
-                return resource.Target.NodeProperties(resource).Select(p => p.ToPropertyVm(htmlHelper));
-            }
-            return fallback(htmlHelper, o, type);
+            return o.YieldFindPropertInfosUsingReflection(type).Select(p => new PropertyVm(o, p, htmlHelper));
         }
 
         public async Task<ActionResult> GetNoodleResult(ControllerContext cc, object root, string path = null, Func<IInvokeable, object[], object> doInvoke = null)
@@ -45,7 +40,7 @@ namespace Noodles.AspMvc.Requests
             var handler = new AspMvcNoodleHandler();
             var pathParts = (path ?? cc.RouteData.Values["path"] as string ?? "/").Trim('/')
                 .Split(new[] { "/" }, StringSplitOptions.RemoveEmptyEntries);
-            var noodleResponse = await handler.HandleRequest(cc, nr, root, pathParts);
+            var noodleResponse = await handler.HandleRequest(cc, nr, root, pathParts, doInvoke);
 
             var transformer = new NoodleResultToActionResultMapper();
             return transformer.Map(cc, noodleResponse);

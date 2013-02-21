@@ -38,7 +38,7 @@ namespace Noodles.Example.Domain
         [Show]
         public void ClearCompletedTasks()
         {
-            this._tasks.RemoveAll(t => t.Completed);
+            this._tasks.RemoveAll(t => t.Completed); 
         }
 
         public IEnumerator<Task> GetEnumerator()

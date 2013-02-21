@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Reflection;
+using DelegateQueryable;
 using Noodles.Helpers;
 using Noodles.Requests;
 using Walkies;
@@ -127,7 +128,8 @@ namespace Noodles
                     var queryable = Value as IQueryable<object>;
                     if (queryable != null)
                     {
-                        return queryable.Select(o => Noodles.Requests.Resource.CreateGeneric(o, this));
+                        var delegateQueryable = queryable.ToDelegateQueryable();
+                        return delegateQueryable.AsQueryable().Select(item => Resource.CreateGeneric(item, this)).Cast<Resource>();
                     }
                     return ((IEnumerable)Value).AsQueryable().Cast<object>().Select(r => Resource.CreateGeneric(r, this));
                 }
