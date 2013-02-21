@@ -10,6 +10,7 @@ namespace Noodles.Example.Domain
     [DisplayName("{ListName}")]
     public class ToDoList
     {
+        private List<Task> _tasks;
 
         [Show]
         [StringLength(20)]
@@ -18,23 +19,26 @@ namespace Noodles.Example.Domain
 
         [Show(UiHint = "List")]
         [Collection]
-        public IList<Task> Tasks { get; set; }
+        public IQueryable<Task> Tasks
+        {
+            get { return _tasks.AsQueryable(); }
+        }
+
         public ToDoList()
         {
-            Tasks = new List<Task>();
-            this.Tasks = new List<Task>();
+            _tasks= new List<Task>();
         }
 
         [Show]
         public void AddTask(Task task)
         {
-            Tasks.Add(task);
+            _tasks.Add(task);
         }
 
         [Show]
         public void ClearCompletedTasks()
         {
-            this.Tasks.Where(t => t.Completed).ToList().ForEach(t => Tasks.Remove(t));
+            this._tasks.RemoveAll(t => t.Completed);
         }
 
         public IEnumerator<Task> GetEnumerator()

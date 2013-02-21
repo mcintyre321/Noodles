@@ -21,6 +21,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Noodles.AspMvc.DataTables",
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Noodles.Example.Web", "Noodles.Example.Web\Noodles.Example.Web.csproj", "{B7567A03-37F7-45F7-9C11-42FCD5A25787}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Noodles.Tests", "Noodles.Tests\Noodles.Tests.csproj", "{548C3D4B-CB9A-40DF-A84C-D186FBF5CE02}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -59,6 +61,10 @@ Global
 		{B7567A03-37F7-45F7-9C11-42FCD5A25787}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B7567A03-37F7-45F7-9C11-42FCD5A25787}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B7567A03-37F7-45F7-9C11-42FCD5A25787}.Release|Any CPU.Build.0 = Release|Any CPU
+		{548C3D4B-CB9A-40DF-A84C-D186FBF5CE02}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{548C3D4B-CB9A-40DF-A84C-D186FBF5CE02}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{548C3D4B-CB9A-40DF-A84C-D186FBF5CE02}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{548C3D4B-CB9A-40DF-A84C-D186FBF5CE02}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
