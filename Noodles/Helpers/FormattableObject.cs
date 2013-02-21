@@ -15,7 +15,7 @@ namespace Noodles.Helpers
         public static string ToString(this object anObject, string aFormat, IFormatProvider formatProvider)
         {
             StringBuilder sb = new StringBuilder();
-            Type type = anObject.GetType();
+            Type targetType = anObject.GetType();
             Regex reg = new Regex(@"({)([^}]+)(})", RegexOptions.IgnoreCase);
             MatchCollection mc = reg.Matches(aFormat);
             int startIndex = 0;
@@ -38,25 +38,32 @@ namespace Noodles.Helpers
                     toFormat = g.Value.Substring(formatIndex + 1);
                 }
 
-                //first try properties
-                PropertyInfo retrievedProperty = type.GetProperty(toGet);
                 Type retrievedType = null;
-                object retrievedObject = null;
-                if (retrievedProperty != null)
+
+                var parts = toGet.Split('.');
+                var type = null as Type;
+                var targetObject = anObject;
+                foreach (var part in parts)
                 {
-                    retrievedType = retrievedProperty.PropertyType;
-                    retrievedObject = retrievedProperty.GetValue(anObject, null);
-                }
-                else //try fields
-                {
-                    FieldInfo retrievedField = type.GetField(toGet);
-                    if (retrievedField != null)
+                    type = targetObject.GetType();
+                    //first try properties
+                    PropertyInfo retrievedProperty = type.GetProperty(part);
+                    if (retrievedProperty != null)
                     {
-                        retrievedType = retrievedField.FieldType;
-                        retrievedObject = retrievedField.GetValue(anObject);
+                        retrievedType = retrievedProperty.PropertyType;
+                        targetObject = retrievedProperty.GetValue(targetObject, null);
+                    }
+                    else //try fields
+                    {
+                        FieldInfo retrievedField = type.GetField(part);
+                        if (retrievedField != null)
+                        {
+                            retrievedType = retrievedField.FieldType;
+                            targetObject = retrievedField.GetValue(anObject);
+                        }
                     }
                 }
-
+                
                 if (retrievedType != null) //Cool, we found something
                 {
                     string result = String.Empty;
@@ -65,14 +72,14 @@ namespace Noodles.Helpers
                         result = retrievedType.InvokeMember("ToString",
                                                             BindingFlags.Public | BindingFlags.NonPublic |
                                                             BindingFlags.Instance | BindingFlags.InvokeMethod | BindingFlags.IgnoreCase
-                                                            , null, retrievedObject ?? "", null) as string;
+                                                            , null, targetObject ?? "", null) as string;
                     }
                     else //format info
                     {
                         result = retrievedType.InvokeMember("ToString",
                                                             BindingFlags.Public | BindingFlags.NonPublic |
                                                             BindingFlags.Instance | BindingFlags.InvokeMethod | BindingFlags.IgnoreCase
-                                                            , null, retrievedObject ?? "", new object[] { toFormat, formatProvider }) as string;
+                                                            , null, targetObject ?? "", new object[] { toFormat, formatProvider }) as string;
                     }
                     sb.Append(result);
                 }
