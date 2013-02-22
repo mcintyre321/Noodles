@@ -1,3 +1,5 @@
+using Noodles.Models;
+
 namespace Noodles.Requests.Results
 {
     public class ValidationErrorResult : Result

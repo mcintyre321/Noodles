@@ -8,6 +8,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Routing;
+using Noodles.Models;
 using Noodles.Requests;
 using Walkies;
 

@@ -222,6 +222,9 @@
     <EmbeddedResource Include="..\Noodles.AspMvc.Templates\Views\Shared\Layout\Footer.cshtml">
       <Link>Views\Shared\Layout\Footer.cshtml</Link>
     </EmbeddedResource>
+    <EmbeddedResource Include="..\Noodles.AspMvc.Templates\Views\Shared\Noodles\TableRow.Object.cshtml">
+      <Link>Views\Shared\Noodles\TableRow.Object.cshtml</Link>
+    </EmbeddedResource>
     <None Include="Helpers\Icons\IconNames.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>IconNames.cs</LastGenOutput>

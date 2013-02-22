@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Web.Mvc;
 using FormFactory;
+using Noodles.Models;
 
 namespace Noodles.AspMvc.Helpers
 {

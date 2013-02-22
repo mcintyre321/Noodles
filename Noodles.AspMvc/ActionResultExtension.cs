@@ -11,6 +11,7 @@ using System.Web.Mvc;
 using FormFactory;
 using Noodles.AspMvc.Helpers;
 using Noodles.AspMvc.Models;
+using Noodles.Models;
 using Walkies;
 
 namespace Noodles.AspMvc

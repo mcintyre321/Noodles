@@ -1,6 +1,6 @@
 ﻿@using FormFactory
 @using Noodles.AspMvc.Helpers
-@model Noodles.NodeProperty
+@model Noodles.Models.NodeProperty
 @{
     var data = Model.Items.ToArray().Select(i => new
     {
@@ -18,28 +18,14 @@
         }
         <th>Actions</th>
     </tr>
-    @foreach (var item in data)
+    @foreach (var item in Model.Items)
     {
-        <tr>
-            @foreach (var column in columns)
-            {
-                var property = item.Properties[column];
-                if (property != null)
-                {
-                    var view = Html.BestViewName(property.PropertyType, "TableCell.");
-                    if (view == null)
-                    {
-                        view = "Noodles/TableCell.Object";
-                    }
-                <td>@Html.Partial(view, property)</td>
-                }
-                else
-                {
-                <td></td>
-                }
-            }
-            <td>@NoodlesHelper.NodeMethodsDropdown(item.Resource)</td>
-        </tr>
+        var view = Html.BestViewName(item.Type, "Noodles/TableRow.");
+        if (view == null)
+        {
+            view = "Noodles/TableRow.Object";
+        }
+        @Html.Partial(view, item, new ViewDataDictionary(){ {"Columns", columns}})
     }
 </table>
 

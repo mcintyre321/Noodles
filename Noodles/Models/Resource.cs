@@ -1,11 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.CompilerServices;
 using Noodles.Helpers;
 using Walkies;
-
-namespace Noodles.Requests
+namespace Noodles.Models
 {
     public class Resource : INode
     {
@@ -24,7 +22,7 @@ namespace Noodles.Requests
         }
 
         public object Target { get; protected set; }
-
+        public Type Type { get { return Target.GetType(); } }
         public string DisplayName
         {
             get { return Target.GetDisplayName(); }
@@ -75,15 +73,6 @@ namespace Noodles.Requests
         public IEnumerable<INode> Children { get { return (this.Target.KnownChildren().Select(c => Resource.CreateGeneric(c, this))); } }
     }
 
-    public interface INode
-    {
-        INode GetChild(string fragment);
-        string Fragment { get; }
-        string DisplayName { get; }
-        string Url { get; }
-        INode Parent { get; }
-        string UiHint { get; }
-    }
     public interface INode<T>
     {
     }

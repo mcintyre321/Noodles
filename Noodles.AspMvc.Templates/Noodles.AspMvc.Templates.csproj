@@ -128,6 +128,7 @@
     <Content Include="Views\Shared\Noodles\Table.Object.cshtml" />
     <Content Include="Views\Shared\Noodles\TableCell.Object.cshtml" />
     <Content Include="Views\Shared\Layout\Footer.cshtml" />
+    <Content Include="Views\Shared\Noodles\TableRow.Object.cshtml" />
     <None Include="Views\Web.config" />
     <Content Include="Views\_ViewStart.cshtml" />
   </ItemGroup>

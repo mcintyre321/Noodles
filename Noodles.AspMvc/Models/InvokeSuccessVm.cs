@@ -1,3 +1,5 @@
+using Noodles.Models;
+
 namespace Noodles.AspMvc.Models
 {
     public class InvokeSuccessVm

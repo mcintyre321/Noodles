@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Reflection;
+using Noodles.Models;
 using Noodles.Requests;
 
 namespace Noodles

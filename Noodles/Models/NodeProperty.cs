@@ -1,14 +1,12 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Linq;
 using System.Reflection;
 using DelegateQueryable;
 using Noodles.Helpers;
-using Noodles.Requests;
-using Walkies;
-namespace Noodles
+
+namespace Noodles.Models
 {
     [DisplayName("{DisplayName}")]
     public class NodeProperty : IInvokeable, INode

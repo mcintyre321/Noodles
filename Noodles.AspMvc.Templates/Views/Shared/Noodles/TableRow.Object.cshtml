@@ -1,0 +1,19 @@
+﻿@using FormFactory
+@using Noodles.AspMvc.Helpers
+@model Noodles.Models.Resource
+<tr>
+    @foreach (var column in (IEnumerable<string>) ViewBag.Columns)
+    {
+        var property = Model.NodeProperties.SingleOrDefault(p => p.DisplayName == column);
+        if (property != null)
+        {
+            var view = Html.BestViewName(property.PropertyType, "TableCell.") ?? "Noodles/TableCell.Object";
+            @Html.Partial(view, property)
+        }
+        else
+        {
+            <td></td>
+        }
+    }
+    <td>@NoodlesHelper.NodeMethodsDropdown(Model)</td>
+</tr>

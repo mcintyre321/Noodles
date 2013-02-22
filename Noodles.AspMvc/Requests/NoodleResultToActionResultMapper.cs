@@ -2,6 +2,7 @@ using System;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using Noodles.Models;
 using Noodles.Requests;
 using Noodles.Requests.Results;
 using ViewResult = Noodles.Requests.Results.ViewResult;

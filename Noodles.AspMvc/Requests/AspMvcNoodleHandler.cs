@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using System.Web.Mvc;
 using FormFactory;
 using Noodles.AspMvc.Helpers;
+using Noodles.Models;
 using Noodles.Requests;
 
 namespace Noodles.AspMvc.Requests

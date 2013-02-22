@@ -7,6 +7,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Helpers;
 using System.Web.Mvc;
+using Noodles.Models;
 using Noodles.Requests;
 
 namespace Noodles.AspMvc.Requests

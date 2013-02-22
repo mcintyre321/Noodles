@@ -8,6 +8,7 @@ using System.Reflection;
 using System.Web.Caching;
 using System.Web.Mvc;
 using Mvc.JQuery.Datatables;
+using Noodles.Models;
 
 namespace Noodles.AspMvc.DataTables
 {
