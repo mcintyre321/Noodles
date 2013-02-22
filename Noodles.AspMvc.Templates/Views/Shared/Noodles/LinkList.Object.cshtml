@@ -1,0 +1,9 @@
+﻿@using FormFactory
+@model Noodles.NodeProperty
+<ul class="inline-children">
+    @foreach(var item in Model.Items)
+    {
+        @Html.Partial("Noodles/Link.Object", item)
+    }
+</ul>
+
