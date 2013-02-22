@@ -10,7 +10,7 @@ namespace Noodles
         public static IEnumerable<NodeMethod> NodeMethods(this object o, Resource resource)
         {
             return NodeMethodsReflectionLogic.YieldFindNodeMethodsUsingReflection(o, resource)
-                .Where(nm => !nm.Name.StartsWith("set_"));
+                .Where(nm => !nm.Name.StartsWith("set_")).Where(nm => !nm.Name.StartsWith("get_"));
         }
 
 
