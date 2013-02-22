@@ -25,7 +25,7 @@
     @BootstrapHelper.DropdownLinksButton("Actions", @<text>
     @foreach (var method in filteredNodeMethods)
     {
-        @NodeMethodLink(method)
+        <li>@NodeMethodLink(method)</li>
     }
     </text>, additionalClasses)
     }
