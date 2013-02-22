@@ -61,10 +61,6 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\FormFactory.1.2.240\lib\net40\FormFactory.dll</HintPath>
     </Reference>
-    <Reference Include="FormFactory.Templates, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\FormFactory.Templates.1.2.240\lib\net40\FormFactory.Templates.dll</HintPath>
-    </Reference>
     <Reference Include="Harden">
       <HintPath>..\packages\Harden.1.2.6\lib\net40\Harden.dll</HintPath>
     </Reference>
@@ -150,7 +146,6 @@
     <Content Include="Content\font-awesome.css" />
     <Content Include="Content\font-awesome.min.css" />
     <Content Include="Content\font\fontawesome-webfont.svg" />
-    <Content Include="Content\FormFactory\FormFactory.css" />
     <Content Include="Content\images\glyphicons-halflings-white.png" />
     <Content Include="Content\images\glyphicons-halflings.png" />
     <Content Include="Content\themes\base\images\animated-overlay.gif" />
@@ -225,7 +220,6 @@
     <None Include="Scripts\jquery-1.9.1.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
-    <Content Include="Scripts\FormFactory\FormFactory.js" />
     <Content Include="Scripts\jquery-1.9.1.js" />
     <Content Include="Scripts\jquery-1.9.1.min.js" />
     <Content Include="Scripts\jquery-migrate-1.1.0.js" />
@@ -237,11 +231,9 @@
     <Content Include="Scripts\jquery.validate-vsdoc.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
-    <Content Include="Scripts\jquery.validate.unobtrusive.dynamic.js" />
     <Content Include="Scripts\modernizr-1.7.js" />
     <Content Include="Scripts\modernizr-1.7.min.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
-    <Content Include="Views\Shared\FormFactory\_README.txt" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -262,26 +254,6 @@
     <Content Include="Scripts\MicrosoftMvcValidation.debug.js" />
     <Content Include="Views\Shared\Link.Task.cshtml" />
     <Content Include="Scripts\jquery-1.9.1.min.map" />
-    <Content Include="Views\Shared\FormFactory\Property.System.String.cshtml" />
-    <Content Include="Views\Shared\FormFactory\Property.System.Object.cshtml" />
-    <Content Include="Views\Shared\FormFactory\Property.System.Int64.cshtml" />
-    <Content Include="Views\Shared\FormFactory\Property.System.Int32.cshtml" />
-    <Content Include="Views\Shared\FormFactory\Property.System.Enum.cshtml" />
-    <Content Include="Views\Shared\FormFactory\Property.System.Double.cshtml" />
-    <Content Include="Views\Shared\FormFactory\Property.System.DateTimeOffset.cshtml" />
-    <Content Include="Views\Shared\FormFactory\Property.System.DateTime.cshtml" />
-    <Content Include="Views\Shared\FormFactory\Property.System.Boolean.cshtml" />
-    <Content Include="Views\Shared\FormFactory\Property.IEnumerable.System.Object.cshtml" />
-    <Content Include="Views\Shared\FormFactory\Property.IEnumerable.System.Enum.cshtml" />
-    <Content Include="Views\Shared\FormFactory\Property.ICollection.System.Object.cshtml" />
-    <Content Include="Views\Shared\FormFactory\Property.FormFactory.ValueTypes.UploadedFile.cshtml" />
-    <Content Include="Views\Shared\FormFactory\Form.Start.cshtml" />
-    <Content Include="Views\Shared\FormFactory\Form.Property.Inline.cshtml" />
-    <Content Include="Views\Shared\FormFactory\Form.Property.cshtml" />
-    <Content Include="Views\Shared\FormFactory\Form.Property.Block.cshtml" />
-    <Content Include="Views\Shared\FormFactory\Form.Close.cshtml" />
-    <Content Include="Views\Shared\FormFactory\Form.Actions.cshtml" />
-    <Content Include="Views\Shared\FormFactory\Cell.System.Object.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
