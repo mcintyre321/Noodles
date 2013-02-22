@@ -52,7 +52,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="FormFactory">
-      <HintPath>..\packages\FormFactory.1.2.240\lib\net40\FormFactory.dll</HintPath>
+      <HintPath>..\packages\FormFactory.1.2.242\lib\net40\FormFactory.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Harden">
