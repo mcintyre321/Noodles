@@ -1,4 +1,4 @@
 ﻿@using FormFactory
 @using Noodles.AspMvc.Helpers
 @model Noodles.Models.NodeProperty
-<td ><div data-node-getter="@Model.Name">@Html.BestPartial(Model.ToPropertyVm(Html),null, "FormFactory/Cell.")</div></td>
+<td ><div data-node-getter="@Model.Name">@Html.BestPartial(Model.ToPropertyVm(Html),Model.PropertyType, "FormFactory/Cell.")</div></td>
