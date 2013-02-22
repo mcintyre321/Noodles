@@ -17,8 +17,7 @@ namespace Noodles.Example.Domain
         [Required]
         public string ListName { get; set; }
 
-        [Show(UiHint = "List")]
-        [Collection]
+        [Show(UiHint = "Noodles/Table")]
         public IQueryable<Task> Tasks
         {
             get { return _tasks.AsQueryable(); }

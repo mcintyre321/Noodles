@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@using System.Web.Mvc.Html
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -25,15 +26,15 @@
     <div class="navbar navbar-fixed-top">
         <div class="navbar-inner">
             <div class="container">
-                <a href="/" class="brand">Noodles Application</a>
-                @*<div class="nav-collapse">
+                @Html.Partial("Layout/Topbar.Brand")
+                <div class="nav-collapse">
                     <ul class="nav">
-                        <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                        @Html.Partial("Layout/Topbar.LeftItems")
                     </ul>
                     <ul class="nav pull-right">
-                        <li>@Html.Partial("_LogOnPartial")</li>
+                        @Html.Partial("Layout/Topbar.RightItems")
                     </ul>
-                </div>*@
+                </div>
             </div>
         </div>
     </div>
@@ -41,6 +42,7 @@
         @RenderBody()
     </div>
     <footer>
-        </footer>
+            @Html.Partial("Layout/Footer")
+    </footer>
 </body>
 </html>

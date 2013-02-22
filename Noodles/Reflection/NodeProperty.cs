@@ -14,19 +14,19 @@ namespace Noodles
     public class NodeProperty : IInvokeable, INode
     {
         private readonly object _target;
-        private readonly Func<IEnumerable<Attribute>> _getCustomAttributes;
+        private readonly PropertyInfo _info;
         private object _value;
 
         public NodeProperty(Resource parent, object target, PropertyInfo info)
         {
             _target = target;
-            _getCustomAttributes = info.GetCustomAttributes;
+            _info = info;
             Value = info.GetValue(target, null);
             PropertyType = info.PropertyType;
             Name = info.Name;
             DisplayName = GetDisplayName(info);
             var setter = info.GetSetMethod();
-            if (setter != null && !IsCollection)
+            if (setter != null)
             {
                 if (Harden.Allow.Set(target, info))
                 {
@@ -51,6 +51,13 @@ namespace Noodles
             }
             private set { _value = value; }
         }
+        public int Order
+        {
+            get
+            {
+                return this._info.Attributes().OfType<ShowAttribute>().Select(a => a.UiOrder as int?).SingleOrDefault() ?? int.MaxValue;
+            }
+        }
 
         public bool Active { get { return !Readonly; } }
         public IEnumerable<NodeMethodParameter> Parameters { get
@@ -67,6 +74,7 @@ namespace Noodles
 
         public string Url { get { return this.Parent.Url + this.Fragment + "/"; } }
         public INode Parent { get; set; }
+        public string UiHint { get { return _info.Attributes().OfType<ShowAttribute>().Select(a => a.UiHint).SingleOrDefault(); } }
         public bool AutoSubmit { get { return false; } }
         public Type SignatureType { get { return Setter.SignatureType; } }
 
@@ -88,7 +96,7 @@ namespace Noodles
 
         public IEnumerable<object> CustomAttributes
         {
-            get { return _getCustomAttributes(); }
+            get { return _info.Attributes(); }
         }
         
         public bool Readonly { get { return Setter == null; } }
@@ -122,8 +130,7 @@ namespace Noodles
         {
             get
             {
-                var collectionAttribute = CollectionAttribute;
-                if (collectionAttribute != null && Value is IEnumerable)
+                if (Value is IEnumerable && this.PropertyType != typeof(string))
                 {
                     var queryable = Value as IQueryable<object>;
                     if (queryable != null)
@@ -137,15 +144,7 @@ namespace Noodles
             }
         }
 
-        private CollectionAttribute CollectionAttribute
-        {
-            get { return this.CustomAttributes.OfType<CollectionAttribute>().SingleOrDefault(); }
-        }
-        public bool IsCollection
-        {
-            get { return CollectionAttribute != null; }
-        }
-
+        
         public string Fragment { get { return Name; }}
     }
 }

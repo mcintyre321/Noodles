@@ -10,8 +10,7 @@ namespace Noodles.Example.Domain
     public class Application
     {
         public string Test { get { return "hello"; } }
-        [Collection]
-        [Show(UiHint = "List")] 
+        [Show(UiHint = "Noodles/LinkList")] 
         public List<ToDoList> Lists { get; private set; }
 
         public Application()

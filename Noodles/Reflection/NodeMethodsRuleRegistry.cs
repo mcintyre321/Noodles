@@ -6,14 +6,35 @@ using Walkies;
 
 namespace Noodles
 {
-    public class CollectionAttribute : Attribute
+
+    [AttributeUsage(AttributeTargets.Class)]
+    public class UiHintAttribute : Attribute
     {
-        public string UiHint { get; set; }
+        public UiHintAttribute(string uiHint)
+        {
+            UiHint = uiHint;
+        }
+
+        public string UiHint { get; private set; }
     }
-    public class ShowAttribute : Attribute {
-        public string UiHint { get; set; }
+    public class UiHintException : Exception
+    {
+        public UiHintException(string message):base(message)
+        {
+            
+        }
     }
-    public class HideAttribute : Attribute { }
+    [AttributeUsage(AttributeTargets.Property | AttributeTargets.Method)]
+    public class ShowAttribute : Attribute
+    {
+        public ShowAttribute()
+        {
+            UiOrder = int.MaxValue;
+        }
+        public string UiHint { get; set; }
+        public int UiOrder { get; set; }
+    }
+    [AttributeUsage(AttributeTargets.Method)]
     public class AutoSubmitAttribute : Attribute
     {
         public bool AutoSubmit { get; private set; }
@@ -44,7 +65,6 @@ namespace Noodles
         
 
         public static ShowMethodRule ClassLevelShowByDefault = (t, mi) => mi.DeclaringType.GetCustomAttributes(typeof(ShowAttribute), true).Any() ? true : null as bool?;
-        public static ShowMethodRule ClassLevelHideByDefault = (t, mi) => mi.DeclaringType.GetCustomAttributes(typeof(HideAttribute), true).Any() ? false : null as bool?;
 
         public static bool ShowByDefault { get; set; }
         public static List<ShowMethodRule> ShowMethodRules { get; private set; }

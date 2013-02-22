@@ -94,6 +94,7 @@ namespace Noodles
         }
 
         public INode Parent { get; private set; }
+        public string UiHint { get; private set; }
 
 
         private IEnumerable<NodeMethodParameter> _parameters;

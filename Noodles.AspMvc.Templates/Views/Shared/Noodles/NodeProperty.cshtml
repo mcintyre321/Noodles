@@ -8,7 +8,6 @@
 @model NodeProperty
 @{
     var property = Model;
-    var showAttribute = property.CustomAttributes.OfType<ShowAttribute>().SingleOrDefault();
 }
 <div data-node-property="@property.Name">
     @{
@@ -19,9 +18,14 @@
             <div class="control-group">
                 <label class="control-label">@property.DisplayName</label>
                 <div class="controls">
-                    @if(Model.IsCollection)
+                    @if(!string.IsNullOrWhiteSpace(Model.UiHint))
                     {
-                        @Html.Partial("Noodles/Collection", Model)    
+                        var viewName = Html.BestViewName(Model.Value == null ? Model.PropertyType : Model.Value.GetType(), Model.UiHint + ".");
+                        if (viewName == null)
+                        {
+                            throw new UiHintException("Could not find view for prefix "  + Model.UiHint + " for property " + property.Url + " of type " + property.PropertyType.Name);
+                        }
+                        @Html.Partial(viewName, Model)    
                     }else
                     {
                         @Html.BestProperty(property.ToPropertyVm(Html).Then(p => p.Readonly = true))
@@ -29,12 +33,12 @@
 
                 </div>
             </div>
-            @if (!property.IsCollection && !property.Readonly)
+            @if (!property.Readonly)
             {
                 <a class="show-setter" href="#edit @property.DisplayName"><i class="icon-edit "></i></a>
             }
         </div>
-        if (!property.IsCollection && !property.Readonly)
+        if (!property.Readonly)
         {
                 
         <div data-node-setter="@property.Name">

@@ -64,6 +64,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AttributesExtension.cs" />
     <Compile Include="Attributes\MessageAttribute.cs" />
     <Compile Include="Configuration.cs" />
     <Compile Include="Helpers\FormattableObject.cs" />

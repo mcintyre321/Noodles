@@ -64,6 +64,12 @@ namespace Noodles.Requests
         public IEnumerable<NodeMethod> NodeMethods { get { return Target.NodeMethods(this); } }
         public IEnumerable<NodeProperty> NodeProperties { get { return Target.NodeProperties(this); } }
         public INode Parent { get; protected set; }
+
+        public string UiHint
+        {
+            get { return this.Target.Attributes().OfType<UiHintAttribute>().Select(a => a.UiHint).SingleOrDefault(); }
+        }
+
         public IEnumerable<INode> Ancestors { get { return this.AncestorsAndSelf.Skip(1); } }
         public IEnumerable<INode> AncestorsAndSelf { get { return (this).Recurse<INode>(n => n.Parent); } }
         public IEnumerable<INode> Children { get { return (this.Target.KnownChildren().Select(c => Resource.CreateGeneric(c, this))); } }
@@ -76,6 +82,7 @@ namespace Noodles.Requests
         string DisplayName { get; }
         string Url { get; }
         INode Parent { get; }
+        string UiHint { get; }
     }
     public interface INode<T>
     {

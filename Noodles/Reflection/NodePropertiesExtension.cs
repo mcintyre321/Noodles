@@ -12,7 +12,7 @@ namespace Noodles
     {
         public static IEnumerable<NodeProperty> NodeProperties(this object o, Resource resource, Type fallback = null)
         {
-            return YieldFindNodePropertiesUsingReflection(resource, o, fallback);
+            return YieldFindNodePropertiesUsingReflection(resource, o, fallback).OrderBy(p => p.Order);
         }
 
         public static NodeProperty NodeProperty(this object o, Resource resource, string propertyName, Type fallback = null)

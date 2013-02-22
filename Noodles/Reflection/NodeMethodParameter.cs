@@ -101,6 +101,7 @@ namespace Noodles
         }
 
         public INode Parent { get; set; }
+        public string UiHint { get; private set; }
 
         string GetDisplayName()
         {

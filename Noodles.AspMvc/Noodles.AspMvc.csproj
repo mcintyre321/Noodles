@@ -181,17 +181,11 @@
     <EmbeddedResource Include="..\Noodles.AspMvc.Templates\Views\Shared\Noodles\NodeMethods.cshtml">
       <Link>Views\Shared\Noodles\NodeMethods.cshtml</Link>
     </EmbeddedResource>
-    <EmbeddedResource Include="..\Noodles.AspMvc.Templates\Views\Shared\Link.Object.cshtml">
-      <Link>Views\Shared\Link.Object.cshtml</Link>
-    </EmbeddedResource>
     <EmbeddedResource Include="..\Noodles.AspMvc.Templates\Views\Shared\_Layout.cshtml">
       <Link>Views\Shared\_Layout.cshtml</Link>
     </EmbeddedResource>
     <EmbeddedResource Include="..\Noodles.AspMvc.Templates\Views\_ViewStart.cshtml">
       <Link>Views\_ViewStart.cshtml</Link>
-    </EmbeddedResource>
-    <EmbeddedResource Include="..\Noodles.AspMvc.Templates\Views\Shared\List.Object.cshtml">
-      <Link>Views\Shared\List.Object.cshtml</Link>
     </EmbeddedResource>
     <EmbeddedResource Include="Content\font\fontawesome-webfont.svg" />
     <EmbeddedResource Include="Content\font\fontawesome-webfont.woff" />
@@ -204,11 +198,29 @@
     <EmbeddedResource Include="..\Noodles.AspMvc.Templates\Views\Shared\Noodles\NodeProperty.cshtml">
       <Link>Views\Shared\Noodles\NodeProperty.cshtml</Link>
     </EmbeddedResource>
-    <EmbeddedResource Include="..\Noodles.AspMvc.Templates\Views\Shared\Noodles\Collection.cshtml">
-      <Link>Views\Shared\Noodles\Collection.cshtml</Link>
+    <EmbeddedResource Include="..\Noodles.AspMvc.Templates\Views\Shared\Layout\Topbar.Brand.cshtml">
+      <Link>Views\Shared\Layout\Topbar.Brand.cshtml</Link>
     </EmbeddedResource>
-    <EmbeddedResource Include="..\Noodles.AspMvc.Templates\Views\Shared\Noodles\Link.cshtml">
-      <Link>Views\Shared\Noodles\Link.cshtml</Link>
+    <EmbeddedResource Include="..\Noodles.AspMvc.Templates\Views\Shared\Layout\Topbar.LeftItems.cshtml">
+      <Link>Views\Shared\Layout\Topbar.LeftItems.cshtml</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\Noodles.AspMvc.Templates\Views\Shared\Layout\Topbar.RightItems.cshtml">
+      <Link>Views\Shared\Layout\Topbar.RightItems.cshtml</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\Noodles.AspMvc.Templates\Views\Shared\Noodles\Link.Object.cshtml">
+      <Link>Views\Shared\Noodles\Link.Object.cshtml</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\Noodles.AspMvc.Templates\Views\Shared\Noodles\LinkList.Object.cshtml">
+      <Link>Views\Shared\Noodles\LinkList.Object.cshtml</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\Noodles.AspMvc.Templates\Views\Shared\Noodles\Table.Object.cshtml">
+      <Link>Views\Shared\Noodles\Table.Object.cshtml</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\Noodles.AspMvc.Templates\Views\Shared\Noodles\TableCell.Object.cshtml">
+      <Link>Views\Shared\Noodles\TableCell.Object.cshtml</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\Noodles.AspMvc.Templates\Views\Shared\Layout\Footer.cshtml">
+      <Link>Views\Shared\Layout\Footer.cshtml</Link>
     </EmbeddedResource>
     <None Include="Helpers\Icons\IconNames.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
