@@ -5,6 +5,7 @@
 /* Make setter forms inline*/
 [data-node-getter] > * {
     display: inline-block;
+    white-space: nowrap;
 }
 
 /* Make setter forms inline*/

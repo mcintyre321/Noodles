@@ -4,28 +4,32 @@
 @{
     var data = Model.Items.ToArray().Select(i => new
     {
-        Resource = i, 
+        Resource = i,
         Properties = i.NodeProperties.ToDictionary(p => p.DisplayName, p => p)
     }).ToArray();
-    
+
     var columns = data.SelectMany(d => d.Properties).OrderBy(p => p.Value.Order).Select(k => k.Key).Distinct().ToArray();
 }
 <table class="table-bordered table-condensed table-striped">
-    <tr>
-        @foreach (var column in columns)
+    <thead>
+        <tr>
+            @foreach (var column in columns)
+            {
+                <th>@column</th>
+            }
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Items)
         {
-            <th>@column</th>
+            var view = Html.BestViewName(item.Type, "Noodles/TableRow.");
+            if (view == null)
+            {
+                view = "Noodles/TableRow.Object";
+            }
+            @Html.Partial(view, item, new ViewDataDictionary() { { "Columns", columns } })
         }
-        <th>Actions</th>
-    </tr>
-    @foreach (var item in Model.Items)
-    {
-        var view = Html.BestViewName(item.Type, "Noodles/TableRow.");
-        if (view == null)
-        {
-            view = "Noodles/TableRow.Object";
-        }
-        @Html.Partial(view, item, new ViewDataDictionary(){ {"Columns", columns}})
-    }
+    </tbody>
 </table>
 
