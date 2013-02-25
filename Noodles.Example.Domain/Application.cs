@@ -22,6 +22,7 @@ namespace Noodles.Example.Domain
             };
             AddList(toDoList);
             toDoList.AddTask(new Task() {Title = "Milk"});
+            Settings = new Settings();
         }
 
         [Show]
@@ -29,6 +30,13 @@ namespace Noodles.Example.Domain
         {
             Lists.Add(list.SetParent(Lists, Guid.NewGuid().ToString()));
         }
+
+        [Child]
+        public Settings Settings { get; set; }
          
+    }
+
+    public class Settings
+    {
     }
 }

@@ -37,7 +37,7 @@
                 @foreach (var node in Model.Children)
                 {
                     <span class="btn-toolbar">
-                        @Html.Partial("Noodles/Link", node)
+                        @FormFactory.FormHelperExtension.BestPartial(Html, node, null, "Noodles/Link.")
                     </span>
                 }
             </div>
