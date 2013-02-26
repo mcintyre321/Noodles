@@ -22,7 +22,7 @@ namespace Noodles
             var format = lookup.GetOrAdd(obj, (o) =>
             {
                 var f = DisplayNameAttribute.GetNameAttribute(o.GetType());
-                if (f == null) f = o.GetType().Name;
+                if (f == null) f = o.GetType().Name.Sentencise(true);
                 return f;
 
             });
