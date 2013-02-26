@@ -86,7 +86,7 @@ namespace Noodles.AspMvc.Helpers
     #line hidden
     
     #line 14 "..\..\Helpers\NoodlesHelper.cshtml"
-    using Noodles.Requests;
+    using Noodles.RequestHandling;
     
     #line default
     #line hidden

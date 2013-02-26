@@ -2,12 +2,12 @@ using System;
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
-using Noodles.Requests;
-using Noodles.Requests.Results;
+using Noodles.RequestHandling;
+using Noodles.RequestHandling.ResultTypes;
 
 namespace Noodles.WebApi
 {
-    public class NoodlesToWebApiResultMapper: Noodles.Requests.NoodleResultMapper<Task<HttpResponseMessage>, HttpRequestMessage>
+    public class NoodlesToWebApiResultMapper: NoodleResultMapper<Task<HttpResponseMessage>, HttpRequestMessage>
     {
         #region Overrides of NoodleResultMapper<HttpResponseMessage,HttpRequestMessage>
 

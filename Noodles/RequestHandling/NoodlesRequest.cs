@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Noodles.Models;
 
-namespace Noodles.Requests
+namespace Noodles.RequestHandling
 {
     public abstract class NoodlesRequest
     {

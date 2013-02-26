@@ -8,9 +8,9 @@ using System.Threading.Tasks;
 using System.Web.Helpers;
 using System.Web.Mvc;
 using Noodles.Models;
-using Noodles.Requests;
+using Noodles.RequestHandling;
 
-namespace Noodles.AspMvc.Requests
+namespace Noodles.AspMvc.RequestHandling
 {
     class AspMvcNoodlesRequest : NoodlesRequest
     {

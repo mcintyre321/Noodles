@@ -91,20 +91,20 @@
     <Compile Include="Reflection\NodeMethodsRuleRegistry.cs" />
     <Compile Include="Models\NodeProperty.cs" />
     <Compile Include="Reflection\TextExtensions.cs" />
-    <Compile Include="Requests\ArgumentBindingException.cs" />
-    <Compile Include="Requests\Results\BadRequestResult.cs" />
-    <Compile Include="Requests\DefaultProcessors.cs" />
-    <Compile Include="Requests\Handler.cs" />
-    <Compile Include="Requests\Results\InvokeSuccessResult.cs" />
+    <Compile Include="RequestHandling\ArgumentBindingException.cs" />
+    <Compile Include="RequestHandling\ResultTypes\BadRequestResult.cs" />
+    <Compile Include="RequestHandling\DefaultProcessors.cs" />
+    <Compile Include="RequestHandling\Handler.cs" />
+    <Compile Include="RequestHandling\ResultTypes\InvokeSuccessResult.cs" />
     <Compile Include="Models\Resource.cs" />
-    <Compile Include="Requests\NoodleResultMapper.cs" />
-    <Compile Include="Requests\Results\ErrorResult.cs" />
-    <Compile Include="Requests\Results\NotFoundResult.cs" />
-    <Compile Include="Requests\RequestProcessor.cs" />
-    <Compile Include="Requests\NoodlesRequest.cs" />
-    <Compile Include="Requests\Results\Result.cs" />
-    <Compile Include="Requests\Results\ValidationErrorResult.cs" />
-    <Compile Include="Requests\Results\ViewResult.cs" />
+    <Compile Include="RequestHandling\NoodleResultMapper.cs" />
+    <Compile Include="RequestHandling\ResultTypes\ErrorResult.cs" />
+    <Compile Include="RequestHandling\ResultTypes\NotFoundResult.cs" />
+    <Compile Include="RequestHandling\RequestProcessor.cs" />
+    <Compile Include="RequestHandling\NoodlesRequest.cs" />
+    <Compile Include="RequestHandling\ResultTypes\Result.cs" />
+    <Compile Include="RequestHandling\ResultTypes\ValidationErrorResult.cs" />
+    <Compile Include="RequestHandling\ResultTypes\ViewResult.cs" />
     <Compile Include="UserException.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -113,11 +113,6 @@
   <ItemGroup />
   <ItemGroup>
     <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Scripts\jquery.validate-vsdoc.js" />
-    <EmbeddedResource Include="Scripts\jquery.validate.js" />
-    <EmbeddedResource Include="Scripts\jquery.validate.min.js" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

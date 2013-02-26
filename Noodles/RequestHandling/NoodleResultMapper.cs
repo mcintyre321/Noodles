@@ -1,7 +1,7 @@
 using System;
-using Noodles.Requests.Results;
+using Noodles.RequestHandling.ResultTypes;
 
-namespace Noodles.Requests
+namespace Noodles.RequestHandling
 {
     public abstract class NoodleResultMapper<TOutputResult, TContext>
     {

@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Routing;
 using Noodles.Models;
-using Noodles.Requests;
+using Noodles.RequestHandling;
 using Walkies;
 
 namespace Noodles.WebApi
@@ -68,7 +68,7 @@ namespace Noodles.WebApi
         }
     }
 
-    public class WebApiNoodlesHandler : Noodles.Requests.Handler<HttpRequestMessage>
+    public class WebApiNoodlesHandler : Handler<HttpRequestMessage>
     {
     }
 }

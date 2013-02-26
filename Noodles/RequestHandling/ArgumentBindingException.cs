@@ -1,6 +1,6 @@
 using System;
 
-namespace Noodles.Requests
+namespace Noodles.RequestHandling
 {
     public class ArgumentBindingException : Exception
     {

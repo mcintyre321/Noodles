@@ -4,9 +4,9 @@ using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
 using Noodles.Models;
-using Noodles.Requests.Results;
+using Noodles.RequestHandling.ResultTypes;
 
-namespace Noodles.Requests
+namespace Noodles.RequestHandling
 {
     public class DefaultProcessors<TContext>
     {

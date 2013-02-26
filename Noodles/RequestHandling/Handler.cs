@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Noodles.Models;
-using Noodles.Requests.Results;
+using Noodles.RequestHandling.ResultTypes;
 
-namespace Noodles.Requests
+namespace Noodles.RequestHandling
 {
     public abstract class Handler<TContext>
     {

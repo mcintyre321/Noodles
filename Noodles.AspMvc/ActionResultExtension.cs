@@ -11,6 +11,7 @@ using System.Web.Mvc;
 using FormFactory;
 using Noodles.AspMvc.Helpers;
 using Noodles.AspMvc.Models;
+using Noodles.AspMvc.RequestHandling;
 using Noodles.Models;
 using Walkies;
 
@@ -20,7 +21,7 @@ namespace Noodles.AspMvc
     {
         public static async Task<ActionResult> GetNoodleResult(this ControllerContext cc, object root, string path = null, Func<IInvokeable, object[], object> doInvoke = null)
         {
-            var handler = new Noodles.AspMvc.Requests.AspMvcNoodleHandler();
+            var handler = new AspMvcNoodleHandler();
             var noodleResult = handler.GetNoodleResult(cc, root, path, doInvoke);
             return await noodleResult;
         }

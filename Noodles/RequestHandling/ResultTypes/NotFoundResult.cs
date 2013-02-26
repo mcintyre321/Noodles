@@ -1,6 +1,6 @@
 using Noodles.Models;
 
-namespace Noodles.Requests.Results
+namespace Noodles.RequestHandling.ResultTypes
 {
     public class NotFoundResult : Result
     {

@@ -118,7 +118,6 @@
     <Content Include="Views\Shared\Noodles\Link.Object.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Shared\Noodles\LinkList.Object.cshtml" />
-    <Content Include="Views\Shared\Noodles\Node.cshtml" />
     <Content Include="Views\Shared\Noodles\NodeProperty.cshtml" />
     <Content Include="Views\Shared\Noodles\Collection.cshtml" />
     <Content Include="Views\Shared\Noodles\Link.cshtml" />
@@ -129,6 +128,7 @@
     <Content Include="Views\Shared\Noodles\TableCell.Object.cshtml" />
     <Content Include="Views\Shared\Layout\Footer.cshtml" />
     <Content Include="Views\Shared\Noodles\TableRow.Object.cshtml" />
+    <Content Include="Views\Shared\Noodles\Node.Object.cshtml" />
     <None Include="Views\Web.config" />
     <Content Include="Views\_ViewStart.cshtml" />
   </ItemGroup>

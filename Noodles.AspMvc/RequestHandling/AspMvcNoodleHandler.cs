@@ -4,13 +4,12 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 using FormFactory;
-using Noodles.AspMvc.Helpers;
 using Noodles.Models;
-using Noodles.Requests;
+using Noodles.RequestHandling;
 
-namespace Noodles.AspMvc.Requests
+namespace Noodles.AspMvc.RequestHandling
 {
-    public class AspMvcNoodleHandler : Noodles.Requests.Handler<ControllerContext>
+    public class AspMvcNoodleHandler : Handler<ControllerContext>
     {
         public static List<Func<ControllerContext, object, ActionResult>> Processors = new List<Func<ControllerContext, object, ActionResult>>();
         static List<Func<Exception, ControllerContext, Action>> ModelStateExceptionHandlers = new List<Func<Exception, ControllerContext, Action>>();

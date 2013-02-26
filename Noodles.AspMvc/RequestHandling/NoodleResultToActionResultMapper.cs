@@ -1,13 +1,11 @@
-using System;
 using System.Net;
-using System.Web;
 using System.Web.Mvc;
 using Noodles.Models;
-using Noodles.Requests;
-using Noodles.Requests.Results;
-using ViewResult = Noodles.Requests.Results.ViewResult;
+using Noodles.RequestHandling;
+using Noodles.RequestHandling.ResultTypes;
+using ViewResult = Noodles.RequestHandling.ResultTypes.ViewResult;
 
-namespace Noodles.AspMvc.Requests
+namespace Noodles.AspMvc.RequestHandling
 {
     public class NoodleResultToActionResultMapper : NoodleResultMapper<ActionResult, ControllerContext>
     {
@@ -47,15 +45,18 @@ namespace Noodles.AspMvc.Requests
             {
                 res.ViewName = "Noodles/NodeMethod";
             }
-            else
+            else if (result.Node is Resource)
             {
-                res.ViewName = "Noodles/Node";
+                var resource = (Resource)result.Node;
+                var viewname = FormFactory.FormHelperExtension.BestViewName(context, resource.Type, "Noodles/Node.");
+                res.ViewName = viewname;
             }
             res.ViewData.Model = result.Node;
             if (context.HttpContext.Request.IsAjaxRequest())
             {
                 res.MasterName = "Noodles/_AjaxLayout";
-            } return res;
+            }
+            return res;
         }
 
         public override ActionResult Map(ControllerContext context, InvokeSuccessResult result)
