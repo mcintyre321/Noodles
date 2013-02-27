@@ -20,7 +20,7 @@
                 <th>@column</th>
             }
 @{
-    ViewBag.ShowActions = Model.Items.SelectMany(i => i.NodeMethods).Any();
+    ViewBag.ShowActions = Model.Items.ToArray().SelectMany(i => i.NodeMethods).Any();
 
     if(ViewBag.ShowActions)
     {
