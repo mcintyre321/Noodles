@@ -38,9 +38,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Castle.Core.3.2.0\lib\net45\Castle.Core.dll</HintPath>
     </Reference>
-    <Reference Include="FormFactory, Version=1.0.4801.27666, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="FormFactory, Version=1.0.4801.29570, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\FormFactory.1.2.242\lib\net40\FormFactory.dll</HintPath>
+      <HintPath>..\packages\FormFactory.1.2.243\lib\net40\FormFactory.dll</HintPath>
     </Reference>
     <Reference Include="Harden">
       <HintPath>..\packages\Harden.1.2.6\lib\net40\Harden.dll</HintPath>
@@ -95,6 +95,7 @@
   <ItemGroup>
     <Compile Include="Marker.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <None Include="Views\Shared\Layout\TopBar.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-overrides.css" />
@@ -129,6 +130,7 @@
     <Content Include="Views\Shared\Layout\Footer.cshtml" />
     <Content Include="Views\Shared\Noodles\TableRow.Object.cshtml" />
     <Content Include="Views\Shared\Noodles\Node.Object.cshtml" />
+    <Content Include="Views\Shared\Noodles\NodeBody.Object.cshtml" />
     <None Include="Views\Web.config" />
     <Content Include="Views\_ViewStart.cshtml" />
   </ItemGroup>

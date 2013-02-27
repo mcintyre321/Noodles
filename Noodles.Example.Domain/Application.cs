@@ -22,7 +22,7 @@ namespace Noodles.Example.Domain
             };
             AddList(toDoList);
             toDoList.AddTask(new Task() {Title = "Milk"});
-            Settings = new Settings();
+            Settings = new Settings().SetParent(this, "settings");
         }
 
         [Show]

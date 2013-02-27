@@ -51,9 +51,9 @@
       <HintPath>..\packages\Castle.Core.3.2.0\lib\net45\Castle.Core.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="FormFactory">
-      <HintPath>..\packages\FormFactory.1.2.242\lib\net40\FormFactory.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="FormFactory, Version=1.0.4801.29570, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\FormFactory.1.2.243\lib\net40\FormFactory.dll</HintPath>
     </Reference>
     <Reference Include="Harden">
       <HintPath>..\packages\Harden.1.2.6\lib\net40\Harden.dll</HintPath>
@@ -178,9 +178,6 @@
     <EmbeddedResource Include="..\Noodles.AspMvc.Templates\Views\Shared\Noodles\_AjaxLayout.cshtml">
       <Link>Views\Shared\Noodles\_AjaxLayout.cshtml</Link>
     </EmbeddedResource>
-    <EmbeddedResource Include="..\Noodles.AspMvc.Templates\Views\Shared\Noodles\NodeMethods.cshtml">
-      <Link>Views\Shared\Noodles\NodeMethods.cshtml</Link>
-    </EmbeddedResource>
     <EmbeddedResource Include="..\Noodles.AspMvc.Templates\Views\Shared\_Layout.cshtml">
       <Link>Views\Shared\_Layout.cshtml</Link>
     </EmbeddedResource>
@@ -224,6 +221,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="..\Noodles.AspMvc.Templates\Views\Shared\Noodles\Node.Object.cshtml">
       <Link>Views\Shared\Noodles\Node.Object.cshtml</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\Noodles.AspMvc.Templates\Views\Shared\Layout\TopBar.cshtml">
+      <Link>Views\Shared\Layout\TopBar.cshtml</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\Noodles.AspMvc.Templates\Views\Shared\Noodles\NodeBody.Object.cshtml">
+      <Link>Views\Shared\Noodles\NodeBody.Object.cshtml</Link>
     </EmbeddedResource>
     <None Include="Helpers\Icons\IconNames.tt">
       <Generator>TextTemplatingFileGenerator</Generator>

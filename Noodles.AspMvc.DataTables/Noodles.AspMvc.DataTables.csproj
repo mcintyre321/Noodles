@@ -38,9 +38,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Castle.Core.3.2.0\lib\net45\Castle.Core.dll</HintPath>
     </Reference>
-    <Reference Include="FormFactory, Version=1.0.4801.27666, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="FormFactory, Version=1.0.4801.29570, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\FormFactory.1.2.242\lib\net40\FormFactory.dll</HintPath>
+      <HintPath>..\packages\FormFactory.1.2.243\lib\net40\FormFactory.dll</HintPath>
     </Reference>
     <Reference Include="Harden">
       <HintPath>..\packages\Harden.1.2.6\lib\net40\Harden.dll</HintPath>
