@@ -1,4 +1,6 @@
-﻿@using FormFactory
+﻿@using System.Web.Mvc
+@using System.Web.Mvc.Html
+@using FormFactory
 @using Noodles.AspMvc.Helpers
 @model Noodles.Models.NodeProperty
 @{
@@ -17,7 +19,15 @@
             {
                 <th>@column</th>
             }
+@{
+    ViewBag.ShowActions = Model.Items.SelectMany(i => i.NodeMethods).Any();
+
+    if(ViewBag.ShowActions)
+    {
             <th>Actions</th>
+    }
+}
+
         </tr>
     </thead>
     <tbody>
@@ -28,7 +38,7 @@
             {
                 view = "Noodles/TableRow.Object";
             }
-            @Html.Partial(view, item, new ViewDataDictionary() { { "Columns", columns } })
+            @Html.Partial(view, item, new ViewDataDictionary() { { "Columns", columns }, {"ShowActions", ViewBag.ShowActions} })
         }
     </tbody>
 </table>

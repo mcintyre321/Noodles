@@ -1,4 +1,4 @@
-namespace Noodles.Example.Domain
+namespace Noodles.Example.Domain.Tasks
 {
     public enum TaskType
     {

@@ -2,35 +2,28 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Noodles.Example.Domain.Tasks;
 using Walkies;
 
 namespace Noodles.Example.Domain
 {
-    [DisplayName("Your to do lists")]
+    [DisplayName("Project Organiser")]
     public class Application
     {
-        public string Test { get { return "hello"; } }
-        [Show(UiHint = "Noodles/LinkList")] 
-        public List<ToDoList> Lists { get; private set; }
+        [Child]
+        public ToDoLists ToDoLists { get; private set; }
+        
+        [Child]
+        public Discussions.DiscussionsManager DiscussionsManager { get; private set; }
 
         public Application()
         {
-            Lists = new List<ToDoList>();
-            var toDoList = new ToDoList()
-            {
-                ListName = "Shopping List"
-            };
-            AddList(toDoList);
-            toDoList.AddTask(new Task() {Title = "Milk"});
-            Settings = new Settings().SetParent(this, "settings");
+            ToDoLists = new ToDoLists();
+            DiscussionsManager = new Discussions.DiscussionsManager();
+            Settings = new Settings();
         }
 
-        [Show]
-        public void AddList(ToDoList list)
-        {
-            Lists.Add(list.SetParent(Lists, Guid.NewGuid().ToString()));
-        }
-
+       
         [Child]
         public Settings Settings { get; set; }
          
