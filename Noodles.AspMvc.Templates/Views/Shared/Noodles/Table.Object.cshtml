@@ -4,7 +4,8 @@
 @using Noodles.AspMvc.Helpers
 @model Noodles.Models.NodeProperty
 @{
-    var data = Model.Items.ToArray().Select(i => new
+    var resources = Model.Items.ToArray();
+    var data = resources.Select(i => new
     {
         Resource = i,
         Properties = i.NodeProperties.ToDictionary(p => p.DisplayName, p => p)
@@ -12,7 +13,7 @@
 
     var columns = data.SelectMany(d => d.Properties).OrderBy(p => p.Value.Order).Select(k => k.Key).Distinct().ToArray();
 }
-@if(Model.Items.Any())
+@if(resources.Any())
 {
     <table class="table-bordered table-condensed table-striped">
         <thead>
@@ -22,7 +23,7 @@
                     <th>@column</th>
                 }
                 @{
-                    ViewBag.ShowActions = Model.Items.ToArray().SelectMany(i => i.NodeMethods.ToArray()).Any();
+                    ViewBag.ShowActions = resources.SelectMany(i => i.NodeMethods.ToArray()).Any();
 
                     if (ViewBag.ShowActions)
                     {
@@ -33,7 +34,7 @@
             </tr>
         </thead>
         <tbody>
-            @foreach (var item in Model.Items)
+            @foreach (var item in resources)
             {
                 var view = Html.BestViewName(item.Type, "Noodles/TableRow.");
                 if (view == null)
