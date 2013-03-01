@@ -7,28 +7,49 @@
 @using Noodles.RequestHandling
 @using FormFactory;
 @model Noodles.Models.Resource
+@helper Nav(HtmlHelper helper, Resource resource, IEnumerable<Resource> walked, string navOptions)
+{
+    <ul class="nav @navOptions">
+        @foreach (var node in resource.Children)
+        {
+            var active = walked.Any(w => w.Url == node.Url);
+            <li @Html.Raw(active ? "class=\"active\"" : "")><a href="@node.Url">@node.DisplayName</a></li>
+        }
+    </ul> 
+}
 @helper Render(HtmlHelper helper, Resource resource, IEnumerable<Resource> walked, Func<IHtmlString> getInner)
 {
     if (resource.Children.Any())
     {
+        if (resource.UiHint == "SideMenu")
+        {
+    <div class="row">
+        <div class="span3">
+            @Nav(helper, resource, walked, "nav-pills nav-stacked")
+        </div>
+        <div class="span9">@getInner()</div>
+    </div>
+        }
+        else
+        {
     <div class="navbar">
         <div class="navbar-inner">
             @if (resource.Parent == null)
             {
                 <a class="brand" href="@resource.Url">@resource.DisplayName</a>
             }
-            <ul class="nav">
-                @foreach (var node in resource.Children)
-                {
-                    
-                    var active = walked.Any(w => w.Url == node.Url);
-                    <li @Html.Raw(active ? "class=\"active\"" : "")><a href="@node.Url">@node.DisplayName</a></li>
-                }
-            </ul>
+            @Nav(helper, resource, walked, "")
         </div>
     </div>
-    }
     @getInner();
+        }
+
+    }
+    else
+    {
+    @getInner()
+        ;
+    }
 }
 
 @{

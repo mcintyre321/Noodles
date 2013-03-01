@@ -28,8 +28,34 @@ namespace Noodles.Example.Domain
         public Settings Settings { get; set; }
          
     }
-
+    [UiHint("SideMenu")]
     public class Settings
     {
+        public Settings()
+        {
+            ProfileSettings = new ProfileSettings();
+            MembershipSettings = new MembershipSettings();
+        }
+
+        [Child]
+        public ProfileSettings ProfileSettings { get; private set; }
+        [Child]
+        public MembershipSettings MembershipSettings { get; private set; }
+    }
+
+    public class ProfileSettings
+    {
+        [Show]
+        public bool ShowEmailAddressesToMembers { get; set; }
+        [Show]
+        public bool EnableWall { get; set; }
+    }
+
+    public class MembershipSettings
+    {
+        [Show]
+        public bool AllowAnonymousAccess { get; set; }
+        [Show]
+        public bool AllowSelfRegistration { get; set; }
     }
 }
