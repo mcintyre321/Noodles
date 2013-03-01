@@ -7,31 +7,38 @@
 @using Noodles.RequestHandling
 @using FormFactory;
 @model Noodles.Models.Resource
-@{
-    var walked = Model.AncestorsAndSelf.OfType<Resource>().Reverse();
-}
-@foreach (var ancestor in walked)
+@helper Render(HtmlHelper helper, Resource resource, IEnumerable<Resource> walked, Func<IHtmlString> getInner)
 {
-    ViewBag.ColsUsed = 0;
-    if (ancestor.Children.Any())
+    if (resource.Children.Any())
     {
     <div class="navbar">
         <div class="navbar-inner">
-            @if (ancestor.Parent == null)
+            @if (resource.Parent == null)
             {
-                <a class="brand" href="@ancestor.Url">@ancestor.DisplayName</a>
+                <a class="brand" href="@resource.Url">@resource.DisplayName</a>
             }
             <ul class="nav">
-                @foreach (var node in ancestor.Children)
+                @foreach (var node in resource.Children)
                 {
-                    <li @Html.Raw(walked.Contains(node) ? "class=\"active\"" : "")><a href="@node.Url">@node.DisplayName</a></li>
+                    
+                    var active = walked.Any(w => w.Url == node.Url);
+                    <li @Html.Raw(active ? "class=\"active\"" : "")><a href="@node.Url">@node.DisplayName</a></li>
                 }
             </ul>
         </div>
     </div>
     }
-    if (ancestor == Model)
+    @getInner();
+}
+
+@{
+    var walked = Model.AncestorsAndSelf.OfType<Resource>().ToArray();
+    Func<IHtmlString> content = () => Render(Html, Model, walked, () => Html.BestPartial(Model, Model.Type, "Noodles/NodeBody."));
+    foreach (var walkedItem in walked.Skip(1))
     {
-        @Html.BestPartial(Model, Model.Type, "Noodles/NodeBody.")
+        var prev = content;
+        var target = walkedItem;
+        content = () => Render(Html, target, walked, prev);
     }
+    @content();
 }

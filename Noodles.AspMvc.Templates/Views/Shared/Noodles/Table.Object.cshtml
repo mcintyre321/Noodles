@@ -12,34 +12,36 @@
 
     var columns = data.SelectMany(d => d.Properties).OrderBy(p => p.Value.Order).Select(k => k.Key).Distinct().ToArray();
 }
-<table class="table-bordered table-condensed table-striped">
-    <thead>
-        <tr>
-            @foreach (var column in columns)
-            {
-                <th>@column</th>
-            }
-@{
-    ViewBag.ShowActions = Model.Items.ToArray().SelectMany(i => i.NodeMethods).Any();
+@if(Model.Items.Any())
+{
+    <table class="table-bordered table-condensed table-striped">
+        <thead>
+            <tr>
+                @foreach (var column in columns)
+                {
+                    <th>@column</th>
+                }
+                @{
+                    ViewBag.ShowActions = Model.Items.ToArray().SelectMany(i => i.NodeMethods.ToArray()).Any();
 
-    if(ViewBag.ShowActions)
-    {
-            <th>Actions</th>
-    }
+                    if (ViewBag.ShowActions)
+                    {
+                        <th>Actions</th>
+                    }
+                }
+
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Items)
+            {
+                var view = Html.BestViewName(item.Type, "Noodles/TableRow.");
+                if (view == null)
+                {
+                    view = "Noodles/TableRow.Object";
+                }
+                @Html.Partial(view, item, new ViewDataDictionary() {{"Columns", columns}, {"ShowActions", ViewBag.ShowActions}})
+            }
+        </tbody>
+    </table>
 }
-
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model.Items)
-        {
-            var view = Html.BestViewName(item.Type, "Noodles/TableRow.");
-            if (view == null)
-            {
-                view = "Noodles/TableRow.Object";
-            }
-            @Html.Partial(view, item, new ViewDataDictionary() { { "Columns", columns }, {"ShowActions", ViewBag.ShowActions} })
-        }
-    </tbody>
-</table>
-
