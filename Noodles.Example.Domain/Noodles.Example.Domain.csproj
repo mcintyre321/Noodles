@@ -70,6 +70,10 @@
     <Compile Include="UserVm.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Noodles.AspMvc\Noodles.AspMvc.csproj">
+      <Project>{4B896492-265C-49DB-8D4B-B5F4DBBBB4E3}</Project>
+      <Name>Noodles.AspMvc</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Noodles\Noodles.csproj">
       <Project>{3F8BA73C-2F1C-4F24-A5D9-B3243FA6A495}</Project>
       <Name>Noodles</Name>

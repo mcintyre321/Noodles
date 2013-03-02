@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using Noodles.AspMvc.UiAttributes;
 
 namespace Noodles.Example.Domain.Tasks
 {
@@ -14,7 +15,7 @@ namespace Noodles.Example.Domain.Tasks
         [Required]
         public string ListName { get; set; }
 
-        [Show(UiHint = "Noodles/Table.")]
+        [ShowAsTable]
         public IQueryable<Task> Tasks
         {
             get { return _tasks.AsQueryable(); }

@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using Noodles.AspMvc.UiAttributes;
 using Noodles.Example.Domain.Tasks;
 using Walkies;
 
@@ -13,7 +14,7 @@ namespace Noodles.Example.Domain.Discussions
         {
             Messages = new List<Message>();
         }
-        [Show(UiHint = "Noodles/Table.")]
+        [ShowAsTable]
         public List<Message> Messages { get; private set; }
         
         [Show(UiOrder = 1)][Required][StringLength(30)]

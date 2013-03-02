@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Noodles.AspMvc.UiAttributes;
 using Walkies;
 namespace Noodles.Example.Domain.Discussions
 {
@@ -16,7 +17,7 @@ namespace Noodles.Example.Domain.Discussions
             
             NewDiscussion(discussion, new Message(){ Text = "We should all do exactly what I say."});
         }
-        [Show(UiHint = "Noodles/LinkList.")]
+        [ShowAsLinkList]
         public List<Discussion> Discussions { get; private set; }
 
         [Show]

@@ -164,6 +164,8 @@
     <Compile Include="Infrastructure\GlobalFixUserExceptionsAttribute.cs" />
     <Compile Include="Infrastructure\ModelStateTempDataTransferAttribute.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UiAttributes\ShowAsLinkList.cs" />
+    <Compile Include="UiAttributes\ShowAsTable.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="..\Noodles.AspMvc.Templates\Scripts\Noodles\Noodles.js">
@@ -351,9 +353,7 @@
       <Name>Noodles</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Views\Shared\Noodles\NodeLayouts\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Noodles.AspMvc.UiAttributes;
 using Walkies;
 namespace Noodles.Example.Domain.Tasks
 {
@@ -19,7 +20,7 @@ namespace Noodles.Example.Domain.Tasks
             AddList(toDoList);
             toDoList.AddTask(new Task() { Title = "Milk" });
         }
-        [Show(UiHint = "Noodles/LinkList.")]
+        [ShowAsLinkList]
         public ICollection<ToDoList> Lists { get; private set; }
 
         [Show]
