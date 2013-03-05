@@ -1,6 +1,6 @@
 #Noodles#
 
-Noodles is a .NET library for building model driven web/API applications on top of ASP MVC or WebApi. Basically you write your business logic and it gets transformed into a 21st century web application. You might call it an OIM (Object-Interface mapper), and like an ORM, it has plenty of conventions to get you started, and plenty of ways to override those conventions.
+Noodles is a .NET library for building model driven web/API applications on top of ASP MVC or WebApi. You might call it an OIM (Object-Interface mapper), and like an ORM, it has plenty of conventions to get you started, and plenty of ways to override those conventions.
 
 Simply mark your classes up to indicate relationships between domain objects, and to expose methods and properties. Add a route to the Mvc or WebApi handler, and you have generated your web application!
 
