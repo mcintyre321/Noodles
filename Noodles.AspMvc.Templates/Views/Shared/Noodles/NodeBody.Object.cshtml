@@ -9,7 +9,7 @@
 @model Noodles.Models.Resource
 <div class="noodles-object" data-resource-url="@Model.Url">
     <div class="row">
-        <div class="span12">
+        <div class="span@(12 - (ViewBag.Indent?? 0))">
             <div class="page-header noodles-object-name" data-fragment-id="noodle-object-name">
                 <h1>@Model.DisplayName</h1>
             </div>

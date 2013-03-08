@@ -73,6 +73,7 @@ namespace Noodles.Models
         public string Url { get { return this.Parent.Url + this.Fragment + "/"; } }
         public INode Parent { get; set; }
         public string UiHint { get { return _info.Attributes().OfType<ShowAttribute>().Select(a => a.UiHint).SingleOrDefault(); } }
+        public string TypeName { get { return "NodeProperty"; } }
         public bool AutoSubmit { get { return false; } }
         public Type SignatureType { get { return Setter.SignatureType; } }
 
@@ -141,7 +142,9 @@ namespace Noodles.Models
                 return null;
             }
         }
-
+        public IEnumerable<NodeMethod> NodeMethods { get { yield break; } }
+        public IEnumerable<NodeProperty> NodeProperties { get { yield break; } }
+        public IEnumerable<INode> Children { get { yield break; } }
         
         public string Fragment { get { return Name; }}
     }

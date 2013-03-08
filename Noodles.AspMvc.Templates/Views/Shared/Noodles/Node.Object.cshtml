@@ -23,11 +23,12 @@
     {
         if (resource.UiHint == "SideMenu")
         {
+            ViewBag.Indent = (ViewBag.Indent ?? 0) + 3;
     <div class="row">
         <div class="span3">
             @Nav(helper, resource, walked, "nav-pills nav-stacked")
         </div>
-        <div class="span9">@getInner()</div>
+        <div class="span@(12 - (ViewBag.Indent?? 0))">@getInner()</div>
     </div>
         }
         else

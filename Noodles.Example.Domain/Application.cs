@@ -1,6 +1,6 @@
 using System;
 using System.Collections;
-using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using Noodles.Example.Domain.Tasks;
 using Walkies;
@@ -21,34 +21,27 @@ namespace Noodles.Example.Domain
             ToDoLists = new ToDoLists();
             DiscussionsManager = new Discussions.DiscussionsManager();
             Settings = new Settings();
+            Membership = new Membership();
         }
 
-       
+        [Child]
+        public Membership Membership { get; set; }
+
         [Child]
         public Settings Settings { get; set; }
-         
-    }
-    [UiHint("SideMenu")]
-    public class Settings
-    {
-        public Settings()
-        {
-            ProfileSettings = new ProfileSettings();
-            MembershipSettings = new MembershipSettings();
-        }
 
-        [Child]
-        public ProfileSettings ProfileSettings { get; private set; }
-        [Child]
-        public MembershipSettings MembershipSettings { get; private set; }
+       
+
     }
 
-    public class ProfileSettings
+    public class User
     {
-        [Show]
-        public bool ShowEmailAddressesToMembers { get; set; }
-        [Show]
-        public bool EnableWall { get; set; }
+        [Show][Required]
+        public string DisplayName { get; set; }
+        [Show][Required][DataType(DataType.Password)]
+        public string Password { get; set; }
+        [Show][Required][DataType(DataType.EmailAddress)]
+        public string Email { get; set; }
     }
 
     public class MembershipSettings

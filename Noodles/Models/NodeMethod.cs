@@ -13,7 +13,8 @@ namespace Noodles.Models
     {
         private readonly MethodInfo _methodInfo;
 
-        
+
+        public string TypeName { get { return "NodeMethod"; } }
 
         public NodeMethod(INode parent, object target, MethodInfo methodInfo)
         {
@@ -164,6 +165,9 @@ namespace Noodles.Models
         {
             get { return _methodInfo.ReturnType; }
         }
+        public IEnumerable<NodeMethod> NodeMethods { get { yield break; } }
+        public IEnumerable<NodeProperty> NodeProperties { get { yield break; } }
+        public IEnumerable<INode> Children { get { yield break; } }
 
 
         private object GetParameterValue(object[] parameters, NodeMethodParameter parameterInfo, int index)

@@ -11,8 +11,7 @@ namespace Noodles.Example.Controllers
 
         public async Task<ActionResult> Index(string path)
         {
-            var root = SetUrlRootExtension.SetUrlRoot(application, this.ControllerContext);
-            var actionResult = this.ControllerContext.GetNoodleResult(root);
+            var actionResult = this.ControllerContext.GetNoodleResult(application);
             return await actionResult;
         }
     }

@@ -33,6 +33,10 @@ namespace Noodles
                 return _parameter.ParameterType;
             }
         }
+        public string TypeName { get { return "NodeMethodParameter"; } }
+        public IEnumerable<NodeMethod> NodeMethods { get { yield break; } }
+        public IEnumerable<NodeProperty> NodeProperties { get { yield break; } }
+        public IEnumerable<INode> Children { get { yield break; } }
 
         public string Name
         {

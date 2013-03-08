@@ -2,10 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Routing;
 using Noodles.AspMvc;
 using Noodles.AspMvc.DataTables;
+using Noodles.Example.App_Start;
 
 namespace Noodles.Example
 {
@@ -22,6 +24,7 @@ namespace Noodles.Example
         public static void RegisterRoutes(RouteCollection routes)
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
+            WebApiConfig.Register(GlobalConfiguration.Configuration);
 
             //This is the registration for noodles. note the wildcard 'path' parameter
             routes.MapRoute(
@@ -29,6 +32,7 @@ namespace Noodles.Example
                            "{*path}", // URL with parameters
                            new { controller = "Noodles", action = "Index", path = "/" } // Parameter defaults
                        );
+      
 
 
             routes.MapRoute(
@@ -36,7 +40,6 @@ namespace Noodles.Example
                             "{controller}/{action}/{id}", // URL with parameters
                             new { controller = "Home", action = "Index", id = UrlParameter.Optional } // Parameter defaults
                         );
-
 
 
         }

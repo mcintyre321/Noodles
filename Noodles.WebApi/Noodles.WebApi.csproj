@@ -65,6 +65,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="HtmlMediaTypeFormatter.cs" />
+    <Compile Include="Models\LinkVm.cs" />
+    <Compile Include="Models\PropertyVm.cs" />
+    <Compile Include="Models\ResourceVm.cs" />
     <Compile Include="NoodlesHttpMessageHandler.cs" />
     <Compile Include="NoodlesHttpProcessor.cs" />
     <Compile Include="NoodlesToWebApiResultMapper.cs" />
@@ -84,9 +87,7 @@
       <Name>Noodles</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Models\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

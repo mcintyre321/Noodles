@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+
 namespace Noodles.Models
 {
     public interface INode
@@ -8,5 +10,9 @@ namespace Noodles.Models
         string Url { get; }
         INode Parent { get; }
         string UiHint { get; }
+        string TypeName { get; }
+        IEnumerable<NodeMethod> NodeMethods { get; }
+        IEnumerable<NodeProperty> NodeProperties { get; }
+        IEnumerable<INode> Children { get; }
     }
 }

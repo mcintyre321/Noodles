@@ -15,8 +15,15 @@ namespace Noodles.Models
             var fragment = target.GetFragment();
             if (fragment == null)
             {
-                fragment = Guid.NewGuid().ToString();
-                target.SetFragment(fragment);
+                if (parent != null)
+                {
+                    fragment = Guid.NewGuid().ToString();
+                    target.SetFragment(fragment);
+                }
+                else
+                {
+                    fragment = target.GetUrlRoot().Trim('/');
+                }
             }
             Fragment = fragment;
         }
@@ -53,7 +60,7 @@ namespace Noodles.Models
 
         public string Url
         {
-            get { return _url ?? (Parent.Url + Fragment + "/"); }
+            get { return _url ?? (Parent == null ? ( "/" + this.Fragment + "/") : (Parent.Url + Fragment + "/")); }
             set { _url = value; }
         }
 
@@ -67,6 +74,8 @@ namespace Noodles.Models
         {
             get { return this.Target.Attributes().OfType<UiHintAttribute>().Select(a => a.UiHint).SingleOrDefault(); }
         }
+
+        public string TypeName { get { return this.Type.Name; } }
 
         public IEnumerable<INode> Ancestors { get { return this.AncestorsAndSelf.Skip(1); } }
         public IEnumerable<INode> AncestorsAndSelf { get { return (this).Recurse<INode>(n => n.Parent); } }

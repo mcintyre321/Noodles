@@ -31,9 +31,10 @@ namespace Noodles.WebApi
             HttpRequestMessage request,
             CancellationToken cancellationToken)
         {
-            var routeData = request.Properties["MS_HttpRouteData"] as HttpRouteData;
+            var routeData = request.Properties["MS_HttpRouteData"] as IHttpRouteData;
             var path = routeData.Values["path"] as string ?? "/";
             var root = _getRootObject(request);
+            root.SetUrlRoot(routeData.Route.RouteTemplate.Substring(0, routeData.Route.RouteTemplate.IndexOf("{*path}")));
             var handler = new WebApiNoodlesHandler();
             var webApiNoodlesRequest = new WebApiNoodlesRequest(request, cancellationToken);
             var result = await handler.HandleRequest(request, webApiNoodlesRequest, root, path.Split(new string[] { "/" }, StringSplitOptions.RemoveEmptyEntries), _doInvoke);

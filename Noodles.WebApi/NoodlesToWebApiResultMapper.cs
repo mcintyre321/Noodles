@@ -4,6 +4,7 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using Noodles.RequestHandling;
 using Noodles.RequestHandling.ResultTypes;
+using Noodles.WebApi.Models;
 
 namespace Noodles.WebApi
 {
@@ -33,7 +34,7 @@ namespace Noodles.WebApi
 
         public override Task<HttpResponseMessage> Map(HttpRequestMessage context, ViewResult result)
         {
-            return Task.FromResult(context.CreateResponse(HttpStatusCode.OK, result.Node));
+            return Task.FromResult(context.CreateResponse(HttpStatusCode.OK, new ResourceVm(result.Node)));
         }
 
         public override Task<HttpResponseMessage> Map(HttpRequestMessage context, InvokeSuccessResult result)
