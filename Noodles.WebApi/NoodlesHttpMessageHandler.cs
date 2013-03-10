@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -36,37 +35,13 @@ namespace Noodles.WebApi
             var root = _getRootObject(request);
             root.SetUrlRoot(routeData.Route.RouteTemplate.Substring(0, routeData.Route.RouteTemplate.IndexOf("{*path}")));
             var handler = new WebApiNoodlesHandler();
-            var webApiNoodlesRequest = new WebApiNoodlesRequest(request, cancellationToken);
+            var webApiNoodlesRequest = new WebApiRequestInfo(request, cancellationToken);
             var result = await handler.HandleRequest(request, webApiNoodlesRequest, root, path.Split(new string[] { "/" }, StringSplitOptions.RemoveEmptyEntries), _doInvoke);
             var mapper = new NoodlesToWebApiResultMapper();
             return await mapper.Map(request, result);
         }
  
  
-    }
-
-    public class WebApiNoodlesRequest : NoodlesRequest
-    {
-        private string _rootUrl;
-        private HttpRequestMessage _request;
-        private CancellationToken _ct;
-
-        public WebApiNoodlesRequest(HttpRequestMessage request, CancellationToken ct)
-        {
-            _request = request;
-            _ct = ct;
-        }
-
-        public override string RootUrl
-        {
-            get { return _rootUrl; }
-        }
-
-        public override async Task<IEnumerable<object>> GetArguments(IInvokeable method)
-        {
-            var binder = new PostParameterBinder();
-            return await binder.BindParameters(method, _request, _ct);
-        }
     }
 
     public class WebApiNoodlesHandler : Handler<HttpRequestMessage>

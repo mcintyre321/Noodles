@@ -7,7 +7,12 @@ namespace Noodles.Example.Controllers
 {
     public class NoodlesController : Controller
     {
-        static Application application = new Application();
+        Application application;
+
+        public NoodlesController(Application application)
+        {
+            this.application = application;
+        }
 
         public async Task<ActionResult> Index(string path)
         {

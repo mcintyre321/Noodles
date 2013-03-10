@@ -14,11 +14,14 @@ namespace Noodles.Models
         private readonly MethodInfo _methodInfo;
 
 
-        public string TypeName { get { return "NodeMethod"; } }
+        public Type Type { get { return this.GetType(); } }
+        public object Value { get; private set; }
+        public int Order { get; private set; }
 
         public NodeMethod(INode parent, object target, MethodInfo methodInfo)
         {
             _methodInfo = methodInfo;
+            Order = int.MaxValue;
             Parent = parent;
             Target = target;
         }
@@ -37,6 +40,7 @@ namespace Noodles.Models
             }
             set { _displayName = value; }
         }
+
 
         private string GetDisplayName()
         {
@@ -104,7 +108,7 @@ namespace Noodles.Models
                 Func<IEnumerable<NodeMethodParameter>> loadParameters = () =>
                 {
                     var parameters =
-                        _methodInfo.GetParameters().Select(p => new NodeMethodParameter(this, _methodInfo, p)).ToArray();
+                        _methodInfo.GetParameters().Select((p, i) => new NodeMethodParameter(this, _methodInfo, p, i)).ToArray();
                     var methodName = this._methodInfo.Name.StartsWith("set_")
                                          ? _methodInfo.Name.Substring(4)
                                          : _methodInfo.Name;
@@ -160,13 +164,25 @@ namespace Noodles.Models
                 return _autoSubmit.Value;
             }
         }
-
+        [Show]
+        public string ReturnTypeName
+        {
+            get { return ReturnType.Name; }
+        }
         public Type ReturnType
         {
             get { return _methodInfo.ReturnType; }
         }
-        public IEnumerable<NodeMethod> NodeMethods { get { yield break; } }
-        public IEnumerable<NodeProperty> NodeProperties { get { yield break; } }
+        public IEnumerable<NodeMethod> NodeMethods { get
+        {
+            return this.NodeMethods(this);
+        } }
+
+        public IEnumerable<INode> NodeProperties
+        {
+            get { return Parameters; }
+        }
+
         public IEnumerable<INode> Children { get { yield break; } }
 
 
@@ -195,7 +211,7 @@ namespace Noodles.Models
 
         public string Fragment { get { return Name; } }
 
-        public Type SignatureType
+        public Type ValueType
         {
             get { return Siggs.SiggsExtensions.GetTypeForMethodInfo(_methodInfo); }
         }
@@ -239,25 +255,9 @@ namespace Noodles.Models
 
         public object Invoke(IDictionary<string, object> parameterDictionary)
         {
-            var parameters = ((IInvokeable)this).Parameters.Select(p => p.Name).Select(name => parameterDictionary[name]).ToArray();
+            var parameters = ((IInvokeable)this).Parameters.Select(p => p.Fragment).Select(name => parameterDictionary[name]).ToArray();
             return ((IInvokeable)this).Invoke(parameters);
         }
-    }
-
-    public interface IInvokeable
-    {
-        bool Active { get; }
-        IEnumerable<NodeMethodParameter> Parameters { get; }
-        string Name { get; }
-        string DisplayName { get; }
-        object Target { get; }
-        string Message { get; }
-        string Url { get; }
-        bool AutoSubmit { get; }
-        Type SignatureType { get; }
-        object Invoke(IDictionary<string, object> parameterDictionary);
-        object Invoke(object[] parameters);
-        T GetAttribute<T>() where T : Attribute;
     }
 
     public class NotEnoughParametersForNodeMethodException : Exception

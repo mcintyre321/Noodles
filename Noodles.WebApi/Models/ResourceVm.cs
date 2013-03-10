@@ -10,20 +10,21 @@ namespace Noodles.WebApi.Models
     {
         //self
         public string Name { get; set; }
-        public string Type { get; set; }
         public string Url { get; set; }
-
+        public object Value { get; set; }
+        public string ValueType { get; set; }
         public ResourceVm[] Properties { get; set; }
         public ResourceVm[] Actions { get; set; }
 
-
         public LinkVm[] Links { get; set; }
-
+        
         public ResourceVm(INode target)
         {
-            this.Name = target.DisplayName;
+            this.Name = target.Fragment;
+            this.DisplayName = target.DisplayName;
             this.Url = target.Url;
-            this.Type = target.TypeName;
+            this.Value = target.Value;
+            this.ValueType = target.ValueType.FullName;
 
             Properties = target.NodeProperties.Select(p => new ResourceVm(p)).ToArray();
             Actions = target.NodeMethods.Select(nm => new ResourceVm(nm)).ToArray();
@@ -35,7 +36,6 @@ namespace Noodles.WebApi.Models
             this.Links = links.ToArray();
         }
 
-
-
+        public string DisplayName { get; set; }
     }
 }

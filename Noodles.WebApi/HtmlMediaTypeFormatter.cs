@@ -6,7 +6,7 @@ using System.Net;
 using System.Net.Http.Formatting;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
-using Nustache.Core;
+using RazorEngine;
 
 namespace Noodles.WebApi
 {
@@ -29,8 +29,14 @@ namespace Noodles.WebApi
             return true;
         }
 
+        public override Task<object> ReadFromStreamAsync(Type type, Stream readStream, System.Net.Http.HttpContent content, IFormatterLogger formatterLogger)
+        {
+            return base.ReadFromStreamAsync(type, readStream, content, formatterLogger);
+        }
+
         public override Task WriteToStreamAsync(Type type, object value, Stream writeStream, System.Net.Http.HttpContent content, TransportContext transportContext)
         {
+            
             var task = Task.Factory.StartNew(() =>
             {
                 var assembly = typeof (HtmlMediaTypeFormatter).Assembly;
@@ -39,8 +45,9 @@ namespace Noodles.WebApi
                 using (var reader = new StreamReader(stream))
                 {
                     var streamWriter = new StreamWriter(writeStream);
-                    Render.Template(reader, value, streamWriter);
-
+                    var template = reader.ReadToEnd();
+                    string result = Razor.Parse(template, value );
+                    streamWriter.Write(result);
                     streamWriter.Flush();
                 }
             });

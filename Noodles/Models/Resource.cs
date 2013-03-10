@@ -10,7 +10,8 @@ namespace Noodles.Models
 
         protected Resource(object target, INode parent)
         {
-            Target = target;
+            Value = target;
+            ValueType = target.GetType();
             Parent = parent;
             var fragment = target.GetFragment();
             if (fragment == null)
@@ -28,22 +29,24 @@ namespace Noodles.Models
             Fragment = fragment;
         }
 
-        public object Target { get; protected set; }
-        public Type Type { get { return Target.GetType(); } }
+        public object Value { get; protected set; }
+        public Type ValueType { get; set; }
+
+        public Type Type { get { return this.GetType(); } }
         public string DisplayName
         {
-            get { return Target.GetDisplayName(); }
+            get { return Value.GetDisplayName(); }
         }
 
         public INode GetChild(string fragment)
         {
-            var child = Walkies.WalkExtension.Child(Target, fragment);
+            var child = Walkies.WalkExtension.Child(Value, fragment);
             if (child != null) return CreateGeneric(child, this);
 
-            var method = Target.NodeMethods(this).SingleOrDefault(nm => nm.Name.ToLowerInvariant() == fragment.ToLowerInvariant());
+            var method = Value.NodeMethods(this).SingleOrDefault(nm => nm.Name.ToLowerInvariant() == fragment.ToLowerInvariant());
             if (method != null) return method;
 
-            var property = Target.NodeProperties(this).SingleOrDefault(nm => nm.Name.ToLowerInvariant() == fragment.ToLowerInvariant());
+            var property = Value.NodeProperties(this).SingleOrDefault(nm => nm.Name.ToLowerInvariant() == fragment.ToLowerInvariant());
             if (property != null) return property;
             return null;
         }
@@ -66,20 +69,21 @@ namespace Noodles.Models
 
         public string Fragment { get; set; }
 
-        public IEnumerable<NodeMethod> NodeMethods { get { return Target.NodeMethods(this); } }
-        public IEnumerable<NodeProperty> NodeProperties { get { return Target.NodeProperties(this); } }
+        public int Order { get { return int.MaxValue; } }
+        public IEnumerable<NodeMethod> NodeMethods { get { return Value.NodeMethods(this); } }
+        public IEnumerable<INode> NodeProperties { get { return Value.NodeProperties(this); } }
         public INode Parent { get; protected set; }
 
         public string UiHint
         {
-            get { return this.Target.Attributes().OfType<UiHintAttribute>().Select(a => a.UiHint).SingleOrDefault(); }
+            get { return this.Value.Attributes().OfType<UiHintAttribute>().Select(a => a.UiHint).SingleOrDefault(); }
         }
 
-        public string TypeName { get { return this.Type.Name; } }
+        public string TypeName { get { return this.Type.FullName; } }
 
         public IEnumerable<INode> Ancestors { get { return this.AncestorsAndSelf.Skip(1); } }
         public IEnumerable<INode> AncestorsAndSelf { get { return (this).Recurse<INode>(n => n.Parent); } }
-        public IEnumerable<INode> Children { get { return (this.Target.KnownChildren().Select(c => Resource.CreateGeneric(c, this))); } }
+        public IEnumerable<INode> Children { get { return (this.Value.KnownChildren().Select(c => Resource.CreateGeneric(c, this))); } }
     }
 
     public interface INode<T>
@@ -88,7 +92,7 @@ namespace Noodles.Models
 
     public class Resource<T> : Resource, INode<T>
     {
-        public new T Target { get { return (T)base.Target; } }
+        public new T Target { get { return (T)base.Value; } }
 
         public Resource(T target, INode parent):base(target, parent)
         {

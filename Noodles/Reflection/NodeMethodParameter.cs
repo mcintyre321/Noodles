@@ -14,28 +14,32 @@ namespace Noodles
         private readonly MethodInfo _mi;
         private readonly ParameterInfo _parameter;
 
-        private BindingFlags looseBindingFlags = BindingFlags.IgnoreCase | BindingFlags.FlattenHierarchy |
-                                                 BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic;
+        private BindingFlags looseBindingFlags = BindingFlags.IgnoreCase | BindingFlags.FlattenHierarchy | BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic;
 
         private object _value;
 
-        internal NodeMethodParameter(NodeMethod nodeMethod, MethodInfo mi, ParameterInfo parameter)
+        internal NodeMethodParameter(NodeMethod nodeMethod, MethodInfo mi, ParameterInfo parameter, int order)
         {
             _nodeMethod = nodeMethod;
             _mi = mi;
             _parameter = parameter;
+            Parent = nodeMethod;
+            Order = order;
         }
 
-        public Type ParameterType
+        public Type ValueType
         {
             get
             {
                 return _parameter.ParameterType;
             }
         }
-        public string TypeName { get { return "NodeMethodParameter"; } }
+
+        public Type Type { get { return this.GetType(); } }
+
+        public int Order { get; private set; }
         public IEnumerable<NodeMethod> NodeMethods { get { yield break; } }
-        public IEnumerable<NodeProperty> NodeProperties { get { yield break; } }
+        public IEnumerable<INode> NodeProperties { get { yield break; } }
         public IEnumerable<INode> Children { get { yield break; } }
 
         public string Name

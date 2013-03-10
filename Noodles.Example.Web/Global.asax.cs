@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Routing;
+using Munq;
 using Noodles.AspMvc;
 using Noodles.AspMvc.DataTables;
 using Noodles.Example.App_Start;
@@ -50,7 +51,7 @@ namespace Noodles.Example
 
             RegisterGlobalFilters(GlobalFilters.Filters);
             RegisterRoutes(RouteTable.Routes);
-
+            Munq.MVC3.MunqDependencyResolver.Container.Register<Domain.Application, Domain.Application>().AsContainerSingleton();
             //ActionResultExtension.Processors.Add(ActionResultProcessor.Rule);
         }
     }

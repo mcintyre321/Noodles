@@ -38,7 +38,7 @@ namespace Noodles.AspMvc.RequestHandling
         {
             root.SetUrlRoot(cc);
 
-            var nr = new AspMvcNoodlesRequest(cc);
+            var nr = new AspMvcRequestInfo(cc);
             var handler = new AspMvcNoodleHandler();
             var pathParts = (path ?? cc.RouteData.Values["path"] as string ?? "/").Trim('/')
                 .Split(new[] { "/" }, StringSplitOptions.RemoveEmptyEntries);

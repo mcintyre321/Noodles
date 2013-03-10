@@ -47,8 +47,9 @@
     <Reference Include="Harden">
       <HintPath>..\packages\Harden.1.2.6\lib\net40\Harden.dll</HintPath>
     </Reference>
-    <Reference Include="Siggs">
-      <HintPath>..\packages\Siggs.1.2.2\lib\net45\Siggs.dll</HintPath>
+    <Reference Include="Siggs, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Siggs.1.2.4\lib\net45\Siggs.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
@@ -73,6 +74,7 @@
     <Compile Include="IdExtension.cs" />
     <Compile Include="LinksExtension.cs" />
     <Compile Include="Logger.cs" />
+    <Compile Include="Models\IInvokeable.cs" />
     <Compile Include="Models\INode.cs" />
     <Compile Include="Name.cs" />
     <Compile Include="NodeMethodExtensions.cs" />
@@ -101,7 +103,7 @@
     <Compile Include="RequestHandling\ResultTypes\ErrorResult.cs" />
     <Compile Include="RequestHandling\ResultTypes\NotFoundResult.cs" />
     <Compile Include="RequestHandling\RequestProcessor.cs" />
-    <Compile Include="RequestHandling\NoodlesRequest.cs" />
+    <Compile Include="RequestHandling\RequestInfo.cs" />
     <Compile Include="RequestHandling\ResultTypes\Result.cs" />
     <Compile Include="RequestHandling\ResultTypes\ValidationErrorResult.cs" />
     <Compile Include="RequestHandling\ResultTypes\ViewResult.cs" />

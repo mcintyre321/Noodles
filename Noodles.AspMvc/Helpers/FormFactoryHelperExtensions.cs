@@ -10,7 +10,7 @@ namespace Noodles.AspMvc.Helpers
     {
         public static PropertyVm ToPropertyVm(this NodeMethodParameter parameter, HtmlHelper html)
         {
-            var vm = new PropertyVm(html, parameter.ParameterType, parameter.Name)
+            var vm = new PropertyVm(html, parameter.ValueType, parameter.Name)
             {
                 DisplayName = parameter.DisplayName,
                 GetCustomAttributes = () => parameter.CustomAttributes,
@@ -27,7 +27,7 @@ namespace Noodles.AspMvc.Helpers
         public static PropertyVm ToPropertyVm(this NodeProperty property, HtmlHelper html)
         {
 
-            var vm = new PropertyVm(html, property.PropertyType, property.Name)
+            var vm = new PropertyVm(html, property.ValueType, property.Name)
             {
                 DisplayName = property.DisplayName,
                 GetCustomAttributes = () => property.CustomAttributes,

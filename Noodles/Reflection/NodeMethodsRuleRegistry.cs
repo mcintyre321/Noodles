@@ -34,6 +34,11 @@ namespace Noodles
         public string UiHint { get; set; }
         public int UiOrder { get; set; }
     }
+    [AttributeUsage(AttributeTargets.Property | AttributeTargets.Method)]
+    public class ShowListAttribute : ShowAttribute
+    {
+    }
+
     [AttributeUsage(AttributeTargets.Method)]
     public class AutoSubmitAttribute : Attribute
     {

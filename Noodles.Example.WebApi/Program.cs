@@ -22,7 +22,7 @@ namespace Noodles.Example.WebApi
                 var config = new HttpSelfHostConfiguration("http://localhost:3002/")
                 {
                 };
-                config.Formatters.Add(new HtmlMediaTypeFormatter());
+                //config.Formatters.Add(new HtmlMediaTypeFormatter());
                 var todoList = new Application();
                 config.Routes.Add("Noodles", config.Routes.CreateRoute("{*path}",
                     new HttpRouteValueDictionary("route"),

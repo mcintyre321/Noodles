@@ -8,37 +8,41 @@
 <body>
     <fieldset>
         <legend>Self</legend>
-        <span>{{Type}}: </span><a href="{{Url}}">{{Name}}</a>
+        <a href="@Model.Url">@Model.Name</a>
     </fieldset>
     <fieldset>
         <legend>Properties</legend>
-        {{#Properties}}
-        <label for="{{Name}}">{{Name}}</label>
-        <input type="text" data-type="{{Type}}" name="{{Name}}" readonly="readonly" value="{{Value}}" />
-        {{/Properties}}
+        @foreach(var property in Model.Properties)
+        {
+        <label for="@property.Name">@property.Name</label>
+        @Raw(Noodles.WebApi.Renderer.RenderForm(property.ValueType, property.Value, property.Name))
+        }
 
     </fieldset>
     <fieldset>
         <legend>Actions</legend>
-        {{#Actions}}
+        @foreach(var action in Model.Actions)
+        {
         <fieldset>
-            <legend>{{Name}}</legend>
-            <form action="{{Url}}" method="POST">
-                {{#Properties}}
-                <label for="{{Name}}">{{Name}}</label>
-                <input type="text" data-type="{{Type}}" name="{{Name}}" value="{{Value}}" />
-                {{/Properties}}
+            <legend>@action.Name</legend>
+            <form action="@action.Url" method="POST">
+                @foreach(var property in action.Properties)
+                {
+                <label for="@property.Name">@property.DisplayName</label>
+                @Raw(Noodles.WebApi.Renderer.RenderForm(property.ValueType, property.Value, property.Name))
+                }
                 <input type="submit" value="Execute"/>
             </form>
         </fieldset>
-        {{/Actions}}
+        }
 
     </fieldset>
     <fieldset>
         <legend>Links</legend>
-        {{#Links}}
-            <a href="{{Url}}" rel="{{Relationship}}">{{Name}}</a>
-        {{/Links}}
+        @foreach(var link in Model.Links)
+        {
+            <a href="@link.Url" rel="@link.Relationship">@link.Name</a>
+        }
 
     </fieldset>
 

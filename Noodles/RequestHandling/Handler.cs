@@ -21,10 +21,10 @@ namespace Noodles.RequestHandling
         };
 
         
-        public async Task<Result> HandleRequest(TContext cc, NoodlesRequest request, object root, string[] path, Func<IInvokeable, object[], object> doInvoke = null)
+        public async Task<Result> HandleRequest(TContext cc, RequestInfo requestInfo, object root, string[] path, Func<IInvokeable, object[], object> doInvoke = null)
         {
             var rootResource = Resource.CreateGeneric(root, null);
-            rootResource.Url = request.RootUrl;
+            rootResource.Url = requestInfo.RootUrl;
             var node = (INode) rootResource;
             foreach (var fragment in path)
             {
@@ -35,7 +35,7 @@ namespace Noodles.RequestHandling
 
             foreach (var processor in CustomProcessors.Concat(DefaultProcessors))
             {
-                var processorResult = await processor(cc, request, node, doInvoke);
+                var processorResult = await processor(cc, requestInfo, node, doInvoke);
                 if (processorResult != null) return processorResult;
             }
 

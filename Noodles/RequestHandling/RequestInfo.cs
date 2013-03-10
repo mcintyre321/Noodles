@@ -4,7 +4,7 @@ using Noodles.Models;
 
 namespace Noodles.RequestHandling
 {
-    public abstract class NoodlesRequest
+    public abstract class RequestInfo
     {
         public bool IsInvoke { get; protected set; }
         public abstract string RootUrl { get;  }

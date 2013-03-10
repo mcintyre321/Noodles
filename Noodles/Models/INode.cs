@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 
 namespace Noodles.Models
@@ -10,9 +11,12 @@ namespace Noodles.Models
         string Url { get; }
         INode Parent { get; }
         string UiHint { get; }
-        string TypeName { get; }
+        object Value { get; }
+        Type ValueType { get; }
+
+        int Order { get; }
         IEnumerable<NodeMethod> NodeMethods { get; }
-        IEnumerable<NodeProperty> NodeProperties { get; }
+        IEnumerable<INode> NodeProperties { get; }
         IEnumerable<INode> Children { get; }
     }
 }

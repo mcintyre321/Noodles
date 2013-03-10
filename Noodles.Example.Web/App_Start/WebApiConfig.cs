@@ -9,6 +9,7 @@ namespace Noodles.Example.App_Start
     {
         public static void Register(HttpConfiguration configuration)
         {
+            configuration.Formatters.Add(new HtmlMediaTypeFormatter());
             configuration.Routes.Add("Api", configuration.Routes.CreateRoute("api/{*path}",
                    new HttpRouteValueDictionary("route"),
                    constraints: null,

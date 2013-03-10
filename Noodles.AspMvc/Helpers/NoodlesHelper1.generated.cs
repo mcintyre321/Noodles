@@ -162,7 +162,7 @@ return new System.Web.WebPages.HelperResult(__razor_helper_writer => {
 #line 20 "..\..\Helpers\NoodlesHelper.cshtml"
  
     var excludedMethodNames = (excludedMethodNamesCsv ?? "").Split(',');
-    var filteredNodeMethods = obj.Target.NodeMethods(obj).Where(nm => excludedMethodNames.Contains(nm.Name) == false);
+    var filteredNodeMethods = obj.Value.NodeMethods(obj).Where(nm => excludedMethodNames.Contains(nm.Name) == false);
     if (filteredNodeMethods.Any())
     {
     

@@ -16,7 +16,7 @@ namespace Noodles.Reflection
             (object[] parameters, NodeMethodParameter parameterInfo, int index, out object result) =>
             {
                 var value = parameters[index];
-                var implicitConverter = ImplicitConversionMethodHelper.ImplicitConversionMethod(value.GetType(), parameterInfo.ParameterType);
+                var implicitConverter = ImplicitConversionMethodHelper.ImplicitConversionMethod(value.GetType(), parameterInfo.ValueType);
                 if (implicitConverter != null)
                 {
                     result = implicitConverter.Invoke(null, new object[] { value });
@@ -30,7 +30,7 @@ namespace Noodles.Reflection
             (object[] parameters, NodeMethodParameter parameterInfo, int index, out object result) =>
             {
                 result = parameters[index];
-                return parameterInfo.ParameterType.IsAssignableFrom(result.GetType());
+                return parameterInfo.ValueType.IsAssignableFrom(result.GetType());
             };
 
         public static readonly ParameterValueGetter NullOnNewOptional =
@@ -43,12 +43,12 @@ namespace Noodles.Reflection
         public static readonly ParameterValueGetter FixEnumTypes =
             (object[] parameters, NodeMethodParameter parameterInfo, int index, out object result) =>
             {
-                var underlyingType = (Nullable.GetUnderlyingType(parameterInfo.ParameterType) ??
-                                      parameterInfo.ParameterType);
+                var underlyingType = (Nullable.GetUnderlyingType(parameterInfo.ValueType) ??
+                                      parameterInfo.ValueType);
                 if (underlyingType.IsEnum) //its an enum or a nullable enum
                 {
                     var value = parameters[index];
-                    if (Nullable.GetUnderlyingType(parameterInfo.ParameterType) != null &&
+                    if (Nullable.GetUnderlyingType(parameterInfo.ValueType) != null &&
                         string.IsNullOrWhiteSpace(value.ToString()))
                     {
                         result = null;
@@ -78,7 +78,7 @@ namespace Noodles.Reflection
         public static ParameterValueGetter ChangeType = (object[] parameters, NodeMethodParameter parameterInfo, int index, out object result) =>
         {
             var obj = parameters[index];
-            var t = parameterInfo.ParameterType;
+            var t = parameterInfo.ValueType;
             Type u = Nullable.GetUnderlyingType(t);
             if (u != null)
             {

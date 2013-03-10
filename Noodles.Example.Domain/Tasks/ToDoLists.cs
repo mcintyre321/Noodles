@@ -28,6 +28,5 @@ namespace Noodles.Example.Domain.Tasks
         {
             Lists.Add(list.SetParent(Lists, Guid.NewGuid().ToString()));
         }
-
     }
 }

@@ -155,7 +155,7 @@
     </Compile>
     <Compile Include="Models\InvokeSuccessVm.cs" />
     <Compile Include="RequestHandling\AspMvcNoodleHandler.cs" />
-    <Compile Include="RequestHandling\AspMvcNoodlesRequest.cs" />
+    <Compile Include="RequestHandling\AspMvcRequestInfo.cs" />
     <Compile Include="RequestHandling\NoodleResultToActionResultMapper.cs" />
     <Compile Include="SetUrlRootExtension.cs" />
     <Compile Include="Helpers\AttemptedValueHelper.cs" />

@@ -13,14 +13,13 @@ namespace Noodles.Models
     {
         private readonly object _target;
         private readonly PropertyInfo _info;
-        private object _value;
 
-        public NodeProperty(Resource parent, object target, PropertyInfo info)
+        public NodeProperty(INode parent, object target, PropertyInfo info)
         {
             _target = target;
             _info = info;
             Value = info.GetValue(target, null);
-            PropertyType = info.PropertyType;
+            ValueType = info.PropertyType;
             Name = info.Name;
             DisplayName = GetDisplayName(info);
             var setter = info.GetSetMethod();
@@ -40,15 +39,11 @@ namespace Noodles.Models
 
         string IInvokeable.DisplayName { get { return "Set " + DisplayName; } }
         public string DisplayName { get; private set; }
-        public Type PropertyType { get; private set; }
-        public object Value
-        {
-            get
-            {
-                return _value;
-            }
-            private set { _value = value; }
-        }
+        public object Value { get; private set; }
+        public Type ValueType { get; private set; }
+
+        public Type Type { get { return this.GetType(); } }
+
         public int Order
         {
             get
@@ -75,7 +70,6 @@ namespace Noodles.Models
         public string UiHint { get { return _info.Attributes().OfType<ShowAttribute>().Select(a => a.UiHint).SingleOrDefault(); } }
         public string TypeName { get { return "NodeProperty"; } }
         public bool AutoSubmit { get { return false; } }
-        public Type SignatureType { get { return Setter.SignatureType; } }
 
         public object Invoke(IDictionary<string, object> parameterDictionary)
         {
@@ -109,15 +103,7 @@ namespace Noodles.Models
             }
             return att.DisplayName;
         }
-        string GetDisplayName(FieldInfo info)
-        {
-            var att = info.GetCustomAttributes(typeof(System.ComponentModel.DisplayNameAttribute), true).OfType<System.ComponentModel.DisplayNameAttribute>().FirstOrDefault();
-            if (att == null)
-            {
-                return Name.Replace("_", "").Sentencise();
-            }
-            return att.DisplayName;
-        }
+
          
         public INode GetChild(string fragment)
         {
@@ -125,11 +111,19 @@ namespace Noodles.Models
             return items.FirstOrDefault(n => n.Fragment.ToLowerInvariant() == fragment.ToLowerInvariant());
         }
 
+
+        
+        [Show]
+        public IEnumerable<Resource> Query(int skip, int take)
+        {
+            return Items.Skip(skip).Take(take);
+        }
+
         public IQueryable<Resource> Items
         {
             get
             {
-                if (Value is IEnumerable && this.PropertyType != typeof(string))
+                if (Value is IEnumerable && this.ValueType!= typeof(string))
                 {
                     var queryable = Value as IQueryable<object>;
                     if (queryable != null)
@@ -142,8 +136,13 @@ namespace Noodles.Models
                 return null;
             }
         }
-        public IEnumerable<NodeMethod> NodeMethods { get { yield break; } }
-        public IEnumerable<NodeProperty> NodeProperties { get { yield break; } }
+
+        public IEnumerable<NodeMethod> NodeMethods
+        {
+            get { yield break; }
+        }
+
+        public IEnumerable<INode> NodeProperties { get { yield break; } }
         public IEnumerable<INode> Children { get { yield break; } }
         
         public string Fragment { get { return Name; }}

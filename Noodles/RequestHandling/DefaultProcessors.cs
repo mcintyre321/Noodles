@@ -10,11 +10,11 @@ namespace Noodles.RequestHandling
 {
     public class DefaultProcessors<TContext>
     {
-        public static async Task<Result> Read(TContext context1, NoodlesRequest request, INode node, Func<IInvokeable, object[], object> doinvoke)
+        public static async Task<Result> Read(TContext context1, RequestInfo requestInfo, INode node, Func<IInvokeable, object[], object> doinvoke)
         {
             var result = MapResultToNoodleResult(node);
             if (result != null) return await Task.Factory.StartNew(() => result);
-            if (!request.IsInvoke)
+            if (!requestInfo.IsInvoke)
             {
                 return await Task.Factory.StartNew<Result>(() => new ViewResult(node));
             }
@@ -27,19 +27,19 @@ namespace Noodles.RequestHandling
         }
 
 
-        public static async Task<Result> ProcessInvoke(TContext context, NoodlesRequest request, INode node, Func<IInvokeable, object[], object> doInvoke)
+        public static async Task<Result> ProcessInvoke(TContext context, RequestInfo requestInfo, INode node, Func<IInvokeable, object[], object> doInvoke)
         {
             doInvoke = doInvoke ?? DoInvoke;
             var invokeable = node as IInvokeable;
             if (invokeable == null) return await NullTask();
 
-            var isInvoke = request.IsInvoke;
+            var isInvoke = requestInfo.IsInvoke;
             if (!isInvoke) return null;
 
             IEnumerable<object> parameters = null;
             try
             {
-                parameters = await request.GetArguments(invokeable);
+                parameters = await requestInfo.GetArguments(invokeable);
             }
             catch (ArgumentBindingException ex)
             {

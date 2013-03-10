@@ -39,7 +39,7 @@ namespace Noodles.WebApi
 
         public override Task<HttpResponseMessage> Map(HttpRequestMessage context, InvokeSuccessResult result)
         {
-            throw new NotImplementedException();
+            return Task.FromResult(context.CreateResponse(HttpStatusCode.OK));
         }
 
         #endregion

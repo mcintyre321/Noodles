@@ -12,12 +12,12 @@ using Noodles.RequestHandling;
 
 namespace Noodles.AspMvc.RequestHandling
 {
-    class AspMvcNoodlesRequest : NoodlesRequest
+    class AspMvcRequestInfo : RequestInfo
     {
         private readonly ControllerContext _cc;
         private string _rootUrl;
 
-        public AspMvcNoodlesRequest(ControllerContext cc)
+        public AspMvcRequestInfo(ControllerContext cc)
         {
             _cc = cc;
             this.IsInvoke = cc.HttpContext.Request.HttpMethod == "POST";
@@ -36,7 +36,7 @@ namespace Noodles.AspMvc.RequestHandling
 
         public override async Task<IEnumerable<object>> GetArguments(IInvokeable method)
         {
-            var parameters = method.Parameters.Select(pt => BindObject(_cc, pt.ParameterType, pt.Name, pt.CustomAttributes, pt.DisplayName)).ToArray();
+            var parameters = method.Parameters.Select(pt => BindObject(_cc, pt.ValueType, pt.Name, pt.CustomAttributes, pt.DisplayName)).ToArray();
             return await Task.FromResult<IEnumerable<Object>>(parameters);
         }
 

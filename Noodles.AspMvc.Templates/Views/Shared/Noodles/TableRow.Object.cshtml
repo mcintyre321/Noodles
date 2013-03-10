@@ -8,7 +8,7 @@
         var property = Model.NodeProperties.SingleOrDefault(p => p.DisplayName == column);
         if (property != null)
         {
-            var view = Html.BestViewName(property.PropertyType, "TableCell.") ?? "Noodles/TableCell.Object";
+            var view = Html.BestViewName(property.ValueType, "TableCell.") ?? "Noodles/TableCell.Object";
             @Html.Partial(view, property)
         }
         else
