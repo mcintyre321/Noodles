@@ -16,12 +16,12 @@ namespace Noodles.WebApi
         public async Task<object[]> BindParameters(IInvokeable nm, HttpRequestMessage request, CancellationToken cancellationToken)
         {
             var config = (HttpConfiguration) request.Properties["MS_HttpConfiguration"];
-            var formatter = config.Formatters.FindReader(nm.ValueType, request.Content.Headers.ContentType);
+            var formatter = config.Formatters.FindReader(nm.ParameterType, request.Content.Headers.ContentType);
             //formatter = new Noodles.WebApi.JQueryMvcFormUrlEncodedFormatter();
             var stream = await request.Content.ReadAsStreamAsync();
             var modelState = new ModelStateDictionary();
             var logger = new ModelStateFormatterLogger(modelState, "model");
-            var obj = await formatter.ReadFromStreamAsync(nm.ValueType, stream, request.Content, logger);
+            var obj = await formatter.ReadFromStreamAsync(nm.ParameterType, stream, request.Content, logger);
             return obj == null ? Enumerable.Empty<object>().ToArray() : obj.GetType().GetProperties().Select(pi => pi.GetValue(obj, null)).ToArray();
         }
 

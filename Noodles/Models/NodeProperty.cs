@@ -33,7 +33,7 @@ namespace Noodles.Models
             this.Parent = parent;
         }
 
-         
+
 
         public NodeMethod Setter { get; set; }
 
@@ -41,7 +41,8 @@ namespace Noodles.Models
         public string DisplayName { get; private set; }
         public object Value { get; private set; }
         public Type ValueType { get; private set; }
-
+        public Type ParameterType { get { return ValueType; } }
+        public object Parameter { get; private set; }
         public Type Type { get { return this.GetType(); } }
 
         public int Order
@@ -53,11 +54,14 @@ namespace Noodles.Models
         }
 
         public bool Active { get { return !Readonly; } }
-        public IEnumerable<NodeMethodParameter> Parameters { get
+        public IEnumerable<NodeMethodParameter> Parameters
         {
-            if (Setter == null) return Enumerable.Empty<NodeMethodParameter>();
-            return Setter.Parameters.Then(p => p.DisplayName = this.DisplayName);
-        }}
+            get
+            {
+                if (Setter == null) return Enumerable.Empty<NodeMethodParameter>();
+                return Setter.Parameters.Then(p => p.DisplayName = this.DisplayName);
+            }
+        }
         public string Name { get; private set; }
 
         public object Target
@@ -75,23 +79,23 @@ namespace Noodles.Models
         {
             return Setter.Invoke(parameterDictionary);
         }
-        public string Message { get { return "";  } }
+        public string Message { get { return ""; } }
 
         public object Invoke(object[] parameters)
         {
             return Setter.Invoke(parameters);
         }
 
-        T IInvokeable.GetAttribute<T>() 
+        T IInvokeable.GetAttribute<T>()
         {
-            return ((Setter == null) ? null as T : Setter.GetAttribute<T>() ) ?? this.CustomAttributes.OfType<T>().SingleOrDefault();
+            return ((Setter == null) ? null as T : Setter.GetAttribute<T>()) ?? this.CustomAttributes.OfType<T>().SingleOrDefault();
         }
 
         public IEnumerable<object> CustomAttributes
         {
             get { return _info.Attributes(); }
         }
-        
+
         public bool Readonly { get { return Setter == null; } }
 
         string GetDisplayName(PropertyInfo info)
@@ -104,47 +108,22 @@ namespace Noodles.Models
             return att.DisplayName;
         }
 
-         
-        public INode GetChild(string fragment)
+
+        public virtual INode GetChild(string fragment)
         {
-            var items = Items ?? Enumerable.Empty<INode>();
-            return items.FirstOrDefault(n => n.Fragment.ToLowerInvariant() == fragment.ToLowerInvariant());
+            return NodeProperties.SingleOrDefault(p => p.Fragment == fragment) as INode
+            ?? NodeMethods.SingleOrDefault(p => p.Fragment == fragment);
         }
 
 
-        
-        [Show]
-        public IEnumerable<Resource> Query(int skip, int take)
-        {
-            return Items.Skip(skip).Take(take);
-        }
-
-        public IQueryable<Resource> Items
-        {
-            get
-            {
-                if (Value is IEnumerable && this.ValueType!= typeof(string))
-                {
-                    var queryable = Value as IQueryable<object>;
-                    if (queryable != null)
-                    {
-                        var delegateQueryable = queryable.ToDelegateQueryable();
-                        return delegateQueryable.AsQueryable().Select(item => Resource.CreateGeneric(item, this)).Cast<Resource>();
-                    }
-                    return ((IEnumerable)Value).AsQueryable().Cast<object>().Select(r => Resource.CreateGeneric(r, this));
-                }
-                return null;
-            }
-        }
-
-        public IEnumerable<NodeMethod> NodeMethods
+        public virtual IEnumerable<NodeMethod> NodeMethods
         {
             get { yield break; }
         }
 
-        public IEnumerable<INode> NodeProperties { get { yield break; } }
-        public IEnumerable<INode> Children { get { yield break; } }
-        
-        public string Fragment { get { return Name; }}
+        public IEnumerable<NodeProperty> NodeProperties { get { yield break; } }
+        public IEnumerable<Resource> Children { get { yield break; } }
+
+        public string Fragment { get { return Name; } }
     }
 }

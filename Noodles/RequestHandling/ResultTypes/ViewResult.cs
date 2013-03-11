@@ -4,11 +4,11 @@ namespace Noodles.RequestHandling.ResultTypes
 {
     public class ViewResult : Result
     {
-        public INode Node { get; set; }
+        public object Target { get; set; }
 
-        public ViewResult(INode node)
+        public ViewResult(object target)
         {
-            Node = node;
+            Target = target;
         }
     }
 }

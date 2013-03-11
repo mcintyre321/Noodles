@@ -35,7 +35,7 @@ namespace Noodles
         public int UiOrder { get; set; }
     }
     [AttributeUsage(AttributeTargets.Property | AttributeTargets.Method)]
-    public class ShowListAttribute : ShowAttribute
+    public class ShowCollectionAttribute : ShowAttribute
     {
     }
 

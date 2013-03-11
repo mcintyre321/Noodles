@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web.Mvc;
 using FormFactory;
@@ -24,6 +25,7 @@ namespace Noodles.AspMvc.Helpers
             vm.IsHidden |= parameter.Locked;
             return vm;
         }
+         
         public static PropertyVm ToPropertyVm(this NodeProperty property, HtmlHelper html)
         {
 

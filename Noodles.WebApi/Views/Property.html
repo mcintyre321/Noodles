@@ -1,0 +1,11 @@
+﻿<label for="@Model.Name">@Model.DisplayName</label>
+@Raw(Noodles.WebApi.Views.Renderer.RenderForm(Model.ValueType, Model.Value, Model.Name))
+@if(Model.Actions.Length > 0){
+<fieldset>
+    <legend>Actions</legend>
+    @foreach(var action in Model.Actions)
+    {
+    @Raw(Noodles.WebApi.Views.Renderer.RenderView("Action", action))
+    }
+</fieldset>
+}

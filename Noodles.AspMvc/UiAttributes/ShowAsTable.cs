@@ -5,7 +5,7 @@ using System.Web;
 
 namespace Noodles.AspMvc.UiAttributes
 {
-    public class ShowAsTable : ShowAttribute
+    public class ShowAsTable : ShowCollectionAttribute
     {
         public ShowAsTable()
         {

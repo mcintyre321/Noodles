@@ -1,0 +1,37 @@
+﻿<div>
+    <fieldset>
+        <legend>Self</legend>
+        <a href="@Model.Url">@Model.Name</a>
+    </fieldset>
+    @if(Model.Properties.Length > 0)
+    {
+    <fieldset>
+        <legend>Properties</legend>
+        @foreach(var property in Model.Properties)
+        {
+            @Raw(Noodles.WebApi.Views.Renderer.RenderView("Property", property))
+        }
+    </fieldset>
+    }
+    @if (Model.Actions.Length > 0)
+    {
+    <fieldset>
+        <legend>Actions</legend>
+        @foreach(var action in Model.Actions)
+        {
+            @Raw(Noodles.WebApi.Views.Renderer.RenderView("Action", action))
+        }
+    </fieldset>
+    }
+    @if (Model.Links.Length > 0)
+    {
+    <fieldset>
+        <legend>Links</legend>
+        @foreach(var link in Model.Links)
+        {
+            <a href="@link.Url" rel="@link.Relationship">@link.Name</a>
+        }
+
+    </fieldset>
+    }
+</div>

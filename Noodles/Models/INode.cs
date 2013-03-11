@@ -10,13 +10,8 @@ namespace Noodles.Models
         string DisplayName { get; }
         string Url { get; }
         INode Parent { get; }
-        string UiHint { get; }
-        object Value { get; }
-        Type ValueType { get; }
+        //string UiHint { get; }
 
-        int Order { get; }
-        IEnumerable<NodeMethod> NodeMethods { get; }
-        IEnumerable<INode> NodeProperties { get; }
-        IEnumerable<INode> Children { get; }
+        //int Order { get; }
     }
 }

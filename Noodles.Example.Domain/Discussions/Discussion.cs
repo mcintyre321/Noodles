@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using Noodles.AspMvc.UiAttributes;
 using Noodles.Example.Domain.Tasks;
-using Walkies;
 
 namespace Noodles.Example.Domain.Discussions
 {
@@ -23,7 +22,7 @@ namespace Noodles.Example.Domain.Discussions
         [Show]
         public void AddMessage(Message message)
         {
-            Messages.Add(message.SetParent(this, Guid.NewGuid().ToString()));
+            Messages.Add(message);
         }
     }
 }

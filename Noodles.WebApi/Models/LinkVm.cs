@@ -12,11 +12,11 @@ namespace Noodles.WebApi.Models
         public string Url { get; set; }
         public string MediaType { get; set; }
 
-        public LinkVm(INode obj, string relationship)
+        public LinkVm(NodeLink obj, string relationship)
         {
             Relationship = relationship;
             Name = obj.DisplayName;
-            MediaType = obj.ValueType.FullName;
+            MediaType = obj.TargetType.FullName;
             this.Url = obj.Url;
         }
     }

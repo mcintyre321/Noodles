@@ -3,17 +3,16 @@ using System.Collections;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using Noodles.Example.Domain.Tasks;
-using Walkies;
 
 namespace Noodles.Example.Domain
 {
     [DisplayName("Project Organiser")]
     public class Application
     {
-        [Child]
+        [Link]
         public ToDoLists ToDoLists { get; private set; }
         
-        [Child]
+        [Link]
         public Discussions.DiscussionsManager DiscussionsManager { get; private set; }
 
         public Application()
@@ -24,13 +23,11 @@ namespace Noodles.Example.Domain
             Membership = new Membership();
         }
 
-        [Child]
+        [Link]
         public Membership Membership { get; set; }
 
-        [Child]
+        [Link]
         public Settings Settings { get; set; }
-
-       
 
     }
 

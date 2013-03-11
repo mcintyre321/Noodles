@@ -2,6 +2,7 @@ using System;
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
+using Noodles.Models;
 using Noodles.RequestHandling;
 using Noodles.RequestHandling.ResultTypes;
 using Noodles.WebApi.Models;
@@ -34,12 +35,13 @@ namespace Noodles.WebApi
 
         public override Task<HttpResponseMessage> Map(HttpRequestMessage context, ViewResult result)
         {
-            return Task.FromResult(context.CreateResponse(HttpStatusCode.OK, new ResourceVm(result.Node)));
+            throw new NotImplementedException();
+            //return Task.FromResult(context.CreateResponse(HttpStatusCode.OK, new ResourceVm(result.Target)));
         }
 
         public override Task<HttpResponseMessage> Map(HttpRequestMessage context, InvokeSuccessResult result)
         {
-            return Task.FromResult(context.CreateResponse(HttpStatusCode.OK));
+            return Task.FromResult(context.CreateResponse(HttpStatusCode.OK, new ResourceVm(result.Invokeable)));
         }
 
         #endregion

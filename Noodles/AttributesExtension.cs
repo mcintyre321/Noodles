@@ -17,6 +17,7 @@ namespace Noodles
         {
             return o.GetType().Attributes();
         }
+      
         public static IEnumerable<Attribute> Attributes(this PropertyInfo propertyInfo)
         {
             return piLookup.GetOrAdd(propertyInfo, p => p.GetCustomAttributes(true).Cast<Attribute>());
@@ -25,6 +26,8 @@ namespace Noodles
         {
             return miLookup.GetOrAdd(methodInfo, m => m.GetCustomAttributes(true).Cast<Attribute>());
         }
+       
+
 
 
         public static IEnumerable<Attribute> Attributes(this Type type)

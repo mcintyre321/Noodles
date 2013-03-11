@@ -39,8 +39,8 @@ namespace Noodles
 
         public int Order { get; private set; }
         public IEnumerable<NodeMethod> NodeMethods { get { yield break; } }
-        public IEnumerable<INode> NodeProperties { get { yield break; } }
-        public IEnumerable<INode> Children { get { yield break; } }
+        public IEnumerable<NodeProperty> NodeProperties { get { yield break; } }
+        public IEnumerable<Resource> Children { get { yield break; } }
 
         public string Name
         {

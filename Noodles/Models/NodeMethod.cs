@@ -15,7 +15,6 @@ namespace Noodles.Models
 
 
         public Type Type { get { return this.GetType(); } }
-        public object Value { get; private set; }
         public int Order { get; private set; }
 
         public NodeMethod(INode parent, object target, MethodInfo methodInfo)
@@ -164,11 +163,7 @@ namespace Noodles.Models
                 return _autoSubmit.Value;
             }
         }
-        [Show]
-        public string ReturnTypeName
-        {
-            get { return ReturnType.Name; }
-        }
+
         public Type ReturnType
         {
             get { return _methodInfo.ReturnType; }
@@ -178,12 +173,12 @@ namespace Noodles.Models
             return this.NodeMethods(this);
         } }
 
-        public IEnumerable<INode> NodeProperties
+        public IEnumerable<NodeProperty> NodeProperties
         {
-            get { return Parameters; }
+            get { yield break; }
         }
 
-        public IEnumerable<INode> Children { get { yield break; } }
+        public IEnumerable<Resource> Children { get { yield break; } }
 
 
         private object GetParameterValue(object[] parameters, NodeMethodParameter parameterInfo, int index)
@@ -211,10 +206,12 @@ namespace Noodles.Models
 
         public string Fragment { get { return Name; } }
 
-        public Type ValueType
+        public Type ParameterType
         {
             get { return Siggs.SiggsExtensions.GetTypeForMethodInfo(_methodInfo); }
         }
+
+        public object Parameter { get { return Activator.CreateInstance(ParameterType); } }
 
 
         public bool Equals(NodeMethod other)

@@ -6,6 +6,9 @@ using System.Net;
 using System.Net.Http.Formatting;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
+using Noodles.Models;
+using Noodles.WebApi.Models;
+using Noodles.WebApi.Views;
 using RazorEngine;
 
 namespace Noodles.WebApi
@@ -29,26 +32,15 @@ namespace Noodles.WebApi
             return true;
         }
 
-        public override Task<object> ReadFromStreamAsync(Type type, Stream readStream, System.Net.Http.HttpContent content, IFormatterLogger formatterLogger)
-        {
-            return base.ReadFromStreamAsync(type, readStream, content, formatterLogger);
-        }
-
         public override Task WriteToStreamAsync(Type type, object value, Stream writeStream, System.Net.Http.HttpContent content, TransportContext transportContext)
         {
-            
             var task = Task.Factory.StartNew(() =>
             {
-                var assembly = typeof (HtmlMediaTypeFormatter).Assembly;
-                var resourceName = assembly.GetManifestResourceNames().Single();
-                using (var stream = assembly.GetManifestResourceStream(resourceName))
-                using (var reader = new StreamReader(stream))
+                var s = Renderer.RenderView("Api", value);
+                using(var sw = new StreamWriter(writeStream))
                 {
-                    var streamWriter = new StreamWriter(writeStream);
-                    var template = reader.ReadToEnd();
-                    string result = Razor.Parse(template, value );
-                    streamWriter.Write(result);
-                    streamWriter.Flush();
+                    sw.Write(s);
+                    sw.Flush();
                 }
             });
             return task;

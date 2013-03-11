@@ -41,17 +41,17 @@ namespace Noodles.AspMvc.RequestHandling
         public override ActionResult Map(ControllerContext context, ViewResult result)
         {
             var res = new System.Web.Mvc.ViewResult();
-            if (result.Node is IInvokeable)
+            if (result.Target is IInvokeable)
             {
                 res.ViewName = "Noodles/NodeMethod";
             }
-            else if (result.Node is Resource)
+            else if (result.Target is Resource)
             {
-                var resource = (Resource)result.Node;
-                var viewname = FormFactory.FormHelperExtension.BestViewName(context, resource.Type, "Noodles/Node.");
+                var resource = (Resource)result.Target;
+                var viewname = FormFactory.FormHelperExtension.BestViewName(context, resource.ValueType, "Noodles/Node.");
                 res.ViewName = viewname;
             }
-            res.ViewData.Model = result.Node;
+            res.ViewData.Model = result.Target;
             if (context.HttpContext.Request.IsAjaxRequest())
             {
                 res.MasterName = "Noodles/_AjaxLayout";

@@ -1,9 +1,10 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 
 namespace Noodles.Models
 {
-    public interface IInvokeable
+    public interface IInvokeable : INode
     {
         bool Active { get; }
         IEnumerable<NodeMethodParameter> Parameters { get; }
@@ -13,7 +14,8 @@ namespace Noodles.Models
         string Message { get; }
         string Url { get; }
         bool AutoSubmit { get; }
-        Type ValueType { get; }
+        Type ParameterType { get; }
+        object Parameter { get; }
         object Invoke(IDictionary<string, object> parameterDictionary);
         object Invoke(object[] parameters);
         T GetAttribute<T>() where T : Attribute;

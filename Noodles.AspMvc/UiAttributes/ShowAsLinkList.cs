@@ -1,6 +1,6 @@
 namespace Noodles.AspMvc.UiAttributes
 {
-    public class ShowAsLinkList : ShowAttribute
+    public class ShowAsLinkList : ShowCollectionAttribute
     {
         public ShowAsLinkList()
         {

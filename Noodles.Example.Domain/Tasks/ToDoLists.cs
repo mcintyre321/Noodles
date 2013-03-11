@@ -4,7 +4,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Noodles.AspMvc.UiAttributes;
-using Walkies;
 namespace Noodles.Example.Domain.Tasks
 {
     public class ToDoLists
@@ -26,7 +25,7 @@ namespace Noodles.Example.Domain.Tasks
         [Show]
         public void AddList(ToDoList list)
         {
-            Lists.Add(list.SetParent(Lists, Guid.NewGuid().ToString()));
+            Lists.Add(list);
         }
     }
 }

@@ -20,10 +20,10 @@
                 <div class="controls">
                     @if(!string.IsNullOrWhiteSpace(Model.UiHint))
                     {
-                        var viewName = Html.BestViewName(Model.Value == null ? Model.PropertyType : Model.Value.GetType(), Model.UiHint);
+                        var viewName = Html.BestViewName(Model.Value == null ? Model.ValueType : Model.Value.GetType(), Model.UiHint);
                         if (viewName == null)
                         {
-                            throw new UiHintException("Could not find view for prefix "  + Model.UiHint + " for property " + property.Url + " of type " + property.PropertyType.Name);
+                            throw new UiHintException("Could not find view for prefix "  + Model.UiHint + " for property " + property.Url + " of type " + property.ValueType.Name);
                         }
                         @Html.Partial(viewName, Model)    
                     }else

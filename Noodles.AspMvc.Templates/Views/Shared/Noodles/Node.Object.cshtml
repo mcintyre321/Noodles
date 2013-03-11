@@ -10,7 +10,7 @@
 @helper Nav(HtmlHelper helper, Resource resource, IEnumerable<Resource> walked, string navOptions)
 {
     <ul class="nav @navOptions">
-        @foreach (var node in resource.Children)
+        @foreach (var node in resource.Links)
         {
             var active = walked.Any(w => w.Url == node.Url);
             <li @Html.Raw(active ? "class=\"active\"" : "")><a href="@node.Url">@node.DisplayName</a></li>
@@ -19,7 +19,7 @@
 }
 @helper Render(HtmlHelper helper, Resource resource, IEnumerable<Resource> walked, Func<IHtmlString> getInner)
 {
-    if (resource.Children.Any())
+    if (resource.Links.Any())
     {
         if (resource.UiHint == "SideMenu")
         {
@@ -55,7 +55,7 @@
 
 @{
     var walked = Model.AncestorsAndSelf.OfType<Resource>().ToArray();
-    Func<IHtmlString> content = () => Render(Html, Model, walked, () => Html.BestPartial(Model, Model.Type, "Noodles/NodeBody."));
+    Func<IHtmlString> content = () => Render(Html, Model, walked, () => Html.BestPartial(Model, Model.ValueType, "Noodles/NodeBody."));
     foreach (var walkedItem in walked.Skip(1))
     {
         var prev = content;

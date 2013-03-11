@@ -3,7 +3,7 @@
 @model Noodles.Models.NodeProperty
 <td data-node-property="@Model.Name">
     <div data-node-getter="@Model.Name">
-        @Html.BestPartial(Model.ToPropertyVm(Html),Model.PropertyType, "FormFactory/Cell.")
+        @Html.BestPartial(Model.ToPropertyVm(Html),Model.ValueType, "FormFactory/Cell.")
         @if (!Model.Readonly)
             {
                 <a class="show-setter" href="#edit @Model.DisplayName"><i class="icon-edit "></i></a>

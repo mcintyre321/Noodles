@@ -7,7 +7,7 @@
     var root = ViewBag.Root as Resource;
     if (root != null)
     {
-        foreach (var child in root.Children.Where(c => string.IsNullOrWhiteSpace(c.UiHint)))
+        foreach (var child in root.Links.Where(c => string.IsNullOrWhiteSpace(c.UiHint)))
         {
     <a href="@child.Url">@child.DisplayName</a>
         }

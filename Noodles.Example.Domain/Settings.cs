@@ -1,4 +1,3 @@
-using Walkies;
 
 namespace Noodles.Example.Domain
 {
@@ -11,9 +10,9 @@ namespace Noodles.Example.Domain
             MembershipSettings = new MembershipSettings();
         }
 
-        [Child]
+        [Link]
         public ProfileSettings ProfileSettings { get; private set; }
-        [Child]
+        [Link]
         public MembershipSettings MembershipSettings { get; private set; }
     }
 }

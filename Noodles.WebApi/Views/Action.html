@@ -1,0 +1,7 @@
+﻿<fieldset>
+    <legend>@Model.Name</legend>
+    <form Model="@Model.Url" method="POST">
+        @Raw(Noodles.WebApi.Views.Renderer.RenderForm(Model.ValueType, Model.Value, ""))
+        <input type="submit" value="Execute"/>
+    </form>
+</fieldset>

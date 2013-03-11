@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using Noodles.AspMvc.UiAttributes;
-using Walkies;
 namespace Noodles.Example.Domain.Discussions
 {
     [DisplayName("Discussions")]
@@ -23,7 +22,7 @@ namespace Noodles.Example.Domain.Discussions
         [Show]
         public void NewDiscussion(Discussion discussion, Message message)
         {
-            Discussions.Add(discussion.SetParent(Discussions, Guid.NewGuid().ToString()));
+            Discussions.Add(discussion);
             discussion.AddMessage(message);
         }
 

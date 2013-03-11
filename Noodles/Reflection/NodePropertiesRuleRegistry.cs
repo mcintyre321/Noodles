@@ -15,9 +15,6 @@ namespace Noodles
         /// </returns>
         public delegate bool? ShowPropertyRule(object target, PropertyInfo propertyInfo);
 
-        public static ShowPropertyRule HideGetChildProperties = (t, propertyInfo) => (t is IGetChild && propertyInfo.Name == "Item") ? false : null as bool?;
-        public static ShowPropertyRule HideUndercoredProperties = (t, propertyInfo) => ShowByDefault && propertyInfo.Name.StartsWith("_") ? false : null as bool?;
-        public static ShowPropertyRule HideSystemObjectMembers = (t, propertyInfo) => propertyInfo.DeclaringType == typeof(System.Object) ? false : null as bool?;
         public static ShowPropertyRule ShowAttributedProperties = (t, propertyInfo) =>
         {
             if (ShowByDefault == false && propertyInfo.GetCustomAttributes(typeof(ShowAttribute), true).Any())

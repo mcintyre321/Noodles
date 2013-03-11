@@ -2,9 +2,9 @@
 @using System.Web.Mvc.Html
 @using FormFactory
 @using Noodles.AspMvc.Helpers
-@model Noodles.Models.NodeProperty
+@model Noodles.Models.NodeCollectionProperty
 @{
-    var resources = Model.Items.ToArray();
+    var resources = Model.Query(0, int.MaxValue).Items.ToArray();
     var data = resources.Select(i => new
     {
         Resource = i,
@@ -36,7 +36,7 @@
         <tbody>
             @foreach (var item in resources)
             {
-                var view = Html.BestViewName(item.Type, "Noodles/TableRow.");
+                var view = Html.BestViewName(item.ValueType, "Noodles/TableRow.");
                 if (view == null)
                 {
                     view = "Noodles/TableRow.Object";
