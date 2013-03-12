@@ -1,7 +1,7 @@
 ﻿@using System.Web.Mvc.Html
-@model Noodles.Models.NodeProperty
+@model Noodles.Models.NodeCollectionProperty
             
-@foreach(var child in Model.Items)
+@foreach(var child in Model.Query(0, int.MaxValue).Items)
 {
     @Html.Partial("Noodles/Link", child)
 }
