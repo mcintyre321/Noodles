@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Web.Http.Routing;
 using Noodles.Models;
 using Noodles.RequestHandling;
 
@@ -18,6 +19,9 @@ namespace Noodles.WebApi
             _request = request;
             _ct = ct;
             IsInvoke = request.Method == HttpMethod.Post;
+            var routeData = request.Properties["MS_HttpRouteData"] as IHttpRouteData;
+            
+            _rootUrl = '/' + routeData.Route.RouteTemplate.Substring(0, routeData.Route.RouteTemplate.IndexOf("{*path}")).Trim('/') + '/';
         }
 
         public override string RootUrl

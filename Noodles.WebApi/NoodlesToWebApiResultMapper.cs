@@ -9,7 +9,7 @@ using Noodles.WebApi.Models;
 
 namespace Noodles.WebApi
 {
-    public class NoodlesToWebApiResultMapper: NoodleResultMapper<Task<HttpResponseMessage>, HttpRequestMessage>
+    public class NoodlesToWebApiResultMapper : NoodleResultMapper<Task<HttpResponseMessage>, HttpRequestMessage>
     {
         #region Overrides of NoodleResultMapper<HttpResponseMessage,HttpRequestMessage>
 
@@ -35,13 +35,37 @@ namespace Noodles.WebApi
 
         public override Task<HttpResponseMessage> Map(HttpRequestMessage context, ViewResult result)
         {
-            throw new NotImplementedException();
-            //return Task.FromResult(context.CreateResponse(HttpStatusCode.OK, new ResourceVm(result.Target)));
+            var target = result.Target;
+            var type = target.GetType();
+            if (typeof(Resource).IsAssignableFrom(type))
+            {
+                return Task.FromResult(context.CreateResponse(HttpStatusCode.OK, new ResourceVm((Resource) result.Target)));
+            }
+            else if (type == typeof(NodeProperty))
+            {
+                return Task.FromResult(context.CreateResponse(HttpStatusCode.OK, new PropertyVm((NodeProperty)result.Target)));
+
+            }
+            else if (type == typeof(NodeCollectionProperty))
+            {
+                return Task.FromResult(context.CreateResponse(HttpStatusCode.OK, new CollectionVm((NodeCollectionProperty)result.Target)));
+
+            }
+            else if (type == typeof(NodeMethod))
+            {
+                return Task.FromResult(context.CreateResponse(HttpStatusCode.OK, new NodeMethodVm((NodeMethod)result.Target)));
+
+            }
+            else
+            {
+                throw new NotImplementedException();
+            }
+
         }
 
         public override Task<HttpResponseMessage> Map(HttpRequestMessage context, InvokeSuccessResult result)
         {
-            return Task.FromResult(context.CreateResponse(HttpStatusCode.OK, new ResourceVm(result.Invokeable)));
+            return Task.FromResult(context.CreateResponse(HttpStatusCode.OK, new InvokeVm(result.Invokeable)));
         }
 
         #endregion

@@ -4,9 +4,9 @@ namespace Noodles.RequestHandling.ResultTypes
 {
     public class ViewResult : Result
     {
-        public object Target { get; set; }
+        public INode Target { get; set; }
 
-        public ViewResult(object target)
+        public ViewResult(INode target)
         {
             Target = target;
         }

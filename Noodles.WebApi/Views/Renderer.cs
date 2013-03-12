@@ -3,6 +3,7 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text;
+using Noodles.WebApi.Models;
 using RazorEngine;
 
 namespace Noodles.WebApi.Views
@@ -70,5 +71,9 @@ namespace Noodles.WebApi.Views
             return sb.ToString();
         }
 
+        public static void RenderBestView(object o)
+        {
+                
+        }
     }
 }
