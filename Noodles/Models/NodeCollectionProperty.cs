@@ -18,9 +18,12 @@ namespace Noodles.Models
 
         public override INode GetChild(string fragment)
         {
-            var items = Items ?? Enumerable.Empty<INode>();
-            return items.FirstOrDefault(n => n.Fragment.ToLowerInvariant() == fragment.ToLowerInvariant())
-                   ?? base.GetChild(fragment);
+            int index = 0;
+            if (int.TryParse(fragment, out index))
+            {
+                return Query(index, 1).Items.SingleOrDefault();
+            }
+            return base.GetChild(fragment);
         }
 
 
@@ -28,25 +31,20 @@ namespace Noodles.Models
         [Show]
         public QueryPage Query(int skip, int take)
         {
-            return new QueryPage(skip, take, Items.Skip(skip).Take(take));
+            return new QueryPage(skip, take, Items, this);
         }
 
-        public IQueryable<Resource> Items
+        IQueryable<object> Items
         {
             get
             {
-                if (Value is IEnumerable && this.ValueType != typeof(string))
+                var queryable = Value as IQueryable<object>;
+                if (queryable != null)
                 {
-                    var queryable = Value as IQueryable<object>;
-                    if (queryable != null)
-                    {
-                        var delegateQueryable = queryable.ToDelegateQueryable();
-                        return delegateQueryable.AsQueryable()
-                            .Select((i) => Resource.CreateGeneric(i, this, Guid.NewGuid().ToString())).Cast<Resource>();
-                    }
-                    return ((IEnumerable)Value).AsQueryable().Cast<object>().Select((r, i) => Resource.CreateGeneric(r, this, i.ToString()));
+                    var delegateQueryable = queryable.ToDelegateQueryable();
+                    return delegateQueryable;
                 }
-                return null;
+                return ((IEnumerable) Value).AsQueryable().Cast<object>();
             }
         }
         public override IEnumerable<NodeMethod> NodeMethods

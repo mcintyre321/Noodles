@@ -1,7 +1,7 @@
 ﻿@using FormFactory
 @model Noodles.Models.NodeCollectionProperty
 <ul class="inline-children">
-    @foreach(var item in Model.Items)
+    @foreach(var item in Model.Query(0, int.MaxValue).Items)
     {
         @Html.Partial("Noodles/Link.Object", item)
     }
