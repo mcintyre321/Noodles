@@ -22,7 +22,7 @@ namespace Noodles
 
         public static IEnumerable<NodeProperty> YieldFindNodePropertiesUsingReflection(INode node, object target, Type fallback)
         {
-            return YieldFindPropertInfosUsingReflection(target, fallback).Select(pi => NodeProperty(node, target, pi));
+            return YieldFindPropertyInfosUsingReflection(target, fallback).Select(pi => NodeProperty(node, target, pi));
         }
 
         private static NodeProperty NodeProperty(INode node, object target, PropertyInfo pi)
@@ -34,7 +34,7 @@ namespace Noodles
             return new NodeProperty(node, target, pi);
         }
 
-        static IEnumerable<PropertyInfo> YieldFindPropertInfosUsingReflection(this object target, Type fallback)
+        public static IEnumerable<PropertyInfo> YieldFindPropertyInfosUsingReflection(this object target, Type fallback)
         {
 
             const BindingFlags bindingFlags = BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.FlattenHierarchy;

@@ -22,7 +22,7 @@ namespace Noodles
 
         public static IEnumerable<NodeLink> YieldFindNodeLinksUsingReflection(Resource parent, object target, Type fallback)
         {
-            return YieldFindPropertInfosUsingReflection(target, fallback).Select(pi => NodeLink(parent, pi));
+            return YieldFindLinkPropertyInfosUsingReflection(target, fallback).Select(pi => NodeLink(parent, pi));
         }
 
         private static NodeLink NodeLink(Resource parent, PropertyInfo pi)
@@ -30,7 +30,7 @@ namespace Noodles
             return new NodeLink(parent, pi);
         }
 
-        public static IEnumerable<PropertyInfo> YieldFindPropertInfosUsingReflection(this object target, Type fallback)
+        public static IEnumerable<PropertyInfo> YieldFindLinkPropertyInfosUsingReflection(this object target, Type fallback)
         {
 
             const BindingFlags bindingFlags = BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.FlattenHierarchy;

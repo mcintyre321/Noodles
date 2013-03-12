@@ -31,7 +31,7 @@ namespace Noodles.AspMvc.RequestHandling
         private static IEnumerable<PropertyVm> GetPropertyVms(HtmlHelper htmlHelper, object o, Type type, Func<HtmlHelper, object, Type, IEnumerable<PropertyVm>> fallback)
         {
             if (o == null) o = Activator.CreateInstance(type);
-            return o.YieldFindPropertInfosUsingReflection(type).Select(p => new PropertyVm(o, p, htmlHelper));
+            return o.YieldFindPropertyInfosUsingReflection(type).Select(p => new PropertyVm(o, p, htmlHelper));
         }
 
         public async Task<ActionResult> GetNoodleResult(ControllerContext cc, object root, string path = null, Func<IInvokeable, object[], object> doInvoke = null)
