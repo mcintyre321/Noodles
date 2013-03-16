@@ -11,8 +11,8 @@ namespace Noodles
         static Configuration()
         {
              //use Harden rules to control method access
-            NodeMethodsRuleRegistry.ShowMethodRules.Add((o, info) => Harden.Allow.Call(o, info) ? null as bool? : false);
-            NodeMethodsRuleRegistry.ShowMethodRules.Add((o, m) => m.Name.StartsWith("Allow") ? false : null as bool?);
+            NodeMethodsRuleRegistry.ShowMethodRules.Insert(0, (o, info) => Harden.Allow.Call(o, info) ? null as bool? : false);
+            NodeMethodsRuleRegistry.ShowMethodRules.Insert(0, (o, m) => m.Name.StartsWith("Allow") ? false : null as bool?);
 
             NodePropertiesRuleRegistry.ShowPropertyRules.Add((o, info) => Harden.Allow.Get(o, info) ? null as bool? : false);
 

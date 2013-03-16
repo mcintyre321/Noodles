@@ -22,8 +22,9 @@ namespace Noodles.Models
             ValueType = info.PropertyType;
             Name = info.Name;
             DisplayName = GetDisplayName(info);
+            var propertyLevelShowAttribute = info.Attributes().OfType<ShowAttribute>().Any();
             var setter = info.GetSetMethod();
-            if (setter != null)
+            if (setter != null && (propertyLevelShowAttribute || setter.Attributes().OfType<ShowAttribute>().Any()))
             {
                 if (Harden.Allow.Set(target, info))
                 {

@@ -2,6 +2,8 @@ using System;
 using System.Collections;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using System.Web;
+using System.Web.Security;
 using Noodles.Example.Domain.Tasks;
 
 namespace Noodles.Example.Domain
@@ -21,7 +23,10 @@ namespace Noodles.Example.Domain
             DiscussionsManager = new Discussions.DiscussionsManager();
             Settings = new Settings();
             Membership = new Membership();
+            WelcomeMessage = "See https://github.com/mcintyre321/Noodles/blob/master/Noodles.Example.Domain/Application.cs";
         }
+
+        public string WelcomeMessage { [Show] get; set; }
 
         [Link]
         public Membership Membership { get; set; }
@@ -29,6 +34,16 @@ namespace Noodles.Example.Domain
         [Link]
         public Settings Settings { get; set; }
 
+        [Show]
+        public void SignIn(string user, [DataType(DataType.Password)] string password)
+        {
+            //FormsAuthentication.SetAuthCookie(user, false);
+        }
+        public bool? AllowSignIn()
+        {
+            return false;
+            //return HttpContext.Current.Request.IsAuthenticated ? false : null as bool?;
+        }
     }
 
     public class User
