@@ -33,12 +33,12 @@ namespace Noodles.Models
 
         string IInvokeable.Name
         {
-            get { return "Set"; }
+            get { return "Update"; }
         }
 
         string IInvokeable.DisplayName
         {
-            get { return "Set"; }
+            get { return "Update"; }
         }
 
         object IInvokeable.Target
