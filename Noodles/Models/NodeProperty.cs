@@ -9,7 +9,7 @@ using Noodles.Helpers;
 namespace Noodles.Models
 {
     [DisplayName("{DisplayName}")]
-    public class NodeProperty : IInvokeable, INode
+    public class NodeProperty : IInvokeable, INode, IInvokeableParameter
     {
         private readonly object _target;
         private readonly PropertyInfo _info;
@@ -39,9 +39,44 @@ namespace Noodles.Models
         public NodeMethod Setter { get; set; }
 
         string IInvokeable.DisplayName { get { return "Set " + DisplayName; } }
+
+        object IInvokeableParameter.LastValue
+        {
+            get { return this.Value; }
+            set { this.Value = value; }
+        }
+
         public string DisplayName { get; private set; }
+
+        IEnumerable<Attribute> IInvokeableParameter.CustomAttributes
+        {
+            get { return this.Attributes(); }
+        }
+
         public object Value { get; private set; }
+
+        IEnumerable IInvokeableParameter.Choices
+        {
+            get { return null; }
+        }
+
+        IEnumerable IInvokeableParameter.Suggestions
+        {
+            get { return null; ; }
+        }
+
+        bool IInvokeableParameter.Locked
+        {
+            get { return false; }
+        }
+
         public Type ValueType { get; private set; }
+
+        bool IInvokeableParameter.IsOptional
+        {
+            get { return true; }
+        }
+
         public Type ParameterType { get { return ValueType; } }
         public object Parameter { get; private set; }
         public Type Type { get { return this.GetType(); } }
@@ -55,7 +90,7 @@ namespace Noodles.Models
         }
 
         public bool Active { get { return !Readonly; } }
-        public IEnumerable<NodeMethodParameter> Parameters
+        public IEnumerable<IInvokeableParameter> Parameters
         {
             get
             {
@@ -68,6 +103,12 @@ namespace Noodles.Models
         public object Target
         {
             get { return _target; }
+        }
+
+        string IInvokeableParameter.DisplayName
+        {
+            get { return DisplayName; }
+            set { DisplayName = value; }
         }
 
         public string Url { get { return this.Parent.Url + this.Fragment + "/"; } }

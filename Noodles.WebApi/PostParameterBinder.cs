@@ -13,7 +13,7 @@ namespace Noodles.WebApi
     public class PostParameterBinder
     {
 
-        public async Task<object[]> BindParameters(IInvokeable nm, HttpRequestMessage request, CancellationToken cancellationToken)
+        public async Task<Tuple<string, object>[]> BindParameters(IInvokeable nm, HttpRequestMessage request, CancellationToken cancellationToken)
         {
             var config = (HttpConfiguration) request.Properties["MS_HttpConfiguration"];
             var formatter = config.Formatters.FindReader(nm.ParameterType, request.Content.Headers.ContentType);
@@ -22,7 +22,7 @@ namespace Noodles.WebApi
             var modelState = new ModelStateDictionary();
             var logger = new ModelStateFormatterLogger(modelState, "model");
             var obj = await formatter.ReadFromStreamAsync(nm.ParameterType, stream, request.Content, logger);
-            return obj == null ? Enumerable.Empty<object>().ToArray() : obj.GetType().GetProperties().Select(pi => pi.GetValue(obj, null)).ToArray();
+            return obj == null ? Enumerable.Empty<Tuple<string, object>>().ToArray() : obj.GetType().GetProperties().Select(pi => Tuple.Create(pi.Name, pi.GetValue(obj, null))).ToArray();
         }
 
     }

@@ -83,6 +83,7 @@
     <Compile Include="NodeMethodExtensions.cs" />
     <Compile Include="NodeTypeExtension.cs" />
     <Compile Include="PathExtension.cs" />
+    <Compile Include="Reflection\IInvokeableParameter.cs" />
     <Compile Include="Reflection\LinkAttribute.cs" />
     <Compile Include="Reflection\LinkExtension.cs" />
     <Compile Include="Reflection\NodeLinkRuleRegistry.cs" />

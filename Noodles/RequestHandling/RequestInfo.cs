@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Noodles.Models;
@@ -9,6 +10,6 @@ namespace Noodles.RequestHandling
         public bool IsInvoke { get; protected set; }
         public abstract string RootUrl { get;  }
 
-        public abstract Task<IEnumerable<object>> GetArguments(IInvokeable method);
+        public abstract Task<IEnumerable<Tuple<string, object>>> GetArguments(IInvokeable method);
     }
 }

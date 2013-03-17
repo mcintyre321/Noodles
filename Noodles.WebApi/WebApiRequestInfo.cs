@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading;
@@ -29,7 +30,7 @@ namespace Noodles.WebApi
             get { return _rootUrl; }
         }
 
-        public override async Task<IEnumerable<object>> GetArguments(IInvokeable method)
+        public override async Task<IEnumerable<Tuple<string, object>>> GetArguments(IInvokeable method)
         {
             var binder = new PostParameterBinder();
             return await binder.BindParameters(method, _request, _ct);

@@ -5,7 +5,7 @@ using Noodles.Helpers;
 using Walkies;
 namespace Noodles.Models
 {
-    public class Resource : INode
+    public class Resource : INode, IInvokeable
     {
 
         protected Resource(object target, INode parent, string fragment)
@@ -20,10 +20,35 @@ namespace Noodles.Models
         public object Value { get; protected set; }
         public Type ValueType { get; set; }
 
-        
-        public string DisplayName
+
+        bool IInvokeable.Active
         {
-            get { return Value.GetDisplayName(); }
+            get { return true; }
+        }
+
+        IEnumerable<IInvokeableParameter> IInvokeable.Parameters
+        {
+            get { return this.NodeProperties.Cast<IInvokeableParameter>(); }
+        }
+
+        string IInvokeable.Name
+        {
+            get { return "Set"; }
+        }
+
+        string IInvokeable.DisplayName
+        {
+            get { return "Set"; }
+        }
+
+        object IInvokeable.Target
+        {
+            get { return this; }
+        }
+
+        string IInvokeable.Message
+        {
+            get { return ""; }
         }
 
         public INode GetChild(string fragment)
@@ -50,10 +75,38 @@ namespace Noodles.Models
         private string _url;
 
 
+        public string DisplayName { get { return Value.GetDisplayName(); } }
+
         public string Url
         {
             get { return _url ?? (Parent == null ? ( "/" + this.Fragment + "/") : (Parent.Url + Fragment + "/")); }
             set { _url = value; }
+        }
+
+        bool IInvokeable.AutoSubmit
+        {
+            get { return false; }
+        }
+
+        Type IInvokeable.ParameterType
+        {
+            get { return this.GetType(); }
+        }
+
+
+        object IInvokeable.Invoke(IDictionary<string, object> parameterDictionary)
+        {
+            throw new NotImplementedException();
+        }
+
+        object IInvokeable.Invoke(object[] parameters)
+        {
+            throw new NotImplementedException();
+        }
+
+        T IInvokeable.GetAttribute<T>()
+        {
+            return this.Attributes().OfType<T>().SingleOrDefault();
         }
 
         public string Fragment { get; set; }

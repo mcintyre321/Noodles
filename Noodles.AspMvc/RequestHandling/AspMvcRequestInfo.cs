@@ -34,13 +34,13 @@ namespace Noodles.AspMvc.RequestHandling
             }
         }
 
-        public override async Task<IEnumerable<object>> GetArguments(IInvokeable method)
+        public override async Task<IEnumerable<Tuple<string, object>>> GetArguments(IInvokeable method)
         {
             var parameters = method.Parameters.Select(pt => BindObject(_cc, pt.ValueType, pt.Name, pt.CustomAttributes, pt.DisplayName)).ToArray();
-            return await Task.FromResult<IEnumerable<Object>>(parameters);
+            return await Task.FromResult(parameters);
         }
 
-        private static object BindObject(ControllerContext cc, Type desiredType, string name, IEnumerable<Attribute> attributes, string displayName)
+        private static Tuple<string, object> BindObject(ControllerContext cc, Type desiredType, string name, IEnumerable<Attribute> attributes, string displayName)
         {
             attributes = attributes ?? new Attribute[] { };
             displayName = displayName ?? name.Sentencise(true);
@@ -79,7 +79,7 @@ namespace Noodles.AspMvc.RequestHandling
                 throw new ArgumentBindingException();
             }
 
-            return output;
+            return Tuple.Create(name, output);
         }
 
 

@@ -8,7 +8,7 @@ using Noodles.Models;
 
 namespace Noodles
 {
-    public class NodeMethodParameter : INode
+    public class NodeMethodParameter : INode, IInvokeableParameter
     {
         private readonly NodeMethod _nodeMethod;
         private readonly MethodInfo _mi;
@@ -33,6 +33,11 @@ namespace Noodles
             {
                 return _parameter.ParameterType;
             }
+        }
+
+        public bool IsOptional
+        {
+            get { return _parameter.IsOptional; }
         }
 
         public Type Type { get { return this.GetType(); } }

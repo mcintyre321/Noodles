@@ -21,7 +21,7 @@ namespace Noodles.RequestHandling
         };
 
         
-        public async Task<Result> HandleRequest(TContext cc, RequestInfo requestInfo, object root, string[] path, Func<IInvokeable, object[], object> doInvoke = null)
+        public async Task<Result> HandleRequest(TContext cc, RequestInfo requestInfo, object root, string[] path, Func<IInvokeable, IDictionary<string, object>, object> doInvoke = null)
         {
             var rootResource = Resource.CreateGeneric(root, null, null);
             rootResource.Url = requestInfo.RootUrl;
