@@ -22,20 +22,35 @@ namespace Noodles
 
         public static IEnumerable<NodeLink> YieldFindNodeLinksUsingReflection(Resource parent, object target, Type fallback)
         {
-            return YieldFindLinkPropertyInfosUsingReflection(target, fallback).Select(pi => NodeLink(parent, pi));
+            foreach (var link in YieldFindLinkAttributedProperties(target, fallback).Select(pi => new NodeLink(parent, pi.Name, pi.GetValue(target))))
+            {
+                yield return link;
+            }
+
+            var links = target.GetType().GetProperties().Where(
+                p => p.Attributes().OfType<LinksAttribute>().Any())
+                .Select(pi => (IDictionary<string, object>) pi.GetValue(target))
+                .SelectMany(dict => dict)
+                .Select(pair => new NodeLink(parent, pair.Key, pair.Value));
+
+            foreach (var link in links)
+            {
+                yield return link;
+            }
+
         }
 
-        private static NodeLink NodeLink(Resource parent, PropertyInfo pi)
+        public static IEnumerable<PropertyInfo> AllPropertyInfos(this object o, Type fallback)
         {
-            return new NodeLink(parent, pi);
-        }
-
-        public static IEnumerable<PropertyInfo> YieldFindLinkPropertyInfosUsingReflection(this object target, Type fallback)
-        {
-
             const BindingFlags bindingFlags = BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.FlattenHierarchy;
-            var type = target == null ? fallback : target.GetType();
+            var type = o == null ? fallback : o.GetType();
             var propertyInfos = type.GetProperties(bindingFlags).ToArray();
+            return propertyInfos;
+        }
+
+        public static IEnumerable<PropertyInfo> YieldFindLinkAttributedProperties(this object target, Type fallback)
+        {
+            var propertyInfos = target.AllPropertyInfos(fallback);
             foreach (var info in propertyInfos)
             {
                 bool? ruleResult = null;
@@ -50,6 +65,5 @@ namespace Noodles
                 }
             }
         }
-       
     }
 }

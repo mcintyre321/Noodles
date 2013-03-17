@@ -15,12 +15,9 @@ namespace Noodles
         /// </returns>
         public delegate bool? ShowLinkRule(object target, PropertyInfo propertyInfo);
 
-        public static ShowLinkRule HideGetChildLinks = (t, propertyInfo) => (t is IGetChild && propertyInfo.Name == "Item") ? false : null as bool?;
-        public static ShowLinkRule HideUndercoredLinks = (t, propertyInfo) => propertyInfo.Name.StartsWith("_") ? false : null as bool?;
-        public static ShowLinkRule HideSystemObjectMembers = (t, propertyInfo) => propertyInfo.DeclaringType == typeof(System.Object) ? false : null as bool?;
         public static ShowLinkRule LinkAttributedLinks = (t, propertyInfo) =>
         {
-            if (propertyInfo.GetCustomAttributes(typeof(LinkAttribute), true).Any())
+            if (propertyInfo.Attributes().OfType<LinkAttribute>().Any())
             {
                 return true;
             }
@@ -46,7 +43,6 @@ namespace Noodles
         };
 
 
-        public static ShowLinkRule ClassLevelShowByDefault = (t, mi) => mi.DeclaringType.GetCustomAttributes(typeof(LinkAttribute), true).Any() ? true : null as bool?;
 
         public static List<ShowLinkRule> ShowLinkRules { get; private set; }
 
