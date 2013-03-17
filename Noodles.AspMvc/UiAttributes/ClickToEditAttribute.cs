@@ -16,8 +16,8 @@ namespace Noodles.AspMvc.UiAttributes
         {
             var singleFormParameters =
                 invokeable.Parameters.Where(x => !x.CustomAttributes.OfType<ClickToEditAttribute>().Any());
-
-            yield return new FormInfo(invokeable, singleFormParameters);
+            if (singleFormParameters.Any())
+                yield return new FormInfo(invokeable, singleFormParameters);
         }
         public static IEnumerable<IInvokeableParameter> GetSingleSettableProperies(this IInvokeable invokeable)
         {
