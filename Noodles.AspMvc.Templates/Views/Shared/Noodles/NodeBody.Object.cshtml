@@ -34,6 +34,11 @@
                         @Html.Partial("Noodles/NodeProperty", p)
                     </div>
                 }
+
+                @foreach(var link in Model.Links.Where(l => l.UiHint == "Inline"))
+                {
+                    @Html.Partial("Noodles/NodeBody.Object", link.Target )
+                }
             </div>
 
             <br />

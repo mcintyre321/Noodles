@@ -22,17 +22,22 @@ namespace Noodles
 
         public static IEnumerable<NodeLink> YieldFindNodeLinksUsingReflection(Resource parent, object target, Type fallback)
         {
-            foreach (var link in YieldFindLinkAttributedProperties(target, fallback).Select(pi => new NodeLink(parent, pi.Name, pi.GetValue(target))))
+            foreach (var link in YieldFindLinkAttributedProperties(target, fallback)
+                .Select(pi => new NodeLink(parent, pi.Item1.Name, pi.Item1.GetValue(target), pi.Item2.UiHint)))
             {
                 yield return link;
             }
 
-            var links = target.GetType().GetProperties().Where(
-                p => p.Attributes().OfType<LinksAttribute>().Any())
-                .Select(pi => (IDictionary<string, object>) pi.GetValue(target))
-                .SelectMany(dict => dict)
-                .Select(pair => new NodeLink(parent, pair.Key, pair.Value));
 
+            var links = target.GetType().GetProperties()
+                .Select(pi => new
+                {
+                    Items = pi.GetValue(target) as IDictionary<string, object>,
+                    LinksAttribute = pi.Attributes().OfType<LinksAttribute>().SingleOrDefault()
+                })
+                .Where(x => x.LinksAttribute != null)
+                .SelectMany(x => x.Items.Select(i => new NodeLink(parent, i.Key, i.Value, x.LinksAttribute.UiHint)));
+          
             foreach (var link in links)
             {
                 yield return link;
@@ -48,22 +53,12 @@ namespace Noodles
             return propertyInfos;
         }
 
-        public static IEnumerable<PropertyInfo> YieldFindLinkAttributedProperties(this object target, Type fallback)
+        public static IEnumerable<Tuple<PropertyInfo, LinkAttribute>> YieldFindLinkAttributedProperties(this object target, Type fallback)
         {
-            var propertyInfos = target.AllPropertyInfos(fallback);
-            foreach (var info in propertyInfos)
-            {
-                bool? ruleResult = null;
-                foreach (var rule in NodeLinkRuleRegistry.ShowLinkRules)
-                {
-                    ruleResult = rule(target, info);
-                    if (ruleResult.HasValue) break;
-                }
-                if (ruleResult ?? false)
-                {
-                    yield return info;
-                }
-            }
+            return target.AllPropertyInfos(fallback)
+                .Select(t => Tuple.Create(t, t.Attributes().OfType<LinkAttribute>().SingleOrDefault()))
+                .Where(tuple => tuple.Item2 != null);
+
         }
     }
 }

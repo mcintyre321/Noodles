@@ -10,7 +10,7 @@
 @helper Nav(HtmlHelper helper, Resource resource, IEnumerable<Resource> walked, string navOptions)
 {
     <ul class="nav @navOptions">
-        @foreach (var node in resource.Links)
+        @foreach (var node in resource.Links.Where(l => l.UiHint == ""))
         {
             var active = walked.Any(w => w.Url == node.Url);
             <li @Html.Raw(active ? "class=\"active\"" : "")><a href="@node.Url">@node.DisplayName</a></li>

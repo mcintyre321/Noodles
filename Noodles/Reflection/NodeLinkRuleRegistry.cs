@@ -42,19 +42,5 @@ namespace Noodles
             return null as bool?;
         };
 
-
-
-        public static List<ShowLinkRule> ShowLinkRules { get; private set; }
-
-         
-        static NodeLinkRuleRegistry()
-        {
-            ShowLinkRules = new List<ShowLinkRule>()
-                                  {
-                                      LinkAttributedLinks,
-                                      LinkAttributedPropertyGetters,
-                                  };
-        }
-
     }
 }
