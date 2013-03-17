@@ -7,13 +7,13 @@ namespace Noodles.Models
     {
         public INode Node { get; set; }
 
-        public NodeLink(Resource parent, PropertyInfo pi)
+        public NodeLink(Resource parent, string name, object value)
         {
-            var node = Resource.CreateGeneric(pi.GetValue(parent.Value), parent, pi.Name);
+            var node = Resource.CreateGeneric(value, parent, name);
             Node = node;
             DisplayName = node.DisplayName;
             Url = node.Url;
-            Name = pi.Name;
+            Name = name;
             TargetType = node.ValueType;
             Target = node;
         }
