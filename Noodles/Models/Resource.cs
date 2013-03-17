@@ -28,7 +28,7 @@ namespace Noodles.Models
 
         IEnumerable<IInvokeableParameter> IInvokeable.Parameters
         {
-            get { return this.NodeProperties.Cast<IInvokeableParameter>(); }
+            get { return this.NodeProperties.Where(x => x.Setter != null); }
         }
 
         string IInvokeable.Name
@@ -96,7 +96,12 @@ namespace Noodles.Models
 
         object IInvokeable.Invoke(IDictionary<string, object> parameterDictionary)
         {
-            throw new NotImplementedException();
+            foreach (var key in parameterDictionary.Keys)
+            {
+                var p = this.NodeProperties.Single(x => x.Name == key);
+                p.Invoke(new[] {parameterDictionary[key]});
+            }
+            return this;
         }
 
         object IInvokeable.Invoke(object[] parameters)

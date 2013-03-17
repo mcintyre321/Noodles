@@ -50,7 +50,7 @@ namespace Noodles.Models
 
         IEnumerable<Attribute> IInvokeableParameter.CustomAttributes
         {
-            get { return this.Attributes(); }
+            get { return this.Attributes().Concat(this._info.Attributes()); }
         }
 
         public object Value { get; private set; }

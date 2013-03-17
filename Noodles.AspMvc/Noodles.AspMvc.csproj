@@ -164,6 +164,7 @@
     <Compile Include="Infrastructure\GlobalFixUserExceptionsAttribute.cs" />
     <Compile Include="Infrastructure\ModelStateTempDataTransferAttribute.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UiAttributes\ClickToEditAttribute.cs" />
     <Compile Include="UiAttributes\ShowAsLinkList.cs" />
     <Compile Include="UiAttributes\ShowAsTable.cs" />
   </ItemGroup>

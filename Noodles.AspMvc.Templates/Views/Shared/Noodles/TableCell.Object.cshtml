@@ -11,7 +11,8 @@
     </div>
 
     @if (!Model.Readonly)
-        {
+    {
+        ViewBag.UseIconSubmit = true;
                 
         <div data-node-setter="@Model.Name">
             @Html.Partial("Noodles/NodeMethod", Model)

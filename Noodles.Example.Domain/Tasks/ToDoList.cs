@@ -12,6 +12,7 @@ namespace Noodles.Example.Domain.Tasks
 
         [Show]
         [StringLength(20)]
+        [ClickToEdit]
         [Required]
         public string ListName { get; set; }
 
