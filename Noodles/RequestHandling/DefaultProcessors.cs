@@ -10,7 +10,7 @@ namespace Noodles.RequestHandling
 {
     public class DefaultProcessors<TContext>
     {
-        public static async Task<Result> Read(TContext context1, RequestInfo requestInfo, INode node, Func<IInvokeable, object[], object> doinvoke)
+        public static async Task<Result> Read(TContext context1, RequestInfo requestInfo, INode node, Func<IInvokeable, IDictionary<string, object>, object> doinvoke)
         {
             var result = MapResultToNoodleResult(node);
             if (result != null) return await Task.Factory.StartNew(() => result);
@@ -27,7 +27,7 @@ namespace Noodles.RequestHandling
         }
 
 
-        public static async Task<Result> ProcessInvoke(TContext context, RequestInfo requestInfo, INode node, Func<IInvokeable, object[], object> doInvoke)
+        public static async Task<Result> ProcessInvoke(TContext context1, RequestInfo requestInfo, INode node, Func<IInvokeable, IDictionary<string, object>, object> doInvoke)
         {
             doInvoke = doInvoke ?? DoInvoke;
             var invokeable = node as IInvokeable;
@@ -36,10 +36,11 @@ namespace Noodles.RequestHandling
             var isInvoke = requestInfo.IsInvoke;
             if (!isInvoke) return null;
 
-            IEnumerable<object> parameters = null;
+            IDictionary<string, object> parameters = null;
             try
             {
-                parameters = await requestInfo.GetArguments(invokeable);
+                var tuples = await requestInfo.GetArguments(invokeable);
+                parameters = tuples.ToDictionary(t => t.Item1, t => t.Item2);
             }
             catch (ArgumentBindingException ex)
             {
@@ -52,7 +53,7 @@ namespace Noodles.RequestHandling
                 Logger.Trace("ModelBinding successful");
                 try
                 {
-                    result = doInvoke(invokeable, parameters.ToArray());
+                    result = doInvoke(invokeable, parameters);
                     var noodlesResult = MapResultToNoodleResult(result);
                     if (noodlesResult != null) return noodlesResult;
                 }
@@ -86,7 +87,8 @@ namespace Noodles.RequestHandling
             }
         }
 
-        private static object DoInvoke(IInvokeable invokeable, object[] args)
+       
+        private static object DoInvoke(IInvokeable invokeable, IDictionary<string, object> args)
         {
             return invokeable.Invoke(args);
         }

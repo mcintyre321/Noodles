@@ -34,7 +34,7 @@ namespace Noodles.AspMvc.RequestHandling
             return o.YieldFindPropertyInfosUsingReflection(type).Select(p => new PropertyVm(o, p, htmlHelper));
         }
 
-        public async Task<ActionResult> GetNoodleResult(ControllerContext cc, object root, string path = null, Func<IInvokeable, object[], object> doInvoke = null)
+        public async Task<ActionResult> GetNoodleResult(ControllerContext cc, object root, string path = null, Func<IInvokeable, IDictionary<string, object>, object> doInvoke = null)
         {
             root.SetUrlRoot(cc);
 

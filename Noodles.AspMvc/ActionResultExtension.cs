@@ -19,7 +19,7 @@ namespace Noodles.AspMvc
 {
     public static class ActionResultExtension
     {
-        public static async Task<ActionResult> GetNoodleResult(this ControllerContext cc, object root, string path = null, Func<IInvokeable, object[], object> doInvoke = null)
+        public static async Task<ActionResult> GetNoodleResult(this ControllerContext cc, object root, string path = null, Func<IInvokeable, IDictionary<string, object>, object> doInvoke = null)
         {
             var handler = new AspMvcNoodleHandler();
             var noodleResult = handler.GetNoodleResult(cc, root, path, doInvoke);
@@ -47,7 +47,7 @@ namespace Noodles.AspMvc
     }
 }
 
-//    private static ActionResult ProcessNodeMethodCall(ControllerContext cc, object node, Func<IInvokeable, object[], object> doInvoke)
+//    private static ActionResult ProcessNodeMethodCall(ControllerContext cc, object node, Func<IInvokeable, IDictionary<string, object>, object> doInvoke)
 //    {
 //        var method = node as IInvokeable;
 //        if (method == null) return null;
@@ -118,7 +118,7 @@ namespace Noodles.AspMvc
 //        return res;
 //    }
 
-//    public static ActionResult GetNoodleResult(this ControllerContext cc, object root, string path = null, Func<IInvokeable, object[], object> doInvoke = null)
+//    public static ActionResult GetNoodleResult(this ControllerContext cc, object root, string path = null, Func<IInvokeable, IDictionary<string, object>, object> doInvoke = null)
 //    {
 
 //        path = path ?? cc.RouteData.Values["path"] as string ?? "/";

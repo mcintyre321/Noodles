@@ -7,7 +7,7 @@ namespace Noodles.Models
     public interface IInvokeable : INode
     {
         bool Active { get; }
-        IEnumerable<NodeMethodParameter> Parameters { get; }
+        IEnumerable<IInvokeableParameter> Parameters { get; }
         string Name { get; }
         string DisplayName { get; }
         object Target { get; }
@@ -15,7 +15,7 @@ namespace Noodles.Models
         string Url { get; }
         bool AutoSubmit { get; }
         Type ParameterType { get; }
-        object Parameter { get; }
+        //object Parameter { get; }
         object Invoke(IDictionary<string, object> parameterDictionary);
         object Invoke(object[] parameters);
         T GetAttribute<T>() where T : Attribute;

@@ -96,15 +96,15 @@ namespace Noodles.Models
         public string UiHint { get; private set; }
 
 
-        private IEnumerable<NodeMethodParameter> _parameters;
+        private IEnumerable<IInvokeableParameter> _parameters;
 
         public bool Active { get { return true; } }
 
-        public IEnumerable<NodeMethodParameter> Parameters
+        public IEnumerable<IInvokeableParameter> Parameters
         {
             get
             {
-                Func<IEnumerable<NodeMethodParameter>> loadParameters = () =>
+                Func<IEnumerable<IInvokeableParameter>> loadParameters = () =>
                 {
                     var parameters =
                         _methodInfo.GetParameters().Select((p, i) => new NodeMethodParameter(this, _methodInfo, p, i)).ToArray();
@@ -181,7 +181,7 @@ namespace Noodles.Models
         public IEnumerable<Resource> Children { get { yield break; } }
 
 
-        private object GetParameterValue(object[] parameters, NodeMethodParameter parameterInfo, int index)
+        private object GetParameterValue(object[] parameters, IInvokeableParameter parameterInfo, int index)
         {
             foreach (var fix in NodeMethodParameterFixes.Registry)
             {
@@ -252,7 +252,7 @@ namespace Noodles.Models
 
         public object Invoke(IDictionary<string, object> parameterDictionary)
         {
-            var parameters = ((IInvokeable)this).Parameters.Select(p => p.Fragment).Select(name => parameterDictionary[name]).ToArray();
+            var parameters = ((IInvokeable)this).Parameters.Select(p => p.Name).Select(name => parameterDictionary[name]).ToArray();
             return ((IInvokeable)this).Invoke(parameters);
         }
     }
@@ -260,10 +260,10 @@ namespace Noodles.Models
     public class NotEnoughParametersForNodeMethodException : Exception
     {
         public NodeMethod NodeMethod { get; set; }
-        public NodeMethodParameter ParameterInfo { get; set; }
+        public IInvokeableParameter ParameterInfo { get; set; }
         public object[] Parameters { get; set; }
 
-        public NotEnoughParametersForNodeMethodException(NodeMethod nodeMethod, NodeMethodParameter parameterInfo, object[] parameters)
+        public NotEnoughParametersForNodeMethodException(NodeMethod nodeMethod, IInvokeableParameter parameterInfo, object[] parameters)
         {
             NodeMethod = nodeMethod;
             ParameterInfo = parameterInfo;

@@ -8,7 +8,7 @@ namespace Noodles.AspMvc.Helpers
 {
     public static class FormFactoryHelperExtensions
     {
-        public static PropertyVm ToPropertyVm(this NodeMethodParameter parameter, HtmlHelper html)
+        public static PropertyVm ToPropertyVm(this IInvokeableParameter parameter, HtmlHelper html)
         {
             var vm = new PropertyVm(html, parameter.ValueType, parameter.Name)
             {
