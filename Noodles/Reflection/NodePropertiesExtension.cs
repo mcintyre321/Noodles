@@ -27,7 +27,10 @@ namespace Noodles
 
         private static NodeProperty NodeProperty(INode node, object target, PropertyInfo pi)
         {
-            if (pi.Attributes().OfType<ShowAttribute>().SingleOrDefault() as ShowCollectionAttribute != null)
+            var atts = pi.Attributes().OfType<ShowAttribute>();
+            var getter = pi.GetGetMethod();
+            if (getter != null) atts = atts.Concat(getter.Attributes().OfType<ShowAttribute>());
+            if (atts.SingleOrDefault() as ShowCollectionAttribute != null)
             {
                 return new NodeCollectionProperty(node, target, pi);
             }

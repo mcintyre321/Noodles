@@ -72,7 +72,7 @@ namespace Noodles.Models
 
         public string Url { get { return this.Parent.Url + this.Fragment + "/"; } }
         public INode Parent { get; set; }
-        public string UiHint { get { return _info.Attributes().OfType<ShowAttribute>().Select(a => a.UiHint).SingleOrDefault(); } }
+        public string UiHint { get { return CustomAttributes.OfType<ShowAttribute>().Select(a => a.UiHint).SingleOrDefault(); } }
         public string TypeName { get { return "NodeProperty"; } }
         public bool AutoSubmit { get { return false; } }
 
@@ -94,7 +94,15 @@ namespace Noodles.Models
 
         public IEnumerable<object> CustomAttributes
         {
-            get { return _info.Attributes(); }
+            get
+            {
+                var atts = _info.Attributes();
+                var getter = _info.GetGetMethod();
+                if (getter != null) atts = atts.Concat(getter.Attributes());
+                var setter = _info.GetSetMethod();
+                if (setter != null) atts = atts.Concat(setter.Attributes());
+                return atts;
+            }
         }
 
         public bool Readonly { get { return Setter == null; } }
