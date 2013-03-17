@@ -121,7 +121,15 @@ $(document).ready(function () {
 
         $.validator.unobtrusive.parseDynamicContent($method.find("form").find("input,textarea,select").first());
 
+
     };
+    $(document).on("submit", "form.nodeMethod", function(e) {
+        var submitButton = $(this).find(".submitMethod");
+        if (submitButton[0]) {
+            e.preventDefault();
+            submitButton.click();
+        }
+    });
     $(document).on("click", ".submitMethod", function (e) {
         var $container = $(this).closest(".nodeMethod");
         var $form = $container.is("form") ? $container : $container.find("form");

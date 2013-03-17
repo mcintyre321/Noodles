@@ -17,7 +17,6 @@
 }
 [data-node-setter] > .hide-setter {
     position: relative;
-    top: -4px;
 }
 
 [data-node-setter] > form > button {

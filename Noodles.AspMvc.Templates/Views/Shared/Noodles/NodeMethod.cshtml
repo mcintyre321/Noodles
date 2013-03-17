@@ -30,5 +30,12 @@
         var vm = parameter.ToPropertyVm(Html);
         Html.RenderPartial("FormFactory/Form.Property", vm);
     }
-    <button class="submitMethod btn btn-primary">@Model.DisplayName</button>
+    @if (ViewBag.UseIconSubmit == true)
+    {
+        <a class="submitMethod" href="#save"><i class="icon-ok"></i></a>
+    }
+    else
+    {
+        <button class="submitMethod btn btn-primary">@Model.DisplayName</button>
+    }
 </form>
