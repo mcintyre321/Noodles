@@ -23,6 +23,7 @@ namespace Noodles.Models
             Order = int.MaxValue;
             Parent = parent;
             Target = target;
+            UiHint = methodInfo.Attributes().OfType<ShowAttribute>().Select(a => a.UiHint).SingleOrDefault() ?? "";
         }
 
         public object Target { get; private set; }

@@ -1,16 +1,9 @@
-﻿@using Noodles.Models
+﻿@using Noodles.AspMvc.Views.Shared.Layout
+@using Noodles.Models
 @using Noodles.RequestHandling
 <!-- begin /Layout/Topbar.LeftItems.cshtml -->
-@{
-    
-    <li><a href="/">Home</a></li>
-    var root = ViewBag.Root as Resource;
-    if (root != null)
+    @foreach (var item in ViewData.LayoutVm().TopBar.LeftItems)
     {
-        foreach (var child in root.Links.Where(c => string.IsNullOrWhiteSpace(c.UiHint)))
-        {
-    <a href="@child.Url">@child.DisplayName</a>
-        }
+         <li @Html.Raw(item.Active ? "class=\"active\"": "") ><a class="@item.Class" href="@item.Href">@item.Html</a></li>
     }
-}
 <!-- end /Layout/Topbar.LeftItems.cshtml -->

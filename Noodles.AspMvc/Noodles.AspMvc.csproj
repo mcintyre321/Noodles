@@ -169,6 +169,7 @@
     <Compile Include="UiAttributes\ClickToEditAttribute.cs" />
     <Compile Include="UiAttributes\ShowAsLinkList.cs" />
     <Compile Include="UiAttributes\ShowAsTable.cs" />
+    <Compile Include="Views\Shared\Layout\TopBarVm.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="..\Noodles.AspMvc.Templates\Scripts\Noodles\Noodles.js">
@@ -236,15 +237,15 @@
     <EmbeddedResource Include="..\Noodles.AspMvc.Templates\Views\Shared\Layout\Topbar.Brand.cshtml">
       <Link>Views\Shared\Layout\Topbar.Brand.cshtml</Link>
     </EmbeddedResource>
-    <Content Include="..\Noodles.AspMvc.Templates\Views\Shared\Layout\TopBar.cshtml">
+    <EmbeddedResource Include="..\Noodles.AspMvc.Templates\Views\Shared\Layout\TopBar.cshtml">
       <Link>Views\Shared\Layout\TopBar.cshtml</Link>
-    </Content>
-    <Content Include="..\Noodles.AspMvc.Templates\Views\Shared\Layout\Topbar.LeftItems.cshtml">
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\Noodles.AspMvc.Templates\Views\Shared\Layout\Topbar.LeftItems.cshtml">
       <Link>Views\Shared\Layout\Topbar.LeftItems.cshtml</Link>
-    </Content>
-    <Content Include="..\Noodles.AspMvc.Templates\Views\Shared\Layout\Topbar.RightItems.cshtml">
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\Noodles.AspMvc.Templates\Views\Shared\Layout\Topbar.RightItems.cshtml">
       <Link>Views\Shared\Layout\Topbar.RightItems.cshtml</Link>
-    </Content>
+    </EmbeddedResource>
     <None Include="Helpers\Icons\IconNames.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>IconNames.cs</LastGenOutput>

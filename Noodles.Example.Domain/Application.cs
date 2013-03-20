@@ -34,16 +34,17 @@ namespace Noodles.Example.Domain
         [Link]
         public Settings Settings { get; set; }
 
-        [Show]
+        [Show(UiHint = "TopBar.RightItems")]
         public void SignIn(string user, [DataType(DataType.Password)] string password)
         {
             //FormsAuthentication.SetAuthCookie(user, false);
         }
         public bool? AllowSignIn()
         {
-            return false;
+            return true;
             //return HttpContext.Current.Request.IsAuthenticated ? false : null as bool?;
         }
+
     }
 
     public class User

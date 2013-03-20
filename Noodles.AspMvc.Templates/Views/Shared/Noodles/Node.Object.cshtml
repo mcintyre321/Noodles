@@ -1,6 +1,7 @@
 ﻿@using System.Web.Mvc
 @using System.Web.Mvc.Html
 @using Noodles
+@using Noodles.AspMvc.Views.Shared.Layout
 @using Noodles.Helpers
 @using Noodles.AspMvc.Helpers
 @using Noodles.Models
@@ -33,29 +34,42 @@
         }
         else
         {
-    <div class="navbar">
-        <div class="navbar-inner">
-            @if (resource.Parent == null)
+            if (resource.Parent == null)
             {
-                <a class="brand" href="@resource.Url">@resource.DisplayName</a>
+                ViewData.LayoutVm().TopBar.Brand = new BrandVm(){ Html = resource.DisplayName, Href = resource.Url};
+                ViewData.LayoutVm().TopBar.LeftItems.AddRange(resource.Links.Where(l => l.UiHint == "")
+                    .Select(l => new NavItemVm(){ Href = l.Url, Html =  l.DisplayName, Active = walked.Any(u => u.Url == l.Url) }));
+                ViewData.LayoutVm().TopBar.RightItems.AddRange(resource.Links.Where(l => l.UiHint == "TopBar.RightItems")
+                    .Select(l => new NavItemVm(){ Href = l.Url, Html =  l.DisplayName, Active = walked.Any(u => u.Url == l.Url) }));
+
             }
-            @Nav(helper, resource, walked, "")
-        </div>
-    </div>
-    @getInner();
+            else
+            {
+
+                <div class="navbar">
+                    <div class="navbar-inner">
+                        @if (resource.Parent == null)
+                        {
+                            <a class="brand" href="@resource.Url">@resource.DisplayName</a>
+                        }
+                        @Nav(helper, resource, walked, "")
+                    </div>
+                </div>
+            }
+            @getInner();
         }
 
     }
     else
     {
-    @getInner()
-        ;
+        @getInner();
     }
 }
 
 @{
     var walked = Model.AncestorsAndSelf.OfType<Resource>().ToArray();
-    Func<IHtmlString> content = () => Render(Html, Model, walked, () => Html.BestPartial(Model, Model.ValueType, "Noodles/NodeBody."));
+    Func<IHtmlString>
+content = () => Render(Html, Model, walked, () => Html.BestPartial(Model, Model.ValueType, "Noodles/NodeBody."));
     foreach (var walkedItem in walked.Skip(1))
     {
         var prev = content;

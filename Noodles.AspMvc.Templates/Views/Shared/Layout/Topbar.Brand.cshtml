@@ -1,6 +1,7 @@
-﻿
+﻿@using Noodles.AspMvc.Views.Shared.Layout
+
 <!-- begin /Layout/Topbar.Brand.cshtml -->
 @{
-    <a href="/" class="brand">@(ViewBag.Brand ?? "Application")</a>
+    <a href="/" class="brand">@(ViewData.LayoutVm().TopBar.Brand.Html)</a>
 }
 <!-- end /Layout/Topbar.Brand.cshtml -->
