@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Routing;
+using System.Web.Security;
 using Munq;
 using Noodles.AspMvc;
 using Noodles.AspMvc.DataTables;
@@ -42,7 +43,10 @@ namespace Noodles.Example
                             new { controller = "Home", action = "Index", id = UrlParameter.Optional } // Parameter defaults
                         );
 
-
+            Domain.AuthService.RequestHasAuthToken = () => HttpContext.Current.Request.IsAuthenticated;
+            Domain.AuthService.SetAuthToken = (key) => FormsAuthentication.SetAuthCookie(key, true);
+            Domain.AuthService.ClearAuthToken = FormsAuthentication.SignOut;
+            Domain.AuthService.GetAuthTokenKey = () => HttpContext.Current.Request.IsAuthenticated ? null : HttpContext.Current.User.Identity.Name;
         }
 
         protected void Application_Start()

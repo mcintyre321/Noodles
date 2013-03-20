@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -35,14 +34,26 @@ namespace Noodles.Example.Domain
         public Settings Settings { get; set; }
 
         [Show(UiHint = "TopBar.RightItems")]
-        public void SignIn(string user, [DataType(DataType.Password)] string password)
+        public void SignIn(string email, [DataType(DataType.Password)] string password)
         {
-            //FormsAuthentication.SetAuthCookie(user, false);
+            //check username and password here
+            AuthService.SetAuthToken(email);
         }
+
         public bool? AllowSignIn()
         {
-            return true;
-            //return HttpContext.Current.Request.IsAuthenticated ? false : null as bool?;
+            return AuthService.RequestHasAuthToken() ? false : null as bool?;
+        }
+
+        [Show(UiHint = "TopBar.RightItems")]
+        public void SignOut()
+        {
+            AuthService.ClearAuthToken();
+        }
+
+        public bool? AllowSignOut()
+        {
+            return AuthService.RequestHasAuthToken() ? true : null as bool?;
         }
 
     }
