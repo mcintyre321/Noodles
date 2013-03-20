@@ -97,7 +97,11 @@
   <ItemGroup>
     <Compile Include="Marker.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <None Include="Views\Shared\Layout\TopBar.cshtml" />
+    <Content Include="Views\Shared\Layout\Head.Bottom.cshtml" />
+    <Content Include="Views\Shared\Layout\Body.Bottom.cshtml" />
+    <Content Include="Views\Shared\Layout\Body.Top.cshtml" />
+    <Content Include="Views\Shared\Layout\Head.Top.cshtml" />
+    <Content Include="Views\Shared\Layout\TopBar.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-overrides.css" />
