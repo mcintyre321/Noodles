@@ -156,6 +156,7 @@
       <DependentUpon>NoodlesHelper.cshtml</DependentUpon>
     </Compile>
     <Compile Include="Models\InvokeSuccessVm.cs" />
+    <Compile Include="Infrastructure\AjaxAwareRedirectResult.cs" />
     <Compile Include="RequestHandling\AspMvcNoodleHandler.cs" />
     <Compile Include="RequestHandling\AspMvcRequestInfo.cs" />
     <Compile Include="RequestHandling\NoodleResultToActionResultMapper.cs" />

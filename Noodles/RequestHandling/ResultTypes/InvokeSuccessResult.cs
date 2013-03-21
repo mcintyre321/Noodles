@@ -15,5 +15,7 @@ namespace Noodles.RequestHandling.ResultTypes
         {
             get { return _invokeable; }
         }
+
+        public object Result { get; set; }
     }
 }

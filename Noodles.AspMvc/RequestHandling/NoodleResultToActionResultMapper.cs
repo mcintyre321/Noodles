@@ -61,6 +61,10 @@ namespace Noodles.AspMvc.RequestHandling
 
         public override ActionResult Map(ControllerContext context, InvokeSuccessResult result)
         {
+            if (result.Result is ActionResult)
+            {
+                return (ActionResult) result.Result;
+            }
             var res = new System.Web.Mvc.ViewResult();
             if (context.HttpContext.Request.IsAjaxRequest())
             {

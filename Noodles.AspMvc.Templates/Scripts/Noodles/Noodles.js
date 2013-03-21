@@ -147,6 +147,10 @@ $(document).ready(function () {
             processData: false,
             type: 'POST',
             success: function (data, textStatus, jqXHR) {
+                if (jqXHR.getResponseHeader('IsAjaxRedirect') === 'true') {
+                    window.location = jqXHR.getResponseHeader('Location');
+                    return;
+                };
                 //if ($link) {
                 //    var $table = $link.closest(".dataTable");
                 //    if ($table.length) {

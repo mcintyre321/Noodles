@@ -83,7 +83,10 @@ namespace Noodles.RequestHandling
             }
 
             {
-                return new InvokeSuccessResult(invokeable);
+                return new InvokeSuccessResult(invokeable)
+                    {
+                        Result = result
+                    };
             }
         }
 
