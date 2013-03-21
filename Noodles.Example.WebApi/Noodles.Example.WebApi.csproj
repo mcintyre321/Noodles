@@ -39,8 +39,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Castle.Core.3.2.0\lib\net45\Castle.Core.dll</HintPath>
     </Reference>
-    <Reference Include="Harden">
-      <HintPath>..\packages\Harden.1.2.6\lib\net40\Harden.dll</HintPath>
+    <Reference Include="Harden, Version=1.0.4827.27173, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Harden.1.2.7\lib\net40\Harden.dll</HintPath>
     </Reference>
     <Reference Include="Mono.CSharp">
       <HintPath>..\packages\Mono.CSharp.4.0\lib\net40\Mono.CSharp.dll</HintPath>

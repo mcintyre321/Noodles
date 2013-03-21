@@ -53,12 +53,13 @@
       <HintPath>..\packages\Castle.Core.3.2.0\lib\net45\Castle.Core.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="FormFactory, Version=1.0.4801.29570, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="FormFactory, Version=1.0.4806.37014, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\FormFactory.1.2.243\lib\net40\FormFactory.dll</HintPath>
+      <HintPath>..\packages\FormFactory.1.2.244\lib\net40\FormFactory.dll</HintPath>
     </Reference>
     <Reference Include="Harden">
-      <HintPath>..\packages\Harden.1.2.6\lib\net40\Harden.dll</HintPath>
+      <HintPath>..\packages\Harden.1.2.7\lib\net40\Harden.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.AspNet.SignalR.Core">
       <HintPath>..\packages\Microsoft.AspNet.SignalR.Core.1.0.0-rc2\lib\net40\Microsoft.AspNet.SignalR.Core.dll</HintPath>
@@ -156,7 +157,7 @@
       <DependentUpon>NoodlesHelper.cshtml</DependentUpon>
     </Compile>
     <Compile Include="Models\InvokeSuccessVm.cs" />
-    <Compile Include="Infrastructure\AjaxAwareRedirectResult.cs" />
+    <Compile Include="Infrastructure\RewriteRedirectForAjaxResult.cs" />
     <Compile Include="RequestHandling\AspMvcNoodleHandler.cs" />
     <Compile Include="RequestHandling\AspMvcRequestInfo.cs" />
     <Compile Include="RequestHandling\NoodleResultToActionResultMapper.cs" />
@@ -271,22 +272,6 @@
     <EmbeddedResource Include="Content\font-awesome-ie7.min.css" />
     <EmbeddedResource Include="Content\font-awesome.css" />
     <EmbeddedResource Include="Content\font-awesome.min.css" />
-    <EmbeddedResource Include="Content\images\glyphicons-halflings-white.png" />
-    <EmbeddedResource Include="Content\images\glyphicons-halflings.png" />
-    <EmbeddedResource Include="Content\themes\base\images\animated-overlay.gif" />
-    <EmbeddedResource Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
-    <EmbeddedResource Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
-    <EmbeddedResource Include="Content\themes\base\images\ui-bg_glass_55_fbf9ee_1x400.png" />
-    <EmbeddedResource Include="Content\themes\base\images\ui-bg_glass_65_ffffff_1x400.png" />
-    <EmbeddedResource Include="Content\themes\base\images\ui-bg_glass_75_dadada_1x400.png" />
-    <EmbeddedResource Include="Content\themes\base\images\ui-bg_glass_75_e6e6e6_1x400.png" />
-    <EmbeddedResource Include="Content\themes\base\images\ui-bg_glass_95_fef1ec_1x400.png" />
-    <EmbeddedResource Include="Content\themes\base\images\ui-bg_highlight-soft_75_cccccc_1x100.png" />
-    <EmbeddedResource Include="Content\themes\base\images\ui-icons_222222_256x240.png" />
-    <EmbeddedResource Include="Content\themes\base\images\ui-icons_2e83ff_256x240.png" />
-    <EmbeddedResource Include="Content\themes\base\images\ui-icons_454545_256x240.png" />
-    <EmbeddedResource Include="Content\themes\base\images\ui-icons_888888_256x240.png" />
-    <EmbeddedResource Include="Content\themes\base\images\ui-icons_cd0a0a_256x240.png" />
     <EmbeddedResource Include="Content\themes\base\jquery-ui.css" />
     <EmbeddedResource Include="Content\themes\base\jquery.ui.accordion.css" />
     <EmbeddedResource Include="Content\themes\base\jquery.ui.all.css" />
@@ -305,20 +290,6 @@
     <EmbeddedResource Include="Content\themes\base\jquery.ui.tabs.css" />
     <EmbeddedResource Include="Content\themes\base\jquery.ui.theme.css" />
     <EmbeddedResource Include="Content\themes\base\jquery.ui.tooltip.css" />
-    <EmbeddedResource Include="Content\themes\base\minified\images\animated-overlay.gif" />
-    <EmbeddedResource Include="Content\themes\base\minified\images\ui-bg_flat_0_aaaaaa_40x100.png" />
-    <EmbeddedResource Include="Content\themes\base\minified\images\ui-bg_flat_75_ffffff_40x100.png" />
-    <EmbeddedResource Include="Content\themes\base\minified\images\ui-bg_glass_55_fbf9ee_1x400.png" />
-    <EmbeddedResource Include="Content\themes\base\minified\images\ui-bg_glass_65_ffffff_1x400.png" />
-    <EmbeddedResource Include="Content\themes\base\minified\images\ui-bg_glass_75_dadada_1x400.png" />
-    <EmbeddedResource Include="Content\themes\base\minified\images\ui-bg_glass_75_e6e6e6_1x400.png" />
-    <EmbeddedResource Include="Content\themes\base\minified\images\ui-bg_glass_95_fef1ec_1x400.png" />
-    <EmbeddedResource Include="Content\themes\base\minified\images\ui-bg_highlight-soft_75_cccccc_1x100.png" />
-    <EmbeddedResource Include="Content\themes\base\minified\images\ui-icons_222222_256x240.png" />
-    <EmbeddedResource Include="Content\themes\base\minified\images\ui-icons_2e83ff_256x240.png" />
-    <EmbeddedResource Include="Content\themes\base\minified\images\ui-icons_454545_256x240.png" />
-    <EmbeddedResource Include="Content\themes\base\minified\images\ui-icons_888888_256x240.png" />
-    <EmbeddedResource Include="Content\themes\base\minified\images\ui-icons_cd0a0a_256x240.png" />
     <EmbeddedResource Include="Content\themes\base\minified\jquery-ui.min.css" />
     <EmbeddedResource Include="Content\themes\base\minified\jquery.ui.accordion.min.css" />
     <EmbeddedResource Include="Content\themes\base\minified\jquery.ui.autocomplete.min.css" />
@@ -337,11 +308,42 @@
     <EmbeddedResource Include="Content\themes\base\minified\jquery.ui.tooltip.min.css" />
     <EmbeddedResource Include="Scripts\bootstrap.js" />
     <EmbeddedResource Include="Scripts\bootstrap.min.js" />
-    <EmbeddedResource Include="Scripts\jquery-migrate-1.1.0.js" />
     <EmbeddedResource Include="Scripts\jquery-migrate-1.1.0.min.js" />
-    <EmbeddedResource Include="Scripts\jquery-ui-1.10.0.js" />
-    <EmbeddedResource Include="Scripts\jquery-ui-1.10.0.min.js" />
     <EmbeddedResource Include="Scripts\modernizr-2.6.2.js" />
+    <Content Include="Content\images\glyphicons-halflings-white.png" />
+    <Content Include="Content\images\glyphicons-halflings.png" />
+    <Content Include="Content\themes\base\images\animated-overlay.gif" />
+    <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
+    <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_55_fbf9ee_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_65_ffffff_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_75_dadada_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_75_e6e6e6_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_95_fef1ec_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_highlight-soft_75_cccccc_1x100.png" />
+    <Content Include="Content\themes\base\images\ui-icons_222222_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_2e83ff_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_454545_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_888888_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_cd0a0a_256x240.png" />
+    <Content Include="Content\themes\base\minified\images\animated-overlay.gif" />
+    <Content Include="Content\themes\base\minified\images\ui-bg_flat_0_aaaaaa_40x100.png" />
+    <Content Include="Content\themes\base\minified\images\ui-bg_flat_75_ffffff_40x100.png" />
+    <Content Include="Content\themes\base\minified\images\ui-bg_glass_55_fbf9ee_1x400.png" />
+    <Content Include="Content\themes\base\minified\images\ui-bg_glass_65_ffffff_1x400.png" />
+    <Content Include="Content\themes\base\minified\images\ui-bg_glass_75_dadada_1x400.png" />
+    <Content Include="Content\themes\base\minified\images\ui-bg_glass_75_e6e6e6_1x400.png" />
+    <Content Include="Content\themes\base\minified\images\ui-bg_glass_95_fef1ec_1x400.png" />
+    <Content Include="Content\themes\base\minified\images\ui-bg_highlight-soft_75_cccccc_1x100.png" />
+    <Content Include="Content\themes\base\minified\images\ui-icons_222222_256x240.png" />
+    <Content Include="Content\themes\base\minified\images\ui-icons_2e83ff_256x240.png" />
+    <Content Include="Content\themes\base\minified\images\ui-icons_454545_256x240.png" />
+    <Content Include="Content\themes\base\minified\images\ui-icons_888888_256x240.png" />
+    <Content Include="Content\themes\base\minified\images\ui-icons_cd0a0a_256x240.png" />
+    <Content Include="Scripts\jquery-migrate-1.1.1.js" />
+    <Content Include="Scripts\jquery-migrate-1.1.1.min.js" />
+    <Content Include="Scripts\jquery-ui-1.10.1.js" />
+    <Content Include="Scripts\jquery-ui-1.10.1.min.js" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>

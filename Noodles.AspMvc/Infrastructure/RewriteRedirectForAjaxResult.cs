@@ -3,11 +3,11 @@ using Noodles.RequestHandling.ResultTypes;
 
 namespace Noodles.AspMvc.Infrastructure
 {
-    public class AjaxAwareRedirectResult : ActionResult
+    public class RewriteRedirectForAjaxResult : ActionResult
     {
-        private readonly RedirectResult _inner;
+        private readonly ActionResult _inner;
 
-        public AjaxAwareRedirectResult(RedirectResult inner)
+        public RewriteRedirectForAjaxResult(ActionResult inner)
         {
             _inner = inner;
         }
@@ -16,8 +16,11 @@ namespace Noodles.AspMvc.Infrastructure
         {
             if (context.RequestContext.HttpContext.Request.IsAjaxRequest())
             {
-                context.RequestContext.HttpContext.Response.AddHeader("Location", _inner.Url);
-                context.RequestContext.HttpContext.Response.AddHeader("IsAjaxRedirect", "true");
+                _inner.ExecuteResult(context);
+                if (context.RequestContext.HttpContext.Response.StatusCode == 302)
+                {
+                    context.RequestContext.HttpContext.Response.AddHeader("IsAjaxRedirect", "true");
+                }
             }
             else
             {

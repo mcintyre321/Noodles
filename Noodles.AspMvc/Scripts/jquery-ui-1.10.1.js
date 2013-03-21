@@ -1,4 +1,4 @@
-﻿/*! jQuery UI - v1.10.0 - 2013-01-17
+/*! jQuery UI - v1.10.1 - 2013-02-15
 * http://jqueryui.com
 * Includes: jquery.ui.core.js, jquery.ui.widget.js, jquery.ui.mouse.js, jquery.ui.draggable.js, jquery.ui.droppable.js, jquery.ui.resizable.js, jquery.ui.selectable.js, jquery.ui.sortable.js, jquery.ui.effect.js, jquery.ui.accordion.js, jquery.ui.autocomplete.js, jquery.ui.button.js, jquery.ui.datepicker.js, jquery.ui.dialog.js, jquery.ui.effect-blind.js, jquery.ui.effect-bounce.js, jquery.ui.effect-clip.js, jquery.ui.effect-drop.js, jquery.ui.effect-explode.js, jquery.ui.effect-fade.js, jquery.ui.effect-fold.js, jquery.ui.effect-highlight.js, jquery.ui.effect-pulsate.js, jquery.ui.effect-scale.js, jquery.ui.effect-shake.js, jquery.ui.effect-slide.js, jquery.ui.effect-transfer.js, jquery.ui.menu.js, jquery.ui.position.js, jquery.ui.progressbar.js, jquery.ui.slider.js, jquery.ui.spinner.js, jquery.ui.tabs.js, jquery.ui.tooltip.js
 * Copyright 2013 jQuery Foundation and other contributors; Licensed MIT */
@@ -17,7 +17,7 @@ if ( $.ui.version ) {
 }
 
 $.extend( $.ui, {
-	version: "1.10.0",
+	version: "1.10.1",
 
 	keyCode: {
 		BACKSPACE: 8,
@@ -838,7 +838,7 @@ $( document ).mouseup( function() {
 });
 
 $.widget("ui.mouse", {
-	version: "1.10.0",
+	version: "1.10.1",
 	options: {
 		cancel: "input,textarea,button,select,option",
 		distance: 1,
@@ -990,7 +990,7 @@ $.widget("ui.mouse", {
 (function( $, undefined ) {
 
 $.widget("ui.draggable", $.ui.mouse, {
-	version: "1.10.0",
+	version: "1.10.1",
 	widgetEventPrefix: "drag",
 	options: {
 		addClasses: true,
@@ -1617,7 +1617,7 @@ $.ui.plugin.add("draggable", "connectToSortable", {
 					this.instance.offset.click = inst.offset.click;
 					if (this !== thisSortable &&
 						this.instance._intersectsWith(this.instance.containerCache) &&
-						$.ui.contains(thisSortable.instance.element[0], this.instance.element[0])
+						$.contains(thisSortable.instance.element[0], this.instance.element[0])
 					) {
 						innermostIntersecting = false;
 					}
@@ -1882,22 +1882,19 @@ $.ui.plugin.add("draggable", "snap", {
 
 $.ui.plugin.add("draggable", "stack", {
 	start: function() {
-
 		var min,
-			o = $(this).data("ui-draggable").options,
+			o = this.data("ui-draggable").options,
 			group = $.makeArray($(o.stack)).sort(function(a,b) {
 				return (parseInt($(a).css("zIndex"),10) || 0) - (parseInt($(b).css("zIndex"),10) || 0);
 			});
 
 		if (!group.length) { return; }
 
-		min = parseInt(group[0].style.zIndex, 10) || 0;
+		min = parseInt($(group[0]).css("zIndex"), 10) || 0;
 		$(group).each(function(i) {
-			this.style.zIndex = min + i;
+			$(this).css("zIndex", min + i);
 		});
-
-		this[0].style.zIndex = min + group.length;
-
+		this.css("zIndex", (min + group.length));
 	}
 });
 
@@ -1926,7 +1923,7 @@ function isOverAxis( x, reference, size ) {
 }
 
 $.widget("ui.droppable", {
-	version: "1.10.0",
+	version: "1.10.1",
 	widgetEventPrefix: "drop",
 	options: {
 		accept: "*",
@@ -2286,7 +2283,7 @@ function isNumber(value) {
 }
 
 $.widget("ui.resizable", $.ui.mouse, {
-	version: "1.10.0",
+	version: "1.10.1",
 	widgetEventPrefix: "resize",
 	options: {
 		alsoResize: false,
@@ -3232,7 +3229,7 @@ $.ui.plugin.add("resizable", "grid", {
 (function( $, undefined ) {
 
 $.widget("ui.selectable", $.ui.mouse, {
-	version: "1.10.0",
+	version: "1.10.1",
 	options: {
 		appendTo: "body",
 		autoRefresh: true,
@@ -3501,7 +3498,7 @@ function isOverAxis( x, reference, size ) {
 }
 
 $.widget("ui.sortable", $.ui.mouse, {
-	version: "1.10.0",
+	version: "1.10.1",
 	widgetEventPrefix: "sort",
 	ready: false,
 	options: {
@@ -5569,10 +5566,10 @@ $.fn.extend({
 
 	_removeClass: $.fn.removeClass,
 	removeClass: function( classNames, speed, easing, callback ) {
-		return speed ?
+		return arguments.length > 1 ?
 			$.effects.animateClass.call( this,
 				{ remove: classNames }, speed, easing, callback ) :
-			this._removeClass( classNames );
+			this._removeClass.apply( this, arguments );
 	},
 
 	_toggleClass: $.fn.toggleClass,
@@ -5610,7 +5607,7 @@ $.fn.extend({
 (function() {
 
 $.extend( $.effects, {
-	version: "1.10.0",
+	version: "1.10.1",
 
 	// Saves a set of properties in a data storage
 	save: function( element, set ) {
@@ -5999,7 +5996,7 @@ showProps.height = showProps.paddingTop = showProps.paddingBottom =
 	showProps.borderTopWidth = showProps.borderBottomWidth = "show";
 
 $.widget( "ui.accordion", {
-	version: "1.10.0",
+	version: "1.10.1",
 	options: {
 		active: 0,
 		animate: {},
@@ -6040,6 +6037,7 @@ $.widget( "ui.accordion", {
 	_getCreateEventData: function() {
 		return {
 			header: this.active,
+			panel: !this.active.length ? $() : this.active.next(),
 			content: !this.active.length ? $() : this.active.next()
 		};
 	},
@@ -6237,8 +6235,8 @@ $.widget( "ui.accordion", {
 				(this.element.attr( "id" ) || ++uid);
 
 		this.active = this._findActive( options.active )
-			.addClass( "ui-accordion-header-active ui-state-active" )
-			.toggleClass( "ui-corner-all ui-corner-top" );
+			.addClass( "ui-accordion-header-active ui-state-active ui-corner-top" )
+			.removeClass( "ui-corner-all" );
 		this.active.next()
 			.addClass( "ui-accordion-content-active" )
 			.show();
@@ -6551,7 +6549,7 @@ $.widget( "ui.accordion", {
 var requestIndex = 0;
 
 $.widget( "ui.autocomplete", {
-	version: "1.10.0",
+	version: "1.10.1",
 	defaultElement: "<input>",
 	options: {
 		appendTo: null,
@@ -6585,10 +6583,21 @@ $.widget( "ui.autocomplete", {
 		// so we use the suppressKeyPressRepeat flag to avoid handling keypress
 		// events when we know the keydown event was used to modify the
 		// search term. #7799
-		var suppressKeyPress, suppressKeyPressRepeat, suppressInput;
+		var suppressKeyPress, suppressKeyPressRepeat, suppressInput,
+			nodeName = this.element[0].nodeName.toLowerCase(),
+			isTextarea = nodeName === "textarea",
+			isInput = nodeName === "input";
 
-		this.isMultiLine = this._isMultiLine();
-		this.valueMethod = this.element[ this.element.is( "input,textarea" ) ? "val" : "text" ];
+		this.isMultiLine =
+			// Textareas are always multi-line
+			isTextarea ? true :
+			// Inputs are always single-line, even if inside a contentEditable element
+			// IE also treats inputs as contentEditable
+			isInput ? false :
+			// All other element types are determined by whether or not they're contentEditable
+			this.element.prop( "isContentEditable" );
+
+		this.valueMethod = this.element[ isTextarea || isInput ? "val" : "text" ];
 		this.isNewMenu = true;
 
 		this.element
@@ -6712,7 +6721,7 @@ $.widget( "ui.autocomplete", {
 
 		this._initSource();
 		this.menu = $( "<ul>" )
-			.addClass( "ui-autocomplete" )
+			.addClass( "ui-autocomplete ui-front" )
 			.appendTo( this._appendTo() )
 			.menu({
 				// custom key handling for now
@@ -6720,7 +6729,6 @@ $.widget( "ui.autocomplete", {
 				// disable ARIA support, the live region takes care of that
 				role: null
 			})
-			.zIndex( this.element.zIndex() + 1 )
 			.hide()
 			.data( "ui-menu" );
 
@@ -6872,20 +6880,6 @@ $.widget( "ui.autocomplete", {
 		return element;
 	},
 
-	_isMultiLine: function() {
-		// Textareas are always multi-line
-		if ( this.element.is( "textarea" ) ) {
-			return true;
-		}
-		// Inputs are always single-line, even if inside a contentEditable element
-		// IE also treats inputs as contentEditable
-		if ( this.element.is( "input" ) ) {
-			return false;
-		}
-		// All other element types are determined by whether or not they're contentEditable
-		return this.element.prop( "isContentEditable" );
-	},
-
 	_initSource: function() {
 		var array, url,
 			that = this;
@@ -7023,9 +7017,7 @@ $.widget( "ui.autocomplete", {
 	},
 
 	_suggest: function( items ) {
-		var ul = this.menu.element
-			.empty()
-			.zIndex( this.element.zIndex() + 1 );
+		var ul = this.menu.element.empty();
 		this._renderMenu( ul, items );
 		this.menu.refresh();
 
@@ -7175,7 +7167,7 @@ var lastActive, startXPos, startYPos, clickDragged,
 	};
 
 $.widget( "ui.button", {
-	version: "1.10.0",
+	version: "1.10.1",
 	defaultElement: "<button>",
 	options: {
 		disabled: null,
@@ -7492,7 +7484,7 @@ $.widget( "ui.button", {
 });
 
 $.widget( "ui.buttonset", {
-	version: "1.10.0",
+	version: "1.10.1",
 	options: {
 		items: "button, input[type=button], input[type=submit], input[type=reset], input[type=checkbox], input[type=radio], a, :data(ui-button)"
 	},
@@ -7552,7 +7544,7 @@ $.widget( "ui.buttonset", {
 
 (function( $, undefined ) {
 
-$.extend($.ui, { datepicker: { version: "1.10.0" } });
+$.extend($.ui, { datepicker: { version: "1.10.1" } });
 
 var PROP_NAME = "datepicker",
 	dpuuid = new Date().getTime(),
@@ -9280,7 +9272,7 @@ $.extend(Datepicker.prototype, {
 							(otherMonth && !showOtherMonths ? "" : " " + daySettings[1] + // highlight custom dates
 							(printDate.getTime() === currentDate.getTime() ? " " + this._currentClass : "") + // highlight selected day
 							(printDate.getTime() === today.getTime() ? " ui-datepicker-today" : "")) + "'" + // highlight today (if different)
-							((!otherMonth || showOtherMonths) && daySettings[2] ? " title='" + daySettings[2] + "'" : "") + // cell title
+							((!otherMonth || showOtherMonths) && daySettings[2] ? " title='" + daySettings[2].replace(/'/g, "&#39;") + "'" : "") + // cell title
 							(unselectable ? "" : " data-handler='selectDay' data-event='click' data-month='" + printDate.getMonth() + "' data-year='" + printDate.getFullYear() + "'") + ">" + // actions
 							(otherMonth && !showOtherMonths ? "&#xa0;" : // display for other months
 							(unselectable ? "<span class='ui-state-default'>" + printDate.getDate() + "</span>" : "<a class='ui-state-default" +
@@ -9457,8 +9449,14 @@ $.extend(Datepicker.prototype, {
 			if (years){
 				yearSplit = years.split(":");
 				currentYear = new Date().getFullYear();
-				minYear = parseInt(yearSplit[0], 10) + currentYear;
-				maxYear = parseInt(yearSplit[1], 10) + currentYear;
+				minYear = parseInt(yearSplit[0], 10);
+				maxYear = parseInt(yearSplit[1], 10);
+				if ( yearSplit[0].match(/[+\-].*/) ) {
+					minYear += currentYear;
+				}
+				if ( yearSplit[1].match(/[+\-].*/) ) {
+					maxYear += currentYear;
+				}
 			}
 
 		return ((!minDate || date.getTime() >= minDate.getTime()) &&
@@ -9574,7 +9572,7 @@ $.fn.datepicker = function(options){
 $.datepicker = new Datepicker(); // singleton instance
 $.datepicker.initialized = false;
 $.datepicker.uuid = new Date().getTime();
-$.datepicker.version = "1.10.0";
+$.datepicker.version = "1.10.1";
 
 // Workaround for #4055
 // Add another global to avoid noConflict issues with inline event handlers
@@ -9601,7 +9599,7 @@ var sizeRelatedOptions = {
 	};
 
 $.widget( "ui.dialog", {
-	version: "1.10.0",
+	version: "1.10.1",
 	options: {
 		appendTo: "body",
 		autoOpen: true,
@@ -9772,6 +9770,7 @@ $.widget( "ui.dialog", {
 	},
 
 	open: function() {
+		var that = this;
 		if ( this._isOpen ) {
 			if ( this._moveToTop() ) {
 				this._focusTabbable();
@@ -9779,19 +9778,19 @@ $.widget( "ui.dialog", {
 			return;
 		}
 
+		this._isOpen = true;
 		this.opener = $( this.document[0].activeElement );
 
 		this._size();
 		this._position();
 		this._createOverlay();
 		this._moveToTop( null, true );
-		this._show( this.uiDialog, this.options.show );
+		this._show( this.uiDialog, this.options.show, function() {
+			that._focusTabbable();
+			that._trigger("focus");
+		});
 
-		this._focusTabbable();
-
-		this._isOpen = true;
 		this._trigger("open");
-		this._trigger("focus");
 	},
 
 	_focusTabbable: function() {
@@ -9960,7 +9959,7 @@ $.widget( "ui.dialog", {
 		this.uiDialogButtonPane.remove();
 		this.uiButtonSet.empty();
 
-		if ( $.isEmptyObject( buttons ) ) {
+		if ( $.isEmptyObject( buttons ) || ($.isArray( buttons ) && !buttons.length) ) {
 			this.uiDialog.removeClass("ui-dialog-buttons");
 			return;
 		}
@@ -10008,6 +10007,7 @@ $.widget( "ui.dialog", {
 			containment: "document",
 			start: function( event, ui ) {
 				$( this ).addClass("ui-dialog-dragging");
+				that._blockFrames();
 				that._trigger( "dragStart", event, filteredUi( ui ) );
 			},
 			drag: function( event, ui ) {
@@ -10019,6 +10019,7 @@ $.widget( "ui.dialog", {
 					ui.position.top - that.document.scrollTop()
 				];
 				$( this ).removeClass("ui-dialog-dragging");
+				that._unblockFrames();
 				that._trigger( "dragStop", event, filteredUi( ui ) );
 			}
 		});
@@ -10055,6 +10056,7 @@ $.widget( "ui.dialog", {
 			handles: resizeHandles,
 			start: function( event, ui ) {
 				$( this ).addClass("ui-dialog-resizing");
+				that._blockFrames();
 				that._trigger( "resizeStart", event, filteredUi( ui ) );
 			},
 			resize: function( event, ui ) {
@@ -10064,6 +10066,7 @@ $.widget( "ui.dialog", {
 				options.height = $( this ).height();
 				options.width = $( this ).width();
 				$( this ).removeClass("ui-dialog-resizing");
+				that._unblockFrames();
 				that._trigger( "resizeStop", event, filteredUi( ui ) );
 			}
 		})
@@ -10230,6 +10233,28 @@ $.widget( "ui.dialog", {
 		}
 	},
 
+	_blockFrames: function() {
+		this.iframeBlocks = this.document.find( "iframe" ).map(function() {
+			var iframe = $( this );
+
+			return $( "<div>" )
+				.css({
+					position: "absolute",
+					width: iframe.outerWidth(),
+					height: iframe.outerHeight()
+				})
+				.appendTo( iframe.parent() )
+				.offset( iframe.offset() )[0];
+		});
+	},
+
+	_unblockFrames: function() {
+		if ( this.iframeBlocks ) {
+			this.iframeBlocks.remove();
+			delete this.iframeBlocks;
+		}
+	},
+
 	_createOverlay: function() {
 		if ( !this.options.modal ) {
 			return;
@@ -10242,13 +10267,14 @@ $.widget( "ui.dialog", {
 			this._delay(function() {
 				// Handle .dialog().dialog("close") (#4065)
 				if ( $.ui.dialog.overlayInstances ) {
-					this._on( this.document, {
-						focusin: function( event ) {
-							if ( !$( event.target ).closest(".ui-dialog").length ) {
-								event.preventDefault();
-								$(".ui-dialog:visible:last .ui-dialog-content")
-									.data("ui-dialog")._focusTabbable();
-							}
+					this.document.bind( "focusin.dialog", function( event ) {
+						if ( !$( event.target ).closest(".ui-dialog").length &&
+								// TODO: Remove hack when datepicker implements
+								// the .ui-front logic (#8989)
+								!$( event.target ).closest(".ui-datepicker").length ) {
+							event.preventDefault();
+							$(".ui-dialog:visible:last .ui-dialog-content")
+								.data("ui-dialog")._focusTabbable();
 						}
 					});
 				}
@@ -10257,7 +10283,7 @@ $.widget( "ui.dialog", {
 
 		this.overlay = $("<div>")
 			.addClass("ui-widget-overlay ui-front")
-			.appendTo( this.document[0].body );
+			.appendTo( this._appendTo() );
 		this._on( this.overlay, {
 			mousedown: "_keepFocus"
 		});
@@ -10269,11 +10295,15 @@ $.widget( "ui.dialog", {
 			return;
 		}
 
-		$.ui.dialog.overlayInstances--;
-		if ( !$.ui.dialog.overlayInstances ) {
-			this._off( this.document, "focusin" );
+		if ( this.overlay ) {
+			$.ui.dialog.overlayInstances--;
+
+			if ( !$.ui.dialog.overlayInstances ) {
+				this.document.unbind( "focusin.dialog" );
+			}
+			this.overlay.remove();
+			this.overlay = null;
 		}
-		this.overlay.remove();
 	}
 });
 
@@ -11324,7 +11354,7 @@ $.effects.effect.transfer = function( o, done ) {
 (function( $, undefined ) {
 
 $.widget( "ui.menu", {
-	version: "1.10.0",
+	version: "1.10.1",
 	defaultElement: "<ul>",
 	delay: 300,
 	options: {
@@ -11631,7 +11661,7 @@ $.widget( "ui.menu", {
 		menus.children( ":not(.ui-menu-item)" ).each(function() {
 			var item = $( this );
 			// hyphen, em dash, en dash
-			if ( !/[^\-—–\s]/.test( item.text() ) ) {
+			if ( !/[^\-\u2014\u2013\s]/.test( item.text() ) ) {
 				item.addClass( "ui-widget-content ui-menu-divider" );
 			}
 		});
@@ -11938,15 +11968,15 @@ var cachedScrollbarWidth,
 	round = Math.round,
 	rhorizontal = /left|center|right/,
 	rvertical = /top|center|bottom/,
-	roffset = /[\+\-]\d+%?/,
+	roffset = /[\+\-]\d+(\.[\d]+)?%?/,
 	rposition = /^\w+/,
 	rpercent = /%$/,
 	_position = $.fn.position;
 
 function getOffsets( offsets, width, height ) {
 	return [
-		parseInt( offsets[ 0 ], 10 ) * ( rpercent.test( offsets[ 0 ] ) ? width / 100 : 1 ),
-		parseInt( offsets[ 1 ], 10 ) * ( rpercent.test( offsets[ 1 ] ) ? height / 100 : 1 )
+		parseFloat( offsets[ 0 ] ) * ( rpercent.test( offsets[ 0 ] ) ? width / 100 : 1 ),
+		parseFloat( offsets[ 1 ] ) * ( rpercent.test( offsets[ 1 ] ) ? height / 100 : 1 )
 	];
 }
 
@@ -12419,7 +12449,7 @@ $.ui.position = {
 (function( $, undefined ) {
 
 $.widget( "ui.progressbar", {
-	version: "1.10.0",
+	version: "1.10.1",
 	options: {
 		max: 100,
 		value: 0,
@@ -12555,7 +12585,7 @@ $.widget( "ui.progressbar", {
 var numPages = 5;
 
 $.widget( "ui.slider", $.ui.mouse, {
-	version: "1.10.0",
+	version: "1.10.1",
 	widgetEventPrefix: "slide",
 
 	options: {
@@ -12577,12 +12607,6 @@ $.widget( "ui.slider", $.ui.mouse, {
 	},
 
 	_create: function() {
-		var i, handleCount,
-			o = this.options,
-			existingHandles = this.element.find( ".ui-slider-handle" ).addClass( "ui-state-default ui-corner-all" ),
-			handle = "<a class='ui-slider-handle ui-state-default ui-corner-all' href='#'></a>",
-			handles = [];
-
 		this._keySliding = false;
 		this._mouseSliding = false;
 		this._animateOff = true;
@@ -12597,29 +12621,32 @@ $.widget( "ui.slider", $.ui.mouse, {
 				" ui-widget-content" +
 				" ui-corner-all");
 
-		this.range = $([]);
+		this._refresh();
+		this._setOption( "disabled", this.options.disabled );
 
-		if ( o.range ) {
-			if ( o.range === true ) {
-				if ( !o.values ) {
-					o.values = [ this._valueMin(), this._valueMin() ];
-				} else if ( o.values.length && o.values.length !== 2 ) {
-					o.values = [ o.values[0], o.values[0] ];
-				} else if ( $.isArray( o.values ) ) {
-					o.values = o.values.slice(0);
-				}
-			}
+		this._animateOff = false;
+	},
 
-			this.range = $( "<div></div>" )
-				.appendTo( this.element )
-				.addClass( "ui-slider-range" +
-				// note: this isn't the most fittingly semantic framework class for this element,
-				// but worked best visually with a variety of themes
-				" ui-widget-header" +
-				( ( o.range === "min" || o.range === "max" ) ? " ui-slider-range-" + o.range : "" ) );
+	_refresh: function() {
+		this._createRange();
+		this._createHandles();
+		this._setupEvents();
+		this._refreshValue();
+	},
+
+	_createHandles: function() {
+		var i, handleCount,
+			options = this.options,
+			existingHandles = this.element.find( ".ui-slider-handle" ).addClass( "ui-state-default ui-corner-all" ),
+			handle = "<a class='ui-slider-handle ui-state-default ui-corner-all' href='#'></a>",
+			handles = [];
+
+		handleCount = ( options.values && options.values.length ) || 1;
+
+		if ( existingHandles.length > handleCount ) {
+			existingHandles.slice( handleCount ).remove();
+			existingHandles = existingHandles.slice( 0, handleCount );
 		}
-
-		handleCount = ( o.values && o.values.length ) || 1;
 
 		for ( i = existingHandles.length; i < handleCount; i++ ) {
 			handles.push( handle );
@@ -12629,41 +12656,56 @@ $.widget( "ui.slider", $.ui.mouse, {
 
 		this.handle = this.handles.eq( 0 );
 
-		this.handles.add( this.range ).filter( "a" )
-			.click(function( event ) {
-				event.preventDefault();
-			})
-			.mouseenter(function() {
-				if ( !o.disabled ) {
-					$( this ).addClass( "ui-state-hover" );
-				}
-			})
-			.mouseleave(function() {
-				$( this ).removeClass( "ui-state-hover" );
-			})
-			.focus(function() {
-				if ( !o.disabled ) {
-					$( ".ui-slider .ui-state-focus" ).removeClass( "ui-state-focus" );
-					$( this ).addClass( "ui-state-focus" );
-				} else {
-					$( this ).blur();
-				}
-			})
-			.blur(function() {
-				$( this ).removeClass( "ui-state-focus" );
-			});
-
 		this.handles.each(function( i ) {
 			$( this ).data( "ui-slider-handle-index", i );
 		});
+	},
 
-		this._setOption( "disabled", o.disabled );
+	_createRange: function() {
+		var options = this.options,
+			classes = "";
 
-		this._on( this.handles, this._handleEvents );
+		if ( options.range ) {
+			if ( options.range === true ) {
+				if ( !options.values ) {
+					options.values = [ this._valueMin(), this._valueMin() ];
+				} else if ( options.values.length && options.values.length !== 2 ) {
+					options.values = [ options.values[0], options.values[0] ];
+				} else if ( $.isArray( options.values ) ) {
+					options.values = options.values.slice(0);
+				}
+			}
 
-		this._refreshValue();
+			if ( !this.range || !this.range.length ) {
+				this.range = $( "<div></div>" )
+					.appendTo( this.element );
 
-		this._animateOff = false;
+				classes = "ui-slider-range" +
+				// note: this isn't the most fittingly semantic framework class for this element,
+				// but worked best visually with a variety of themes
+				" ui-widget-header ui-corner-all";
+			} else {
+				this.range.removeClass( "ui-slider-range-min ui-slider-range-max" )
+					// Handle range switching from true to min/max
+					.css({
+						"left": "",
+						"bottom": ""
+					});
+			}
+
+			this.range.addClass( classes +
+				( ( options.range === "min" || options.range === "max" ) ? " ui-slider-range-" + options.range : "" ) );
+		} else {
+			this.range = $([]);
+		}
+	},
+
+	_setupEvents: function() {
+		var elements = this.handles.add( this.range ).filter( "a" );
+		this._off( elements );
+		this._on( elements, this._handleEvents );
+		this._hoverable( elements );
+		this._focusable( elements );
 	},
 
 	_destroy: function() {
@@ -12936,6 +12978,16 @@ $.widget( "ui.slider", $.ui.mouse, {
 		var i,
 			valsLength = 0;
 
+		if ( key === "range" && this.options.range === true ) {
+			if ( value === "min" ) {
+				this.options.value = this._values( 0 );
+				this.options.values = null;
+			} else if ( value === "max" ) {
+				this.options.value = this._values( this.options.values.length-1 );
+				this.options.values = null;
+			}
+		}
+
 		if ( $.isArray( this.options.values ) ) {
 			valsLength = this.options.values.length;
 		}
@@ -12943,15 +12995,6 @@ $.widget( "ui.slider", $.ui.mouse, {
 		$.Widget.prototype._setOption.apply( this, arguments );
 
 		switch ( key ) {
-			case "disabled":
-				if ( value ) {
-					this.handles.filter( ".ui-state-focus" ).blur();
-					this.handles.removeClass( "ui-state-hover" );
-					this.handles.prop( "disabled", true );
-				} else {
-					this.handles.prop( "disabled", false );
-				}
-				break;
 			case "orientation":
 				this._detectOrientation();
 				this.element
@@ -12979,6 +13022,11 @@ $.widget( "ui.slider", $.ui.mouse, {
 				this._refreshValue();
 				this._animateOff = false;
 				break;
+			case "range":
+				this._animateOff = true;
+				this._refresh();
+				this._animateOff = false;
+				break;
 		}
 	},
 
@@ -13004,7 +13052,7 @@ $.widget( "ui.slider", $.ui.mouse, {
 			val = this._trimAlignValue( val );
 
 			return val;
-		} else {
+		} else if ( this.options.values && this.options.values.length ) {
 			// .slice() creates a copy of the array
 			// this copy gets trimmed by min and max and then returned
 			vals = this.options.values.slice();
@@ -13013,6 +13061,8 @@ $.widget( "ui.slider", $.ui.mouse, {
 			}
 
 			return vals;
+		} else {
+			return [];
 		}
 	},
 
@@ -13167,6 +13217,9 @@ $.widget( "ui.slider", $.ui.mouse, {
 
 			this._slide( event, index, newVal );
 		},
+		click: function( event ) {
+			event.preventDefault();
+		},
 		keyup: function( event ) {
 			var index = $( event.target ).data( "ui-slider-handle-index" );
 
@@ -13197,7 +13250,7 @@ function modifier( fn ) {
 }
 
 $.widget( "ui.spinner", {
-	version: "1.10.0",
+	version: "1.10.1",
 	defaultElement: "<input>",
 	widgetEventPrefix: "spin",
 	options: {
@@ -13677,7 +13730,7 @@ function isLocal( anchor ) {
 }
 
 $.widget( "ui.tabs", {
-	version: "1.10.0",
+	version: "1.10.1",
 	delay: 300,
 	options: {
 		active: null,
@@ -14524,7 +14577,7 @@ function removeDescribedBy( elem ) {
 }
 
 $.widget( "ui.tooltip", {
-	version: "1.10.0",
+	version: "1.10.1",
 	options: {
 		content: function() {
 			// support: IE<9, Opera in jQuery <1.7

@@ -53,16 +53,17 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Castle.Core.3.2.0\lib\net45\Castle.Core.dll</HintPath>
     </Reference>
-    <Reference Include="EmbeddedResourceVirtualPathProvider, Version=1.0.4756.158, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="EmbeddedResourceVirtualPathProvider, Version=1.0.4806.24262, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\EmbeddedResourceVirtualPathProvider.1.2.16\lib\net40\EmbeddedResourceVirtualPathProvider.dll</HintPath>
+      <HintPath>..\packages\EmbeddedResourceVirtualPathProvider.1.2.17\lib\net40\EmbeddedResourceVirtualPathProvider.dll</HintPath>
     </Reference>
     <Reference Include="FormFactory, Version=1.0.4816.40332, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\FormFactory.1.2.244\lib\net40\FormFactory.dll</HintPath>
     </Reference>
-    <Reference Include="Harden">
-      <HintPath>..\packages\Harden.1.2.6\lib\net40\Harden.dll</HintPath>
+    <Reference Include="Harden, Version=1.0.4827.27173, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Harden.1.2.7\lib\net40\Harden.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
@@ -79,9 +80,9 @@
     <Reference Include="Munq.MVC3">
       <HintPath>..\packages\Munq.MVC3.3.1.5\lib\Munq.MVC3.dll</HintPath>
     </Reference>
-    <Reference Include="Mvc.JQuery.Datatables, Version=1.0.4800.21133, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="Mvc.JQuery.Datatables, Version=1.0.4808.23545, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Mvc.JQuery.Datatables.1.2.44\lib\net40\Mvc.JQuery.Datatables.dll</HintPath>
+      <HintPath>..\packages\Mvc.JQuery.Datatables.1.2.45\lib\net40\Mvc.JQuery.Datatables.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -246,10 +247,11 @@
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\jquery-1.9.1.js" />
     <Content Include="Scripts\jquery-1.9.1.min.js" />
-    <Content Include="Scripts\jquery-migrate-1.1.0.js" />
     <Content Include="Scripts\jquery-migrate-1.1.0.min.js" />
-    <Content Include="Scripts\jquery-ui-1.10.0.js" />
-    <Content Include="Scripts\jquery-ui-1.10.0.min.js" />
+    <Content Include="Scripts\jquery-migrate-1.1.1.js" />
+    <Content Include="Scripts\jquery-migrate-1.1.1.min.js" />
+    <Content Include="Scripts\jquery-ui-1.10.1.js" />
+    <Content Include="Scripts\jquery-ui-1.10.1.min.js" />
     <Content Include="Scripts\jquery-ui-1.8.17.js" />
     <Content Include="Scripts\jquery-ui-1.8.17.min.js" />
     <Content Include="Scripts\jquery.validate-vsdoc.js" />

@@ -64,9 +64,9 @@ namespace Noodles.AspMvc.RequestHandling
         {
             if (result.Result is ActionResult)
             {
-                if (result.Result is RedirectResult && context.RequestContext.HttpContext.Request.IsAjaxRequest())
+                if (context.RequestContext.HttpContext.Request.IsAjaxRequest())
                 {
-                    return new AjaxAwareRedirectResult((RedirectResult) result.Result);
+                    return new RewriteRedirectForAjaxResult((ActionResult) result.Result);
                 }
                 return (ActionResult) result.Result;
             }

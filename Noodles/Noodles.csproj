@@ -13,7 +13,6 @@
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
-    
     <RestorePackages>true</RestorePackages>
     <TargetFrameworkProfile />
   </PropertyGroup>
@@ -45,8 +44,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\DelegateQueryable.1.2.6\lib\net40\DelegateQueryable.dll</HintPath>
     </Reference>
-    <Reference Include="Harden">
-      <HintPath>..\packages\Harden.1.2.6\lib\net40\Harden.dll</HintPath>
+    <Reference Include="Harden, Version=1.0.4827.27173, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Harden.1.2.7\lib\net40\Harden.dll</HintPath>
     </Reference>
     <Reference Include="Siggs, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
