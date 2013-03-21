@@ -1,7 +1,7 @@
 ﻿@using Noodles.AspMvc.Views.Shared.Layout
 
 <!-- being /Layout/Topbar.RightItems.cshtml -->
-    @foreach (var item in ViewData.LayoutVm().TopBar.RightItems)
+    @foreach (var item in Html.LayoutVm().TopBar.RightItems)
     {
          <li @Html.Raw(item.Active ? "active=\"active\"": "") ><a class="@item.Class" href="@item.Href">@item.Html</a></li>
     }

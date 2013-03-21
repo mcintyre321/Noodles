@@ -53,7 +53,7 @@ namespace Noodles.Example.Domain
 
         public bool? AllowSignOut()
         {
-            return AuthService.RequestHasAuthToken() ? true : null as bool?;
+            return AuthService.RequestHasAuthToken() ? null as bool? : false;
         }
 
     }

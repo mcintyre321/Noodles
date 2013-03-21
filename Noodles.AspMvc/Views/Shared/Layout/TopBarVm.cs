@@ -10,8 +10,9 @@ namespace Noodles.AspMvc.Views.Shared.Layout
     
     public static class LayoutExtension
     {
-        public static LayoutVm LayoutVm(this ViewDataDictionary vd)
+        public static LayoutVm LayoutVm(this HtmlHelper helper)
         {
+            var vd = helper.ViewContext.HttpContext.Items;
             var layout = vd[typeof (LayoutVm).FullName] as LayoutVm;
             if (layout == null)
             {

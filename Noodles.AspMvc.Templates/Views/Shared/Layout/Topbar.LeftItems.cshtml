@@ -2,7 +2,7 @@
 @using Noodles.Models
 @using Noodles.RequestHandling
 <!-- begin /Layout/Topbar.LeftItems.cshtml -->
-    @foreach (var item in ViewData.LayoutVm().TopBar.LeftItems)
+    @foreach (var item in Html.LayoutVm().TopBar.LeftItems)
     {
          <li @Html.Raw(item.Active ? "class=\"active\"": "") ><a class="@item.Class" href="@item.Href">@item.Html</a></li>
     }
