@@ -1,27 +1,28 @@
 using System.Web.Mvc;
+using Noodles.RequestHandling.ResultTypes;
 
 namespace Noodles.AspMvc.Infrastructure
 {
     public class AjaxAwareRedirectResult : ActionResult
     {
-        private string url;
+        private readonly RedirectResult _inner;
 
-        public AjaxAwareRedirectResult(string url)
+        public AjaxAwareRedirectResult(RedirectResult inner)
         {
-            this.url = url;
+            _inner = inner;
         }
 
         public override void ExecuteResult(ControllerContext context)
         {
             if (context.RequestContext.HttpContext.Request.IsAjaxRequest())
             {
-                context.RequestContext.HttpContext.Response.AddHeader("Location", url);
+                context.RequestContext.HttpContext.Response.AddHeader("Location", _inner.Url);
                 context.RequestContext.HttpContext.Response.AddHeader("IsAjaxRedirect", "true");
             }
             else
             {
-                new RedirectResult(url).ExecuteResult(context);
-            }   
+                _inner.ExecuteResult(context);
+            }
 
         }
     }

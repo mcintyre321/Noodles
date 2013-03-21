@@ -1,5 +1,6 @@
 using System.Net;
 using System.Web.Mvc;
+using Noodles.AspMvc.Infrastructure;
 using Noodles.Models;
 using Noodles.RequestHandling;
 using Noodles.RequestHandling.ResultTypes;
@@ -63,6 +64,7 @@ namespace Noodles.AspMvc.RequestHandling
         {
             if (result.Result is ActionResult)
             {
+                if (result is RedirectResult) return new AjaxAwareRedirectResult((RedirectResult) result);
                 return (ActionResult) result.Result;
             }
             var res = new System.Web.Mvc.ViewResult();
