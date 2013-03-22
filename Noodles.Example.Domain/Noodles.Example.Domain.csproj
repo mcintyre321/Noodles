@@ -39,8 +39,9 @@
     <Reference Include="FormFactory">
       <HintPath>..\packages\FormFactory.1.2.238\lib\net40\FormFactory.dll</HintPath>
     </Reference>
-    <Reference Include="Harden">
-      <HintPath>..\packages\Harden.1.2.6\lib\net40\Harden.dll</HintPath>
+    <Reference Include="Harden, Version=1.0.4827.27173, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Harden.1.2.7\lib\net40\Harden.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json">
       <HintPath>..\packages\Newtonsoft.Json.4.5.11\lib\net40\Newtonsoft.Json.dll</HintPath>
