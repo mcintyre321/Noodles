@@ -50,7 +50,7 @@
                 }
                 @foreach (var method in Model.NodeMethods.Where(nm => nm.UiHint == "TopBar.RightItems"))
                 {
-                    Html.LayoutVm().TopBar.RightItems.Add(new NavItemVm(){ Html = method.DisplayName, Href = method.Url, Class = "nodeMethodLink" });
+                    Html.LayoutVm().TopBar.RightItems.Add(new NavItemVm(){ Html = NoodlesHelper.NodeMethodLink(method).ToHtmlString() });
                 }
 
             </div>

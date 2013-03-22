@@ -15,6 +15,7 @@ namespace Noodles.Models
         string Url { get; }
         bool AutoSubmit { get; }
         Type ParameterType { get; }
+        Type ResultType { get; }
         //object Parameter { get; }
         object Invoke(IDictionary<string, object> parameterDictionary);
         object Invoke(object[] parameters);

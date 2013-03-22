@@ -93,6 +93,8 @@ namespace Noodles.Models
             get { return this.GetType(); }
         }
 
+        Type IInvokeable.ResultType { get { return this.GetType(); } }
+
 
         object IInvokeable.Invoke(IDictionary<string, object> parameterDictionary)
         {

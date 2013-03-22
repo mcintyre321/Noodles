@@ -64,11 +64,7 @@ namespace Noodles.AspMvc.RequestHandling
         {
             if (result.Result is ActionResult)
             {
-                if (context.RequestContext.HttpContext.Request.IsAjaxRequest())
-                {
-                    return new RewriteRedirectForAjaxResult((ActionResult) result.Result);
-                }
-                return (ActionResult) result.Result;
+                return new AjaxRedirectRewritingActionResult((ActionResult) result.Result);
             }
             var res = new System.Web.Mvc.ViewResult();
             if (context.HttpContext.Request.IsAjaxRequest())
@@ -80,5 +76,30 @@ namespace Noodles.AspMvc.RequestHandling
             return res;
         }
 
+    }
+
+    public class AjaxRedirectRewritingActionResult : ActionResult
+    {
+        private readonly ActionResult _inner;
+
+        public AjaxRedirectRewritingActionResult(ActionResult inner)
+        {
+            _inner = inner;
+        }
+
+        public override void ExecuteResult(ControllerContext context)
+        {
+            var redirectResult = _inner as RedirectResult;
+            if (redirectResult != null && context.HttpContext.Request.IsAjaxRequest())
+            {
+                context.HttpContext.Response.AddHeader("Location", redirectResult.Url);
+                context.HttpContext.Response.AddHeader("IsAjaxRedirect", "true");
+
+            }
+            else
+            {
+                _inner.ExecuteResult(context);
+            }
+        }
     }
 }

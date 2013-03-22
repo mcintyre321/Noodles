@@ -212,6 +212,8 @@ namespace Noodles.Models
             get { return Siggs.SiggsExtensions.GetTypeForMethodInfo(_methodInfo); }
         }
 
+        public Type ResultType { get { return _methodInfo.ReturnType; } }
+
         public object Parameter { get { return Activator.CreateInstance(ParameterType); } }
 
 

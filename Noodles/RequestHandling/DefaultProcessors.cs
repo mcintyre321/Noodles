@@ -14,7 +14,7 @@ namespace Noodles.RequestHandling
         {
             var result = MapResultToNoodleResult(node);
             if (result != null) return await Task.Factory.StartNew(() => result);
-            if (!requestInfo.IsInvoke)
+            if (node is IInvokeable && !requestInfo.IsInvoke((IInvokeable) node))
             {
                 return await Task.Factory.StartNew<Result>(() => new ViewResult(node));
             }
@@ -33,7 +33,7 @@ namespace Noodles.RequestHandling
             var invokeable = node as IInvokeable;
             if (invokeable == null) return await NullTask();
 
-            var isInvoke = requestInfo.IsInvoke;
+            var isInvoke = requestInfo.IsInvoke(invokeable);
             if (!isInvoke) return null;
 
             IDictionary<string, object> parameters = null;

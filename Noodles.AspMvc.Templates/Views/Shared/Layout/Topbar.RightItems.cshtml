@@ -3,7 +3,7 @@
 <!-- being /Layout/Topbar.RightItems.cshtml -->
     @foreach (var item in Html.LayoutVm().TopBar.RightItems)
     {
-         <li @Html.Raw(item.Active ? "active=\"active\"": "") ><a class="@item.Class" href="@item.Href">@item.Html</a></li>
+         <li @Html.Raw(item.Active ? "class=\"active\"": "") > @Html.Raw(item.Html) </li>
     }
 
 <!-- end /Layout/Topbar.RightItems.cshtml -->

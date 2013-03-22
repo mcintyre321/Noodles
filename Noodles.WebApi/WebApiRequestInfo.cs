@@ -19,10 +19,14 @@ namespace Noodles.WebApi
         {
             _request = request;
             _ct = ct;
-            IsInvoke = request.Method == HttpMethod.Post;
             var routeData = request.Properties["MS_HttpRouteData"] as IHttpRouteData;
             
             _rootUrl = '/' + routeData.Route.RouteTemplate.Substring(0, routeData.Route.RouteTemplate.IndexOf("{*path}")).Trim('/') + '/';
+        }
+
+        public override bool IsInvoke(IInvokeable invokeable)
+        {
+            return _request.Method == HttpMethod.Post;
         }
 
         public override string RootUrl

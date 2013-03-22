@@ -52,15 +52,9 @@ namespace Noodles.AspMvc.Views.Shared.Layout
         public NavItemVm()
         {
             Html = "";
-            Href = "";
-            Class = "";
-            Children = new List<NavItemVm>();
         }
         public string Html { get; set; }
-        public string Href { get; set; }
-        public string Class { get; set; }
         public bool Active { get; set; }
-        public IList<NavItemVm> Children { get; set; }
     }
 
     public class BrandVm

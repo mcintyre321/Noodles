@@ -2,6 +2,7 @@ using System.Collections;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
 using System.Web.Security;
 using Noodles.Example.Domain.Tasks;
 
@@ -56,23 +57,10 @@ namespace Noodles.Example.Domain
             return AuthService.RequestHasAuthToken() ? null as bool? : false;
         }
 
-    }
-
-    public class User
-    {
-        [Show][Required]
-        public string DisplayName { get; set; }
-        [Show][Required][DataType(DataType.Password)]
-        public string Password { get; set; }
-        [Show][Required][DataType(DataType.EmailAddress)]
-        public string Email { get; set; }
-    }
-
-    public class MembershipSettings
-    {
-        [Show]
-        public bool AllowAnonymousAccess { get; set; }
-        [Show]
-        public bool AllowSelfRegistration { get; set; }
+        [Show][HttpGet]
+        public RedirectResult Google()
+        {
+            return new RedirectResult("http://google.com");
+        }
     }
 }

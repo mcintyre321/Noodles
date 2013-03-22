@@ -78,6 +78,7 @@ namespace Noodles.Models
         }
 
         public Type ParameterType { get { return ValueType; } }
+        public Type ResultType { get { return ValueType; } }
         public object Parameter { get; private set; }
         public Type Type { get { return this.GetType(); } }
 

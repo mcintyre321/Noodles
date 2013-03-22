@@ -20,7 +20,16 @@ namespace Noodles.AspMvc.RequestHandling
         public AspMvcRequestInfo(ControllerContext cc)
         {
             _cc = cc;
-            this.IsInvoke = cc.HttpContext.Request.HttpMethod == "POST";
+            }
+
+        public override bool IsInvoke(IInvokeable method)
+        {
+            if (_cc.HttpContext.Request.HttpMethod == "POST") return true;
+            if (_cc.HttpContext.Request.HttpMethod == "GET" && method.GetAttribute<HttpGetAttribute>() != null)
+            {
+                return true;
+            }
+            return false;
         }
 
         public override string RootUrl

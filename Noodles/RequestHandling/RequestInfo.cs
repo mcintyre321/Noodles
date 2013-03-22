@@ -7,7 +7,7 @@ namespace Noodles.RequestHandling
 {
     public abstract class RequestInfo
     {
-        public bool IsInvoke { get; protected set; }
+        public abstract bool IsInvoke(IInvokeable invokeable);
         public abstract string RootUrl { get;  }
 
         public abstract Task<IEnumerable<Tuple<string, object>>> GetArguments(IInvokeable method);

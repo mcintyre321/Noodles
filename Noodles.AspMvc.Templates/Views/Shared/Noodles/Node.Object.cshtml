@@ -38,9 +38,9 @@
             {
                 Html.LayoutVm().TopBar.Brand = new BrandVm(){ Html = resource.DisplayName, Href = resource.Url};
                 Html.LayoutVm().TopBar.LeftItems.AddRange(resource.Links.Where(l => l.UiHint == "")
-                    .Select(l => new NavItemVm(){ Href = l.Url, Html =  l.DisplayName, Active = walked.Any(u => u.Url == l.Url) }));
+                    .Select(l => new NavItemVm(){ Html =  "<a href='" + l.Url + "'>" + l.DisplayName + "</a>", Active = walked.Any(u => u.Url == l.Url) }));
                 Html.LayoutVm().TopBar.RightItems.AddRange(resource.Links.Where(l => l.UiHint == "TopBar.RightItems")
-                    .Select(l => new NavItemVm(){ Href = l.Url, Html =  l.DisplayName, Active = walked.Any(u => u.Url == l.Url) }));
+                    .Select(l => new NavItemVm(){ Html =  "<a href='" + l.Url + "'>" + l.DisplayName + "</a>", Active = walked.Any(u => u.Url == l.Url) }));
 
             }
             else
