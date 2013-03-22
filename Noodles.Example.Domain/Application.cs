@@ -1,6 +1,7 @@
 using System.Collections;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using System.Reflection;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
@@ -43,7 +44,7 @@ namespace Noodles.Example.Domain
 
         public bool? AllowSignIn()
         {
-            return AuthService.RequestHasAuthToken() ? false : null as bool?;
+            return AuthService.RequestHasAuthToken() ? false : true;
         }
 
         [Show(UiHint = "TopBar.RightItems")]
@@ -52,7 +53,7 @@ namespace Noodles.Example.Domain
             AuthService.ClearAuthToken();
         }
 
-        public bool? AllowSignOut()
+        public bool? Allow(MethodInfo methodInfo)
         {
             return AuthService.RequestHasAuthToken() ? null as bool? : false;
         }

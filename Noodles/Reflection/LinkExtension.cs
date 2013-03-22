@@ -22,14 +22,21 @@ namespace Noodles
 
         public static IEnumerable<NodeLink> YieldFindNodeLinksUsingReflection(Resource parent, object target, Type fallback)
         {
-            foreach (var link in YieldFindLinkAttributedProperties(target, fallback)
-                .Select(pi => new NodeLink(parent, pi.Item1.Name, pi.Item1.GetValue(target), pi.Item2.UiHint)))
+           
+
+            var testedProperties = target.GetType().GetProperties().Select(p => new
+                {
+                    Property = p,
+                    RuleResult = NodeLinkRuleRegistry.ShowLinkRules.Select(r => r(target, p)).FirstOrDefault(r => r != null)
+                });
+
+            var passedProperties = testedProperties.Where(q => q.RuleResult == true).Select(q => q.Property);
+
+            foreach (var pi in passedProperties)
             {
-                yield return link;
+                yield return new NodeLink(parent, pi.Name, pi.GetValue(target), pi.Attributes().OfType<LinkAttribute>().Single().UiHint);
             }
-
-
-            var links = target.GetType().GetProperties()
+            var links = passedProperties
                 .Select(pi => new
                 {
                     Items = pi.GetValue(target) as IDictionary<string, object>,

@@ -8,6 +8,16 @@ namespace Noodles
 {
     public static class NodeLinkRuleRegistry
     {
+        static NodeLinkRuleRegistry()
+        {
+            ShowLinkRules = new List<ShowLinkRule>()
+                {
+                    LinkAttributedProperties,
+                    LinkAttributedPropertyGetters,
+                    LinkAttributedPropertySetters,
+                };
+
+        }
         /// <returns>
         /// true if the Property should defs be shown
         /// false if the Property should defs be hidden
@@ -15,7 +25,7 @@ namespace Noodles
         /// </returns>
         public delegate bool? ShowLinkRule(object target, PropertyInfo propertyInfo);
 
-        public static ShowLinkRule LinkAttributedLinks = (t, propertyInfo) =>
+        public static ShowLinkRule LinkAttributedProperties = (t, propertyInfo) =>
         {
             if (propertyInfo.Attributes().OfType<LinkAttribute>().Any())
             {
@@ -42,5 +52,6 @@ namespace Noodles
             return null as bool?;
         };
 
+        public static IList<ShowLinkRule> ShowLinkRules { get; private set; }
     }
 }
