@@ -36,24 +36,29 @@
                     </div>
                 }
 
-                @foreach(var link in Model.Links.Where(l => l.UiHint == "Inline"))
+                @foreach(var link in Model.Links.Hinted("Inline"))
                 {
                     @Html.Partial("Noodles/NodeBody.Object", link.Target )
                 }
             </div>
 
             <br />
-            <div class="well" data-fragment-id="noodle-object-actions">
-                @foreach (var method in Model.NodeMethods.Where(nm => nm.UiHint == ""))
+            @{
+                var nodeMethods = Model.NodeMethods.Hinted("");
+                if (nodeMethods.Any())
                 {
-                    @NoodlesHelper.NodeMethodLink(method, "btn")
+                    <div class="well" data-fragment-id="noodle-object-actions">
+                        @foreach (var method in nodeMethods)
+                        {
+                            @NoodlesHelper.NodeMethodLink(method, "btn")
+                        }
+                    </div>
                 }
-                @foreach (var method in Model.NodeMethods.Where(nm => nm.UiHint == "TopBar.RightItems"))
-                {
-                    Html.LayoutVm().TopBar.RightItems.Add(new NavItemVm(){ Html = NoodlesHelper.NodeMethodLink(method).ToHtmlString() });
-                }
-
-            </div>
+            }
+            @foreach (var method in Model.NodeMethods.Hinted("TopBar.RightItems"))
+            {
+                Html.LayoutVm().TopBar.RightItems.Add(new NavItemVm(){ Html = NoodlesHelper.NodeMethodLink(method).ToHtmlString() });
+            }
         </div>
     </div>
 </div>

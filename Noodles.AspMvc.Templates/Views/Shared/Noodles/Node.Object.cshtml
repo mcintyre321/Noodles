@@ -1,6 +1,7 @@
 ﻿@using System.Web.Mvc
 @using System.Web.Mvc.Html
 @using Noodles
+@using Noodles.AspMvc.UiAttributes
 @using Noodles.AspMvc.Views.Shared.Layout
 @using Noodles.Helpers
 @using Noodles.AspMvc.Helpers
@@ -11,7 +12,7 @@
 @helper Nav(HtmlHelper helper, Resource resource, IEnumerable<Resource> walked, string navOptions)
 {
     <ul class="nav @navOptions">
-        @foreach (var node in resource.Links.Where(l => l.UiHint == ""))
+        @foreach (var node in resource.Links.Hinted(""))
         {
             var active = walked.Any(w => w.Url == node.Url);
             <li @Html.Raw(active ? "class=\"active\"" : "")><a href="@node.Url">@node.DisplayName</a></li>
@@ -45,16 +46,18 @@
             }
             else
             {
-
-                <div class="navbar">
-                    <div class="navbar-inner">
-                        @if (resource.Parent == null)
-                        {
-                            <a class="brand" href="@resource.Url">@resource.DisplayName</a>
-                        }
-                        @Nav(helper, resource, walked, "")
+                if (resource.Links.Hinted("").Any())
+                {
+                    <div class="navbar">
+                        <div class="navbar-inner">
+                            @if (resource.Parent == null)
+                            {
+                                <a class="brand" href="@resource.Url">@resource.DisplayName</a>
+                            }
+                            @Nav(helper, resource, walked, "")
+                        </div>
                     </div>
-                </div>
+                }
             }
             @getInner();
         }

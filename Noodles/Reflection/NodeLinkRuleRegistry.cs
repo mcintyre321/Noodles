@@ -27,7 +27,7 @@ namespace Noodles
 
         public static ShowLinkRule LinkAttributedProperties = (t, propertyInfo) =>
         {
-            if (propertyInfo.Attributes().OfType<LinkAttribute>().Any())
+            if (propertyInfo.Attributes().IsLinks())
             {
                 return true;
             }
@@ -36,7 +36,7 @@ namespace Noodles
         public static ShowLinkRule LinkAttributedPropertyGetters = (t, propertyInfo) =>
         {
             var methodInfo = propertyInfo.DeclaringType.GetMethod("get_" + propertyInfo.Name);
-            if (methodInfo != null && methodInfo.GetCustomAttributes(typeof (LinkAttribute), true).Any())
+            if (methodInfo != null && methodInfo.Attributes().IsLinks())
             {
                 return true;
             }
@@ -45,7 +45,7 @@ namespace Noodles
         public static ShowLinkRule LinkAttributedPropertySetters = (t, propertyInfo) =>
         {
             var methodInfo = propertyInfo.DeclaringType.GetMethod("set_" + propertyInfo.Name);
-            if (methodInfo != null && methodInfo.GetCustomAttributes(typeof (LinkAttribute), true).Any())
+            if (methodInfo != null && methodInfo.Attributes().IsLinks())
             {
                 return true;
             }
@@ -53,5 +53,10 @@ namespace Noodles
         };
 
         public static IList<ShowLinkRule> ShowLinkRules { get; private set; }
+
+        static bool IsLinks(this IEnumerable<Attribute> atts)
+        {
+            return (atts.OfType<LinkAttribute>().Any() || atts.OfType<LinksAttribute>().Any());
+        }
     }
 }

@@ -73,7 +73,6 @@
     <Compile Include="Helpers\RecurseExtension.cs" />
     <Compile Include="Helpers\ThenExtension.cs" />
     <Compile Include="IdExtension.cs" />
-    <Compile Include="LinksExtension.cs" />
     <Compile Include="Logger.cs" />
     <Compile Include="Models\NodeCollectionProperty.cs" />
     <Compile Include="Models\IInvokeable.cs" />
@@ -81,7 +80,7 @@
     <Compile Include="Models\QueryPage.cs" />
     <Compile Include="Name.cs" />
     <Compile Include="Models\NodeLink.cs" />
-    <Compile Include="NodeMethodExtensions.cs" />
+    <Compile Include="Reflection\NodeMethodExtensions.cs" />
     <Compile Include="NodeTypeExtension.cs" />
     <Compile Include="PathExtension.cs" />
     <Compile Include="Reflection\IInvokeableParameter.cs" />

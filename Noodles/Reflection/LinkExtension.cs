@@ -34,22 +34,21 @@ namespace Noodles
 
             foreach (var pi in passedProperties)
             {
-                yield return new NodeLink(parent, pi.Name, pi.GetValue(target), pi.Attributes().OfType<LinkAttribute>().Single().UiHint);
-            }
-            var links = passedProperties
-                .Select(pi => new
+                var linkAttribute = pi.Attributes().OfType<LinkAttribute>().SingleOrDefault();
+                if (linkAttribute != null)
                 {
-                    Items = pi.GetValue(target) as IDictionary<string, object>,
-                    LinksAttribute = pi.Attributes().OfType<LinksAttribute>().SingleOrDefault()
-                })
-                .Where(x => x.LinksAttribute != null)
-                .SelectMany(x => x.Items.Select(i => new NodeLink(parent, i.Key, i.Value, x.LinksAttribute.UiHint)));
-          
-            foreach (var link in links)
-            {
-                yield return link;
+                    yield return new NodeLink(parent, pi.Name, pi.GetValue(target), linkAttribute.UiHint);
+                }
+                else
+                {
+                    var linksAttribute = pi.Attributes().OfType<LinksAttribute>().Single();
+                    var items = (IDictionary<string, object>) pi.GetValue(target);
+                    foreach (var i in items)
+                    {
+                        yield return new NodeLink(parent, i.Key, i.Value, linksAttribute.UiHint);
+                    }
+                }
             }
-
         }
 
         public static IEnumerable<PropertyInfo> AllPropertyInfos(this object o, Type fallback)
