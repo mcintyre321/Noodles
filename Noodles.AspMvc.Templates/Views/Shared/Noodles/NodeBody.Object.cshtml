@@ -38,7 +38,7 @@
 
                 @foreach(var link in Model.Links.Hinted("Inline"))
                 {
-                    @Html.Partial("Noodles/NodeBody.Object", link.Target )
+                    @Html.BestPartial(link.Target, null, "Noodles/NodeBody.")
                 }
             </div>
 
