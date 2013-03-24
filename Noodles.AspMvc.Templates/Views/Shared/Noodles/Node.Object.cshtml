@@ -6,30 +6,25 @@
 @model Noodles.Models.Resource
 @{
     var walked = Model.AncestorsAndSelf.OfType<Resource>().ToArray();
-    Func<IHtmlString>
-content = () => Render(Html, Model, walked, () => Html.BestPartial(Model, Model.ValueType, "Noodles/NodeBody."));
-    foreach (var walkedItem in walked.Skip(1))
+    foreach (var walkedItem in walked.Reverse())
     {
-        var prev = content;
-        var target = walkedItem;
-        content = () => Render(Html, target, walked, prev);
+        @RenderMenu(Html, walkedItem, walked);
     }
-    @content();
+
+    @Html.BestPartial(Model, Model.ValueType, "Noodles/NodeBody.")
+
 }
 
 
-@helper Render(HtmlHelper helper, Resource resource, IEnumerable<Resource> walked, Func<IHtmlString> renderBody)
+@helper RenderMenu(HtmlHelper helper, Resource resource, IEnumerable<Resource> walked)
 {
     var links = resource.Links.GroupBy(l => l.UiHint);
-    if (links.Any() == false)
-    {
-    @renderBody()
-    }
+
     if (resource.Parent == null)
     {
         foreach (var method in resource.NodeMethods.Hinted("TopBar.RightItems"))
         {
-            Html.LayoutVm().TopBar.RightItems.Add(new NavItemVm() { Html = NoodlesHelper.NodeMethodLink(method).ToHtmlString() });
+            Html.LayoutVm().TopBar.RightItems.Add(new NavItemVm() {Html = NoodlesHelper.NodeMethodLink(method).ToHtmlString()});
         }
     }
     foreach (var linkGroup in links)
@@ -43,7 +38,7 @@ content = () => Render(Html, Model, walked, () => Html.BestPartial(Model, Model.
                         <div class="span3">
                             @Nav(helper, linkGroup, walked, "nav-pills nav-stacked")
                         </div>
-                        <div class="span@(12 - (ViewBag.Indent ?? 0))">@renderBody()</div>
+                        <div class="span@(12 - (ViewBag.Indent ?? 0))"></div>
                     </div>
                     break;
                 }
@@ -58,6 +53,9 @@ content = () => Render(Html, Model, walked, () => Html.BestPartial(Model, Model.
                     break;
                 }
             case "Inline":
+                {
+
+                }
                 break;
             default:
                 {
@@ -70,7 +68,6 @@ content = () => Render(Html, Model, walked, () => Html.BestPartial(Model, Model.
                             @Nav(helper, linkGroup, walked, "")
                         </div>
                     </div>
-                    @renderBody()
                     break;
                 }
         }
