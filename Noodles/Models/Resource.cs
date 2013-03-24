@@ -131,7 +131,7 @@ namespace Noodles.Models
 
         public string UiHint
         {
-            get { return this.Value.Attributes().OfType<UiHintAttribute>().Select(a => a.UiHint).SingleOrDefault(); }
+            get { return ""; }
         }
 
 

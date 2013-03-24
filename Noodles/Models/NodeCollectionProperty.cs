@@ -51,6 +51,5 @@ namespace Noodles.Models
         {
             get { return this.NodeMethods(this); }
         }
-
     }
 }

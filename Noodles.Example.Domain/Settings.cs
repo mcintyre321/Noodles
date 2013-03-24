@@ -1,7 +1,6 @@
 
 namespace Noodles.Example.Domain
 {
-    [UiHint("SideMenu")]
     public class Settings
     {
         public Settings()
@@ -10,9 +9,9 @@ namespace Noodles.Example.Domain
             MembershipSettings = new MembershipSettings();
         }
 
-        [Link]
+        [Link (UiHint = "SideNav")]
         public ProfileSettings ProfileSettings { get; private set; }
-        [Link]
+        [Link(UiHint = "SideNav")]
         public MembershipSettings MembershipSettings { get; private set; }
     }
 }

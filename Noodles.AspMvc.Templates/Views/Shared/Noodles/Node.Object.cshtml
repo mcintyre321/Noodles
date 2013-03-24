@@ -1,74 +1,9 @@
-﻿@using System.Web.Mvc
-@using System.Web.Mvc.Html
-@using Noodles
-@using Noodles.AspMvc.UiAttributes
+﻿@using Noodles.AspMvc.UiAttributes
 @using Noodles.AspMvc.Views.Shared.Layout
-@using Noodles.Helpers
 @using Noodles.AspMvc.Helpers
 @using Noodles.Models
-@using Noodles.RequestHandling
 @using FormFactory;
 @model Noodles.Models.Resource
-@helper Nav(HtmlHelper helper, Resource resource, IEnumerable<Resource> walked, string navOptions)
-{
-    <ul class="nav @navOptions">
-        @foreach (var node in resource.Links.Hinted(""))
-        {
-            var active = walked.Any(w => w.Url == node.Url);
-            <li @Html.Raw(active ? "class=\"active\"" : "")><a href="@node.Url">@node.DisplayName</a></li>
-        }
-    </ul> 
-}
-@helper Render(HtmlHelper helper, Resource resource, IEnumerable<Resource> walked, Func<IHtmlString> getInner)
-{
-    if (resource.Links.Any())
-    {
-        if (resource.UiHint == "SideMenu")
-        {
-            ViewBag.Indent = (ViewBag.Indent ?? 0) + 3;
-    <div class="row">
-        <div class="span3">
-            @Nav(helper, resource, walked, "nav-pills nav-stacked")
-        </div>
-        <div class="span@(12 - (ViewBag.Indent?? 0))">@getInner()</div>
-    </div>
-        }
-        else
-        {
-            if (resource.Parent == null)
-            {
-                Html.LayoutVm().TopBar.Brand = new BrandVm(){ Html = resource.DisplayName, Href = resource.Url};
-                Html.LayoutVm().TopBar.LeftItems.AddRange(resource.Links.Where(l => l.UiHint == "")
-                    .Select(l => new NavItemVm(){ Html =  "<a href='" + l.Url + "'>" + l.DisplayName + "</a>", Active = walked.Any(u => u.Url == l.Url) }));
-                Html.LayoutVm().TopBar.RightItems.AddRange(resource.Links.Where(l => l.UiHint == "TopBar.RightItems")
-                    .Select(l => new NavItemVm(){ Html =  "<a href='" + l.Url + "'>" + l.DisplayName + "</a>", Active = walked.Any(u => u.Url == l.Url) }));
-
-            }
-            else
-            {
-                if (resource.Links.Hinted("").Any())
-                {
-                    <div class="navbar">
-                        <div class="navbar-inner">
-                            @if (resource.Parent == null)
-                            {
-                                <a class="brand" href="@resource.Url">@resource.DisplayName</a>
-                            }
-                            @Nav(helper, resource, walked, "")
-                        </div>
-                    </div>
-                }
-            }
-            @getInner();
-        }
-
-    }
-    else
-    {
-        @getInner();
-    }
-}
-
 @{
     var walked = Model.AncestorsAndSelf.OfType<Resource>().ToArray();
     Func<IHtmlString>
@@ -81,3 +16,82 @@ content = () => Render(Html, Model, walked, () => Html.BestPartial(Model, Model.
     }
     @content();
 }
+
+@helper Nav(HtmlHelper helper, IEnumerable<NodeLink> links, IEnumerable<Resource> walked, string navOptions)
+{
+    <ul class="nav @navOptions">
+        @foreach (var node in links)
+        {
+            var active = walked.Any(w => w.Url == node.Url);
+            <li @Html.Raw(active ? "class=\"active\"" : "")><a href="@node.Url">@node.DisplayName</a></li>
+        }
+    </ul> 
+}
+@helper Render(HtmlHelper helper, Resource resource, IEnumerable<Resource> walked, Func<IHtmlString> renderBody)
+{
+    var links = resource.Links.GroupBy(l => l.UiHint);
+    if (links.Any() == false)
+    {
+        @renderBody()
+    }
+    if (resource.Parent == null)
+    {
+        foreach (var method in resource.NodeMethods.Hinted("TopBar.RightItems"))
+        {
+            Html.LayoutVm().TopBar.RightItems.Add(new NavItemVm() { Html = NoodlesHelper.NodeMethodLink(method).ToHtmlString() });
+        }
+    }
+    foreach (var linkGroup in links)
+    {
+        switch (linkGroup.Key)
+        {
+            case "SideNav":
+                {
+                    ViewBag.Indent = (ViewBag.Indent ?? 0) + 3;
+                    <div class="row">
+                        <div class="span3">
+                            @Nav(helper, linkGroup, walked, "nav-pills nav-stacked")
+                        </div>
+                        <div class="span@(12 - (ViewBag.Indent ?? 0))">@renderBody()</div>
+                    </div>
+                    break;
+                }
+            case "TopBar.RightItems":
+                {
+                    Html.LayoutVm().TopBar.RightItems.AddRange(linkGroup.Select(l => new NavItemVm() {Html = "<a href='" + l.Url + "'>" + l.DisplayName + "</a>", Active = walked.Any(u => u.Url == l.Url)}));
+                    break;
+                }
+            case "TopBar.LeftItems":
+                {
+                    Html.LayoutVm().TopBar.LeftItems.AddRange(linkGroup.Select(l => new NavItemVm() {Html = "<a href='" + l.Url + "'>" + l.DisplayName + "</a>", Active = walked.Any(u => u.Url == l.Url)}));
+                    break;
+                }
+
+            default:
+                {
+                    if (resource.Parent == null)
+                    {
+                        Html.LayoutVm().TopBar.Brand = new BrandVm() {Html = resource.DisplayName, Href = resource.Url};
+                        Html.LayoutVm().TopBar.LeftItems.AddRange(linkGroup.Select(l => new NavItemVm() {Html = "<a href='" + l.Url + "'>" + l.DisplayName + "</a>", Active = walked.Any(u => u.Url == l.Url)}));
+                        
+                        @renderBody()
+                    }
+                    else
+                    {
+                        <div class="navbar">
+                            <div class="navbar-inner">
+                                @if (resource.Parent == null)
+                                {
+                                    <a class="brand" href="@resource.Url">@resource.DisplayName</a>
+                                }
+                                @Nav(helper, linkGroup, walked, "")
+                            </div>
+                        </div>
+                        @renderBody()
+                    }
+                    break;
+                }
+        }
+    }
+}
+

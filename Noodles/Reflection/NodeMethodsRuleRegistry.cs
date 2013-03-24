@@ -7,16 +7,7 @@ using Walkies;
 namespace Noodles
 {
 
-    [AttributeUsage(AttributeTargets.Class)]
-    public class UiHintAttribute : Attribute
-    {
-        public UiHintAttribute(string uiHint)
-        {
-            UiHint = uiHint;
-        }
-
-        public string UiHint { get; private set; }
-    }
+  
     public class UiHintException : Exception
     {
         public UiHintException(string message):base(message)

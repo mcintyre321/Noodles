@@ -34,15 +34,5 @@ namespace Noodles
                 }
             }
         }
-
-        //IEnumerator IEnumerable.GetEnumerator()
-        //{
-        //    return GetEnumerator();
-        //}
-
-        //public string Name
-        //{
-        //    get { return "actions"; }
-        //}
     }
 }

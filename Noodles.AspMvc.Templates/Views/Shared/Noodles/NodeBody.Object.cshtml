@@ -12,10 +12,6 @@
 <div class="noodles-object" data-resource-url="@Model.Url">
     <div class="row">
         <div class="span@(12 - (ViewBag.Indent ?? 0))">
-            <div class="page-header noodles-object-name" data-fragment-id="noodle-object-name">
-                <h1>@Model.DisplayName</h1>
-            </div>
-
             <div class="noodles-properties">
                 @foreach (var property in Model.NodeProperties.Where(x => x.Setter == null))
                 {
@@ -38,7 +34,8 @@
 
                 @foreach(var link in Model.Links.Hinted("Inline"))
                 {
-                    @Html.BestPartial(link.Target.Value, link.Target.ValueType, "Noodles/NodeBody.")
+                    var viewName = Html.BestViewName(link.TargetType, "Noodles/NodeBody.");
+                    @Html.Partial(viewName, link.Target)   
                 }
             </div>
 
@@ -53,12 +50,9 @@
                             @NoodlesHelper.NodeMethodLink(method, "btn")
                         }
                     </div>
-                }
             }
-            @foreach (var method in Model.NodeMethods.Hinted("TopBar.RightItems"))
-            {
-                Html.LayoutVm().TopBar.RightItems.Add(new NavItemVm(){ Html = NoodlesHelper.NodeMethodLink(method).ToHtmlString() });
             }
+
         </div>
     </div>
 </div>

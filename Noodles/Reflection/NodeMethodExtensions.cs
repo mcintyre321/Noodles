@@ -12,7 +12,6 @@ namespace Noodles
                 .Where(nm => !nm.Name.StartsWith("set_")).Where(nm => !nm.Name.StartsWith("get_"));
         }
 
-
         public static NodeMethod NodeMethod(this object o, string methodName, INode resource)
         {
             return o.NodeMethods(resource).SingleOrDefault(m => m.Name.ToLowerInvariant() == methodName.ToLowerInvariant());
