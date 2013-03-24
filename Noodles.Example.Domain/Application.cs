@@ -12,10 +12,10 @@ namespace Noodles.Example.Domain
     [DisplayName("Project Organiser")]
     public class Application
     {
-        [Link]
+        [Link(UiHint = "TopBar.LeftItems")]
         public ToDoLists ToDoLists { get; private set; }
-        
-        [Link]
+
+        [Link(UiHint = "TopBar.LeftItems")]
         public Discussions.DiscussionsManager DiscussionsManager { get; private set; }
 
         public Application()
@@ -29,14 +29,14 @@ namespace Noodles.Example.Domain
 
         public string WelcomeMessage { [Show] get; set; }
 
-        [Link]
+        [Link(UiHint = "TopBar.LeftItems")]
         public Membership Membership { get; set; }
 
-        [Link]
+        [Link(UiHint = "TopBar.RightItems")]
         public Settings Settings { get; set; }
 
         [Show(UiHint = "TopBar.RightItems")]
-        public void SignIn(string email, [DataType(DataType.Password)] string password)
+        public void SignIn([Required] string email, [DataType(DataType.Password)][Required]  string password)
         {
             //check username and password here
             AuthService.SetAuthToken(email);
@@ -44,7 +44,7 @@ namespace Noodles.Example.Domain
 
         public bool? AllowSignIn()
         {
-            return AuthService.RequestHasAuthToken() ? false : true;
+            return !AuthService.RequestHasAuthToken();
         }
 
         [Show(UiHint = "TopBar.RightItems")]

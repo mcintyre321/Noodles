@@ -17,22 +17,13 @@ content = () => Render(Html, Model, walked, () => Html.BestPartial(Model, Model.
     @content();
 }
 
-@helper Nav(HtmlHelper helper, IEnumerable<NodeLink> links, IEnumerable<Resource> walked, string navOptions)
-{
-    <ul class="nav @navOptions">
-        @foreach (var node in links)
-        {
-            var active = walked.Any(w => w.Url == node.Url);
-            <li @Html.Raw(active ? "class=\"active\"" : "")><a href="@node.Url">@node.DisplayName</a></li>
-        }
-    </ul> 
-}
+
 @helper Render(HtmlHelper helper, Resource resource, IEnumerable<Resource> walked, Func<IHtmlString> renderBody)
 {
     var links = resource.Links.GroupBy(l => l.UiHint);
     if (links.Any() == false)
     {
-        @renderBody()
+    @renderBody()
     }
     if (resource.Parent == null)
     {
@@ -69,29 +60,29 @@ content = () => Render(Html, Model, walked, () => Html.BestPartial(Model, Model.
 
             default:
                 {
-                    if (resource.Parent == null)
-                    {
-                        Html.LayoutVm().TopBar.Brand = new BrandVm() {Html = resource.DisplayName, Href = resource.Url};
-                        Html.LayoutVm().TopBar.LeftItems.AddRange(linkGroup.Select(l => new NavItemVm() {Html = "<a href='" + l.Url + "'>" + l.DisplayName + "</a>", Active = walked.Any(u => u.Url == l.Url)}));
-                        
-                        @renderBody()
-                    }
-                    else
-                    {
-                        <div class="navbar">
-                            <div class="navbar-inner">
-                                @if (resource.Parent == null)
-                                {
-                                    <a class="brand" href="@resource.Url">@resource.DisplayName</a>
-                                }
-                                @Nav(helper, linkGroup, walked, "")
-                            </div>
+                    <div class="navbar">
+                        <div class="navbar-inner">
+                            @if (resource.Parent == null)
+                            {
+                                <a class="brand" href="@resource.Url">@resource.DisplayName</a>
+                            }
+                            @Nav(helper, linkGroup, walked, "")
                         </div>
-                        @renderBody()
-                    }
+                    </div>
+                    @renderBody()
                     break;
                 }
         }
     }
 }
 
+@helper Nav(HtmlHelper helper, IEnumerable<NodeLink> links, IEnumerable<Resource> walked, string navOptions)
+{
+    <ul class="nav @navOptions">
+        @foreach (var node in links)
+        {
+            var active = walked.Any(w => w.Url == node.Url);
+            <li @Html.Raw(active ? "class=\"active\"" : "")><a href="@node.Url">@node.DisplayName</a></li>
+        }
+    </ul> 
+}
