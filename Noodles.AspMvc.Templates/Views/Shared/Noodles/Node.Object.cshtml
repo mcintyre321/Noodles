@@ -57,7 +57,8 @@ content = () => Render(Html, Model, walked, () => Html.BestPartial(Model, Model.
                     Html.LayoutVm().TopBar.LeftItems.AddRange(linkGroup.Select(l => new NavItemVm() {Html = "<a href='" + l.Url + "'>" + l.DisplayName + "</a>", Active = walked.Any(u => u.Url == l.Url)}));
                     break;
                 }
-
+            case "Inline":
+                break;
             default:
                 {
                     <div class="navbar">

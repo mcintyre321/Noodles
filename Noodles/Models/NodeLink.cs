@@ -1,5 +1,6 @@
 using System;
 using System.Reflection;
+using Noodles.Helpers;
 
 namespace Noodles.Models
 {
@@ -14,7 +15,7 @@ namespace Noodles.Models
             DisplayName = node.DisplayName;
             Url = node.Url;
             Name = name;
-            UiHint = uiHint;
+            UiHint = parent.Value.ToString(uiHint);
             TargetType = node.ValueType;
             Target = node;
         }

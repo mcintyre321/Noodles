@@ -33,8 +33,6 @@ namespace Noodles
 
     public class DisplayNameAttribute : Attribute
     {
-        static ConcurrentDictionary<Type, string> lookup = new ConcurrentDictionary<Type, string>();
-
         public string Name { get; set; }
         public DisplayNameAttribute(string name)
         {
@@ -43,7 +41,7 @@ namespace Noodles
 
         public static string GetNameAttribute(Type t)
         {
-            var name = t.GetCustomAttributes(false).OfType<DisplayNameAttribute>().SingleOrDefault();
+            var name = t.Attributes().OfType<DisplayNameAttribute>().SingleOrDefault();
             if (name == null) return null;
             return name.Name;
         }
