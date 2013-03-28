@@ -108,9 +108,9 @@ namespace Noodles
             set { _displayName = value; }
         }
 
-        public string Url
+        public Uri Url
         {
-            get { return Parent.Url + Fragment + "/"; }
+            get { return new Uri(Parent.Url + Fragment + "/", UriKind.Relative); }
         }
 
         public INode Parent { get; set; }

@@ -26,6 +26,7 @@ namespace Noodles.Example
         public static void RegisterRoutes(RouteCollection routes)
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
+            
             WebApiConfig.Register(GlobalConfiguration.Configuration);
 
             //This is the registration for noodles. note the wildcard 'path' parameter
@@ -43,10 +44,25 @@ namespace Noodles.Example
                             new { controller = "Home", action = "Index", id = UrlParameter.Optional } // Parameter defaults
                         );
 
-            Domain.AuthService.RequestHasAuthToken = () => HttpContext.Current.Request.IsAuthenticated;
-            Domain.AuthService.SetAuthToken = (key) => FormsAuthentication.SetAuthCookie(key, true);
-            Domain.AuthService.ClearAuthToken = FormsAuthentication.SignOut;
-            Domain.AuthService.GetAuthTokenKey = () => HttpContext.Current.Request.IsAuthenticated ? null : HttpContext.Current.User.Identity.Name;
+
+            Domain.AuthService.RequestHasAuthToken = () => HttpContext.Current == null || HttpContext.Current.Request.IsAuthenticated;
+            Domain.AuthService.SetAuthToken = (key) =>
+                {
+                    if (HttpContext.Current != null)
+                    {
+                        FormsAuthentication.SetAuthCookie(key, true);
+                    }
+                };
+            Domain.AuthService.ClearAuthToken = () =>
+                {
+                    if (HttpContext.Current != null)
+                    {
+                        FormsAuthentication.SignOut();
+                    }
+                };
+            Domain.AuthService.GetAuthTokenKey = () => HttpContext.Current == null
+                                                           ? "asdf"
+                                                           : (HttpContext.Current.Request.IsAuthenticated ? null : HttpContext.Current.User.Identity.Name);
         }
 
         protected void Application_Start()

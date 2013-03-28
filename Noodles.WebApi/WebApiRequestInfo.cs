@@ -11,7 +11,7 @@ namespace Noodles.WebApi
 {
     public class WebApiRequestInfo : RequestInfo
     {
-        private string _rootUrl;
+        private Uri _rootUrl;
         private HttpRequestMessage _request;
         private CancellationToken _ct;
 
@@ -21,7 +21,7 @@ namespace Noodles.WebApi
             _ct = ct;
             var routeData = request.Properties["MS_HttpRouteData"] as IHttpRouteData;
             
-            _rootUrl = '/' + routeData.Route.RouteTemplate.Substring(0, routeData.Route.RouteTemplate.IndexOf("{*path}")).Trim('/') + '/';
+            _rootUrl = new Uri('/' + routeData.Route.RouteTemplate.Substring(0, routeData.Route.RouteTemplate.IndexOf("{*path}")).Trim('/') + '/', UriKind.Relative);
         }
 
         public override bool IsInvoke(IInvokeable invokeable)
@@ -29,7 +29,7 @@ namespace Noodles.WebApi
             return _request.Method == HttpMethod.Post;
         }
 
-        public override string RootUrl
+        public override Uri RootUrl
         {
             get { return _rootUrl; }
         }

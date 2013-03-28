@@ -54,7 +54,7 @@ namespace Noodles.AspMvc.UiAttributes
             get { return _resource.Name; }
         }
 
-        public string Url
+        public Uri Url
         {
             get { return _resource.Url; }
         }
