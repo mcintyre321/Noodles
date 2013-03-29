@@ -49,6 +49,11 @@
                         {
                             @NoodlesHelper.NodeMethodLink(method, "btn")
                         }
+                        @foreach (var link in Model.Links.Hinted("MethodWell"))
+                        {
+                            <a class="btn" href="@link.Url">@link.Target.DisplayName</a>
+                        }
+
                     </div>
             }
             }
