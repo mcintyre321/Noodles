@@ -8,17 +8,16 @@
 @model Noodles.Models.Resource
 @{
     var walked = Model.AncestorsAndSelf.OfType<Resource>().ToArray();
-    foreach (var walkedItem in walked.Reverse())
+    var inner = Html.BestPartial(Model, Model.ValueType, "Noodles/NodeBody.").ToHtmlString();
+    foreach (var walkedItem in walked)
     {
-        @RenderMenu(Html, walkedItem, walked);
+        inner = RenderMenu(Html, walkedItem, walked, inner).ToHtmlString();
     }
-
-    @Html.BestPartial(Model, Model.ValueType, "Noodles/NodeBody.")
-
+    @Html.Raw(inner)
 }
 
 
-@helper RenderMenu(HtmlHelper helper, Resource resource, IEnumerable<Resource> walked)
+@helper RenderMenu(HtmlHelper helper, Resource resource, IEnumerable<Resource> walked, string renderInner)
 {
     var links = resource.Links.GroupBy(l => l.UiHint);
 
@@ -29,6 +28,7 @@
             Html.LayoutVm().TopBar.RightItems.Add(new NavItemVm() {Html = NoodlesHelper.NodeMethodLink(method).ToHtmlString()});
         }
     }
+    var innerRendered = false;
     foreach (var linkGroup in links)
     {
         switch (linkGroup.Key)
@@ -40,8 +40,9 @@
                         <div class="span3">
                             @Nav(helper, linkGroup, walked, "nav-pills nav-stacked")
                         </div>
-                        <div class="span@(12 - (ViewBag.Indent ?? 0))"></div>
+                        <div class="span@(12 - (ViewBag.Indent ?? 0))">@Html.Raw(renderInner)</div>
                     </div>
+                    innerRendered = true;
                     break;
                 }
             case "TopBar.RightItems":
@@ -85,6 +86,11 @@
                     break;
                 }
         }
+       
+    } 
+    if (!innerRendered)
+    {
+        @Html.Raw(renderInner);
     }
 }
 
