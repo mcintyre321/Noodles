@@ -8,16 +8,17 @@
 @model Noodles.Models.Resource
 @{
     var walked = Model.AncestorsAndSelf.OfType<Resource>().ToArray();
-    var inner = Html.BestPartial(Model, Model.ValueType, "Noodles/NodeBody.").ToHtmlString();
-    foreach (var walkedItem in walked)
+    Func<string> inner = () => Html.BestPartial(Model, Model.ValueType, "Noodles/NodeBody.").ToHtmlString();
+    foreach (var walkedItem in walked.Reverse())
     {
-        inner = RenderMenu(Html, walkedItem, walked, inner).ToHtmlString();
+        var i = inner;
+        inner = () => RenderMenu(Html, walkedItem, walked, i).ToHtmlString();
     }
-    @Html.Raw(inner)
+    @Html.Raw(inner())
 }
 
 
-@helper RenderMenu(HtmlHelper helper, Resource resource, IEnumerable<Resource> walked, string renderInner)
+@helper RenderMenu(HtmlHelper helper, Resource resource, IEnumerable<Resource> walked, Func<string> renderInner)
 {
     var links = resource.Links.GroupBy(l => l.UiHint);
 
@@ -40,7 +41,7 @@
                         <div class="span3">
                             @Nav(helper, linkGroup, walked, "nav-pills nav-stacked")
                         </div>
-                        <div class="span@(12 - (ViewBag.Indent ?? 0))">@Html.Raw(renderInner)</div>
+                        <div class="span@(12 - (ViewBag.Indent ?? 0))">@Html.Raw(renderInner())</div>
                     </div>
                     innerRendered = true;
                     break;
@@ -90,7 +91,7 @@
     } 
     if (!innerRendered)
     {
-        @Html.Raw(renderInner);
+        @Html.Raw(renderInner());
     }
 }
 
