@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
+using System.Security.Policy;
 using Noodles.Attributes;
 using Noodles.Reflection;
 
@@ -88,9 +89,9 @@ namespace Noodles.Models
             }
         }
 
-        public string Url
+        public Uri Url
         {
-            get { return this.Parent.Url +  this.Fragment + "/"; }
+            get { return new Uri(this.Parent.Url +  this.Fragment + "/", UriKind.Relative); }
         }
 
         public INode Parent { get; private set; }

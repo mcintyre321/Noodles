@@ -58,10 +58,10 @@ namespace Noodles.Example.Domain
             return AuthService.RequestHasAuthToken() ? null as bool? : false;
         }
 
-        [Show][HttpGet]
-        public RedirectResult Google()
+        [Show(UiHint = "TopBar.RightItems")][HttpGet]
+        public RedirectResult API()
         {
-            return new RedirectResult("http://google.com");
+            return new RedirectResult("/api");
         }
     }
 }

@@ -9,7 +9,7 @@ namespace Noodles.WebApi.Models
     {
         public string Relationship { get; set; }
         public string Name { get; set; }
-        public string Url { get; set; }
+        public Uri Url { get; set; }
         public string MediaType { get; set; }
 
         public LinkVm(NodeLink obj, string relationship)

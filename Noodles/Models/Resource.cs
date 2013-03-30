@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Policy;
 using Noodles.Helpers;
 using Walkies;
 namespace Noodles.Models
@@ -72,14 +73,14 @@ namespace Noodles.Models
             return (Resource)Activator.CreateInstance(nodeType, target, parent, fragment);
         }
 
-        private string _url;
+        private Uri _url;
 
 
         public string DisplayName { get { return Value.GetDisplayName(); } }
 
-        public string Url
+        public Uri Url
         {
-            get { return _url ?? (Parent == null ? ( "/" + this.Fragment + "/") : (Parent.Url + Fragment + "/")); }
+            get { return _url ?? (Parent == null ? new Uri("/" + this.Fragment + "/", UriKind.Relative) : new Uri(Parent.Url.ToString() + Fragment + "/", UriKind.Relative)); }
             set { _url = value; }
         }
 

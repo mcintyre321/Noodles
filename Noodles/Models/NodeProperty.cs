@@ -112,7 +112,7 @@ namespace Noodles.Models
             set { DisplayName = value; }
         }
 
-        public string Url { get { return this.Parent.Url + this.Fragment + "/"; } }
+        public Uri Url { get { return new Uri(this.Parent.Url + this.Fragment + "/", UriKind.Relative); } }
         public INode Parent { get; set; }
         public string UiHint { get { return CustomAttributes.OfType<ShowAttribute>().Select(a => a.UiHint).SingleOrDefault(); } }
         public string TypeName { get { return "NodeProperty"; } }

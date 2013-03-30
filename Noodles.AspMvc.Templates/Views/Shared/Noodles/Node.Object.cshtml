@@ -1,4 +1,6 @@
-﻿@using Noodles.AspMvc.UiAttributes
+﻿@using System.Web.Mvc
+@using System.Web.Mvc.Html
+@using Noodles.AspMvc.UiAttributes
 @using Noodles.AspMvc.Views.Shared.Layout
 @using Noodles.AspMvc.Helpers
 @using Noodles.Models
@@ -6,17 +8,17 @@
 @model Noodles.Models.Resource
 @{
     var walked = Model.AncestorsAndSelf.OfType<Resource>().ToArray();
+    Func<string> inner = () => Html.BestPartial(Model, Model.ValueType, "Noodles/NodeBody.").ToHtmlString();
     foreach (var walkedItem in walked.Reverse())
     {
-        @RenderMenu(Html, walkedItem, walked);
+        var i = inner;
+        inner = () => RenderMenu(Html, walkedItem, walked, i).ToHtmlString();
     }
-
-    @Html.BestPartial(Model, Model.ValueType, "Noodles/NodeBody.")
-
+    @Html.Raw(inner())
 }
 
 
-@helper RenderMenu(HtmlHelper helper, Resource resource, IEnumerable<Resource> walked)
+@helper RenderMenu(HtmlHelper helper, Resource resource, IEnumerable<Resource> walked, Func<string> renderInner)
 {
     var links = resource.Links.GroupBy(l => l.UiHint);
 
@@ -27,6 +29,7 @@
             Html.LayoutVm().TopBar.RightItems.Add(new NavItemVm() {Html = NoodlesHelper.NodeMethodLink(method).ToHtmlString()});
         }
     }
+    var innerRendered = false;
     foreach (var linkGroup in links)
     {
         switch (linkGroup.Key)
@@ -38,8 +41,9 @@
                         <div class="span3">
                             @Nav(helper, linkGroup, walked, "nav-pills nav-stacked")
                         </div>
-                        <div class="span@(12 - (ViewBag.Indent ?? 0))"></div>
+                        <div class="span@(12 - (ViewBag.Indent ?? 0))">@Html.Raw(renderInner())</div>
                     </div>
+                    innerRendered = true;
                     break;
                 }
             case "TopBar.RightItems":
@@ -57,7 +61,7 @@
 
                 }
                 break;
-            default:
+            case "":
                 {
                     <div class="navbar">
                         <div class="navbar-inner">
@@ -70,7 +74,24 @@
                     </div>
                     break;
                 }
+            default:
+                {
+                    var type = linkGroup.First().TargetType;
+                    var prefix = "Noodles/Links." + linkGroup.Key + ".";
+                    var partialName = Html.BestViewName(type, prefix);
+                    if (partialName == null)
+                    {
+                        throw new Exception("Could not find views for " + prefix + type.FullName);
+                    }
+                    @Html.Partial(partialName, linkGroup)
+                    break;
+                }
         }
+       
+    } 
+    if (!innerRendered)
+    {
+        @Html.Raw(renderInner());
     }
 }
 
@@ -82,5 +103,5 @@
             var active = walked.Any(w => w.Url == node.Url);
             <li @Html.Raw(active ? "class=\"active\"" : "")><a href="@node.Url">@node.DisplayName</a></li>
         }
-    </ul> 
+    </ul>
 }

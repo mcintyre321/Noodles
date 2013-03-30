@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -15,7 +16,7 @@ namespace Noodles.WebApi.Models
     {
         //self
         public string Name { get; set; }
-        public string Url { get; set; }
+        public Uri Url { get; set; }
         public string ValueType { get; set; }
         public PropertyVm[] Properties { get; set; }
         public ActionVm[] Actions { get; set; }

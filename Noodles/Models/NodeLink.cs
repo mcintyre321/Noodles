@@ -26,7 +26,7 @@ namespace Noodles.Models
 
         public Type TargetType { get; set; }
 
-        public string Url { get; private set; }
+        public Uri Url { get; private set; }
         public INode Parent { get; private set; }
 
         public string Name { get; set; }

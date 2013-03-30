@@ -15,12 +15,12 @@ namespace Noodles.AspMvc.RequestHandling
     class AspMvcRequestInfo : RequestInfo
     {
         private readonly ControllerContext _cc;
-        private string _rootUrl;
+        private Uri _rootUrl;
 
         public AspMvcRequestInfo(ControllerContext cc)
         {
             _cc = cc;
-            }
+        }
 
         public override bool IsInvoke(IInvokeable method)
         {
@@ -32,14 +32,13 @@ namespace Noodles.AspMvc.RequestHandling
             return false;
         }
 
-        public override string RootUrl
+        public override Uri RootUrl
         {
             get
             {
-                return _rootUrl ?? (_rootUrl = new UrlHelper(_cc.RequestContext)
-                                          .Action(_cc.RequestContext.RouteData.Values["action"] as string,
+                return _rootUrl ?? (_rootUrl = new Uri(new UrlHelper(_cc.RequestContext).Action(_cc.RequestContext.RouteData.Values["action"] as string,
                                                   _cc.RequestContext.RouteData.Values["controller"] as string,
-                                                  new { path = "" }));
+                                                  new { path = "" }), UriKind.Relative));
             }
         }
 
