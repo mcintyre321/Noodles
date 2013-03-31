@@ -57,12 +57,32 @@ namespace Noodles.Models
 
         IEnumerable IInvokeableParameter.Choices
         {
-            get { return null; }
+            get
+            {
+                var choicesName = Name + "_choices";
+                var choices = _target.GetType().GetMethod(choicesName) ??
+                              _target.GetType().GetMethod("get_" + choicesName);
+                if (choices != null)
+                {
+                    return (IEnumerable) choices.Invoke(_target, null);
+                }
+                return null;
+            }
         }
 
         IEnumerable IInvokeableParameter.Suggestions
         {
-            get { return null; ; }
+            get
+            {
+                var choicesName = Name + "_suggestions";
+                var choices = _target.GetType().GetMethod(choicesName) ??
+                              _target.GetType().GetMethod("get_" + choicesName);
+                if (choices != null)
+                {
+                    return (IEnumerable)choices.Invoke(_target, null);
+                }
+                return null; ;
+            }
         }
 
         bool IInvokeableParameter.Locked
