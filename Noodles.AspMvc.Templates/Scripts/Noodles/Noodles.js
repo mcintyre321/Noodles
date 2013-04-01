@@ -125,6 +125,9 @@ $(document).ready(function () {
     };
     $(document).on("submit", "form.nodeMethod", function(e) {
         var submitButton = $(this).find(".submitMethod");
+        if (!submitButton[0]) {
+            submitButton = $(this).parents('div.nodeMethod').find('.submitMethod');
+        }
         if (submitButton[0]) {
             e.preventDefault();
             submitButton.click();
