@@ -6,5 +6,6 @@ namespace Noodles.Example.Domain
         public bool ShowEmailAddressesToMembers { get; set; }
         [Show]
         public bool EnableWall { get; set; }
+
     }
 }
