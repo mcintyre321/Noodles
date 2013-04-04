@@ -1,5 +1,6 @@
-﻿
-<div class="navbar navbar-fixed-top">
+﻿@using Noodles.AspMvc.Views.Shared.Layout
+
+<div class="navbar @Html.Raw(Html.LayoutVm().TopBar.Fixed ? "": "")">
     <div class="navbar-inner">
         <div class="container">
             @Html.Partial("Layout/Topbar.Brand")

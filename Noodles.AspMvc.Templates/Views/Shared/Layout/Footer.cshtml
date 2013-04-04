@@ -1,4 +1,12 @@
-﻿
-
-<!-- begin /Layout/Footer.cshtml -->
-<!-- end /Layout/Footer.cshtml -->
+﻿@using Noodles.AspMvc.Views.Shared.Layout
+@{
+    var layout = Html.LayoutVm();
+    var html = layout.Footer.HtmlColumns.Any() ? layout.Footer.HtmlColumns : new[] {""};
+    var spans = 12/html.Count;
+    <div class="row">
+        @foreach (var column in html)
+        {
+            <div class="span@(spans)">@Html.Raw(column)</div>
+        }
+    </div>
+}

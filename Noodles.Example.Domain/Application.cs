@@ -38,6 +38,10 @@ namespace Noodles.Example.Domain
         [Show(UiHint = "TopBar.RightItems")]
         public void SignIn([Required] string email, [DataType(DataType.Password)][Required]  string password)
         {
+            if (string.IsNullOrEmpty(email) || string.IsNullOrEmpty(password))
+            {
+                throw new UserException("");
+            }
             //check username and password here
             AuthService.SetAuthToken(email);
         }
