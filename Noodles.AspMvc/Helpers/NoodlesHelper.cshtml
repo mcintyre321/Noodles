@@ -61,7 +61,7 @@
         else
         {
         var nodeClass = method.AutoSubmit ? "nodeMethodAutoSubmit" : "nodeMethodLink";
-            <a class="@(nodeClass) @(additionalClasses ?? "") @(method.Target.NodeType().Name.ToClassName())-@(method.Name.ToClassName())" data-nodeid="@method.Id()" href="@method.Url">@Icon(method)@innerHtml(null)</a>
+            <a class="@(nodeClass) @(additionalClasses ?? "") @(method.Target.NodeType().Name.ToClassName())-@(method.Name.ToClassName())" href="@method.Url">@Icon(method)@innerHtml(null)</a>
         }
      }
 }

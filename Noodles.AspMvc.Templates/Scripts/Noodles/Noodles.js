@@ -32,7 +32,7 @@ $(document).ready(function () {
     $(".nodeMethodsMenuLink").live('click', function (e) {
         var $link = $(this);
         if (e.target != this) return false;
-        var methodsPanelId = "methods-" + $link.attr("data-nodeid");
+        var methodsPanelId = "methods-" + $link.attr("href").replace(/\//g, "_");
         if ($("#" + methodsPanelId).length == false) {
             ensureLazyElement(
                 methodsPanelId,
@@ -48,7 +48,7 @@ $(document).ready(function () {
     }
 
     var showMethodsMenu = function ($link) {
-        var methodsNodeId = "methods-" + $link.attr("data-nodeid");
+        var methodsNodeId = "methods-" + $link.attr("href").replace(/\//g, "_");
         $link.attr("data-content", $("#" + methodsNodeId).html());
         $link.popover({
             trigger: "manual",
@@ -60,10 +60,6 @@ $(document).ready(function () {
         }).click(function () {
             $(".popover").hide();
             $link.popover('show');
-            //            var methodName = $link.attr("data-methodname");
-            //            if (methodName) {
-            //                $("#" + nodeId + "_" + methodName + "_methodlink").click();
-            //            }
         }).click();
     };
 
@@ -93,7 +89,7 @@ $(document).ready(function () {
         }
         $link.closest(".popover").hide();
         //if (e.target != this) return false; //why???
-        var methodsPanelId = "method-" + $link.attr("data-nodeid");
+        var methodsPanelId = "method-" + $link.attr("href").replace(/\//g, "_");
         if ($("#" + methodsPanelId).length == false) {
             ensureLazyElement(
                 methodsPanelId,
@@ -114,7 +110,7 @@ $(document).ready(function () {
     });
     var showMethodForm = function ($link) {
 
-        var methodsPanelId = "method-" + $link.attr("data-nodeid");
+        var methodsPanelId = "method-" + $link.attr("href").replace(/\//g, "_");
         var $method = $("#" + methodsPanelId);
         $method.modal({ show: true, backdrop: true });
         $method.find(":input:visible:enabled:first").focus();
