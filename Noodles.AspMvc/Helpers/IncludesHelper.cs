@@ -10,11 +10,15 @@ namespace Noodles.AspMvc.Helpers
     {
         public static void RegisterScripts(this LayoutVm layout)
         {
-            var styles = layout.BodyBottomBundle.StyleIncludes;
+            layout.HeadBundle.ScriptIncludes.Add("/Scripts/modernizr-2.6.2.js");
+            var styles = layout.HeadBundle.StyleIncludes;
             styles.Add("/Content/bootstrap.min.css");
             styles.Add("/Content/bootstrap-overrides.css");
+            styles.Add("/Content/font-awesome.min.css");
+            styles.Add("/Content/themes/base/jquery-ui.css");
+            styles.Add("/Content/Noodles.AspMvc.css");
+
             var scripts = layout.BodyBottomBundle.ScriptIncludes;
-            scripts.Add("/Scripts/modernizr-2.6.2.js");
             scripts.Add("/Scripts/jquery-1.9.1.min.js");
             scripts.Add("/Scripts/jquery-migrate-1.1.1.js");
             scripts.Add("/Scripts/jquery-ui-1.10.1.min.js");
@@ -25,9 +29,6 @@ namespace Noodles.AspMvc.Helpers
             scripts.Add("/Scripts/jquery.unobtrusive-ajax.js");
             scripts.Add("/Scripts/formfactory/formfactory.js");
             scripts.Add("/Scripts/jquery.validate.unobtrusive.dynamic.js");
-            styles.Add("/Content/font-awesome.min.css");
-            styles.Add("/Content/themes/base/jquery-ui.css");
-            styles.Add("/Content/Noodles.AspMvc.css");
             scripts.Add("/Scripts/jquery.signalR-1.0.0-rc2.js");
         }
     }
