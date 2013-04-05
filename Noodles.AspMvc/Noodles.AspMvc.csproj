@@ -151,12 +151,19 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>IconNames.tt</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\IncludesHelper.cs" />
     <Compile Include="Helpers\NoodlesHelper1.generated.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>NoodlesHelper.cshtml</DependentUpon>
     </Compile>
     <Compile Include="Models\InvokeSuccessVm.cs" />
+    <Compile Include="Models\Layout\BrandVm.cs" />
+    <Compile Include="Models\Layout\BundleVm.cs" />
+    <Compile Include="Models\Layout\FooterVm.cs" />
+    <Compile Include="Models\Layout\LayoutExtension.cs" />
+    <Compile Include="Models\Layout\LayoutVm.cs" />
+    <Compile Include="Models\Layout\NavItemVm.cs" />
     <Compile Include="RequestHandling\AspMvcNoodleHandler.cs" />
     <Compile Include="RequestHandling\AspMvcRequestInfo.cs" />
     <Compile Include="RequestHandling\NoodleResultToActionResultMapper.cs" />
@@ -172,7 +179,7 @@
     <Compile Include="UiAttributes\FormInfo.cs" />
     <Compile Include="UiAttributes\ShowAsLinkList.cs" />
     <Compile Include="UiAttributes\ShowAsTable.cs" />
-    <Compile Include="Views\Shared\Layout\TopBarVm.cs" />
+    <Compile Include="Models\Layout\TopBarVm.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="..\Noodles.AspMvc.Templates\Scripts\Noodles\Noodles.js">

@@ -1,10 +1,17 @@
 ﻿@using System.Web.Mvc
 @using System.Web.Mvc.Html
+@using Noodles.AspMvc.Models.Layout
 @using Noodles.AspMvc.UiAttributes
-@using Noodles.AspMvc.Views.Shared.Layout
 @using Noodles.AspMvc.Helpers
 @using Noodles.Models
 @using FormFactory;
+@{
+    var layoutVm = this.Html.LayoutVm();
+    layoutVm.TopBar.Brand.Html = Model.AncestorsAndSelf.Last().DisplayName;
+    layoutVm.Title = Model.DisplayName;
+    layoutVm.RegisterScripts();
+}
+
 @model Noodles.Models.Resource
 @{
     var walked = Model.AncestorsAndSelf.OfType<Resource>().ToArray();

@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
 using System.Web.Mvc;
 using Noodles.AspMvc;
-using Noodles.AspMvc.Views.Shared.Layout;
+using Noodles.AspMvc.Models.Layout;
 using Noodles.Example.Domain;
 
 namespace Noodles.Example.Controllers
@@ -17,7 +17,7 @@ namespace Noodles.Example.Controllers
 
         public async Task<ActionResult> Index(string path)
         {
-            this.ControllerContext.LayoutVm().TopBar.Brand.Html = application.GetDisplayName();
+      
 
             var actionResult = this.ControllerContext.GetNoodleResult(application);
             return await actionResult;

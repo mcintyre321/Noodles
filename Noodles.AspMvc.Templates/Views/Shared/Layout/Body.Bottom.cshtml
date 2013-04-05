@@ -1,4 +1,8 @@
-﻿
+﻿@using Noodles.AspMvc.Models.Layout
 
-<!-- begin /Layout/Head.cshtml -->
-<!-- end /Layout/Head.cshtml -->
+<!-- begin /Layout/Bottom.cshtml -->
+@{
+    var layoutVm = Html.LayoutVm();
+}
+@Html.Raw(layoutVm.BodyBottomBundle.Render());
+<!-- end /Layout/Bottom.cshtml -->
