@@ -44,20 +44,20 @@ namespace Noodles.AspMvc.RequestHandling
 
         public override async Task<IEnumerable<Tuple<string, object>>> GetArguments(IInvokeable method)
         {
-            var parameters = method.Parameters.Select(pt => BindObject(_cc, pt.ValueType, pt.Name, pt.CustomAttributes, pt.DisplayName)).ToArray();
+            var parameterObject = BindObject(_cc, method.ParameterType, "", null, method.DisplayName);
+            var parameters =
+                method.ParameterType.GetProperties().Select(p => Tuple.Create(p.Name, p.GetValue(parameterObject)));
             return await Task.FromResult(parameters);
         }
 
-        private static Tuple<string, object> BindObject(ControllerContext cc, Type desiredType, string name, IEnumerable<Attribute> attributes, string displayName)
+        private static object BindObject(ControllerContext cc, Type desiredType, string name, IEnumerable<Attribute> attributes, string displayName)
         {
             attributes = attributes ?? new Attribute[] { };
             displayName = displayName ?? name.Sentencise(true);
-            var nameValueCollection = new NameValueCollection
-            {
-                cc.HttpContext.Request.Unvalidated().Form, cc.HttpContext.Request.QueryString
-            };
 
-            var valueProvider = new NameValueCollectionValueProvider(nameValueCollection, null);
+            cc.HttpContext.Request.InputStream.Position = 0; //reset as Json binder will have already read it once
+
+            var valueProvider = ValueProviderFactories.Factories.GetValueProvider(cc);
 
             var metadata = ModelMetadataProviders.Current.GetMetadataForType(null, desiredType);
             metadata.DisplayName = displayName;
@@ -69,7 +69,6 @@ namespace Noodles.AspMvc.RequestHandling
                 ModelMetadata = metadata,
                 ModelState = cc.Controller.ViewData.ModelState
             };
-
 
             var binder = ModelBinders.Binders.GetBinder(desiredType, true);
             var output = binder.BindModel(cc, bindingContext);
@@ -87,7 +86,7 @@ namespace Noodles.AspMvc.RequestHandling
                 throw new ArgumentBindingException();
             }
 
-            return Tuple.Create(name, output);
+            return output;
         }
 
 
