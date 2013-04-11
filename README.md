@@ -29,7 +29,7 @@ Currently there are two implementations:
  * Control access to properties and actions dynamically using [Harden][2]
  * Built on top of standard ASP MVC/WebApi
  * Database agnostic. You have control over persistence, so you can use SQL, Raven/Mongo/Couch or something clever you have rolled yourself.
- * Realtime UI sync using SignalR
+ * Form generation using [FormFactory][10] (Noodles.AspMvc)
 
 ## Getting started##
 
@@ -78,5 +78,6 @@ thanks - Harry McIntyre @mcintyre321
   [7]: https://github.com/mcintyre321/Noodles/blob/master/Noodles.Example.Web/Views/Shared/_Layout.cshtml
   [8]: https://github.com/mcintyre321/Noodles/tree/master/Noodles.Example.Web
   [9]: https://github.com/mcintyre321/Noodles/tree/master/Noodles.Example.WebApi
+  [10]: http://formfactory.apphb.com/
   
   [![githalytics.com alpha](https://cruel-carlota.pagodabox.com/caba06ced732280266dfe94e5b4de886 "githalytics.com")](http://githalytics.com/mcintyre321/Noodles)
