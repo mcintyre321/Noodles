@@ -1,20 +1,26 @@
 #Noodles#
 
-Noodles is a .NET library for building model driven web/API applications on top of ASP MVC or WebApi. You might call it an OIM (Object-Interface mapper), and like an ORM, it has plenty of conventions to get you started, and plenty of ways to override those conventions.
+Noodles, built on .NET, is a what you might call an OIM (Object-Interface mapper). By simply marking your classes up to
+indicate relationships between domain objects, and to expose methods and properties (based on dynamic rules), you can build an application or API.
 
-Simply mark your classes up to indicate relationships between domain objects, and to expose methods and properties. Add a route to the Mvc or WebApi handler, and you have generated your web application!
+Currently there are two implementations:
+
+ - Noodles.AspMvc: build full featured maintainable HTML web applications. Progressively enhance your UI conventions to increase UI quality, and provide overrides for custom features.
+ - Noodles.WebApi: build rich Hypermedia APIs with HATEOAS compliance and ContentType versioning.
 
 ####Live Example MVC application: http://noodles.example.web.5.9.55.208.xip.io/####
 
+####Live Example WebApi application: http://noodles.example.web.5.9.55.208.xip.io/api####
+
 ## Key Benefits ##
 
- - Standardised UI convention across your site
+ - Reusable UI conventions across your site
  - Standardised API interaction
  - Very fast development
  - Dynamic, cross cutting security features
  - Opt in - you can use it for your whole app, or just alongside a standard app
 
-##Features##
+## Features ##
 
  * MIT Licence
  * Routable within existing ASP MVC and WebAPi applications. You can use it just for your admin area if you want.
