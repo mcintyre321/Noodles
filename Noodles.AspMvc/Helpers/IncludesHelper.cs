@@ -21,7 +21,7 @@ namespace Noodles.AspMvc.Helpers
             var scripts = layout.BodyBottomBundle.ScriptIncludes;
             scripts.Add("/Scripts/jquery-1.9.1.min.js");
             scripts.Add("/Scripts/jquery-migrate-1.1.1.js");
-            scripts.Add("/Scripts/jquery-ui-1.10.1.min.js");
+            scripts.Add("/Scripts/jquery-ui-1.10.2.min.js");
             scripts.Add("/Scripts/bootstrap.js");
             scripts.Add("/Scripts/Noodles/Noodles.js");
             scripts.Add("/Scripts/jquery.validate.js");

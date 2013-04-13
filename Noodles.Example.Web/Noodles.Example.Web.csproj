@@ -57,9 +57,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\EmbeddedResourceVirtualPathProvider.1.2.17\lib\net40\EmbeddedResourceVirtualPathProvider.dll</HintPath>
     </Reference>
-    <Reference Include="FormFactory, Version=1.0.4816.40332, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="FormFactory, Version=1.0.4843.25979, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\FormFactory.1.2.244\lib\net40\FormFactory.dll</HintPath>
+      <HintPath>..\packages\FormFactory.1.2.248\lib\net40\FormFactory.dll</HintPath>
     </Reference>
     <Reference Include="Harden, Version=1.0.4827.27173, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -80,13 +80,13 @@
     <Reference Include="Munq.MVC3">
       <HintPath>..\packages\Munq.MVC3.3.1.5\lib\Munq.MVC3.dll</HintPath>
     </Reference>
-    <Reference Include="Mvc.JQuery.Datatables, Version=1.0.4808.23545, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="Mvc.JQuery.Datatables, Version=1.0.4850.19726, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Mvc.JQuery.Datatables.1.2.45\lib\net40\Mvc.JQuery.Datatables.dll</HintPath>
+      <HintPath>..\packages\Mvc.JQuery.Datatables.1.2.52\lib\net40\Mvc.JQuery.Datatables.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Newtonsoft.Json.4.5.11\lib\net40\Newtonsoft.Json.dll</HintPath>
+      <HintPath>..\packages\Newtonsoft.Json.5.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Data.Entity" />
@@ -242,6 +242,11 @@
     <Content Include="Content\font\fontawesome-webfont.ttf" />
     <Content Include="Content\font\fontawesome-webfont.eot" />
     <Content Include="Content\font\FontAwesome.otf" />
+    <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery-ui-1.10.2.js" />
+    <Content Include="Scripts\jquery-ui-1.10.2.min.js" />
+    <Content Include="Scripts\jquery.validate.js" />
+    <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>

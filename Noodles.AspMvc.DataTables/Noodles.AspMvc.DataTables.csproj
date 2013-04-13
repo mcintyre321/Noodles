@@ -40,9 +40,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Castle.Core.3.2.0\lib\net45\Castle.Core.dll</HintPath>
     </Reference>
-    <Reference Include="FormFactory, Version=1.0.4806.37014, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="FormFactory, Version=1.0.4843.25979, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\FormFactory.1.2.244\lib\net40\FormFactory.dll</HintPath>
+      <HintPath>..\packages\FormFactory.1.2.248\lib\net40\FormFactory.dll</HintPath>
     </Reference>
     <Reference Include="Harden, Version=1.0.4827.27173, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -56,9 +56,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Mvc4Futures.4.0.20710.0\lib\net40\Microsoft.Web.Mvc.dll</HintPath>
     </Reference>
-    <Reference Include="Mvc.JQuery.Datatables, Version=1.0.4808.23545, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="Mvc.JQuery.Datatables, Version=1.0.4850.19726, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Mvc.JQuery.Datatables.1.2.45\lib\net40\Mvc.JQuery.Datatables.dll</HintPath>
+      <HintPath>..\packages\Mvc.JQuery.Datatables.1.2.52\lib\net40\Mvc.JQuery.Datatables.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
