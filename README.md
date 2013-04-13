@@ -1,20 +1,26 @@
 #Noodles#
 
-Noodles is a .NET library for building model driven web/API applications on top of ASP MVC or WebApi. You might call it an OIM (Object-Interface mapper), and like an ORM, it has plenty of conventions to get you started, and plenty of ways to override those conventions.
+Noodles, built on .NET, is a what you might call an OIM (Object-Interface mapper). By simply marking your classes up to
+indicate relationships between domain objects, and to expose methods and properties (based on dynamic rules), you can build an application or API.
 
-Simply mark your classes up to indicate relationships between domain objects, and to expose methods and properties. Add a route to the Mvc or WebApi handler, and you have generated your web application!
+Currently there are two implementations:
+
+ - Noodles.AspMvc: build full featured maintainable HTML web applications. Progressively enhance your UI conventions to increase UI quality, and provide overrides for custom features.
+ - Noodles.WebApi: build rich Hypermedia APIs with HATEOAS compliance and ContentType versioning.
 
 ####Live Example MVC application: http://noodles.example.web.5.9.55.208.xip.io/####
 
+####Live Example WebApi application: http://noodles.example.web.5.9.55.208.xip.io/api####
+
 ## Key Benefits ##
 
- - Standardised UI convention across your site
+ - Reusable UI conventions across your site
  - Standardised API interaction
  - Very fast development
  - Dynamic, cross cutting security features
  - Opt in - you can use it for your whole app, or just alongside a standard app
 
-##Features##
+## Features ##
 
  * MIT Licence
  * Routable within existing ASP MVC and WebAPi applications. You can use it just for your admin area if you want.
@@ -23,7 +29,7 @@ Simply mark your classes up to indicate relationships between domain objects, an
  * Control access to properties and actions dynamically using [Harden][2]
  * Built on top of standard ASP MVC/WebApi
  * Database agnostic. You have control over persistence, so you can use SQL, Raven/Mongo/Couch or something clever you have rolled yourself.
- * Realtime UI sync using SignalR
+ * Form generation using [FormFactory][10] (Noodles.AspMvc)
 
 ## Getting started##
 
@@ -42,7 +48,7 @@ For WebApi
     Install-Package Noodles
     Install-Package Noodles.WebApi (for WebApi)
 
-**c.** Create your [domain model][3], marked up with [ShowAttribute] to expose properties and methods, and [Parent] and [Child] attributes to indicate relationships between objects. Use [Harden][2] methods and attributes to secure your system.
+**c.** Create your [domain model][3], marked up with [ShowAttribute] to expose properties and methods, and [Link] attributes to indicate relationships between objects. Use [Harden][2] methods and attributes to secure your system.
 
 **d.** add a wildcard route to your application ([AspMvc][4] / [WebApi][5]), and for MVC, [a controller][6], passing the root of your object graph.
 
@@ -72,5 +78,6 @@ thanks - Harry McIntyre @mcintyre321
   [7]: https://github.com/mcintyre321/Noodles/blob/master/Noodles.Example.Web/Views/Shared/_Layout.cshtml
   [8]: https://github.com/mcintyre321/Noodles/tree/master/Noodles.Example.Web
   [9]: https://github.com/mcintyre321/Noodles/tree/master/Noodles.Example.WebApi
+  [10]: http://formfactory.apphb.com/
   
   [![githalytics.com alpha](https://cruel-carlota.pagodabox.com/caba06ced732280266dfe94e5b4de886 "githalytics.com")](http://githalytics.com/mcintyre321/Noodles)
