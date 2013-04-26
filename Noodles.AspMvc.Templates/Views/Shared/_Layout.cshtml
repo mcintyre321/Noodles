@@ -1,5 +1,6 @@
 ﻿@using System.Web.Mvc.Html
 @using Noodles.AspMvc.Helpers
+@using Noodles.AspMvc.Models.Layout
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,7 +9,7 @@
   
     @Html.Partial("Layout/Head.Bottom")
 </head>
-<body style="margin-top: 60px">
+<body @Html.Raw(Html.LayoutVm().TopBar.Fixed ? "style=\"margin-top: 60px\"" : "")>
     @Html.Partial("Layout/Body.Top")
         @Html.Partial("Layout/TopBar")
         <div class="container">
