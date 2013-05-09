@@ -30,7 +30,7 @@ namespace Noodles
                 }
                 if (ruleResult ?? NodeMethodsRuleRegistry.ShowByDefault)
                 {
-                    yield return new NodeMethod(resource, target, info);
+                    yield return new ReflectionNodeMethod(resource, target, info);
                 }
             }
         }

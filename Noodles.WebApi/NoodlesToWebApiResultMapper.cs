@@ -53,7 +53,7 @@ namespace Noodles.WebApi
             }
             else if (type == typeof(NodeMethod))
             {
-                return Task.FromResult(context.CreateResponse(HttpStatusCode.OK, new NodeMethodVm((NodeMethod)result.Target)));
+                return Task.FromResult(context.CreateResponse(HttpStatusCode.OK, new ActionVm((NodeMethod)result.Target)));
 
             }
             else

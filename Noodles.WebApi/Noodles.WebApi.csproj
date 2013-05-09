@@ -78,9 +78,9 @@
     <Compile Include="Models\CollectionVm.cs" />
     <Compile Include="Models\InvokeVm.cs" />
     <Compile Include="Models\LinkVm.cs" />
+    <Compile Include="Models\NodeVm.cs" />
     <Compile Include="Models\PropertyVm.cs" />
     <Compile Include="Models\ResourceVm.cs" />
-    <Compile Include="Models\NodeMethodVm.cs" />
     <Compile Include="NoodlesHttpMessageHandler.cs" />
     <Compile Include="NoodlesHttpProcessor.cs" />
     <Compile Include="NoodlesToWebApiResultMapper.cs" />

@@ -3,6 +3,10 @@ using System.Collections.Generic;
 
 namespace Noodles.Models
 {
+    public interface INode<T>
+    {
+    }
+
     public interface INode
     {
         INode GetChild(string fragment);
@@ -13,5 +17,6 @@ namespace Noodles.Models
         //string UiHint { get; }
 
         //int Order { get; }
+
     }
 }

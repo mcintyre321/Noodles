@@ -5,7 +5,7 @@ using Noodles.Models;
 
 namespace Noodles.WebApi.Models
 {
-    public class LinkVm
+    public class LinkVm : NodeVm
     {
         public string Relationship { get; set; }
         public string Name { get; set; }

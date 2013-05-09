@@ -12,7 +12,7 @@
     <div class="row">
         <div class="span@(12 - (ViewBag.Indent ?? 0))">
             <div class="noodles-properties">
-                @foreach (var property in Model.NodeProperties.Where(x => x.Setter == null))
+                @foreach (var property in Model.NodeProperties)
                 {
                     <div class="noodles-property" data-fragment-id="noodle-object-property-@property.DisplayName">
                         @Html.Partial("Noodles/NodeProperty", property)

@@ -37,7 +37,7 @@ namespace Noodles
                 var linkAttribute = pi.Attributes().OfType<LinkAttribute>().SingleOrDefault();
                 if (linkAttribute != null)
                 {
-                    yield return new NodeLink(parent, pi.Name, pi.GetValue(target), linkAttribute.UiHint);
+                    yield return new ReflectionNodeLink(parent, pi.Name, pi.GetValue(target), linkAttribute.UiHint);
                 }
                 else
                 {
@@ -45,7 +45,7 @@ namespace Noodles
                     var items = (IDictionary<string, object>) pi.GetValue(target);
                     foreach (var i in items)
                     {
-                        yield return new NodeLink(parent, i.Key, i.Value, linksAttribute.UiHint);
+                        yield return new ReflectionNodeLink(parent, i.Key, i.Value, linksAttribute.UiHint);
                     }
                 }
             }

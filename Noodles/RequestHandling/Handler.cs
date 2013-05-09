@@ -23,7 +23,7 @@ namespace Noodles.RequestHandling
         
         public async Task<Result> HandleRequest(TContext cc, RequestInfo requestInfo, object root, string[] path, Func<IInvokeable, IDictionary<string, object>, object> doInvoke = null)
         {
-            var rootResource = Resource.CreateGeneric(root, null, null);
+            var rootResource = ReflectionResource.CreateGeneric(root, null, null);
             rootResource.Url = requestInfo.RootUrl;
             var node = (INode) rootResource;
             foreach (var fragment in path)

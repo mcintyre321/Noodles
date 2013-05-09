@@ -9,10 +9,9 @@ namespace Noodles.Models
         bool Active { get; }
         IEnumerable<IInvokeableParameter> Parameters { get; }
         string Name { get; }
-        string DisplayName { get; }
+        new string DisplayName { get; }
         object Target { get; }
         string Message { get; }
-        Uri Url { get; }
         bool AutoSubmit { get; }
         Type ParameterType { get; }
         Type ResultType { get; }

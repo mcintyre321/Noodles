@@ -9,14 +9,14 @@ using Noodles.Helpers;
 namespace Noodles.Models
 {
     [DisplayName("{DisplayName}")]
-    public class NodeCollectionProperty : NodeProperty
+    public class NodeCollectionProperty : ReflectionNodeProperty, NodeProperty
     {
         public NodeCollectionProperty(INode parent, object target, PropertyInfo info)
             : base(parent, target, info)
         {
         }
 
-        public override INode GetChild(string fragment)
+        INode INode.GetChild(string fragment)
         {
             int index = 0;
             if (int.TryParse(fragment, out index))

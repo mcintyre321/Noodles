@@ -12,12 +12,10 @@ namespace Noodles.WebApi.Models
     [KnownType(typeof(ActionVm))]
     [KnownType(typeof(LinkVm))]
 
-    public class ResourceVm
+    public class ResourceVm : NodeVm
     {
         //self
-        public string Name { get; set; }
-        public Uri Url { get; set; }
-        public string ValueType { get; set; }
+        //public string Name { get; set; }
         public PropertyVm[] Properties { get; set; }
         public ActionVm[] Actions { get; set; }
         public LinkVm[] Links { get; set; }
@@ -27,8 +25,8 @@ namespace Noodles.WebApi.Models
         }
         public ResourceVm(Resource target)
         {
-            this.Name = target.Fragment;
-            this.DisplayName = target.DisplayName;
+            //this.Name = target.Fragment;
+            //this.DisplayName = target.DisplayName;
             this.Url = target.Url;
             //this.ValueType = target.ValueType.FullName;
 
@@ -41,6 +39,6 @@ namespace Noodles.WebApi.Models
             this.Links = links.ToArray();
         }
 
-        public string DisplayName { get; set; }
+        //public string DisplayName { get; set; }
     }
 }

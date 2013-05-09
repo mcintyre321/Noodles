@@ -18,7 +18,7 @@ namespace Noodles.Models
             {
                 return
                     _fetch.Skip(Skip).Take(Take).ToArray().Select(
-                        (o, i) => Resource.CreateGeneric(o, _parent, (Skip + i).ToString()));
+                        (o, i) => ReflectionResource.CreateGeneric(o, _parent, (Skip + i).ToString()));
             }
         }
 

@@ -3,12 +3,10 @@ using Noodles.Models;
 
 namespace Noodles.WebApi.Models
 {
-    public class ActionVm
+    public class ActionVm : NodeVm
     {
         //self
         public string Name { get; set; }
-        public Uri Url { get; set; }
- 
 
         public LinkVm[] Links { get; set; }
 
@@ -17,20 +15,12 @@ namespace Noodles.WebApi.Models
             this.Name = target.Fragment;
             this.DisplayName = target.DisplayName;
             this.Url = target.Url;
-            this.ParameterType = target.ParameterType.FullName;
-
-            //Properties = target.NodeProperties.Select(p => new ResourceVm(p)).ToArray();
-            //Actions = target.NodeMethods.Select(nm => new ResourceVm(nm)).ToArray();
-            //var links = new List<LinkVm>();
-
-            //if (target.Parent != null) links.Add(new LinkVm(target.Parent, "parent"));
-
-            //links.AddRange(target.Children.Select(c => new LinkVm(c, "child")).ToArray());
-            //this.Links = links.ToArray();
+            this.RequestType = target.ParameterType.FullName;
+            this.ResponseType = target.ResultType.FullName;
         }
 
-        public string ParameterType { get; set; }
-
+        public string RequestType { get; set; }
+        public string ResponseType { get; set; }
         public string DisplayName { get; set; }
     }
 }

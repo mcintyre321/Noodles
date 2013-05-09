@@ -6,10 +6,22 @@ using Noodles.Helpers;
 using Walkies;
 namespace Noodles.Models
 {
-    public class Resource : INode, IInvokeable
+    public interface Resource : INode, IInvokeable
+    {
+        object Value { get; }
+        Type ValueType { get; }
+        IEnumerable<NodeProperty> NodeProperties { get; }
+        IEnumerable<NodeMethod> NodeMethods { get; }
+        IEnumerable<NodeLink> Links { get; }
+
+        IEnumerable<INode> Ancestors { get; }
+        IEnumerable<INode> AncestorsAndSelf { get; }
+    }
+
+    public class ReflectionResource : Resource, INode, IInvokeable
     {
 
-        protected Resource(object target, INode parent, string fragment)
+        protected ReflectionResource(object target, INode parent, string fragment)
         {
             Value = target;
             ValueType = target.GetType();
@@ -29,7 +41,7 @@ namespace Noodles.Models
 
         IEnumerable<IInvokeableParameter> IInvokeable.Parameters
         {
-            get { return this.NodeProperties.Where(x => x.Setter != null); }
+            get { return this.NodeProperties.Where(x => !x.Readonly).Select(s => (IInvokeableParameter) s); }
         }
 
         string IInvokeable.Name
@@ -66,11 +78,11 @@ namespace Noodles.Models
             return null;
         }
 
-        public static Resource CreateGeneric(object target, INode parent, string fragment)
+        public static ReflectionResource CreateGeneric(object target, INode parent, string fragment)
         {
             var type = target.GetType();
-            var nodeType = typeof(Resource<>).MakeGenericType(type);
-            return (Resource)Activator.CreateInstance(nodeType, target, parent, fragment);
+            var nodeType = typeof(ReflectionResource<>).MakeGenericType(type);
+            return (ReflectionResource)Activator.CreateInstance(nodeType, target, parent, fragment);
         }
 
         private Uri _url;
@@ -140,15 +152,11 @@ namespace Noodles.Models
         public IEnumerable<INode> AncestorsAndSelf { get { return (this).Recurse<INode>(n => n.Parent); } }
     }
 
-    public interface INode<T>
-    {
-    }
-
-    public class Resource<T> : Resource, INode<T>
+    public class ReflectionResource<T> : ReflectionResource, INode<T>
     {
         public new T Target { get { return (T)base.Value; } }
 
-        public Resource(T target, INode parent, string fragment):base(target, parent, fragment)
+        public ReflectionResource(T target, INode parent, string fragment):base(target, parent, fragment)
         {
         }
     }

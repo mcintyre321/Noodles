@@ -34,7 +34,7 @@ namespace Noodles
             {
                 return new NodeCollectionProperty(node, target, pi);
             }
-            return new NodeProperty(node, target, pi);
+            return new ReflectionNodeProperty(node, target, pi);
         }
 
         public static IEnumerable<PropertyInfo> YieldFindPropertyInfosUsingReflection(this object target, Type fallback)

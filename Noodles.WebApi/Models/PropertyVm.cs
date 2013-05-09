@@ -18,14 +18,11 @@ namespace Noodles.WebApi.Models
         public PropertyVm(NodeProperty target)
         {
             this.Name = target.Fragment;
-            this.DisplayName = target.DisplayName;
             this.Url = target.Url;
             this.Value = target.Value;
             this.ValueType = target.ValueType.FullName;
 
             Actions = target.NodeMethods.Select(nm => new ActionVm(nm)).ToArray();
         }
-
-        public string DisplayName { get; set; }
     }
 }
