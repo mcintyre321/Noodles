@@ -125,7 +125,7 @@ namespace Noodles.Models
 
         Type IInvokeable.ParameterType
         {
-            get { return this.GetType(); }
+            get { return ValueType; }
         }
 
         Type IInvokeable.ResultType { get { return this.GetType(); } }
@@ -135,7 +135,8 @@ namespace Noodles.Models
         {
             foreach (var key in parameterDictionary.Keys)
             {
-                var p = this.NodeProperties.Single(x => x.Name == key);
+                var p = this.NodeProperties.SingleOrDefault(x => x.Readonly == false && x.Name == key);
+                if (p == null) continue;
                 p.Invoke(new[] {parameterDictionary[key]});
             }
             return this;
