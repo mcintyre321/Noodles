@@ -6,16 +6,38 @@ using Noodles.Helpers;
 using Walkies;
 namespace Noodles.Models
 {
+    public class ResourceFactory
+    {
+        public List<Func<object, INode, string, Resource>> Rules = new List<Func<object, INode, string, Resource>>()
+        {
+            ReflectionResource.CreateGeneric
+        };
+        private static Lazy<ResourceFactory> _instance = new Lazy<ResourceFactory>(() => new ResourceFactory());
+
+        public static ResourceFactory Instance
+        {
+            get { return _instance.Value; }
+        }
+
+        public Resource Create(object target, INode parent, string fragment)
+        {
+            return Rules.Select(r => r(target, parent, fragment)).FirstOrDefault();
+        }
+
+    } 
+
     public interface Resource : INode, IInvokeable
     {
         object Value { get; }
         Type ValueType { get; }
+
         IEnumerable<NodeProperty> NodeProperties { get; }
         IEnumerable<NodeMethod> NodeMethods { get; }
         IEnumerable<NodeLink> Links { get; }
 
         IEnumerable<INode> Ancestors { get; }
         IEnumerable<INode> AncestorsAndSelf { get; }
+        Uri RootUrl { set; }
     }
 
     public class ReflectionResource : Resource, INode, IInvokeable
@@ -78,7 +100,7 @@ namespace Noodles.Models
             return null;
         }
 
-        public static ReflectionResource CreateGeneric(object target, INode parent, string fragment)
+        public static Resource CreateGeneric(object target, INode parent, string fragment)
         {
             var type = target.GetType();
             var nodeType = typeof(ReflectionResource<>).MakeGenericType(type);
@@ -88,7 +110,7 @@ namespace Noodles.Models
         private Uri _url;
 
 
-        public string DisplayName { get { return Value.GetDisplayName(); } }
+        string INode.DisplayName { get { return Value.GetDisplayName(); } }
 
         public Uri Url
         {
@@ -150,6 +172,7 @@ namespace Noodles.Models
 
         public IEnumerable<INode> Ancestors { get { return this.AncestorsAndSelf.Skip(1); } }
         public IEnumerable<INode> AncestorsAndSelf { get { return (this).Recurse<INode>(n => n.Parent); } }
+        public Uri RootUrl { set { _url = value; }}
     }
 
     public class ReflectionResource<T> : ReflectionResource, INode<T>

@@ -8,7 +8,7 @@ namespace Noodles.Models
     {
         bool Active { get; }
         IEnumerable<IInvokeableParameter> Parameters { get; }
-        string Name { get; }
+        new string Name { get; }
         new string DisplayName { get; }
         object Target { get; }
         string Message { get; }

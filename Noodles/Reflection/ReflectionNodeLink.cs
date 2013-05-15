@@ -1,5 +1,6 @@
 using System;
 using Noodles.Helpers;
+using Noodles.RequestHandling;
 
 namespace Noodles.Models
 {
@@ -9,9 +10,9 @@ namespace Noodles.Models
 
         public ReflectionNodeLink(Resource parent, string name, object value, string uiHint)
         {
-            var node = ReflectionResource.CreateGeneric(value, parent, name);
+            var node = ResourceFactory.Instance.Create(value, parent, name);
             Node = node;
-            DisplayName = node.DisplayName;
+            DisplayName = ((INode) node).DisplayName;
             Url = node.Url;
             Name = name;
             UiHint = parent.Value.ToString(uiHint);

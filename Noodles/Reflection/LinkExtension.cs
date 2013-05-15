@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using Noodles.Models;
+using Noodles.RequestHandling;
 using Walkies;
 
 namespace Noodles
@@ -15,15 +16,8 @@ namespace Noodles
             return YieldFindNodeLinksUsingReflection(resource, o, fallback);//.OrderBy(p => p.Order);
         }
 
-        public static NodeLink NodeLinks(this object o, Resource resource, string propertyName, Type fallback = null)
-        {
-            return o.NodeLinks(resource, fallback).SingleOrDefault(m => m.Name.ToLowerInvariant() == propertyName.ToLowerInvariant());
-        }
-
         public static IEnumerable<NodeLink> YieldFindNodeLinksUsingReflection(Resource parent, object target, Type fallback)
         {
-           
-
             var testedProperties = target.GetType().GetProperties().Select(p => new
                 {
                     Property = p,
