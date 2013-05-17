@@ -36,8 +36,6 @@ namespace Noodles.AspMvc.RequestHandling
 
         public async Task<ActionResult> GetNoodleResult(ControllerContext cc, object root, string path = null, Func<IInvokeable, IDictionary<string, object>, object> doInvoke = null)
         {
-            root.SetUrlRoot(cc);
-
             var nr = new AspMvcRequestInfo(cc);
             var handler = new AspMvcNoodleHandler();
             var pathParts = (path ?? cc.RouteData.Values["path"] as string ?? "/").Trim('/')

@@ -10,7 +10,7 @@ using System.Web.Http;
 using System.Web.Http.Routing;
 using Noodles.Models;
 using Noodles.RequestHandling;
-using Walkies;
+
 
 namespace Noodles.WebApi
 {

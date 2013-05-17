@@ -60,10 +60,6 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Data.Entity" />
     <Reference Include="System.Xml" />
-    <Reference Include="Walkies, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Walkies.1.2.38\lib\net40\Walkies.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AttributesExtension.cs" />
@@ -72,7 +68,6 @@
     <Compile Include="Helpers\FormattableToStringExtensions.cs" />
     <Compile Include="Helpers\RecurseExtension.cs" />
     <Compile Include="Helpers\ThenExtension.cs" />
-    <Compile Include="IdExtension.cs" />
     <Compile Include="Logger.cs" />
     <Compile Include="Models\NodeProperty.cs" />
     <Compile Include="Models\NodeCollectionProperty.cs" />
@@ -87,7 +82,6 @@
     <Compile Include="Models\NodeLink.cs" />
     <Compile Include="Reflection\NodeMethodExtensions.cs" />
     <Compile Include="NodeTypeExtension.cs" />
-    <Compile Include="PathExtension.cs" />
     <Compile Include="Models\IInvokeableParameter.cs" />
     <Compile Include="Attributes\LinkAttribute.cs" />
     <Compile Include="Models\LinkExtension.cs" />

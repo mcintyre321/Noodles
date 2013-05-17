@@ -200,9 +200,9 @@ namespace Noodles.Models
             return parameters[index];
         }
 
-        public INode GetChild(string name)
+        public INode GetChild(string fragment)
         {
-            return ((IInvokeable)this).Parameters.SingleOrDefault(p => p.Name == name);
+            return ((IInvokeable)this).Parameters.SingleOrDefault(p => p.Name == fragment);
         }
 
         public string Fragment { get { return Name; } }
@@ -216,37 +216,6 @@ namespace Noodles.Models
 
         public object Parameter { get { return Activator.CreateInstance(ParameterType); } }
 
-
-        public bool Equals(NodeMethod other)
-        {
-            if (ReferenceEquals(null, other)) return false;
-            if (ReferenceEquals(this, other)) return true;
-            return Equals(other.Path(), this.Path());
-        }
-
-        public override bool Equals(object obj)
-        {
-            if (ReferenceEquals(null, obj)) return false;
-            if (ReferenceEquals(this, obj)) return true;
-            if (obj.GetType() != typeof(NodeMethod)) return false;
-            return Equals((NodeMethod)obj);
-        }
-
-        public override int GetHashCode()
-        {
-            return this.Path().GetHashCode();
-        }
-
-
-        public static bool operator ==(ReflectionNodeMethod left, ReflectionNodeMethod right)
-        {
-            return Equals(left, right);
-        }
-
-        public static bool operator !=(ReflectionNodeMethod left, ReflectionNodeMethod right)
-        {
-            return !Equals(left, right);
-        }
 
         public T GetAttribute<T>() where T : Attribute
         {
