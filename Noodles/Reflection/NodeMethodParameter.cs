@@ -146,6 +146,8 @@ namespace Noodles
             }
         }
 
+        public IEnumerable<string> ErrorMessages { get; private set; }
+
         internal ParameterInfo ParameterInfo
         {
             get { return this._parameter; }

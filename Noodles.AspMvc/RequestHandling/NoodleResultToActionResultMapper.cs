@@ -31,6 +31,10 @@ namespace Noodles.AspMvc.RequestHandling
             var res = new System.Web.Mvc.ViewResult();
             res.ViewName = "Noodles/NodeMethod";
             res.ViewData.Model = result.Invokeable;
+            foreach (var error in result)
+            {
+                res.ViewData.ModelState.AddModelError(error.Key, error.Value);
+            }
             res.ViewData.ModelState.Merge(context.Controller.ViewData.ModelState);
             if (context.HttpContext.Request.IsAjaxRequest())
             {

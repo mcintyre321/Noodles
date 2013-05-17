@@ -22,6 +22,8 @@ namespace Noodles.Example.Domain.Discussions
         [Show]
         public void AddMessage(Message message)
         {
+            if (string.IsNullOrWhiteSpace(message.Text))
+                throw new UserException("You must enter a message!");
             Messages.Add(message);
         }
     }

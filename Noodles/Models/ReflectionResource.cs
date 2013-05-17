@@ -40,6 +40,11 @@ namespace Noodles.Models
         Uri RootUrl { set; }
     }
 
+    public interface Resource<T> : Resource, INode<T>
+    {
+        new T Target { get; } 
+    }
+
     public class ReflectionResource : Resource, INode, IInvokeable
     {
 
@@ -176,7 +181,7 @@ namespace Noodles.Models
         public Uri RootUrl { set { _url = value; }}
     }
 
-    public class ReflectionResource<T> : ReflectionResource, INode<T>
+    public class ReflectionResource<T> : ReflectionResource,  Resource<T>, INode<T>
     {
         public new T Target { get { return (T)base.Value; } }
 

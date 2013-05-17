@@ -24,6 +24,7 @@ namespace Noodles.Models
             Parent = parent;
             Target = target;
             UiHint = methodInfo.Attributes().OfType<ShowAttribute>().Select(a => a.UiHint).SingleOrDefault() ?? "";
+            ErrorMessages = new string[]{};
         }
 
         public object Target { get; private set; }
@@ -258,5 +259,7 @@ namespace Noodles.Models
             var parameters = ((IInvokeable)this).Parameters.Select(p => p.Name).Select(name => parameterDictionary[name]).ToArray();
             return ((IInvokeable)this).Invoke(parameters);
         }
+
+        public IEnumerable<string> ErrorMessages { get; private set; }
     }
 }

@@ -1,11 +1,14 @@
 using System;
+using System.Collections.Generic;
 
 namespace Noodles.RequestHandling
 {
-    public class ArgumentBindingException : Exception
+    public abstract class ArgumentBindingException : Exception
     {
         public ArgumentBindingException()
         {
         }
+
+        public abstract IEnumerable<KeyValuePair<string, string>> Errors { get; }
     }
 }

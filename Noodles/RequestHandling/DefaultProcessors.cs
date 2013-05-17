@@ -26,6 +26,22 @@ namespace Noodles.RequestHandling
             return Task.Factory.StartNew<Result>(() => null);
         }
 
+        public delegate Func<Result> InvokeExceptionHandler(Exception ex, RequestInfo ri, TContext context, IInvokeable invokeable);
+
+        public static readonly List<InvokeExceptionHandler> InvokeExceptionHandlers = new List<InvokeExceptionHandler>()
+        {
+            ReturnErrorOnUserException
+        };
+
+        private static Func<Result> ReturnErrorOnUserException(Exception ex, RequestInfo ri, TContext context, IInvokeable invokeable)
+        {
+            var uEx = ex as UserException;
+            if (uEx == null) return null;
+            return () => new ValidationErrorResult(invokeable)
+            {
+                {"", ex.Message}
+            };
+        }
 
         public static async Task<Result> ProcessInvoke(TContext context1, RequestInfo requestInfo, INode node, Func<IInvokeable, IDictionary<string, object>, object> doInvoke)
         {
@@ -44,42 +60,39 @@ namespace Noodles.RequestHandling
             }
             catch (ArgumentBindingException ex)
             {
-                return new ValidationErrorResult(invokeable);
+                return new ValidationErrorResult(invokeable)
+                {
+                    ex.Errors
+                };
             }
             object result = null;
             var errors = new List<object>();
-            if (parameters != null)
+         
+            Logger.Trace("ModelBinding successful");
+            try
             {
-                Logger.Trace("ModelBinding successful");
-                try
-                {
-                    result = doInvoke(invokeable, parameters);
-                    var noodlesResult = MapResultToNoodleResult(result);
-                    if (noodlesResult != null) return noodlesResult;
-                }
-                catch (Exception ex)
-                {
-                    if (ex is TargetInvocationException)
-                    {
-                        ex = ex.InnerException ?? ex;
-                    }
-                    Func<Result> handle = null;
-                    // ModelStateExceptionHandlers.Select(h => h(ex, cc)).FirstOrDefault(h => h != null);
-
-                    if (handle != null) //there is a handler for this exception
-                    {
-                        var handlerResult = handle(); //try to handle it
-                        if (handlerResult != null) return handlerResult; //return the handler result if it had one
-                    }
-                    else
-                    {
-                        return new ErrorResult();
-                    }
-                }
+                result = doInvoke(invokeable, parameters);
+                var noodlesResult = MapResultToNoodleResult(result);
+                if (noodlesResult != null) return noodlesResult;
             }
-            else
+            catch (Exception ex)
             {
-                return new ValidationErrorResult(invokeable);
+                if (ex is TargetInvocationException)
+                {
+                    ex = ex.InnerException ?? ex;
+                }
+                Func<Result> handle = InvokeExceptionHandlers.Select(h => h(ex, requestInfo, context1, invokeable))
+                                                             .FirstOrDefault(h => h != null);
+
+                if (handle != null) //there is a handler for this exception
+                {
+                    var handlerResult = handle(); //try to handle it
+                    if (handlerResult != null) return handlerResult; //return the handler result if it had one
+                }
+                else
+                {
+                    return new ErrorResult();
+                }
             }
 
             {
