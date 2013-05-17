@@ -9,14 +9,9 @@ namespace Noodles.AspMvc.UiAttributes
         private readonly IInvokeable _resource;
         private readonly IEnumerable<IInvokeableParameter> _formParameters;
 
-        public INode GetChild(string fragment)
+        public INode GetChild(string name)
         {
-            return _resource.GetChild(fragment);
-        }
-
-        public string Fragment
-        {
-            get { return _resource.Fragment; }
+            return _resource.GetChild(name);
         }
 
         public INode Parent

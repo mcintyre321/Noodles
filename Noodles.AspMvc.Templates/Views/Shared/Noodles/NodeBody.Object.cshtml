@@ -31,7 +31,7 @@
                     </div>
                 }
 
-                @foreach(var link in Model.Links.Hinted("Inline"))
+                @foreach(var link in Model.NodeLinks.Hinted("Inline"))
                 {
                     var viewName = Html.BestViewName(link.TargetType, "Noodles/NodeBody.");
                     @Html.Partial(viewName, link.Target)   
@@ -48,7 +48,7 @@
                         {
                             @NoodlesHelper.NodeMethodLink(method, "btn")
                         }
-                        @foreach (var link in Model.Links.Hinted("MethodWell"))
+                        @foreach (var link in Model.NodeLinks.Hinted("MethodWell"))
                         {
                             <a class="btn" href="@link.Url">@link.Target.DisplayName</a>
                         }

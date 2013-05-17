@@ -171,7 +171,7 @@ namespace Noodles.Models
         }
         public IEnumerable<NodeMethod> NodeMethods { get
         {
-            return this.NodeMethods(this);
+            return this.GetNodeMethods(this);
         } }
 
         public IEnumerable<NodeProperty> NodeProperties
@@ -200,9 +200,9 @@ namespace Noodles.Models
             return parameters[index];
         }
 
-        public INode GetChild(string fragment)
+        public INode GetChild(string name)
         {
-            return ((IInvokeable)this).Parameters.SingleOrDefault(p => p.Name == fragment);
+            return ((IInvokeable)this).Parameters.SingleOrDefault(p => p.Name == name);
         }
 
         public string Fragment { get { return Name; } }

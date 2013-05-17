@@ -173,7 +173,7 @@ namespace Noodles
 
         public bool Locked { get; set; }
 
-        public INode GetChild(string fragment)
+        public INode GetChild(string name)
         {
             return null;
         }

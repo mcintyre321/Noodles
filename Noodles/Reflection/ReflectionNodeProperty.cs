@@ -180,10 +180,10 @@ namespace Noodles.Models
         }
 
 
-        public virtual INode GetChild(string fragment)
+        public virtual INode GetChild(string name)
         {
-            return NodeProperties.SingleOrDefault(p => p.Fragment == fragment) as INode
-            ?? NodeMethods.SingleOrDefault(p => p.Fragment == fragment);
+            return NodeProperties.SingleOrDefault(p => p.Name == name) as INode
+            ?? NodeMethods.SingleOrDefault(p => p.Name == name);
         }
 
 

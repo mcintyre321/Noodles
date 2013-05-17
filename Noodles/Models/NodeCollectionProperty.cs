@@ -16,14 +16,14 @@ namespace Noodles.Models
         {
         }
 
-        INode INode.GetChild(string fragment)
+        INode INode.GetChild(string name)
         {
             int index = 0;
-            if (int.TryParse(fragment, out index))
+            if (int.TryParse(name, out index))
             {
                 return Query(index, 1).Items.SingleOrDefault();
             }
-            return base.GetChild(fragment);
+            return base.GetChild(name);
         }
 
 
@@ -49,7 +49,7 @@ namespace Noodles.Models
         }
         public override IEnumerable<NodeMethod> NodeMethods
         {
-            get { return this.NodeMethods(this); }
+            get { return this.GetNodeMethods(this); }
         }
     }
 }

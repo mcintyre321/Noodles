@@ -21,7 +21,6 @@ namespace Noodles.Models
         }
 
 
-        public string Fragment { get; private set; }
         public string DisplayName { get; set; }
 
         public Type TargetType { get; set; }
@@ -29,7 +28,7 @@ namespace Noodles.Models
         public Uri Url { get; private set; }
         public INode Parent { get; private set; }
 
-        public string Name { get; set; }
+        public string Name { get; private set; }
 
         public Resource Target { get; set; }
 

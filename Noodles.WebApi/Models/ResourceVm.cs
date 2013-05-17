@@ -35,7 +35,7 @@ namespace Noodles.WebApi.Models
             var links = new List<LinkVm>();
 
             //if (target.Parent != null) links.Add(new LinkVm(target.Parent, "parent"));
-            links.AddRange(target.Links.Select(c => new LinkVm(c, "child")).ToArray());
+            links.AddRange(target.NodeLinks.Select(c => new LinkVm(c, "child")).ToArray());
             this.Links = links.ToArray();
         }
 

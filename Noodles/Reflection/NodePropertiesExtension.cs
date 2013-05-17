@@ -10,14 +10,14 @@ namespace Noodles
 {
     public static class NodePropertiesExtension
     {
-        public static IEnumerable<NodeProperty> NodeProperties(this object o, INode resource, Type fallback = null)
+        public static IEnumerable<NodeProperty> GetNodeProperties(this object o, INode resource, Type fallback = null)
         {
             return YieldFindNodePropertiesUsingReflection(resource, o, fallback).OrderBy(p => p.Order);
         }
 
         public static NodeProperty NodeProperty(this object o, INode resource, string propertyName, Type fallback = null)
         {
-            return o.NodeProperties(resource, fallback).SingleOrDefault(m => m.Name.ToLowerInvariant() == propertyName.ToLowerInvariant());
+            return o.GetNodeProperties(resource, fallback).SingleOrDefault(m => m.Name.ToLowerInvariant() == propertyName.ToLowerInvariant());
         }
 
         public static IEnumerable<NodeProperty> YieldFindNodePropertiesUsingReflection(INode node, object target, Type fallback)

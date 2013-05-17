@@ -69,7 +69,7 @@
     <Compile Include="AttributesExtension.cs" />
     <Compile Include="Attributes\MessageAttribute.cs" />
     <Compile Include="Configuration.cs" />
-    <Compile Include="Helpers\FormattableObject.cs" />
+    <Compile Include="Helpers\FormattableToStringExtensions.cs" />
     <Compile Include="Helpers\RecurseExtension.cs" />
     <Compile Include="Helpers\ThenExtension.cs" />
     <Compile Include="IdExtension.cs" />
@@ -79,6 +79,8 @@
     <Compile Include="Models\IInvokeable.cs" />
     <Compile Include="Models\INode.cs" />
     <Compile Include="Models\QueryPage.cs" />
+    <Compile Include="Models\IHasNodeMethods.cs" />
+    <Compile Include="Models\Resource.cs" />
     <Compile Include="Reflection\ReflectionNodeLink.cs" />
     <Compile Include="Reflection\ReflectionNodeMethod.cs" />
     <Compile Include="Name.cs" />
@@ -86,9 +88,9 @@
     <Compile Include="Reflection\NodeMethodExtensions.cs" />
     <Compile Include="NodeTypeExtension.cs" />
     <Compile Include="PathExtension.cs" />
-    <Compile Include="Reflection\IInvokeableParameter.cs" />
-    <Compile Include="Reflection\LinkAttribute.cs" />
-    <Compile Include="Reflection\LinkExtension.cs" />
+    <Compile Include="Models\IInvokeableParameter.cs" />
+    <Compile Include="Attributes\LinkAttribute.cs" />
+    <Compile Include="Models\LinkExtension.cs" />
     <Compile Include="Reflection\NodeLinkRuleRegistry.cs" />
     <Compile Include="Reflection\NodePropertiesRuleRegistry.cs" />
     <Compile Include="Reflection\NodePropertiesExtension.cs" />
@@ -102,13 +104,13 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Reflection\NodeMethodsRuleRegistry.cs" />
     <Compile Include="Reflection\ReflectionNodeProperty.cs" />
-    <Compile Include="Reflection\TextExtensions.cs" />
+    <Compile Include="Helpers\SentenciseTextExtensions.cs" />
     <Compile Include="RequestHandling\ArgumentBindingException.cs" />
     <Compile Include="RequestHandling\ResultTypes\BadRequestResult.cs" />
     <Compile Include="RequestHandling\DefaultProcessors.cs" />
     <Compile Include="RequestHandling\Handler.cs" />
     <Compile Include="RequestHandling\ResultTypes\InvokeSuccessResult.cs" />
-    <Compile Include="Models\ReflectionResource.cs" />
+    <Compile Include="Reflection\ReflectionResource.cs" />
     <Compile Include="RequestHandling\NoodleResultMapper.cs" />
     <Compile Include="RequestHandling\ResultTypes\ErrorResult.cs" />
     <Compile Include="RequestHandling\ResultTypes\NotFoundResult.cs" />

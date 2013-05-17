@@ -7,16 +7,11 @@ using Walkies;
 
 namespace Noodles
 {
-    public interface IHasNodeMethods
-    {
-        IEnumerable<NodeMethod> NodeMethods();
-    }
     public delegate IEnumerable<NodeMethod> FindNodeMethodsRule(NodeMethodsReflectionLogic obj);
     public class NodeMethodsReflectionLogic
     {
         public static List<FindNodeMethodsRule> FindNodeMethodsRules { get; private set; }
 
-        public static FindNodeMethodsRule UseIHasNodeMethod = nm => nm.Parent() is IHasNodeMethods ? ((IHasNodeMethods)nm.Parent()).NodeMethods() : null;
         public static IEnumerable<NodeMethod> YieldFindNodeMethodsUsingReflection(object target, INode resource)
         {
             var methods = target.GetType().GetMethods(BindingFlags.Public | BindingFlags.Instance | BindingFlags.FlattenHierarchy).ToArray();

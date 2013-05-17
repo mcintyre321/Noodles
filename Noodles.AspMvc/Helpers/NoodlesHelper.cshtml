@@ -19,7 +19,7 @@
 @helper NodeMethodsDropdown(Resource obj, string additionalClasses, string excludedMethodNamesCsv)
 {
     var excludedMethodNames = (excludedMethodNamesCsv ?? "").Split(',');
-    var filteredNodeMethods = obj.Value.NodeMethods(obj).Where(nm => excludedMethodNames.Contains(nm.Name) == false);
+    var filteredNodeMethods = obj.NodeMethods.Except(excludedMethodNames);
     if (filteredNodeMethods.Any())
     {
     @BootstrapHelper.DropdownLinksButton("Actions", @<text>

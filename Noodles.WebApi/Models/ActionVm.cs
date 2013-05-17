@@ -12,7 +12,7 @@ namespace Noodles.WebApi.Models
 
         public ActionVm(NodeMethod target)
         {
-            this.Name = target.Fragment;
+            this.Name = target.Name;
             this.DisplayName = target.DisplayName;
             this.Url = target.Url;
             this.RequestType = target.ParameterType.FullName;

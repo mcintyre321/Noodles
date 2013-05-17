@@ -7,14 +7,14 @@
 @using FormFactory;
 @{
     var layoutVm = this.Html.LayoutVm();
-    layoutVm.TopBar.Brand.Html = Model.AncestorsAndSelf.Last().DisplayName;
+    layoutVm.TopBar.Brand.Html = Model.AncestorsAndSelf().Last().DisplayName;
     layoutVm.Title = Model.DisplayName;
     layoutVm.RegisterScripts();
 }
 
 @model Noodles.Models.Resource
 @{
-    var walked = Model.AncestorsAndSelf.OfType<Resource>().ToArray();
+    var walked = Model.AncestorsAndSelf().OfType<Resource>().ToArray();
     Func<string> inner = () => Html.BestPartial(Model, Model.ValueType, "Noodles/NodeBody.").ToHtmlString();
     foreach (var walkedItem in walked.Reverse())
     {
@@ -27,7 +27,7 @@
 
 @helper RenderMenu(HtmlHelper helper, Resource resource, IEnumerable<Resource> walked, Func<string> renderInner)
 {
-    var links = resource.Links.GroupBy(l => l.UiHint);
+    var links = resource.NodeLinks.GroupBy(l => l.UiHint);
 
     if (resource.Parent == null)
     {
