@@ -24,7 +24,6 @@ namespace Noodles.Models
             Parent = parent;
             Target = target;
             UiHint = methodInfo.Attributes().OfType<ShowAttribute>().Select(a => a.UiHint).SingleOrDefault() ?? "";
-            ErrorMessages = new string[]{};
         }
 
         public object Target { get; private set; }
@@ -260,6 +259,5 @@ namespace Noodles.Models
             return ((IInvokeable)this).Invoke(parameters);
         }
 
-        public IEnumerable<string> ErrorMessages { get; private set; }
     }
 }
