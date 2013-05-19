@@ -51,6 +51,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Noodles.Example.Domain\Noodles.Example.Domain.csproj">
+      <Project>{d727f0a4-dc44-4d08-94b0-465f2cdb1aea}</Project>
+      <Name>Noodles.Example.Domain</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Noodles\Noodles.csproj">
       <Project>{3f8ba73c-2f1c-4f24-a5d9-b3243fa6a495}</Project>
       <Name>Noodles</Name>

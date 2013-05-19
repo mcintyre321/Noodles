@@ -63,6 +63,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AttributesExtension.cs" />
+    <Compile Include="Attributes\BehaviourAttribute.cs" />
     <Compile Include="Attributes\MessageAttribute.cs" />
     <Compile Include="Configuration.cs" />
     <Compile Include="Helpers\FormattableToStringExtensions.cs" />

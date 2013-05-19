@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -5,6 +6,7 @@ using System.Reflection;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
+using Newtonsoft.Json;
 using Noodles.Example.Domain.Tasks;
 
 namespace Noodles.Example.Domain
@@ -12,6 +14,9 @@ namespace Noodles.Example.Domain
     [DisplayName("Project Organiser")]
     public class Application
     {
+        [Behaviour][JsonIgnore]
+        private AuthBehaviour AuthBehaviour = new AuthBehaviour();
+
         [Link(UiHint = "TopBar.LeftItems")]
         public ToDoLists ToDoLists { get; private set; }
 
@@ -35,37 +40,11 @@ namespace Noodles.Example.Domain
         [Link(UiHint = "TopBar.RightItems")]
         public Settings Settings { get; set; }
 
-        [Show(UiHint = "TopBar.RightItems")]
-        public void SignIn([Required] string email, [DataType(DataType.Password)][Required]  string password)
-        {
-            if (string.IsNullOrEmpty(email) || string.IsNullOrEmpty(password))
-            {
-                throw new UserException("");
-            }
-            //check username and password here
-            AuthService.SetAuthToken(email);
-        }
-
-        public bool? AllowSignIn()
-        {
-            return !AuthService.RequestHasAuthToken();
-        }
-
-        [Show(UiHint = "TopBar.RightItems"), AutoSubmit]
-        public void SignOut()
-        {
-            AuthService.ClearAuthToken();
-        }
-
-        public bool? Allow(MethodInfo methodInfo)
-        {
-            return AuthService.RequestHasAuthToken() ? null as bool? : false;
-        }
-
         [Show(UiHint = "TopBar.RightItems")][HttpGet]
         public RedirectResult API()
         {
             return new RedirectResult("/api");
         }
     }
+
 }

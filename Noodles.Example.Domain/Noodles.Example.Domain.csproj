@@ -59,6 +59,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AuthBehaviour.cs" />
     <Compile Include="AuthService.cs" />
     <Compile Include="Discussions\Discussion.cs" />
     <Compile Include="Discussions\DiscussionsManager.cs" />

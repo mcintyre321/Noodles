@@ -80,7 +80,10 @@ namespace Noodles
 
         static NodeMethodsRuleRegistry()
         {
-            ShowMethodRules = new List<ShowMethodRule>() { ShowAttributedMethods, };
+            ShowMethodRules = new List<ShowMethodRule>()
+            {
+                ShowAttributedMethods,
+            };
             AutoSubmitRules = new List<AutoSubmitRule>
                                   {
                                       NoAutoSubmitWhenHasParams,

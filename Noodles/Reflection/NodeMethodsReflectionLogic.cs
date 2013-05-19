@@ -7,14 +7,14 @@ using Noodles.Models;
 
 namespace Noodles
 {
-    public delegate IEnumerable<NodeMethod> FindNodeMethodsRule(NodeMethodsReflectionLogic obj);
     public class NodeMethodsReflectionLogic
     {
-        public static List<FindNodeMethodsRule> FindNodeMethodsRules { get; private set; }
 
         public static IEnumerable<NodeMethod> YieldFindNodeMethodsUsingReflection(object target, INode resource)
         {
-            var methods = target.GetType().GetMethods(BindingFlags.Public | BindingFlags.Instance | BindingFlags.FlattenHierarchy).ToArray();
+            var publicInstanceBindingFlags = BindingFlags.Public | BindingFlags.Instance | BindingFlags.FlattenHierarchy;
+            var type = target.GetType();
+            var methods = type.GetMethods(publicInstanceBindingFlags).ToArray();
             foreach (var info in methods)
             {
                 bool? ruleResult = null;
@@ -28,6 +28,26 @@ namespace Noodles
                     yield return new ReflectionNodeMethod(resource, target, info);
                 }
             }
+            var behaviourProperties = type.GetProperties(publicInstanceBindingFlags | BindingFlags.NonPublic)
+                                            .Where(pi => pi.Attributes().OfType<BehaviourAttribute>().Any());
+            foreach (var propertyInfo in behaviourProperties)
+            {
+                var behaviour = propertyInfo.GetValue(target);
+                foreach (var nodeMethod in YieldFindNodeMethodsUsingReflection(behaviour, resource))
+                {
+                    yield return nodeMethod;
+                }
+            }
+            var behaviourFields = type.GetFields(publicInstanceBindingFlags | BindingFlags.NonPublic | BindingFlags.Instance).Where(pi => pi.Attributes().OfType<BehaviourAttribute>().Any());
+            foreach (var fieldInfo in behaviourFields)
+            {
+                var behaviour = fieldInfo.GetValue(target);
+                foreach (var nodeMethod in YieldFindNodeMethodsUsingReflection(behaviour, resource))
+                {
+                    yield return nodeMethod;
+                }
+            }
+
         }
     }
 }
