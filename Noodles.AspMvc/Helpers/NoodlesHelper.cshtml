@@ -54,16 +54,16 @@
 {
     if (method != null)
     {
-        if ((typeof(ActionResult).IsAssignableFrom(method.ResultType)) && (method.Parameters.Any() == false) && (method.GetAttribute<HttpGetAttribute>() != null))
+        if ((typeof (ActionResult).IsAssignableFrom(method.ResultType)) && (method.Parameters.Any() == false) && (method.GetAttribute<HttpGetAttribute>() != null))
         {
             <a href="@method.Url">@Icon(method)@innerHtml(null)</a>
         }
         else
         {
-        var nodeClass = method.AutoSubmit ? "nodeMethodAutoSubmit" : "nodeMethodLink";
-            <a class="@(nodeClass) @(additionalClasses ?? "") @(method.Target.NodeType().Name.ToClassName())-@(method.Name.ToClassName())" href="@method.Url">@Icon(method)@innerHtml(null)</a>
+            var autoSubmit = method.AutoSubmit ? "autoSubmit" : "";
+            <a class="nodeMethodLink @autoSubmit @(additionalClasses ?? "") @(method.Target.NodeType().Name.ToClassName())-@(method.Name.ToClassName())" href="@method.Url">@Icon(method)@innerHtml(null)</a>
         }
-     }
+    }
 }
 @helper NodeMethodForm(System.Web.Mvc.HtmlHelper html, IInvokeable method, string formClass)
 {

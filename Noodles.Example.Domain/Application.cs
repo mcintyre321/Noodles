@@ -51,7 +51,7 @@ namespace Noodles.Example.Domain
             return !AuthService.RequestHasAuthToken();
         }
 
-        [Show(UiHint = "TopBar.RightItems")]
+        [Show(UiHint = "TopBar.RightItems"), AutoSubmit]
         public void SignOut()
         {
             AuthService.ClearAuthToken();

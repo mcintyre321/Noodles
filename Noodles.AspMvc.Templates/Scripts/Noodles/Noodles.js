@@ -81,21 +81,23 @@ $(document).ready(function () {
         return true;
     }
 
-    $(".nodeMethodLink").live('click', function (e) {
+    $(".nodeMethodLink").live('click', function(e) {
         e.preventDefault();
         var $link = $(this);
         if ($link.attr("data-custom-method-handler")) {
             return false;
         }
         $link.closest(".popover").hide();
+
+
         //if (e.target != this) return false; //why???
         var methodsPanelId = "method-" + $link.attr("href").replace(/\//g, "_");
         if ($("#" + methodsPanelId).length == false) {
             ensureLazyElement(
                 methodsPanelId,
                 $link.attr("href"),
-                function () { showMethodForm($link); },
-                function (body) {
+                function() { showMethodForm($link); },
+                function(body) {
                     var $formHtml = $(body);
                     var $modal = $(modalHtml());
                     $modal.find(".title").append($link.html());
@@ -109,14 +111,16 @@ $(document).ready(function () {
         return false;
     });
     var showMethodForm = function ($link) {
-
         var methodsPanelId = "method-" + $link.attr("href").replace(/\//g, "_");
         var $method = $("#" + methodsPanelId);
-        $method.modal({ show: true, backdrop: true });
-        $method.find(":input:visible:enabled:first").focus();
+        if ($link.hasClass("autoSubmit")) {
+            $method.find("form").submit();
+        } else {
+            $method.modal({ show: true, backdrop: true });
+            $method.find(":input:visible:enabled:first").focus();
 
-        $.validator.unobtrusive.parseDynamicContent($method.find("form").find("input,textarea,select").first());
-
+            $.validator.unobtrusive.parseDynamicContent($method.find("form").find("input,textarea,select").first());
+        }
 
     };
     $(document).on("submit", "form.nodeMethod", function(e) {
