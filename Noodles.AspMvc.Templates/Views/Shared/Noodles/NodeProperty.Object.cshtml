@@ -5,6 +5,7 @@
 @using Noodles
 @using Noodles.Helpers
 @using Noodles.AspMvc.Helpers
+@using Noodles.Models
 @model Noodles.Models.NodeProperty
 @{
     var property = Model;
@@ -40,11 +41,10 @@
         </div>
         if (!property.Readonly)
         {
-                
-        <div data-node-setter="@property.Name">
-            @Html.Partial("Noodles/NodeMethod", property)
-            <a class="hide-setter" href="#cancel edit"><i class="icon-remove "></i></a>
-        </div>
+            <div data-node-setter="@property.Name">
+                @Html.Partial("Noodles/NodeMethod", (IInvokeable) property)
+                <a class="hide-setter" href="#cancel edit"><i class="icon-remove "></i></a>
+            </div>
         }
     }
 </div>

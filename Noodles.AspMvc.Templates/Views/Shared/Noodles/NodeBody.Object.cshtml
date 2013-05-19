@@ -15,7 +15,7 @@
                 @foreach (var property in Model.NodeProperties)
                 {
                     <div class="noodles-property" data-fragment-id="noodle-object-property-@property.DisplayName">
-                        @Html.Partial(Html.BestViewName(property.ValueType, "Noodles/NodeProperty."), property)
+                        @Html.Partial("Noodles/NodeProperty.Object", property)
                     </div>
                 }
                 @foreach (var formGrouping in Model.GetFormGroups())
@@ -40,7 +40,7 @@
 
             <br />
             @{
-                var nodeMethods = Model.NodeMethods.Hinted("");
+                var nodeMethods = Model.NodeMethods.Hinted("").ToArray();
                 if (nodeMethods.Any())
                 {
                     <div class="well" data-fragment-id="noodle-object-actions">
@@ -54,7 +54,7 @@
                         }
 
                     </div>
-            }
+                }
             }
 
         </div>
