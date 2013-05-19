@@ -134,6 +134,8 @@
     <Content Include="Views\Shared\Noodles\TableRow.Object.cshtml" />
     <Content Include="Views\Shared\Noodles\Node.Object.cshtml" />
     <Content Include="Views\Shared\Noodles\NodeBody.Object.cshtml" />
+    <Content Include="Views\Shared\Noodles\NodeProperties.cshtml" />
+    <Content Include="Views\Shared\Noodles\NodeProperties-Inline.cshtml" />
     <None Include="Views\Web.config" />
     <Content Include="Views\_ViewStart.cshtml" />
   </ItemGroup>

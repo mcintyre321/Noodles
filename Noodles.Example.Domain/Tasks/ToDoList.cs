@@ -10,9 +10,8 @@ namespace Noodles.Example.Domain.Tasks
     {
         private List<Task> _tasks;
 
-        [Show]
+        [Show(UiHint = "Inline")]
         [StringLength(20)]
-        [ClickToEdit]
         [Required]
         public string ListName { get; set; }
 

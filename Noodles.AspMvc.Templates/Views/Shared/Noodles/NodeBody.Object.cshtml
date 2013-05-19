@@ -12,24 +12,16 @@
     <div class="row">
         <div class="span@(12 - (ViewBag.Indent ?? 0))">
             <div class="noodles-properties">
-                @foreach (var property in Model.NodeProperties)
-                {
-                    <div class="noodles-property" data-fragment-id="noodle-object-property-@property.DisplayName">
-                        @Html.Partial("Noodles/NodeProperty.Object", property)
-                    </div>
+                
+                @{
+                    var propertyGroups = Model.NodeProperties.GroupBy(nm => nm.UiHint);
+                    foreach (var grouping in propertyGroups)
+                    {
+                        var postfix = string.IsNullOrWhiteSpace(grouping.Key) ? "" : "-" + grouping;
+                        @Html.Partial("Noodles/NodeProperties" + postfix, grouping)
+                    }
                 }
-                @foreach (var formGrouping in Model.GetFormGroups())
-                { 
-                    @Html.Partial("Noodles/NodeMethod", formGrouping)
-                   
-                }
-                @foreach (var p in Model.GetSingleSettableProperies())
-                {
-                    ViewBag.UseIconSubmit = true;
-                    <div class="noodles-property" data-fragment-id="noodle-object-property-@p.DisplayName">
-                        Html.Partial("Noodles/NodeProperty", p)
-                    </div>
-                }
+                
 
                 @foreach(var link in Model.NodeLinks.Hinted("Inline"))
                 {

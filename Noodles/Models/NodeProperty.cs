@@ -7,7 +7,7 @@ namespace Noodles.Models
     {
         string Name { get; }
         string DisplayName { get; }
-
+        INode Parent { get; }
         int Order { get; }
         Type ValueType { get; }
         bool Readonly { get; }

@@ -10,31 +10,31 @@ namespace Noodles
 {
     public static class NodePropertiesExtension
     {
-        public static IEnumerable<NodeProperty> GetNodeProperties(this object o, INode resource, Type fallback = null)
+        public static IEnumerable<NodeProperty> GetNodeProperties<TNode>(this object o, TNode resource, Type fallback = null) where TNode : INode
         {
             return YieldFindNodePropertiesUsingReflection(resource, o, fallback).OrderBy(p => p.Order);
         }
 
-        public static NodeProperty NodeProperty(this object o, INode resource, string propertyName, Type fallback = null)
+        public static NodeProperty NodeProperty<TNode>(this object o, TNode resource, string propertyName, Type fallback = null) where TNode : INode
         {
             return o.GetNodeProperties(resource, fallback).SingleOrDefault(m => m.Name.ToLowerInvariant() == propertyName.ToLowerInvariant());
         }
 
-        public static IEnumerable<NodeProperty> YieldFindNodePropertiesUsingReflection(INode node, object target, Type fallback)
+        public static IEnumerable<NodeProperty> YieldFindNodePropertiesUsingReflection<TNode>(TNode node, object target, Type fallback)where TNode : INode
         {
             return YieldFindPropertyInfosUsingReflection(target, fallback).Select(pi => NodeProperty(node, target, pi));
         }
 
-        private static NodeProperty NodeProperty(INode node, object target, PropertyInfo pi)
+        private static NodeProperty NodeProperty<TNode>(TNode node, object target, PropertyInfo pi) where TNode : INode
         {
             var atts = pi.Attributes().OfType<ShowAttribute>();
             var getter = pi.GetGetMethod();
             if (getter != null) atts = atts.Concat(getter.Attributes().OfType<ShowAttribute>());
             if (atts.SingleOrDefault() as ShowCollectionAttribute != null)
             {
-                return new NodeCollectionProperty(node, target, pi);
+                return new NodeCollectionProperty<TNode>(node, target, pi);
             }
-            return new ReflectionNodeProperty(node, target, pi);
+            return new ReflectionNodeProperty<TNode>(node, target, pi);
         }
 
         public static IEnumerable<PropertyInfo> YieldFindPropertyInfosUsingReflection(this object target, Type fallback)

@@ -171,7 +171,6 @@
     <Compile Include="Infrastructure\ModelStateTempDataTransferAttribute.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UiAttributes\UiHelpers.cs" />
-    <Compile Include="UiAttributes\ClickToEditAttribute.cs" />
     <Compile Include="UiAttributes\FormInfo.cs" />
     <Compile Include="UiAttributes\ShowAsLinkList.cs" />
     <Compile Include="UiAttributes\ShowAsTable.cs" />
@@ -251,6 +250,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="..\Noodles.AspMvc.Templates\Views\Shared\Noodles\NodeBody.Object.cshtml">
       <Link>Views\Shared\Noodles\NodeBody.Object.cshtml</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\Noodles.AspMvc.Templates\Views\Shared\Noodles\NodeMethods.cshtml">
+      <Link>Views\Shared\Noodles\NodeMethods.cshtml</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\Noodles.AspMvc.Templates\Views\Shared\Noodles\NodeProperties.cshtml">
+      <Link>Views\Shared\Noodles\NodeProperties.cshtml</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\Noodles.AspMvc.Templates\Views\Shared\Noodles\NodeProperties-Inline.cshtml">
+      <Link>Views\Shared\Noodles\NodeProperties-Inline.cshtml</Link>
     </EmbeddedResource>
     <None Include="Helpers\Icons\IconNames.tt">
       <Generator>TextTemplatingFileGenerator</Generator>

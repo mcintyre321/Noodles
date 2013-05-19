@@ -46,11 +46,11 @@ namespace Noodles.WebApi
                 return Task.FromResult(context.CreateResponse(HttpStatusCode.OK, new PropertyVm((NodeProperty)result.Target)));
 
             }
-            else if (type == typeof(NodeCollectionProperty))
-            {
-                return Task.FromResult(context.CreateResponse(HttpStatusCode.OK, new CollectionVm((NodeCollectionProperty)result.Target)));
+            //else if (type == typeof(NodeCollectionProperty))
+            //{
+            //    return Task.FromResult(context.CreateResponse(HttpStatusCode.OK, new CollectionVm((NodeCollectionProperty)result.Target)));
 
-            }
+            //}
             else if (type == typeof(NodeMethod))
             {
                 return Task.FromResult(context.CreateResponse(HttpStatusCode.OK, new ActionVm((NodeMethod)result.Target)));

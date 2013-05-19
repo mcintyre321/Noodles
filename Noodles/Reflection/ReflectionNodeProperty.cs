@@ -9,12 +9,12 @@ using Noodles.Helpers;
 namespace Noodles.Models
 {
     [DisplayName("{DisplayName}")]
-    public class ReflectionNodeProperty : IInvokeable, INode, IInvokeableParameter, NodeProperty
+    public class ReflectionNodeProperty<TParent> : IInvokeable, INode, IInvokeableParameter, NodeProperty where TParent : INode
     {
         private readonly object _target;
         private readonly PropertyInfo _info;
 
-        public ReflectionNodeProperty(INode parent, object target, PropertyInfo info)
+        public ReflectionNodeProperty(TParent parent, object target, PropertyInfo info)
         {
             _target = target;
             _info = info;
@@ -39,6 +39,12 @@ namespace Noodles.Models
         public NodeMethod Setter { get; set; }
 
         string IInvokeable.DisplayName { get { return "Set " + DisplayName; } }
+        INode INode.Parent { get { return Parent; } }
+
+        public TParent Parent { get; private set; }
+        INode  NodeProperty.Parent { get { return Parent; } }
+
+   
 
         object IInvokeableParameter.LastValue
         {
@@ -133,7 +139,6 @@ namespace Noodles.Models
         }
 
         public Uri Url { get { return new Uri(this.Parent.Url + this.Fragment + "/", UriKind.Relative); } }
-        public INode Parent { get; set; }
         public string UiHint { get { return CustomAttributes.OfType<ShowAttribute>().Select(a => a.UiHint).SingleOrDefault(); } }
         public string TypeName { get { return "NodeProperty"; } }
         public bool AutoSubmit { get { return false; } }
