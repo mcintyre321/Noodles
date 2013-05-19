@@ -22,7 +22,7 @@ namespace Noodles.AspMvc.UiAttributes
         public static IEnumerable<IInvokeableParameter> GetSingleSettableProperies(this IInvokeable invokeable)
         {
             return invokeable.Parameters.Where(x => x.CustomAttributes.OfType<ClickToEditAttribute>().Any());
-
         }
+
     }
 }

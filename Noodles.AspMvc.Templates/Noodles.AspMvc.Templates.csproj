@@ -122,7 +122,7 @@
     <Content Include="Views\Shared\Noodles\Link.Object.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Shared\Noodles\LinkList.Object.cshtml" />
-    <Content Include="Views\Shared\Noodles\NodeProperty.cshtml" />
+    <Content Include="Views\Shared\Noodles\NodeProperty.Object.cshtml" />
     <Content Include="Views\Shared\Noodles\Collection.cshtml" />
     <Content Include="Views\Shared\Noodles\Link.cshtml" />
     <Content Include="Views\Shared\Layout\Topbar.Brand.cshtml" />

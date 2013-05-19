@@ -15,7 +15,7 @@
                 @foreach (var property in Model.NodeProperties)
                 {
                     <div class="noodles-property" data-fragment-id="noodle-object-property-@property.DisplayName">
-                        @Html.Partial("Noodles/NodeProperty", property)
+                        @Html.Partial(Html.BestViewName(property.ValueType, "Noodles/NodeProperty."), property)
                     </div>
                 }
                 @foreach (var formGrouping in Model.GetFormGroups())
@@ -27,7 +27,7 @@
                 {
                     ViewBag.UseIconSubmit = true;
                     <div class="noodles-property" data-fragment-id="noodle-object-property-@p.DisplayName">
-                        @Html.Partial("Noodles/NodeProperty", p)
+                        Html.Partial("Noodles/NodeProperty", p)
                     </div>
                 }
 

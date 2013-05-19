@@ -255,6 +255,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Shared\Noodles\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
