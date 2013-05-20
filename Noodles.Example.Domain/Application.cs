@@ -28,7 +28,18 @@ namespace Noodles.Example.Domain
             ToDoLists = new ToDoLists();
             DiscussionsManager = new Discussions.DiscussionsManager();
             Settings = new Settings();
-            Membership = new Membership();
+            Membership = new Membership()
+            {
+                Users =
+                {
+                    new User()
+                    {
+                        DisplayName= "Mr Example",
+                        Email = "example@email.com",
+                        Password = "password"
+                    }
+                }
+            };
             WelcomeMessage = "See https://github.com/mcintyre321/Noodles/blob/master/Noodles.Example.Domain/Application.cs";
         }
 

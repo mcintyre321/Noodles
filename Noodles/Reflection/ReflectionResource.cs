@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Security.Policy;
 using Noodles.Helpers;
 
@@ -10,7 +11,7 @@ namespace Noodles.Models
     {
         public List<Func<object, INode, string, Resource>> Rules = new List<Func<object, INode, string, Resource>>()
         {
-            ReflectionResource.CreateGeneric
+            CreateReflectionResource
         };
         private static Lazy<ResourceFactory> _instance = new Lazy<ResourceFactory>(() => new ResourceFactory());
 
@@ -24,11 +25,61 @@ namespace Noodles.Models
             return Rules.Select(r => r(target, parent, fragment)).FirstOrDefault();
         }
 
+        static Resource CreateReflectionResource(object target, INode parent, string fragment)
+        {
+            var type = target.GetType();
+            var nodeType = typeof(ReflectionResource<>).MakeGenericType(type);
+            return (ReflectionResource)Activator.CreateInstance(nodeType, target, parent, fragment);
+        }
+
+    }
+
+    public class GetChildAttribute : Attribute
+    {
+
+    }
+    /// <summary>
+    /// If a property  is marked as a Slug, it will be used to build the url instead of the collection index
+    /// </summary>
+    public class SlugAttribute : Attribute
+    {
+        public static string GetSlug(object o)
+        {
+            var pi = GetSlugProperty(o.GetType());
+            if (pi == null) return null;
+            return pi.GetValue(o) as string;
+        }
+
+        public static string GetSlugPropertyName(Type valueType)
+        {
+            var slugProperty = GetSlugProperty(valueType);
+            if (slugProperty == null) return null;
+            return slugProperty.Name;
+        }
+
+        public static PropertyInfo GetSlugProperty(Type valueType)
+        {
+            return valueType.GetProperties(BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public)
+                .FirstOrDefault(pi => pi.Attributes().OfType<SlugAttribute>().Any());
+        }
+
     }
 
 
     public class ReflectionResource : Resource, INode, IInvokeable
     {
+        public static readonly List<Func<object, string, object>> GetChildRules = new List<Func<object, string, object>>()
+        {
+            GetChildFromAttributedMethods
+        };
+
+        private static object GetChildFromAttributedMethods(object target, string slug)
+        {
+            const BindingFlags bindingFlags = BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic;
+            var methodInfos = target.GetType().GetMethods(bindingFlags).Where(m => m.Attributes().OfType<GetChildAttribute>().Any());
+            var childFromAttributedMethods = methodInfos.Select(m => m.Invoke(target, new object[] {slug})).FirstOrDefault(o => o != null);
+            return  childFromAttributedMethods;
+        }
 
         protected ReflectionResource(object target, INode parent, string name)
         {
@@ -76,15 +127,11 @@ namespace Noodles.Models
 
             var property = Value.GetNodeProperties(this).SingleOrDefault(nm => nm.Name.ToLowerInvariant() == name.ToLowerInvariant());
             if (property != null) return property;
-            return null;
+            return GetChildRules.Select(r => r(Value, name)).Where(c => c != null)
+                .Select(o => ResourceFactory.Instance.Create(o, this, name)).FirstOrDefault();
         }
 
-        public static Resource CreateGeneric(object target, INode parent, string fragment)
-        {
-            var type = target.GetType();
-            var nodeType = typeof(ReflectionResource<>).MakeGenericType(type);
-            return (ReflectionResource)Activator.CreateInstance(nodeType, target, parent, fragment);
-        }
+      
 
         private Uri _url;
 

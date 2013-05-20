@@ -28,6 +28,10 @@ namespace Noodles
     [AttributeUsage(AttributeTargets.Property | AttributeTargets.Method)]
     public class ShowCollectionAttribute : ShowAttribute
     {
+        /// <summary>
+        /// Use this if the type of the collection cannot be figured out from the properties generic argument 
+        /// </summary>
+        public Type ColType { get; set; }
     }
 
     [AttributeUsage(AttributeTargets.Method)]

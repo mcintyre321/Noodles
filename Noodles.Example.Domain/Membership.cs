@@ -1,5 +1,8 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
+using Noodles.AspMvc.UiAttributes;
+using Noodles.Models;
 
 namespace Noodles.Example.Domain
 {
@@ -12,12 +15,21 @@ namespace Noodles.Example.Domain
             _users = new List<User>();
         }
 
-        [Show]
-        public IEnumerable<User> Users
+        [ShowAsLinkList]
+        public List<User> Users
         {
             get { return _users; }
         }
 
-        
+        [GetChild]
+        public User GetUserBySlug(string slug)
+        {
+            return Users.SingleOrDefault(u => Slugify(u) == slug);
+        }
+
+        private static string Slugify(User u)
+        {
+            return u.DisplayName.Replace(" ", "").ToLower();
+        }
     }
 }

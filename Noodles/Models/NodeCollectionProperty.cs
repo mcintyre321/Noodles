@@ -5,23 +5,39 @@ using System.Linq;
 using System.Reflection;
 using DelegateQueryable;
 using Noodles.Helpers;
-
+using System.Linq.Dynamic;
 namespace Noodles.Models
 {
     [DisplayName("{DisplayName}")]
     public class NodeCollectionProperty<TParent> : ReflectionNodeProperty<TParent>, NodeCollectionProperty, NodeProperty where TParent : INode
     {
-        public NodeCollectionProperty(TParent parent, object target, PropertyInfo info)
+        private readonly Type _collectionItemType;
+
+        public NodeCollectionProperty(TParent parent, object target, PropertyInfo info, Type collectionItemType)
             : base(parent, target, info)
         {
+            _collectionItemType = collectionItemType;
         }
 
         INode INode.GetChild(string name)
         {
-            int index = 0;
-            if (int.TryParse(name, out index))
+            var slugPropertyName = SlugAttribute.GetSlugPropertyName(_collectionItemType);
+            if (string.IsNullOrWhiteSpace(slugPropertyName))
             {
-                return Query(index, 1).Items.SingleOrDefault();
+                int index = 0;
+                if (!int.TryParse(name, out index))
+                {
+                    return Query(index, 1).Items.SingleOrDefault();
+                }
+            }
+            else
+            {
+                return ((IEnumerable) Value).AsQueryable()
+                                            .Where(slugPropertyName + " == @0", name)
+                                            .Cast<object>()
+                                            .Where(o => o != null)
+                                            .Select(o => ResourceFactory.Instance.Create(o, this, name))
+                                            .SingleOrDefault();
             }
             return base.GetChild(name);
         }

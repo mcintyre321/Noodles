@@ -14,7 +14,7 @@ namespace Noodles.Tests
         [Test] public void CanGetFieldsAsNodeMethods()
         {
             var application = new Application();
-            var resource = ReflectionResource.CreateGeneric(application, null, "");
+            var resource = ResourceFactory.Instance.Create(application, null, "");
             var nodeMethodFromBehaviour = resource.NodeMethod("SignIn");
             Assert.NotNull(nodeMethodFromBehaviour);
         }

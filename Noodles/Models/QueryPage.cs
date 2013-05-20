@@ -18,7 +18,7 @@ namespace Noodles.Models
             {
                 return
                     _fetch.Skip(Skip).Take(Take).ToArray().Select(
-                        (o, i) => ResourceFactory.Instance.Create(o, _parent, (Skip + i).ToString()));
+                        (o, i) => ResourceFactory.Instance.Create(o, _parent, SlugAttribute.GetSlug(o) ?? (Skip + i).ToString()));
             }
         }
 

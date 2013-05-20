@@ -30,9 +30,11 @@ namespace Noodles
             var atts = pi.Attributes().OfType<ShowAttribute>();
             var getter = pi.GetGetMethod();
             if (getter != null) atts = atts.Concat(getter.Attributes().OfType<ShowAttribute>());
-            if (atts.SingleOrDefault() as ShowCollectionAttribute != null)
+            var showCollectionAttribute = atts.SingleOrDefault() as ShowCollectionAttribute;
+            if (showCollectionAttribute != null)
             {
-                return new NodeCollectionProperty<TNode>(node, target, pi);
+                var type = showCollectionAttribute.ColType ?? pi.PropertyType.GenericTypeArguments.First();
+                return new NodeCollectionProperty<TNode>(node, target, pi, type);
             }
             return new ReflectionNodeProperty<TNode>(node, target, pi);
         }
