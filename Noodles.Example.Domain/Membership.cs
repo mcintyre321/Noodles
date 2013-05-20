@@ -20,16 +20,5 @@ namespace Noodles.Example.Domain
         {
             get { return _users; }
         }
-
-        [GetChild]
-        public User GetUserBySlug(string slug)
-        {
-            return Users.SingleOrDefault(u => Slugify(u) == slug);
-        }
-
-        private static string Slugify(User u)
-        {
-            return u.DisplayName.Replace(" ", "").ToLower();
-        }
     }
 }
