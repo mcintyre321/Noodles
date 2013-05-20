@@ -17,7 +17,7 @@
                     var groupedProperties = new List<NodeProperty>();
                     foreach (var property in Model.NodeProperties)
                     {
-                        if (property.UiHint == "" && !property.Readonly)
+                        if (string.IsNullOrWhiteSpace(property.UiHint) && !property.Readonly)
                         {
                             groupedProperties.Add(property);
                             continue;
