@@ -17,4 +17,9 @@ namespace Noodles.Models
         IEnumerable<NodeMethod> NodeMethods { get; }
         string UiHint { get; }
     }
+    public interface NodeCollectionProperty : NodeProperty
+    {
+
+        QueryPage Query(int skip, int take);
+    }
 }

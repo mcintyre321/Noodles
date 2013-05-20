@@ -4,7 +4,7 @@ namespace Noodles.AspMvc.UiAttributes
     {
         public ShowAsLinkList()
         {
-            UiHint = "Noodles/LinkList.";
+            UiHint = "LinkList";
         }
     }
 }

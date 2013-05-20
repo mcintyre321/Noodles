@@ -9,7 +9,7 @@ using Noodles.Helpers;
 namespace Noodles.Models
 {
     [DisplayName("{DisplayName}")]
-    public class NodeCollectionProperty<TParent> : ReflectionNodeProperty<TParent>, NodeProperty where TParent : INode
+    public class NodeCollectionProperty<TParent> : ReflectionNodeProperty<TParent>, NodeCollectionProperty, NodeProperty where TParent : INode
     {
         public NodeCollectionProperty(TParent parent, object target, PropertyInfo info)
             : base(parent, target, info)

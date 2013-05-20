@@ -1,20 +1,16 @@
-﻿@using Noodles
+﻿@using System.Web.Mvc.Html
+@using Noodles
 @using System.Linq
 @using Noodles.Helpers
 @using Noodles.AspMvc.Helpers
 @using Noodles.AspMvc.UiAttributes
 @using Noodles.Models
-@model IGrouping<string, Noodles.Models.NodeProperty>
+@model IEnumerable<Noodles.Models.NodeProperty>
            
-@if (string.IsNullOrWhiteSpace(Model.Key))
+
+@if (Model.Any())
 {
-    if (Model.Any())
-    {
-        var formInfo = new FormInfo((IInvokeable) Model.First().Parent, Model.Cast<IInvokeableParameter>());
-        @Html.Partial("Noodles/NodeMethod", formInfo)
-    }
+    var formInfo = new FormInfo((IInvokeable) Model.First().Parent, Model.Cast<IInvokeableParameter>());
+    @Html.Partial("Noodles/NodeMethod", formInfo)
 }
-else
-{
-    @Html.Partial("Noodles/NodeProperties-" + Model.Key, Model)
-}
+ 

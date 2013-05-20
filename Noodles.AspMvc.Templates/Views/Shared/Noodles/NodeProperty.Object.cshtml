@@ -19,19 +19,7 @@
             <div class="control-group">
                 <label class="control-label">@property.DisplayName</label>
                 <div class="controls">
-                    @if(!string.IsNullOrWhiteSpace(Model.UiHint))
-                    {
-                        var viewName = Html.BestViewName(Model.Value == null ? Model.ValueType : Model.Value.GetType(), Model.UiHint);
-                        if (viewName == null)
-                        {
-                            throw new UiHintException("Could not find view for prefix "  + Model.UiHint + " for property " + property.Url + " of type " + property.ValueType.Name);
-                        }
-                        @Html.Partial(viewName, Model)    
-                    }else
-                    {
                         @Html.BestProperty(property.ToPropertyVm(Html).Then(p => p.Readonly = true))
-                    }
-
                 </div>
             </div>
             @if (!property.Readonly)

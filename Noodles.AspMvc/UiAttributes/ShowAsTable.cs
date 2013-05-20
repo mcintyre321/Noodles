@@ -9,7 +9,7 @@ namespace Noodles.AspMvc.UiAttributes
     {
         public ShowAsTable()
         {
-            UiHint = "Noodles/Table.";
+            UiHint = "Table";
         }
     }
 }

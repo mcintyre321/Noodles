@@ -1,0 +1,10 @@
+﻿@using Noodles
+@using System.Linq
+@using Noodles.Helpers
+@using Noodles.AspMvc.Helpers
+@using FormFactory
+@model Noodles.Models.NodeProperty
+           
+<div class="noodles-property" data-fragment-id="noodle-object-property-@Model.DisplayName">
+    @Html.BestPartial(Model, Model.ValueType, "Noodles/NodeProperty.")
+</div>
