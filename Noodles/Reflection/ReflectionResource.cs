@@ -75,7 +75,7 @@ namespace Noodles.Models
 
         private static object GetChildFromAttributedMethods(object target, string slug)
         {
-            const BindingFlags bindingFlags = BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic;
+            const BindingFlags bindingFlags = BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic |BindingFlags.FlattenHierarchy;
             var methodInfos = target.GetType().GetMethods(bindingFlags).Where(m => m.Attributes().OfType<GetChildAttribute>().Any());
             var childFromAttributedMethods = methodInfos.Select(m => m.Invoke(target, new object[] {slug})).FirstOrDefault(o => o != null);
             return  childFromAttributedMethods;
