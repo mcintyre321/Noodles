@@ -36,10 +36,19 @@ namespace Noodles
                 else
                 {
                     var linksAttribute = pi.Attributes().OfType<LinksAttribute>().Single();
-                    var items = (IDictionary<string, object>) pi.GetValue(target);
-                    foreach (var i in items)
+                    var value = pi.GetValue(target);
+                    var items = value as IDictionary<string, object>;
+                    if (items != null)
                     {
-                        yield return new ReflectionNodeLink(parent, i.Key, i.Value, linksAttribute.UiHint);
+                        foreach (var i in items)
+                        {
+                            yield return new ReflectionNodeLink(parent, i.Key, i.Value, linksAttribute.UiHint);
+                        }
+                    }
+                    var dynamicItems = value as dynamic;
+                    foreach (var dynamicItem in dynamicItems)
+                    {
+                        yield return new ReflectionNodeLink(parent, (string) dynamicItem.Item1, (object) dynamicItem.Item2, linksAttribute.UiHint);
                     }
                 }
             }

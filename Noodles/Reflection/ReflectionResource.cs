@@ -34,10 +34,16 @@ namespace Noodles.Models
 
     }
 
-    public class GetChildAttribute : Attribute
+    public class GetChildAttribute : Attribute, IChildInfo
     {
-
+        public string UiHint { get; set; }
     }
+
+    public interface IChildInfo
+    {
+        string UiHint { get; }
+    }
+
     /// <summary>
     /// If a property  is marked as a Slug, it will be used to build the url instead of the collection index
     /// </summary>
@@ -68,17 +74,20 @@ namespace Noodles.Models
 
     public class ReflectionResource : Resource, INode, IInvokeable
     {
-        public static readonly List<Func<object, string, object>> GetChildRules = new List<Func<object, string, object>>()
+        public static readonly List<Func<object, string, Tuple<object, IChildInfo>>> GetChildRules = new List<Func<object, string, Tuple<object, IChildInfo>>>()
         {
-            GetChildFromAttributedMethods
+            (GetChildFromAttributedMethods)
         };
 
-        private static object GetChildFromAttributedMethods(object target, string slug)
+        private static Tuple<object, IChildInfo> GetChildFromAttributedMethods(object target, string slug)
         {
-            const BindingFlags bindingFlags = BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic |BindingFlags.FlattenHierarchy;
-            var methodInfos = target.GetType().GetMethods(bindingFlags).Where(m => m.Attributes().OfType<GetChildAttribute>().Any());
-            var childFromAttributedMethods = methodInfos.Select(m => m.Invoke(target, new object[] {slug})).FirstOrDefault(o => o != null);
-            return  childFromAttributedMethods;
+            const BindingFlags bindingFlags = BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.FlattenHierarchy;
+            var methodInfos = target.GetType().GetMethods(bindingFlags)
+                .Select(mi => new { mi, GetChildAttribute = mi.Attributes().OfType<GetChildAttribute>().SingleOrDefault() })
+                    .Where(pair => pair.GetChildAttribute != null);
+            var childFromAttributedMethods = methodInfos.Select(m => Tuple.Create(m.mi.Invoke(target, new object[] { slug }), (IChildInfo) m.GetChildAttribute))
+                .FirstOrDefault(o => o.Item1 != null);
+            return childFromAttributedMethods;
         }
 
         protected ReflectionResource(object target, INode parent, string name)
@@ -127,8 +136,8 @@ namespace Noodles.Models
 
             var property = Value.GetNodeProperties(this).SingleOrDefault(nm => nm.Name.ToLowerInvariant() == name.ToLowerInvariant());
             if (property != null) return property;
-            return GetChildRules.Select(r => r(Value, name)).Where(c => c != null)
-                .Select(o => ResourceFactory.Instance.Create(o, this, name)).FirstOrDefault();
+            return GetChildRules.Select(r => r(Value, name)).Where(c => c.Item1 != null)
+                .Select(o => ResourceFactory.Instance.Create(o.Item2, this, name)).FirstOrDefault();
         }
 
       
