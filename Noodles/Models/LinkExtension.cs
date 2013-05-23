@@ -48,7 +48,8 @@ namespace Noodles
                     var dynamicItems = value as dynamic;
                     foreach (var dynamicItem in dynamicItems)
                     {
-                        yield return new ReflectionNodeLink(parent, (string) dynamicItem.Item1, (object) dynamicItem.Item2, linksAttribute.UiHint);
+                        var slug = SlugAttribute.GetSlug(dynamicItem);
+                        yield return new ReflectionNodeLink(parent, slug, (object) dynamicItem, linksAttribute.UiHint);
                     }
                 }
             }

@@ -175,7 +175,7 @@ namespace Noodles.Models
                 if (p == null) continue;
                 p.Invoke(new[] {parameterDictionary[key]});
             }
-            return this;
+            return null;
         }
 
         object IInvokeable.Invoke(object[] parameters)

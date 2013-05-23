@@ -25,7 +25,7 @@ namespace Noodles.Models
             if (string.IsNullOrWhiteSpace(slugPropertyName))
             {
                 int index = 0;
-                if (!int.TryParse(name, out index))
+                if (int.TryParse(name, out index))
                 {
                     return Query(index, 1).Items.SingleOrDefault();
                 }
