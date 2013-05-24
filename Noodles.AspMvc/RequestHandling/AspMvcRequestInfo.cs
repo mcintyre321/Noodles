@@ -44,10 +44,15 @@ namespace Noodles.AspMvc.RequestHandling
 
         public override async Task<IEnumerable<Tuple<string, object>>> GetArguments(IInvokeable method)
         {
-            var parameterObject = BindObject(_cc, method.ParameterType, "", null, method.DisplayName);
-            var parameters =
-                method.ParameterType.GetProperties().Select(p => Tuple.Create(p.Name, p.GetValue(parameterObject)));
-            return await Task.FromResult(parameters);
+            var invokeableParameters = method.Parameters;
+            var boundValues = new List<Tuple<string, object>>();
+            foreach (var invokeableParameter in invokeableParameters)
+            {
+                var parameterObject = BindObject(_cc, invokeableParameter.ValueType, invokeableParameter.Name, null, method.DisplayName);
+                boundValues.Add(Tuple.Create(invokeableParameter.Name, parameterObject));
+            }
+
+            return await Task.FromResult(boundValues);
         }
 
         private static object BindObject(ControllerContext cc, Type desiredType, string name, IEnumerable<Attribute> attributes, string displayName)

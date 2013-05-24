@@ -127,6 +127,10 @@ namespace Noodles.Models
 
         public INode GetChild(string name)
         {
+            var child = GetChildRules.Select(r => r(Value, name)).Where(c => c != null)
+                                        .Select(o => ResourceFactory.Instance.Create(o.Item1, this, name))
+                                        .FirstOrDefault();
+            if (child != null) return child;
 
             var method = NodeMethods.SingleOrDefault(nm => nm.Name.ToLowerInvariant() == name.ToLowerInvariant());
             if (method != null) return method;
@@ -136,8 +140,8 @@ namespace Noodles.Models
 
             var property = Value.GetNodeProperties(this).SingleOrDefault(nm => nm.Name.ToLowerInvariant() == name.ToLowerInvariant());
             if (property != null) return property;
-            return GetChildRules.Select(r => r(Value, name)).Where(c => c.Item1 != null)
-                .Select(o => ResourceFactory.Instance.Create(o.Item2, this, name)).FirstOrDefault();
+
+            return null;
         }
 
       
