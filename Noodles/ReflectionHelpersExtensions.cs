@@ -8,7 +8,23 @@ using System.Threading.Tasks;
 
 namespace Noodles
 {
-    static class AttributesExtension
+    static class MembersExtension
+    {
+        public static IEnumerable<MethodInfo> AllMethodInfos(this Type t)
+        {
+            return t.GetMethods(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.FlattenHierarchy);
+        }
+        public static IEnumerable<FieldInfo> AllFieldInfos(this Type t)
+        {
+            return t.GetFields(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.FlattenHierarchy);
+        }
+        public static IEnumerable<PropertyInfo> AllPropertyInfos(this Type t)
+        {
+            return t.GetProperties(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.FlattenHierarchy);
+        } 
+
+    }
+    static class ReflectionHelpersExtensions
     {
         static ConcurrentDictionary<Type, IEnumerable<Attribute>> typeLookup = new ConcurrentDictionary<Type, IEnumerable<Attribute>>();
         static ConcurrentDictionary<PropertyInfo, IEnumerable<Attribute>> piLookup = new ConcurrentDictionary<PropertyInfo, IEnumerable<Attribute>>();

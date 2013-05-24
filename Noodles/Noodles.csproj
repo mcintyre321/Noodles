@@ -65,7 +65,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AttributesExtension.cs" />
+    <Compile Include="ReflectionHelpersExtensions.cs" />
     <Compile Include="Attributes\BehaviourAttribute.cs" />
     <Compile Include="Attributes\MessageAttribute.cs" />
     <Compile Include="Configuration.cs" />
@@ -80,6 +80,7 @@
     <Compile Include="Models\QueryPage.cs" />
     <Compile Include="Models\IHasNodeMethods.cs" />
     <Compile Include="Models\Resource.cs" />
+    <Compile Include="Attributes\NodePropertiesAttribute.cs" />
     <Compile Include="Reflection\ReflectionNodeLink.cs" />
     <Compile Include="Reflection\ReflectionNodeMethod.cs" />
     <Compile Include="Name.cs" />

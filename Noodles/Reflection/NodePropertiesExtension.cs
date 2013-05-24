@@ -12,9 +12,11 @@ namespace Noodles
     {
         public static IEnumerable<NodeProperty> GetNodeProperties<TNode>(this object o, TNode resource, Type fallback = null) where TNode : INode
         {
-            return YieldFindNodePropertiesUsingReflection(resource, o, fallback).OrderBy(p => p.Order);
+            return YieldFindNodePropertiesUsingReflection(resource, o, fallback).OrderBy(p => p.Order)
+                .Concat(NodePropertiesAttribute.GetDynamicNodeProperties(o, resource));
         }
 
+       
         public static NodeProperty NodeProperty<TNode>(this object o, TNode resource, string propertyName, Type fallback = null) where TNode : INode
         {
             return o.GetNodeProperties(resource, fallback).SingleOrDefault(m => m.Name.ToLowerInvariant() == propertyName.ToLowerInvariant());

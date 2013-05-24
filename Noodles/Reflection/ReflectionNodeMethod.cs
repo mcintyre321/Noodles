@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
-using Noodles.Attributes;
+using Noodles;
 using Noodles.Reflection;
 
 namespace Noodles.Models
