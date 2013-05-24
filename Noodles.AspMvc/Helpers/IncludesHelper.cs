@@ -18,7 +18,7 @@ namespace Noodles.AspMvc.Helpers
             styles.Add("/Content/themes/base/jquery-ui.css");
             styles.Add("/Content/Noodles.AspMvc.css");
 
-            var scripts = layout.BodyBottomBundle.ScriptIncludes;
+            var scripts = layout.HeadBundle.ScriptIncludes;
             scripts.Add("/Scripts/jquery-1.9.1.min.js");
             scripts.Add("/Scripts/jquery-migrate-1.1.1.js");
             scripts.Add("/Scripts/jquery-ui-1.10.2.min.js");
