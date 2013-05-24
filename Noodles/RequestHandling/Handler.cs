@@ -7,9 +7,15 @@ using Noodles.RequestHandling.ResultTypes;
 
 namespace Noodles.RequestHandling
 {
+    public class Handler
+    {
+        public static Func<INode, bool> AllowGet = o => true;
+
+        public static Func<NodeLink, bool> AllowLink = l => true;
+    }
+
     public abstract class Handler<TContext>
     {
-        public static Func<INode, bool> AllowGet = o => true; 
 
         static Handler() { Noodles.Configuration.Initialise(); } //ensure the config has been run
         
@@ -32,7 +38,7 @@ namespace Noodles.RequestHandling
             {
                 var prev = node;
                 node = node.GetChild(fragment);
-                if (node == null || !AllowGet(node)) return new NotFoundResult(prev, fragment);
+                if (node == null || !Handler.AllowGet(node)) return new NotFoundResult(prev, fragment);
             }
 
             foreach (var processor in CustomProcessors.Concat(DefaultProcessors))

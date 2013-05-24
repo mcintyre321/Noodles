@@ -13,10 +13,10 @@ namespace Noodles
     {
         public static IEnumerable<NodeLink> NodeLinks(this object o, Resource resource, Type fallback = null)
         {
-            return YieldFindNodeLinksUsingReflection(resource, o, fallback);//.OrderBy(p => p.Order);
+            return YieldFindNodeLinksUsingReflection(resource, o, fallback).Where(Handler.AllowLink);//.OrderBy(p => p.Order);
         }
 
-        public static IEnumerable<NodeLink> YieldFindNodeLinksUsingReflection(Resource parent, object target, Type fallback)
+        static IEnumerable<NodeLink> YieldFindNodeLinksUsingReflection(Resource parent, object target, Type fallback)
         {
             var testedProperties = target.GetType().GetProperties().Select(p => new
                 {
@@ -31,7 +31,8 @@ namespace Noodles
                 var linkAttribute = pi.Attributes().OfType<LinkAttribute>().SingleOrDefault();
                 if (linkAttribute != null)
                 {
-                    yield return new ReflectionNodeLink(parent, pi.Name, pi.GetValue(target), linkAttribute.UiHint);
+                    var link = new ReflectionNodeLink(parent, pi.Name, pi.GetValue(target), linkAttribute.UiHint);
+                    yield return link;
                 }
                 else
                 {
@@ -42,14 +43,16 @@ namespace Noodles
                     {
                         foreach (var i in items)
                         {
-                            yield return new ReflectionNodeLink(parent, i.Key, i.Value, linksAttribute.UiHint);
+                            var link = new ReflectionNodeLink(parent, i.Key, i.Value, linksAttribute.UiHint);
+                            yield return link;
                         }
                     }
                     var dynamicItems = value as dynamic;
                     foreach (var dynamicItem in dynamicItems)
                     {
                         var slug = SlugAttribute.GetSlug(dynamicItem);
-                        yield return new ReflectionNodeLink(parent, slug, (object) dynamicItem, linksAttribute.UiHint);
+                        var link = new ReflectionNodeLink(parent, slug, (object)dynamicItem, linksAttribute.UiHint);
+                        yield return link;
                     }
                 }
             }
