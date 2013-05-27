@@ -5,6 +5,10 @@ namespace Noodles.Example.Domain
 {
     public class MembershipSettings
     {
+        public MembershipSettings()
+        {
+            Advanced = new AdvancedMembershipSettings();
+        }
         [Show]
         public bool AllowAnonymousAccess { get; set; }
         [Show]
@@ -23,8 +27,8 @@ namespace Noodles.Example.Domain
             
         }
 
-        [Show]
-        public AdvancedMembershipSettings Advanced { get; set; }
+        [Link]
+        public AdvancedMembershipSettings Advanced { get; private set; }
     }
 
     public class AdvancedMembershipSettings

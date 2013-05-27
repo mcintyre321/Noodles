@@ -5,6 +5,7 @@
 @using Noodles.AspMvc.Helpers
 @using Noodles.Models
 @using FormFactory;
+
 @{
     var layoutVm = this.Html.LayoutVm();
     layoutVm.TopBar.Brand.Html = Model.AncestorsAndSelf().Last().DisplayName;
@@ -16,7 +17,7 @@
 @{
     var walked = Model.AncestorsAndSelf().OfType<Resource>().ToArray();
     Func<string> inner = () => Html.BestPartial(Model, Model.ValueType, "Noodles/NodeBody.").ToHtmlString();
-    foreach (var walkedItem in walked.Reverse())
+    foreach (var walkedItem in walked)
     {
         var i = inner;
         inner = () => RenderMenu(Html, walkedItem, walked, i).ToHtmlString();
