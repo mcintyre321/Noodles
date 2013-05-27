@@ -8,16 +8,8 @@ namespace Noodles.AspMvc.UiAttributes
     {
         private readonly IInvokeable _resource;
         private readonly IEnumerable<IInvokeableParameter> _formParameters;
-
-        public INode GetChild(string name)
-        {
-            return _resource.GetChild(name);
-        }
-
-        public INode Parent
-        {
-            get { return _resource.Parent; }
-        }
+         
+ 
 
         public bool Active
         {
@@ -29,10 +21,7 @@ namespace Noodles.AspMvc.UiAttributes
             get { return _formParameters; }
         }
 
-        public string DisplayName
-        {
-            get { return _resource.DisplayName; }
-        }
+        public string InvokeDisplayName { get { return _resource.InvokeDisplayName; }}
 
         public object Target
         {
@@ -43,15 +32,11 @@ namespace Noodles.AspMvc.UiAttributes
         {
             get { return _resource.Message; }
         }
+ 
 
-        public string Name
+        public Uri InvokeUrl
         {
-            get { return _resource.Name; }
-        }
-
-        public Uri Url
-        {
-            get { return _resource.Url; }
+            get { return _resource.InvokeUrl; }
         }
 
         public bool AutoSubmit

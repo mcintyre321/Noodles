@@ -38,7 +38,8 @@ namespace Noodles.Models
 
         public NodeMethod Setter { get; set; }
 
-        string IInvokeable.DisplayName { get { return "Set " + DisplayName; } }
+        string IInvokeable.InvokeDisplayName { get { return "Set " + DisplayName; } }
+        public Uri InvokeUrl { get { return Url; } }
         INode INode.Parent { get { return Parent; } }
 
         public TParent Parent { get; private set; }

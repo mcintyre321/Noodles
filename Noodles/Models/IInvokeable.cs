@@ -4,12 +4,12 @@ using System.Collections.Generic;
 
 namespace Noodles.Models
 {
-    public interface IInvokeable : INode
+    public interface IInvokeable 
     {
         bool Active { get; }
         IEnumerable<IInvokeableParameter> Parameters { get; }
-        new string Name { get; }
-        new string DisplayName { get; }
+        string InvokeDisplayName { get; }
+        Uri InvokeUrl { get; }
         object Target { get; }
         string Message { get; }
         bool AutoSubmit { get; }

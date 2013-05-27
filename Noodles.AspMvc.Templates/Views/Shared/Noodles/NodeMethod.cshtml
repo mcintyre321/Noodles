@@ -10,7 +10,7 @@
 {
     <p>@Model.Message</p>
 }
-<form action="@Model.Url" method="post" enctype="multipart/form-data" encoding="multipart/form-data" class="@ViewBag.FormClass nodeMethod">
+<form action="@Model.InvokeUrl" method="post" enctype="multipart/form-data" encoding="multipart/form-data" class="@ViewBag.FormClass nodeMethod">
     @{ var nodeMethodReturnUrl = Request.Url.AbsolutePath; }
     @Html.Hidden("nodeMethodReturnUrl", nodeMethodReturnUrl)
     @if (Html.HasErrors(""))
@@ -36,6 +36,6 @@
     }
     else
     {
-        <button class="submitMethod btn btn-primary">@Model.DisplayName</button>
+        <button class="submitMethod btn btn-primary">@Model.InvokeDisplayName</button>
     }
 </form>

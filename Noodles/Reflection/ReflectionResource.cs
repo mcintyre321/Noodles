@@ -115,6 +115,9 @@ namespace Noodles.Models
             get { return this.NodeProperties.Where(x => !x.Readonly).Select(s => (IInvokeableParameter) s); }
         }
 
+        public string InvokeDisplayName { get { return "Save"; } }
+        public Uri InvokeUrl { get { return Url; } }
+
         object IInvokeable.Target
         {
             get { return this; }

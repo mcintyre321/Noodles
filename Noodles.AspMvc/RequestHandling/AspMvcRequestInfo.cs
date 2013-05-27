@@ -48,7 +48,7 @@ namespace Noodles.AspMvc.RequestHandling
             var boundValues = new List<Tuple<string, object>>();
             foreach (var invokeableParameter in invokeableParameters)
             {
-                var parameterObject = BindObject(_cc, invokeableParameter.ValueType, invokeableParameter.Name, null, method.DisplayName);
+                var parameterObject = BindObject(_cc, invokeableParameter.ValueType, invokeableParameter.Name, null, method.InvokeDisplayName);
                 boundValues.Add(Tuple.Create(invokeableParameter.Name, parameterObject));
             }
 

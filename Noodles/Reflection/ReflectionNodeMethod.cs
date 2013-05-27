@@ -26,12 +26,14 @@ namespace Noodles.Models
             UiHint = methodInfo.Attributes().OfType<ShowAttribute>().Select(a => a.UiHint).SingleOrDefault() ?? "";
         }
 
+        public Uri InvokeUrl { get { return Url; } }
         public object Target { get; private set; }
 
         private BindingFlags looseBindingFlags = BindingFlags.IgnoreCase | BindingFlags.FlattenHierarchy | BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic;
 
         public string Name { get { return _methodInfo.Name; } }
 
+        string IInvokeable.InvokeDisplayName { get { return DisplayName; } }
         public string DisplayName
         {
             get

@@ -22,5 +22,14 @@ namespace Noodles.Example.Domain
         {
             
         }
+
+        [Show]
+        public AdvancedMembershipSettings Advanced { get; set; }
+    }
+
+    public class AdvancedMembershipSettings
+    {
+        [Show]
+        public bool SomeAdvancedSetting { get; set; }
     }
 }

@@ -35,7 +35,7 @@
 { @NodeMethodLink(method, null)}
 @helper NodeMethodLink(IInvokeable method, string additionalClasses)
 {
-    @NodeMethodLink(method, additionalClasses, @<text>@method.DisplayName</text>)
+    @NodeMethodLink(method, additionalClasses, @<text>@method.InvokeDisplayName</text>)
 }
 @helper Icon(IInvokeable nm)
 {
@@ -56,12 +56,12 @@
     {
         if ((typeof (ActionResult).IsAssignableFrom(method.ResultType)) && (method.Parameters.Any() == false) && (method.GetAttribute<HttpGetAttribute>() != null))
         {
-            <a href="@method.Url">@Icon(method)@innerHtml(null)</a>
+            <a href="@method.InvokeUrl">@Icon(method)@innerHtml(null)</a>
         }
         else
         {
             var autoSubmit = method.AutoSubmit ? "autoSubmit" : "";
-            <a class="nodeMethodLink @autoSubmit @(additionalClasses ?? "") @(method.Target.NodeType().Name.ToClassName())-@(method.Name.ToClassName())" href="@method.Url">@Icon(method)@innerHtml(null)</a>
+            <a class="nodeMethodLink @autoSubmit @(additionalClasses ?? "") @(method.Target.NodeType().Name.ToClassName())" href="@method.InvokeUrl">@Icon(method)@innerHtml(null)</a>
         }
     }
 }
