@@ -1,5 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 using System.Reflection;
+using System.Web;
 
 namespace Noodles.Example.Domain
 {
@@ -19,7 +20,10 @@ namespace Noodles.Example.Domain
             //check username and password here
             AuthService.SetAuthToken(email);
         }
-
+        public string SignIn_email_default()
+        {
+            return HttpContext.Current.Request["email"];
+        }
         public bool? AllowSignIn()
         {
             return !AuthService.RequestHasAuthToken();
