@@ -55,6 +55,10 @@
                         {
                             <a class="btn" href="@link.Url">@link.Target.DisplayName</a>
                         }
+                        @foreach (var link in Model.NodeLinks.Hinted("Modal"))
+                        {
+                            <a class="btn" data-modal="true" href="@link.Url">@link.Target.DisplayName</a>
+                        }
 
                     </div>
                 }

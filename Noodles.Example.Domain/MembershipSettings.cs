@@ -27,7 +27,7 @@ namespace Noodles.Example.Domain
             
         }
 
-        [Link]
+        [Link( UiHint = "Modal")]
         public AdvancedMembershipSettings Advanced { get; private set; }
     }
 

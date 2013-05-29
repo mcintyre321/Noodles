@@ -17,10 +17,13 @@
 @{
     var walked = Model.AncestorsAndSelf().OfType<Resource>().ToArray();
     Func<string> inner = () => Html.BestPartial(Model, Model.ValueType, "Noodles/NodeBody.").ToHtmlString();
-    foreach (var walkedItem in walked)
+    if (new HttpRequestWrapper(HttpContext.Current.Request).IsAjaxRequest() == false)
     {
-        var i = inner;
-        inner = () => RenderMenu(Html, walkedItem, walked, i).ToHtmlString();
+        foreach (var walkedItem in walked)
+        {
+            var i = inner;
+            inner = () => RenderMenu(Html, walkedItem, walked, i).ToHtmlString();
+        }
     }
     @Html.Raw(inner())
 }
@@ -65,6 +68,7 @@
                     break;
                 }
             case "Inline":
+            case "Modal":
                 {
 
                 }

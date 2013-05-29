@@ -1,5 +1,4 @@
-﻿//amaze
-$(document).ready(function () {
+﻿(function () { 
     
     $(document).on("click", ".show-setter", function (e) {
         var $property = $(this).closest("[data-node-property]");
@@ -27,9 +26,9 @@ $(document).ready(function () {
         return false;
     });
 
-    $(".popover .close").live('click', function (e) { $(this).closest(".popover").hide(); });
+    $(document).on("click", ".popover .close", function (e) { $(this).closest(".popover").hide(); });
 
-    $(".nodeMethodsMenuLink").live('click', function (e) {
+    $(document).on("click", ".nodeMethodsMenuLink", function (e) {
         var $link = $(this);
         if (e.target != this) return false;
         var methodsPanelId = "methods-" + $link.attr("href").replace(/\//g, "_");
@@ -81,7 +80,7 @@ $(document).ready(function () {
         return true;
     }
 
-    $(".nodeMethodLink").live('click', function(e) {
+    $(document).on('click', ".nodeMethodLink", function (e) {
         e.preventDefault();
         var $link = $(this);
         if ($link.attr("data-custom-method-handler")) {
@@ -188,4 +187,19 @@ $(document).ready(function () {
         $.ajax(ajaxOptions);
         return false;
     });
-});
+
+    $(document).on("click", "a[data-modal=true]", function(e) {
+        var $link = $(this);
+        $.ajax($link.attr("href"), {
+            success: function(data, textStatus) {
+                var $modal = $(modalHtml());
+                $modal.find(".title").append($link.html());
+                //$modal.find(".modal-footer").append($formHtml.find("button").remove());
+                $modal.find(".modal-body").append($(data));
+                $modal.appendTo($("body")).modal();
+            }
+        });
+
+        return false;
+    });
+})();
