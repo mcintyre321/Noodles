@@ -23,13 +23,13 @@ namespace Noodles.AspMvc.Helpers
             scripts.Add("/Scripts/jquery-migrate-1.1.1.js");
             scripts.Add("/Scripts/jquery-ui-1.10.2.min.js");
             scripts.Add("/Scripts/bootstrap.js");
-            scripts.Add("/Scripts/Noodles/Noodles.js");
             scripts.Add("/Scripts/jquery.validate.js");
             scripts.Add("/Scripts/jquery.validate.unobtrusive.js");
             scripts.Add("/Scripts/jquery.unobtrusive-ajax.js");
             scripts.Add("/Scripts/formfactory/formfactory.js");
             scripts.Add("/Scripts/jquery.validate.unobtrusive.dynamic.js");
             scripts.Add("/Scripts/jquery.signalR-1.0.0-rc2.js");
+            scripts.Add("/Scripts/Noodles/Noodles.js");
         }
     }
 }
