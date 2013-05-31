@@ -26,7 +26,7 @@ namespace Noodles.AspMvc.Helpers
                 GetCustomAttributes = () => parameter.CustomAttributes,
                 Readonly = false,
                 IsHidden = parameter.CustomAttributes.OfType<DataTypeAttribute>().Any(x => x.CustomDataType == "Hidden"),
-                Value = parameter.Value,
+                Value = parameter.LastValue ?? parameter.Value,
                 Choices = parameter.Choices,
                 Suggestions = parameter.Suggestions,
                 Source = parameter,
