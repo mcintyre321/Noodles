@@ -17,8 +17,7 @@ namespace Noodles.Tests.Web.Steps
         public static ReadOnlyCollection<IWebElement> FindElements(this IWebDriver driver, By by, int timeoutInSeconds)
         {
             var wait = new WebDriverWait(driver, TimeSpan.FromSeconds(timeoutInSeconds));
-            wait.Until(drv => drv.FindElements(by).Any());
-            return driver.FindElements(by);
+            return wait.Until(drv => (drv.FindElements(by).Any()) ? drv.FindElements(by) : null);
         }
 
         public static void WaitForReady(this IWebDriver driver, int timeoutInSeconds = 10)
