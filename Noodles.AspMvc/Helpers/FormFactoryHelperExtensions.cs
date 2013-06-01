@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web.Mvc;
 using FormFactory;
@@ -20,11 +21,13 @@ namespace Noodles.AspMvc.Helpers
 
         public static PropertyVm ToPropertyVm(this IInvokeableParameter parameter, HtmlHelper html)
         {
+            var customAtts = new List<object>();
+            if (parameter.IsOptional == false) customAtts.Add(new RequiredAttribute());
             var vm = new PropertyVm(html, parameter.ValueType, parameter.Name)
             {
                 DisplayName = parameter.DisplayName,
-                GetCustomAttributes = () => parameter.CustomAttributes,
-                Readonly = false,
+                GetCustomAttributes = () => parameter.CustomAttributes.Concat(customAtts),
+                Readonly = parameter.Readonly,
                 IsHidden = parameter.CustomAttributes.OfType<DataTypeAttribute>().Any(x => x.CustomDataType == "Hidden"),
                 Value = parameter.LastValue ?? parameter.Value,
                 Choices = parameter.Choices,
@@ -38,18 +41,7 @@ namespace Noodles.AspMvc.Helpers
 
         public static PropertyVm ToPropertyVm(this NodeProperty property, HtmlHelper html)
         {
-            var vm = new PropertyVm(html, property.ValueType, property.Name)
-            {
-                DisplayName = property.DisplayName,
-                GetCustomAttributes = () => property.CustomAttributes,
-                Readonly = property.Readonly,
-                Value = property.Value,
-                Choices = ((IInvokeableParameter)property).Choices,
-                Suggestions = ((IInvokeableParameter)property).Suggestions,
-                IsHidden = false, //parameter.CustomAttributes.OfType<DataTypeAttribute>().Any(x => x.CustomDataType == "Hidden"),
-                Source = property,
-            };
-            return vm;
+            return ((IInvokeableParameter)property).ToPropertyVm(html);
         }
     }
 }

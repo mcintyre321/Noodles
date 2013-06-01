@@ -172,6 +172,7 @@ namespace Noodles
         }
 
         public bool Locked { get; set; }
+        public bool Readonly { get { return false; } }
 
         public INode GetChild(string name)
         {

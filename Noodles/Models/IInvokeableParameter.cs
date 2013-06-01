@@ -17,5 +17,6 @@ namespace Noodles
         IEnumerable Choices { get; }
         IEnumerable Suggestions { get; }
         bool Locked { get; }
+        bool Readonly { get; }
     }
 }
