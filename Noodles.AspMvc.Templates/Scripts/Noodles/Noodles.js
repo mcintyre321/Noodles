@@ -8,7 +8,7 @@
             $setter.fadeIn(function () {
                 $setter.find('input,textarea,select').filter(':enabled:visible:not([readonly="readonly"]):not([type="hidden"])').first().focus();
 
-                $.validator.unobtrusive.parseDynamicContent($setter.find("input,textarea,select"));
+                $.validator.unobtrusive.parseDynamicContent($setter);
             });
         });
         e.preventDefault();
@@ -118,7 +118,7 @@
             $method.modal({ show: true, backdrop: true });
             $method.find(":input:visible:enabled:first").focus();
 
-            $.validator.unobtrusive.parseDynamicContent($method.find("form").find("input,textarea,select").first());
+            $.validator.unobtrusive.parseDynamicContent($method.find("form"));
         }
 
     };
@@ -135,6 +135,7 @@
     $(document).on("click", ".submitMethod", function (e) {
         var $container = $(this).closest(".nodeMethod");
         var $form = $container.is("form") ? $container : $container.find("form");
+        if (!$form.valid()) return false;
         var formdata = false;
         if (window.FormData) {
             formdata = new FormData($form[0]);
@@ -176,7 +177,7 @@
                         $html.addClass("form-inline");
                     }
                     $form.replaceWith($html);
-                    $.validator.unobtrusive.parseDynamicContent($form.find("input,textarea,select").first());
+                    $.validator.unobtrusive.parseDynamicContent($form);
 
                 }
             },
