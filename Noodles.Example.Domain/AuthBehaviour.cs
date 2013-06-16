@@ -1,3 +1,4 @@
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Reflection;
 using System.Web;
@@ -11,7 +12,7 @@ namespace Noodles.Example.Domain
         {
         }
 
-        [Show(UiHint = "TopBar.RightItems")]
+        [Show(UiHint = "TopBar.RightItems")][Description("You can enter any email/password combo - this is just an example!")]
         public void SignIn([Required] [Placeholder("Enter any email address")]string email, [DataType(DataType.Password)][Required]  string password)
         {
             if (string.IsNullOrEmpty(email) || string.IsNullOrEmpty(password))
