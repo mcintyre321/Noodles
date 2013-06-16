@@ -23,7 +23,7 @@
                             continue;
                         }
                         var viewNameStart = ("Noodles/NodeProperty" + (string.IsNullOrWhiteSpace(property.UiHint) ? "" : ("-" + property.UiHint)));
-                        var viewName = Html.BestViewName(property.ValueType, viewNameStart + ".") ?? viewNameStart;
+                        var viewName = Html.BestViewName(property.ValueType, viewNameStart + ".") ?? (viewNameStart + ".Object");
                         @Html.Partial(viewName, property)
                     }
                     if (groupedProperties.Any())
