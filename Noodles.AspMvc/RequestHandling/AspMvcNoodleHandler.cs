@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 using FormFactory;
+using FormFactory.Mvc.ModelBinders;
 using Noodles.Models;
 using Noodles.RequestHandling;
 
@@ -31,7 +32,18 @@ namespace Noodles.AspMvc.RequestHandling
         private static IEnumerable<PropertyVm> GetPropertyVms(HtmlHelper htmlHelper, object o, Type type, Func<HtmlHelper, object, Type, IEnumerable<PropertyVm>> fallback)
         {
             if (o == null) o = Activator.CreateInstance(type);
-            return o.YieldFindPropertyInfosUsingReflection(type).Select(p => new PropertyVm(o, p, htmlHelper));
+
+            yield return new PropertyVm(htmlHelper, typeof(string), "__type")
+            {
+                IsHidden = true,
+                Value = PolymorphicModelBinder.WriteTypeToString(o.GetType())
+            };
+
+            var propertyVms = o.YieldFindPropertyInfosUsingReflection(type).Select(p => new PropertyVm(o, p, htmlHelper));
+            foreach (var propertyVm in propertyVms)
+            {
+                yield return propertyVm;
+            }
         }
 
         public async Task<ActionResult> GetNoodleResult(ControllerContext cc, object root, string path = null, Func<IInvokeable, IDictionary<string, object>, object> doInvoke = null)

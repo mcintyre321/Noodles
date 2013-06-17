@@ -67,7 +67,6 @@
   <ItemGroup>
     <Compile Include="ReflectionHelpersExtensions.cs" />
     <Compile Include="Attributes\BehaviourAttribute.cs" />
-    <Compile Include="Attributes\MessageAttribute.cs" />
     <Compile Include="Configuration.cs" />
     <Compile Include="Helpers\FormattableToStringExtensions.cs" />
     <Compile Include="Helpers\RecurseExtension.cs" />

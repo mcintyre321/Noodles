@@ -1,6 +1,8 @@
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Reflection;
 using System.Web;
+using FormFactory.Attributes;
 
 namespace Noodles.Example.Domain
 {
@@ -10,20 +12,22 @@ namespace Noodles.Example.Domain
         {
         }
 
-        [Show(UiHint = "TopBar.RightItems")]
-        public void SignIn([Required] string email, [DataType(DataType.Password)][Required]  string password)
+        [Show(UiHint = "TopBar.RightItems")][Description("You can enter any email/password combo - this is just an example!")]
+        public void SignIn([Required] [Placeholder("Enter any email address")]string email, [DataType(DataType.Password)][Required]  string password)
         {
             if (string.IsNullOrEmpty(email) || string.IsNullOrEmpty(password))
             {
-                throw new UserException("");
+                throw new UserException("Please enter any username or password");
             }
             //check username and password here
             AuthService.SetAuthToken(email);
         }
+        
         public string SignIn_email_default()
         {
-            return HttpContext.Current.Request["email"];
+            return HttpContext.Current.Request["email"] ?? "demo@email.com";
         }
+
         public bool? AllowSignIn()
         {
             return !AuthService.RequestHasAuthToken();

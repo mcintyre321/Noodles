@@ -9,6 +9,7 @@ namespace Noodles.Example.Domain.Tasks
     {
         [Show(UiOrder = 1)][Required][StringLength(30)]
         public string Title { get; set; }
+
         [Show]
         public string Notes { get; set; }
 

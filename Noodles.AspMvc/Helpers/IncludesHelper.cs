@@ -17,6 +17,7 @@ namespace Noodles.AspMvc.Helpers
             styles.Add("/Content/font-awesome.min.css");
             styles.Add("/Content/themes/base/jquery-ui.css");
             styles.Add("/Content/Noodles.AspMvc.css");
+            styles.Add("/Content/formfactory/formfactory.css");
 
             var scripts = layout.HeadBundle.ScriptIncludes;
             scripts.Add("/Scripts/jquery-1.9.1.min.js");

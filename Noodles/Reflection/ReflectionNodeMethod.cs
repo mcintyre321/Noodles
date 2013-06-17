@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
@@ -76,12 +77,12 @@ namespace Noodles.Models
                     else
                     {
                         var messageAttribute = this._methodInfo
-                                                   .GetCustomAttributes(typeof(MessageAttribute), true)
-                                                   .OfType<MessageAttribute>()
+                                                   .GetCustomAttributes(typeof(DescriptionAttribute), true)
+                                                   .OfType<DescriptionAttribute>()
                                                    .FirstOrDefault();
                         if (messageAttribute != null)
                         {
-                            _message = messageAttribute.Message;
+                            _message = messageAttribute.Description;
                         }
                     }
                     _checkedForMessage = true;

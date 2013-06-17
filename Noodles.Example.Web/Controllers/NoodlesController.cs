@@ -17,7 +17,6 @@ namespace Noodles.Example.Controllers
 
         public async Task<ActionResult> Index(string path)
         {
-
             this.HttpContext.LayoutVm().TopBar.Fixed = true;
 
             var actionResult = this.ControllerContext.GetNoodleResult(application);

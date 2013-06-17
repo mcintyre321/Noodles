@@ -12,8 +12,10 @@ namespace Noodles
     {
         public static IEnumerable<NodeProperty> GetNodeProperties<TNode>(this object o, TNode resource, Type fallback = null) where TNode : INode
         {
+            fallback = fallback ?? o.GetType();
             return YieldFindNodePropertiesUsingReflection(resource, o, fallback).OrderBy(p => p.Order)
-                .Concat(NodePropertiesAttribute.GetDynamicNodeProperties(o, resource));
+                .Concat(NodePropertiesAttribute.GetDynamicNodeProperties(o, resource))
+                .Concat(BehaviourAttribute.GetBehaviourProperties(fallback, o, resource));
         }
 
        
