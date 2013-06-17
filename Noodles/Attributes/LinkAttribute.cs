@@ -9,6 +9,7 @@ namespace Noodles
             UiHint = "";
         }
         public string UiHint { get; set; }
+        public string Slug { get; set; }
     }
 
     public class LinksAttribute : Attribute
