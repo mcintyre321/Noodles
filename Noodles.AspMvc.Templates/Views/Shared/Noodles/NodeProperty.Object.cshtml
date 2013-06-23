@@ -11,6 +11,7 @@
     var property = Model;
 }
 <div data-node-property="@property.Name">
+    <h5>@Model.DisplayName</h5>
     @{
             
         var propertyVm = property.ToPropertyVm(Html);
@@ -19,7 +20,7 @@
             <div class="control-group">
                 <label class="control-label">@property.DisplayName</label>
                 <div class="controls">
-                        @Html.BestProperty(property.ToPropertyVm(Html).Then(p => p.Readonly = true))
+                    @Html.BestProperty(property.ToPropertyVm(Html).Then(p => p.Readonly = true))
                 </div>
             </div>
             @if (!property.Readonly)

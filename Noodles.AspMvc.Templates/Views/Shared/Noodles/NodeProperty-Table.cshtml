@@ -13,8 +13,11 @@
 
     var columns = data.SelectMany(d => d.Properties).OrderBy(p => p.Value.Order).Select(k => k.Key).Distinct().ToArray();
 }
+
+<div data-node-property="@Model.Name">
 @if(resources.Any())
 {
+
     <table class="table-bordered table-condensed table-striped">
         <thead>
             <tr>
@@ -46,3 +49,4 @@
         </tbody>
     </table>
 }
+</div>

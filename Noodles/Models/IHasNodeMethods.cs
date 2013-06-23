@@ -11,13 +11,13 @@ namespace Noodles
     }
     public static class HasNameHelperExtensions
     {
-        public static IEnumerable<T> Except<T>(this IEnumerable<T> items, params string[] excludedNames) where T : IHasName
+        public static IEnumerable<T> ExceptNamed<T>(this IEnumerable<T> items, params string[] excludedNames) where T : IHasName
         {
             return items.Where(i => excludedNames.Contains(i.Name) == false);
         }
-        public static IEnumerable<T> Except<T>(this IEnumerable<T> items, IEnumerable<string> excludedNames) where T : IHasName
+        public static IEnumerable<T> ExceptNamed<T>(this IEnumerable<T> items, IEnumerable<string> excludedNames) where T : IHasName
         {
-            return items.Except(excludedNames.ToArray());
+            return items.ExceptNamed(excludedNames.ToArray());
         }
 
     }
