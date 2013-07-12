@@ -31,7 +31,7 @@ namespace Noodles
                 var linkAttribute = pi.Attributes().OfType<LinkAttribute>().SingleOrDefault();
                 if (linkAttribute != null)
                 {
-                    var link = new ReflectionNodeLink(parent, pi.Name, pi.GetValue(target), linkAttribute.UiHint);
+                    var link = new ReflectionNodeLink(parent, linkAttribute.Slug ?? pi.Name, pi.GetValue(target), linkAttribute.UiHint);
                     yield return link;
                 }
                 else
