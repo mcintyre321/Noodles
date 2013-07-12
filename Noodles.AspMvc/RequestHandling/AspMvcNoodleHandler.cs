@@ -4,7 +4,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 using FormFactory;
-using FormFactory.Mvc.ModelBinders;
+using FormFactory.AspMvc.ModelBinders;
+using FormFactory.AspMvc.Wrappers;
 using Noodles.Models;
 using Noodles.RequestHandling;
 
@@ -24,22 +25,27 @@ namespace Noodles.AspMvc.RequestHandling
         static AspMvcNoodleHandler()
         {
             //AddExceptionHandler<UserException>((e, cc) => cc.Controller.ViewData.ModelState.AddModelError("", e));
-            var propertyVms = VmHelper.GetPropertyVms;
-            VmHelper.GetPropertyVms = (h, o, a) => GetPropertyVms(h, o, a, propertyVms);
+            var propertyVms = VmHelper<FormFactory.AspMvc.Wrappers.FormFactoryHtmlHelper>.GetPropertyVms;
+            VmHelper<FormFactory.AspMvc.Wrappers.FormFactoryHtmlHelper>.GetPropertyVms = (h, o, a) => GetPropertyVms(h, o, a, propertyVms);
         }
 
 
-        private static IEnumerable<PropertyVm> GetPropertyVms(HtmlHelper htmlHelper, object o, Type type, Func<HtmlHelper, object, Type, IEnumerable<PropertyVm>> fallback)
+        private static IEnumerable<PropertyVm> GetPropertyVms(FormFactoryHtmlHelper htmlHelper, object o, Type type, Func<FormFactoryHtmlHelper, object, Type, IEnumerable<PropertyVm>> fallback)
         {
             if (o == null) o = Activator.CreateInstance(type);
 
-            yield return new PropertyVm(htmlHelper, typeof(string), "__type")
+            //var cm = htmlHelper.CreatePropertyVm(typeof (string), "__type");
+            //cm.IsHidden = true;
+            //cm.Value = FormFactory.ModelBinding.PolymorphicModelBinder.WriteTypeToString(o.GetType());
+            //yield return cm;
+            var propertyVms = o.YieldFindPropertyInfosUsingReflection(type)
+                .Select(p =>
             {
-                IsHidden = true,
-                Value = PolymorphicModelBinder.WriteTypeToString(o.GetType())
-            };
-
-            var propertyVms = o.YieldFindPropertyInfosUsingReflection(type).Select(p => new PropertyVm(o, p, htmlHelper));
+                var vm = htmlHelper.CreatePropertyVm(o.GetType(), p.Name);
+                vm.Value = o;
+                return vm;
+                    //, p, htmlHelper)
+            });
             foreach (var propertyVm in propertyVms)
             {
                 yield return propertyVm;

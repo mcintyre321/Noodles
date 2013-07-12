@@ -1,5 +1,7 @@
 using System.Net;
 using System.Web.Mvc;
+using FormFactory;
+using FormFactory.AspMvc.Wrappers;
 using Noodles.AspMvc.Infrastructure;
 using Noodles.Models;
 using Noodles.RequestHandling;
@@ -49,7 +51,9 @@ namespace Noodles.AspMvc.RequestHandling
             if (result.Target is Resource)
             {
                 var resource = (Resource)result.Target;
-                var viewname = FormFactory.FormHelperExtension.BestViewName(context, resource.ValueType, "Noodles/Node.");
+                var ffContext = (FormFactory.IViewFinder) new FormFactoryContext(context);
+                var viewname = ViewFinderExtensions.BestViewName(ffContext, resource.ValueType, "Noodles/Node.");
+
                 res.ViewName = viewname;
             }
             else if (result.Target is IInvokeable)

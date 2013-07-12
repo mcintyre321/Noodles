@@ -11,7 +11,7 @@ namespace Noodles.AspMvc.Helpers
     {
         static object GetAttemptedValue(this HtmlHelper helper, string modelKey)
         {
-            ModelState modelState;
+            System.Web.Mvc.ModelState modelState;
             if (helper.ViewData.ModelState.TryGetValue(modelKey, out modelState))
             {
                 return modelState.Value.AttemptedValue;
@@ -23,16 +23,17 @@ namespace Noodles.AspMvc.Helpers
         {
             var customAtts = new List<object>();
             if (parameter.IsOptional == false) customAtts.Add(new RequiredAttribute());
-            var vm = new PropertyVm(html, parameter.ValueType, parameter.Name)
+            var vm = html.CreatePropertyVm(parameter.ValueType, parameter.Name);
+
             {
-                DisplayName = parameter.DisplayName,
-                GetCustomAttributes = () => parameter.CustomAttributes.Concat(customAtts),
-                Readonly = parameter.Readonly,
-                IsHidden = parameter.CustomAttributes.OfType<DataTypeAttribute>().Any(x => x.CustomDataType == "Hidden"),
-                Value = parameter.LastValue ?? parameter.Value,
-                Choices = parameter.Choices,
-                Suggestions = parameter.Suggestions,
-                Source = parameter,
+                vm.DisplayName = parameter.DisplayName;
+                vm.GetCustomAttributes = () => parameter.CustomAttributes.Concat(customAtts);
+                vm.Readonly = parameter.Readonly;
+                vm.IsHidden = parameter.CustomAttributes.OfType<DataTypeAttribute>().Any(x => x.CustomDataType == "Hidden");
+                vm.Value = parameter.LastValue ?? parameter.Value;
+                vm.Choices = parameter.Choices;
+                vm.Suggestions = parameter.Suggestions;
+                vm.Source = parameter;
             };
             vm.IsHidden |= parameter.Locked;
             return vm;
