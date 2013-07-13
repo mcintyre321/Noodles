@@ -36,6 +36,9 @@
     <Reference Include="CassiniDev4-lib">
       <HintPath>..\packages\CassiniDev.4.0\lib\net40\CassiniDev4-lib.dll</HintPath>
     </Reference>
+    <Reference Include="FormFactory">
+      <HintPath>..\packages\FormFactory.1.2.277\lib\net40\FormFactory.dll</HintPath>
+    </Reference>
     <Reference Include="nunit.framework">
       <HintPath>..\packages\NUnit.2.6.2\lib\nunit.framework.dll</HintPath>
     </Reference>
