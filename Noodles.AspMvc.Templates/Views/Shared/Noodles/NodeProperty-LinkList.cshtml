@@ -1,6 +1,7 @@
 ﻿@using FormFactory
 @using Noodles.Models
 @model Noodles.Models.NodeCollectionProperty
+
 <ul class="inline-children">
     @foreach (var item in Model.Query(0, int.MaxValue).Items)
     {

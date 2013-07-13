@@ -1,6 +1,7 @@
 ﻿@using System.Web.Mvc
 @using System.Web.Mvc.Html
 @using FormFactory
+@using FormFactory.Attributes
 @using Noodles.AspMvc.Helpers
 @model Noodles.Models.NodeCollectionProperty
 @{
@@ -15,38 +16,42 @@
 }
 
 <div data-node-property="@Model.Name">
-@if(resources.Any())
-{
+    @if (Model.CustomAttributes.OfType<NoLabelAttribute>().Any() == false)
+    {
+        <h5>@Model.DisplayName</h5>
+    }
+    @if (resources.Any())
+    {
 
-    <table class="table-bordered table-condensed table-striped">
-        <thead>
-            <tr>
-                @foreach (var column in columns)
-                {
-                    <th>@column</th>
-                }
-                @{
+        <table class="table-bordered table-condensed table-striped">
+            <thead>
+                <tr>
+                    @foreach (var column in columns)
+                    {
+                        <th>@column</th>
+                    }
+                    @{
                     ViewBag.ShowActions = resources.SelectMany(i => i.NodeMethods.ToArray()).Any();
 
                     if (ViewBag.ShowActions)
                     {
                         <th>Actions</th>
                     }
-                }
+                    }
 
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in resources)
-            {
-                var view = Html.BestViewName(item.ValueType, "Noodles/TableRow.");
-                if (view == null)
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in resources)
                 {
-                    view = "Noodles/TableRow.Object";
+                    var view = Html.BestViewName(item.ValueType, "Noodles/TableRow.");
+                    if (view == null)
+                    {
+                        view = "Noodles/TableRow.Object";
+                    }
+                    @Html.Partial(view, item, new ViewDataDictionary() { { "Columns", columns }, { "ShowActions", ViewBag.ShowActions } })
                 }
-                @Html.Partial(view, item, new ViewDataDictionary() {{"Columns", columns}, {"ShowActions", ViewBag.ShowActions}})
-            }
-        </tbody>
-    </table>
-}
+            </tbody>
+        </table>
+    }
 </div>
