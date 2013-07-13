@@ -57,13 +57,13 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\EmbeddedResourceVirtualPathProvider.1.2.17\lib\net40\EmbeddedResourceVirtualPathProvider.dll</HintPath>
     </Reference>
-    <Reference Include="FormFactory, Version=1.2.276.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="FormFactory, Version=1.2.277.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\FormFactory.1.2.276\lib\net40\FormFactory.dll</HintPath>
+      <HintPath>..\packages\FormFactory.1.2.277\lib\net40\FormFactory.dll</HintPath>
     </Reference>
-    <Reference Include="FormFactory.AspMvc, Version=1.2.276.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="FormFactory.AspMvc, Version=1.2.277.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\FormFactory.AspMvc.1.2.276\lib\net40\FormFactory.AspMvc.dll</HintPath>
+      <HintPath>..\packages\FormFactory.AspMvc.1.2.277\lib\net40\FormFactory.AspMvc.dll</HintPath>
     </Reference>
     <Reference Include="Harden, Version=1.0.4827.27173, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
