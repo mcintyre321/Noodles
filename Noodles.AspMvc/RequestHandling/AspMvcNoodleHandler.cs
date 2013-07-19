@@ -35,17 +35,13 @@ namespace Noodles.AspMvc.RequestHandling
         {
             if (o == null) o = Activator.CreateInstance(type);
 
-            var cm = new PropertyVm(typeof(string), "__type");
-            cm.IsHidden = true;
-            cm.Value = encoder.WriteTypeToString(o.GetType());
-            yield return cm;
-            var propertyVms = o.YieldFindPropertyInfosUsingReflection(type)
-                .Select(p =>
+            yield return new PropertyVm(typeof(string), "__type")
             {
-                var vm = new PropertyVm(p.PropertyType, p.Name);
-                vm.Value = o;
-                return vm;
-            });
+                IsHidden = true,
+                Value = encoder.WriteTypeToString(o.GetType())
+            };
+
+            var propertyVms = o.YieldFindPropertyInfosUsingReflection(type).Select(p => new PropertyVm(o, p));
             foreach (var propertyVm in propertyVms)
             {
                 yield return propertyVm;
