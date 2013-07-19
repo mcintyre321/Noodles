@@ -53,13 +53,13 @@
       <HintPath>..\packages\Castle.Core.3.2.0\lib\net45\Castle.Core.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="FormFactory, Version=1.2.279.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="FormFactory, Version=1.2.280.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\FormFactory.1.2.279\lib\net40\FormFactory.dll</HintPath>
+      <HintPath>..\packages\FormFactory.1.2.280\lib\net40\FormFactory.dll</HintPath>
     </Reference>
-    <Reference Include="FormFactory.AspMvc, Version=1.2.279.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="FormFactory.AspMvc, Version=1.2.280.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\FormFactory.AspMvc.1.2.279\lib\net40\FormFactory.AspMvc.dll</HintPath>
+      <HintPath>..\packages\FormFactory.AspMvc.1.2.280\lib\net40\FormFactory.AspMvc.dll</HintPath>
     </Reference>
     <Reference Include="Harden">
       <HintPath>..\packages\Harden.1.2.7\lib\net40\Harden.dll</HintPath>
