@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
 using Newtonsoft.Json;
+using Noodles.AspMvc.UiAttributes;
 using Noodles.Example.Domain.Tasks;
 
 namespace Noodles.Example.Domain
@@ -66,8 +67,8 @@ namespace Noodles.Example.Domain
         {
             get
             {
-                yield return new OrganisationSummary(){Name = "Your Projects"};
-                yield return new OrganisationSummary(){Name = "Acmecorps Projects"};
+                yield return new OrganisationSummary("Your Projects");
+                yield return new OrganisationSummary( "Acmecorps Projects");
 
             }
         }
@@ -75,26 +76,35 @@ namespace Noodles.Example.Domain
 
     public class OrganisationSummary
     {
-
-        public string Name {[Show] get; set; }
+        public OrganisationSummary(string name)
+        {
+            Name = name;
+        }
         [Show]
-        public IEnumerable<ProjectSummary> YourProjects
+        public string Name { get; private set; }
+
+        [ShowAsTable]
+        public IEnumerable<ProjectSummary> Projects
         {
             get
             {
-                yield return new ProjectSummary() { Name = "Project A" };
-                yield return new ProjectSummary() { Name = "Project B" };
+                yield return new ProjectSummary("Project A" ) {   };
+                yield return new ProjectSummary("Projcet B") {  };
             }
         }
     }
 
     public class ProjectSummary
     {
+        public ProjectSummary(string name)
+        {
+            Name = name;
+        }
+
         public string Name
         {
-            [Show]
-            get;
-            set;
+            [Show]get;
+            private set;
         }
     }
 }

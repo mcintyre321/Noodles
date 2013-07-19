@@ -1,0 +1,42 @@
+﻿@using System.Web.Mvc
+@using System.Web.Mvc
+@using System.Web.Mvc.Html
+@using FormFactory
+@using FormFactory.Attributes
+@using Noodles
+@using Noodles.Helpers
+@using Noodles.AspMvc.Helpers
+@using Noodles.Models
+@model Noodles.Models.NodeProperty
+@{
+    var property = Model;
+}
+<div data-node-property="@property.Name">
+    @if (Model.CustomAttributes.OfType<NoLabelAttribute>().Any() == false)
+    {
+        <h5>@Model.DisplayName</h5>
+    }
+    @{
+        var propertyVm = property.ToPropertyVm(Html);
+        propertyVm.Readonly = true;
+        <div data-node-getter="@property.Name">
+            <div class="control-group">
+                <label class="control-label">@property.DisplayName</label>
+                <div class="controls">
+                    @Html.BestProperty(property.ToPropertyVm(Html).Then(p => p.Readonly = true))
+                </div>
+            </div>
+            @if (!property.Readonly)
+            {
+                <a class="show-setter" href="#edit @property.DisplayName"><i class="icon-edit "></i></a>
+            }
+        </div>
+        if (!property.Readonly)
+        {
+            <div data-node-setter="@property.Name">
+                @Html.Partial("Noodles/NodeMethod", (IInvokeable) property)
+                <a class="hide-setter" href="#cancel edit"><i class="icon-remove "></i></a>
+            </div>
+        }
+    }
+</div>
