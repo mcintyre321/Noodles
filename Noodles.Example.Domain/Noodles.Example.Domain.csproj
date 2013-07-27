@@ -64,6 +64,7 @@
     <Compile Include="AuthService.cs" />
     <Compile Include="Discussions\Discussion.cs" />
     <Compile Include="Discussions\DiscussionsManager.cs" />
+    <Compile Include="DummyData.cs" />
     <Compile Include="Membership.cs" />
     <Compile Include="MembershipSettings.cs" />
     <Compile Include="MyStringLengthAttribute.cs" />

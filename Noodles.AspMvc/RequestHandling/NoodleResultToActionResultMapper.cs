@@ -1,3 +1,4 @@
+using System.Linq;
 using System.Net;
 using System.Web.Mvc;
 using FormFactory;
@@ -48,13 +49,15 @@ namespace Noodles.AspMvc.RequestHandling
         public override ActionResult Map(ControllerContext context, ViewResult result)
         {
             var res = new System.Web.Mvc.ViewResult();
-            if (result.Target is Resource)
+            var targetResource = result.Target as Resource;
+            if (targetResource != null)
             {
                 var resource = (Resource)result.Target;
                 var ffContext = (FormFactory.IViewFinder) new FormFactoryContext(context);
-                var viewname = ViewFinderExtensions.BestViewName(ffContext, resource.ValueType, "Noodles/Node.");
+                var viewname = ViewFinderExtensions.BestViewName(ffContext, resource.ValueType, "Noodles/NodeContainer.");
 
                 res.ViewName = viewname;
+ 
             }
             else if (result.Target is IInvokeable)
             {
@@ -75,6 +78,7 @@ namespace Noodles.AspMvc.RequestHandling
                 return new AjaxRedirectRewritingActionResult((ActionResult) result.Result);
             }
             var res = new System.Web.Mvc.ViewResult();
+
             if (context.HttpContext.Request.IsAjaxRequest())
             {
                 res.MasterName = "Noodles/_AjaxLayout";

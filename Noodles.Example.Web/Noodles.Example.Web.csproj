@@ -59,11 +59,11 @@
     </Reference>
     <Reference Include="FormFactory, Version=1.2.281.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\FormFactory.1.2.281\lib\net40\FormFactory.dll</HintPath>
+      <HintPath>..\..\FormFactory\FormFactory.AspMvc\bin\Debug\FormFactory.dll</HintPath>
     </Reference>
     <Reference Include="FormFactory.AspMvc, Version=1.2.281.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\FormFactory.AspMvc.1.2.281\lib\net40\FormFactory.AspMvc.dll</HintPath>
+      <HintPath>..\..\FormFactory\FormFactory.AspMvc\bin\Debug\FormFactory.AspMvc.dll</HintPath>
     </Reference>
     <Reference Include="Harden, Version=1.0.4827.27173, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -258,7 +258,7 @@
     </Content>
     <Content Include="Content\Site.css" />
     <Content Include="Views\Shared\Link.Task.cshtml" />
-    <Content Include="Views\Shared\Noodles\NodeProperty.Object.cshtml" />
+    <Content Include="Views\Shared\Noodles\NodeBody.Application.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

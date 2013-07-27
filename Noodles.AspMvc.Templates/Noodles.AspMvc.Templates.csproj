@@ -131,17 +131,25 @@
     <Content Include="Views\Shared\Layout\Topbar.Brand.cshtml" />
     <Content Include="Views\Shared\Layout\Topbar.LeftItems.cshtml" />
     <Content Include="Views\Shared\Layout\Topbar.RightItems.cshtml" />
-    <Content Include="Views\Shared\Noodles\NodeProperty-Table.cshtml" />
     <Content Include="Views\Shared\Noodles\TableCell.Object.cshtml" />
     <Content Include="Views\Shared\Layout\Footer.cshtml" />
     <Content Include="Views\Shared\Noodles\TableRow.Object.cshtml" />
     <Content Include="Views\Shared\Noodles\Node.Object.cshtml" />
     <Content Include="Views\Shared\Noodles\NodeBody.Object.cshtml" />
     <Content Include="Views\Shared\Noodles\NodeProperties.cshtml" />
-    <Content Include="Views\Shared\Noodles\NodeProperty-Inline.cshtml" />
-    <Content Include="Views\Shared\Noodles\NodeProperty-Hidden.cshtml" />
-    <Content Include="Views\Shared\Noodles\NodeProperty.cshtml" />
-    <None Include="Views\Shared\Noodles\NodeProperty-LinkList.cshtml" />
+    <Content Include="Views\Shared\Noodles\NodeContainer.Object.cshtml" />
+    <Content Include="Views\Shared\Noodles\NodeProperty-Hidden.Object.cshtml">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="Views\Shared\Noodles\NodeProperty-Inline.Object.cshtml">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="Views\Shared\Noodles\NodeProperty-LinkList.Object.cshtml">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="Views\Shared\Noodles\NodeProperty-Table.Object.cshtml">
+      <SubType>Code</SubType>
+    </Content>
     <None Include="Views\Web.config" />
     <Content Include="Views\_ViewStart.cshtml" />
   </ItemGroup>

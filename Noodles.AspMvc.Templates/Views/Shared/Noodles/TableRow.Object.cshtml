@@ -3,6 +3,7 @@
 @using Noodles.AspMvc.Helpers
 @model Noodles.Models.Resource
 <tr>
+    <td><a href="@Model.Url">Visit</a></td>
     @foreach (var column in (IEnumerable<string>) ViewBag.Columns)
     {
         var property = Model.NodeProperties.SingleOrDefault(p => p.DisplayName == column);
@@ -16,7 +17,8 @@
             <td></td>
         }
     }
-@if(ViewBag.ShowActions)
-{
-    <td>@NoodlesHelper.NodeMethodsDropdown(Model)</td>
-}</tr>
+    @if(ViewBag.ShowActions)
+    {
+        <td>@NoodlesHelper.NodeMethodsDropdown(Model)</td>
+    }
+</tr>

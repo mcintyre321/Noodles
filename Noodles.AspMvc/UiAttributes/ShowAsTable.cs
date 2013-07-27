@@ -10,6 +10,9 @@ namespace Noodles.AspMvc.UiAttributes
         public ShowAsTable()
         {
             UiHint = "Table";
+            LinkColumn = "";
         }
+
+        public string LinkColumn { get; set; }
     }
 }

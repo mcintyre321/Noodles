@@ -1,0 +1,118 @@
+﻿@using System.Web.Mvc
+@using System.Web.Mvc.Html
+@using Noodles.AspMvc.Helpers
+@using Noodles.Models
+@using FormFactory;
+@using Noodles.AspMvc.UiAttributes
+@model Noodles.Models.Resource
+@using Noodles.AspMvc.Models.Layout
+@{
+    var layoutVm = this.Html.LayoutVm();
+    layoutVm.TopBar.Brand.Html = Model.AncestorsAndSelf().Last().DisplayName;
+    layoutVm.Title = Model.DisplayName;
+    layoutVm.RegisterScripts();
+}
+
+@{
+    var walked = Model.AncestorsAndSelf().OfType<Resource>().ToArray();
+    Func<string> inner = () => Body(Html, Model).ToHtmlString();
+    if (new HttpRequestWrapper(HttpContext.Current.Request).IsAjaxRequest() == false)
+    {
+        foreach (var walkedItem in walked)
+        {
+            var i = inner;
+            inner = () => RenderMenu(Html, walkedItem, walked, i).ToHtmlString();
+        }
+    }
+    @Html.Raw(inner())
+}
+
+@helper Body(HtmlHelper html, Resource resource){
+    @html.BestPartial(resource, resource.ValueType, "Noodles/Node.")
+}
+
+@helper RenderMenu(HtmlHelper helper, Resource resource, IEnumerable<Resource> walked, Func<string> renderInner)
+{
+    var links = resource.NodeLinks.GroupBy(l => l.UiHint);
+
+    if (resource.Parent == null)
+    {
+        foreach (var method in resource.NodeMethods.Hinted("TopBar.RightItems"))
+        {
+            Html.LayoutVm().TopBar.RightItems.Add(new NavItemVm() {Html = NoodlesHelper.NodeMethodLink(method).ToHtmlString()});
+        }
+    }
+    var innerRendered = false;
+    foreach (var linkGroup in links)
+    {
+        switch (linkGroup.Key)
+        {
+            case "SideNav":
+                {
+                    ViewBag.Indent = (ViewBag.Indent ?? 0) + 3;
+                    <div class="row">
+                        <div class="span3">
+                            @Nav(helper, linkGroup, walked, "nav-pills nav-stacked")
+                        </div>
+                        <div class="span@(12 - (ViewBag.Indent ?? 0))">@Html.Raw(renderInner())</div>
+                    </div>
+                    innerRendered = true;
+                    break;
+                }
+            case "TopBar.RightItems":
+                {
+                    Html.LayoutVm().TopBar.RightItems.AddRange(linkGroup.Select(l => new NavItemVm() {Html = "<a href='" + l.Url + "'>" + l.DisplayName + "</a>", Active = walked.Any(u => u.Url == l.Url)}));
+                    break;
+                }
+            case "TopBar.LeftItems":
+                {
+                    Html.LayoutVm().TopBar.LeftItems.AddRange(linkGroup.Select(l => new NavItemVm() {Html = "<a href='" + l.Url + "'>" + l.DisplayName + "</a>", Active = walked.Any(u => u.Url == l.Url)}));
+                    break;
+                }
+            case "Inline":
+            case "NotRendered":
+            case "Modal":
+                break;
+            case "NavBar":
+                {
+                    <div class="navbar">
+                        <div class="navbar-inner">
+                            @if (resource.Parent == null)
+                            {
+                                <a class="brand" href="@resource.Url">@resource.DisplayName</a>
+                            }
+                            @Nav(helper, linkGroup, walked, "")
+                        </div>
+                    </div>
+                    break;
+                }
+            default:
+                {
+                    var type = linkGroup.First().TargetType;
+                    var prefix = "Noodles/Links." + linkGroup.Key + ".";
+                    var partialName = Html.BestViewName(type, prefix);
+                    if (partialName == null)
+                    {
+                        @Html.Partial(partialName, linkGroup.Select(l => l.Target))
+                    }
+                    break;
+                }
+        }
+       
+    } 
+    if (!innerRendered)
+    {
+        @Html.Raw(renderInner());
+    }
+}
+
+@helper Nav(HtmlHelper helper, IEnumerable<NodeLink> links, IEnumerable<Resource> walked, string navOptions)
+{
+    <ul class="nav @navOptions">
+        @foreach (var node in links)
+        {
+            var active = walked.Any(w => w.Url == node.Url);
+            <li @Html.Raw(active ? "class=\"active\"" : "")><a href="@node.Url">@node.DisplayName</a></li>
+        }
+    </ul>
+}

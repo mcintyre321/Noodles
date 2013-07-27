@@ -8,19 +8,30 @@ namespace Noodles.Example.Controllers
 {
     public class NoodlesController : Controller
     {
-        Application application;
-
-        public NoodlesController(Application application)
-        {
-            this.application = application;
-        }
-
         public async Task<ActionResult> Index(string path)
         {
             this.HttpContext.LayoutVm().TopBar.Fixed = true;
 
-            var actionResult = this.ControllerContext.GetNoodleResult(application);
+            var actionResult = this.ControllerContext.GetNoodleResult(CurrentApplication);
             return await actionResult;
         }
+
+        //this is a method for creating a dummy application object for the current user to play with
+        private Application CurrentApplication
+        {
+            get
+            {
+                var app = Session["Application"] as Application;
+                if (app != null)
+                {
+                    return app;
+                }
+                app = new Application();
+                DummyData.SeedApplication(app);
+                Session["Application"] = app;
+                return app;
+            }
+        }
+
     }
 }

@@ -46,23 +46,9 @@ namespace Noodles.Example
 
 
             Domain.AuthService.RequestHasAuthToken = () => HttpContext.Current == null || HttpContext.Current.Request.IsAuthenticated;
-            Domain.AuthService.SetAuthToken = (key) =>
-                {
-                    if (HttpContext.Current != null)
-                    {
-                        FormsAuthentication.SetAuthCookie(key, true);
-                    }
-                };
-            Domain.AuthService.ClearAuthToken = () =>
-                {
-                    if (HttpContext.Current != null)
-                    {
-                        FormsAuthentication.SignOut();
-                    }
-                };
-            Domain.AuthService.GetAuthTokenKey = () => HttpContext.Current == null
-                                                           ? "asdf"
-                                                           : (HttpContext.Current.Request.IsAuthenticated ? null : HttpContext.Current.User.Identity.Name);
+            Domain.AuthService.SetAuthToken = (key) => { if (HttpContext.Current != null) { FormsAuthentication.SetAuthCookie(key, true); } };
+            Domain.AuthService.ClearAuthToken = () => { if (HttpContext.Current != null) { FormsAuthentication.SignOut(); } };
+            Domain.AuthService.GetAuthTokenKey = () => HttpContext.Current == null ? "asdf" : (HttpContext.Current.Request.IsAuthenticated ? null : HttpContext.Current.User.Identity.Name);
         }
 
         protected void Application_Start()

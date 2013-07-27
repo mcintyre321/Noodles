@@ -6,114 +6,72 @@
 @using Noodles.Models
 @using FormFactory;
 @using FormFactory.AspMvc;
-@{
-    var layoutVm = this.Html.LayoutVm();
-    layoutVm.TopBar.Brand.Html = Model.AncestorsAndSelf().Last().DisplayName;
-    layoutVm.Title = Model.DisplayName;
-    layoutVm.RegisterScripts();
-}
 
 @model Noodles.Models.Resource
-@{
-    var walked = Model.AncestorsAndSelf().OfType<Resource>().ToArray();
-    Func<string> inner = () => Html.BestPartial(Model, Model.ValueType, "Noodles/NodeBody.").ToHtmlString();
-    if (new HttpRequestWrapper(HttpContext.Current.Request).IsAjaxRequest() == false)
-    {
-        foreach (var walkedItem in walked)
-        {
-            var i = inner;
-            inner = () => RenderMenu(Html, walkedItem, walked, i).ToHtmlString();
-        }
-    }
-    @Html.Raw(inner())
-}
-
-
-@helper RenderMenu(HtmlHelper helper, Resource resource, IEnumerable<Resource> walked, Func<string> renderInner)
-{
-    var links = resource.NodeLinks.GroupBy(l => l.UiHint);
-
-    if (resource.Parent == null)
-    {
-        foreach (var method in resource.NodeMethods.Hinted("TopBar.RightItems"))
-        {
-            Html.LayoutVm().TopBar.RightItems.Add(new NavItemVm() {Html = NoodlesHelper.NodeMethodLink(method).ToHtmlString()});
-        }
-    }
-    var innerRendered = false;
-    foreach (var linkGroup in links)
-    {
-        switch (linkGroup.Key)
-        {
-            case "SideNav":
-                {
-                    ViewBag.Indent = (ViewBag.Indent ?? 0) + 3;
-                    <div class="row">
-                        <div class="span3">
-                            @Nav(helper, linkGroup, walked, "nav-pills nav-stacked")
-                        </div>
-                        <div class="span@(12 - (ViewBag.Indent ?? 0))">@Html.Raw(renderInner())</div>
-                    </div>
-                    innerRendered = true;
-                    break;
-                }
-            case "TopBar.RightItems":
-                {
-                    Html.LayoutVm().TopBar.RightItems.AddRange(linkGroup.Select(l => new NavItemVm() {Html = "<a href='" + l.Url + "'>" + l.DisplayName + "</a>", Active = walked.Any(u => u.Url == l.Url)}));
-                    break;
-                }
-            case "TopBar.LeftItems":
-                {
-                    Html.LayoutVm().TopBar.LeftItems.AddRange(linkGroup.Select(l => new NavItemVm() {Html = "<a href='" + l.Url + "'>" + l.DisplayName + "</a>", Active = walked.Any(u => u.Url == l.Url)}));
-                    break;
-                }
-            case "Inline":
-            case "Modal":
-                {
-
-                }
-                break;
-            case "":
-                {
-                    <div class="navbar">
-                        <div class="navbar-inner">
-                            @if (resource.Parent == null)
+ 
+@Body(Html, Model)
+@helper Body(HtmlHelper html, Resource resource){
+    <div class="noodles-object" data-resource-url="@resource.Url">
+        <div class="row">
+            <div class="span@(12 - (ViewBag.Indent ?? 0))">
+                <div class="noodles-nodebody">
+                    @html.BestPartial(resource, resource.ValueType, "Noodles/NodeBody.")
+                </div>
+                <div class="noodles-properties">
+                
+                    @{
+                        var groupedProperties = new List<NodeProperty>();
+                        foreach (var property in resource.NodeProperties)
+                        {
+                            if (string.IsNullOrWhiteSpace(property.UiHint) && !property.Readonly)
                             {
-                                <a class="brand" href="@resource.Url">@resource.DisplayName</a>
+                                groupedProperties.Add(property);
+                                continue;
                             }
-                            @Nav(helper, linkGroup, walked, "")
-                        </div>
-                    </div>
-                    break;
-                }
-            default:
-                {
-                    var type = linkGroup.First().TargetType;
-                    var prefix = "Noodles/Links." + linkGroup.Key + ".";
-                    var partialName = Html.BestViewName(type, prefix);
-                    if (partialName == null)
-                    {
-                        throw new Exception("Could not find views for " + prefix + type.FullName);
+                            var viewNameStart = ("Noodles/NodeProperty" + (string.IsNullOrWhiteSpace(property.UiHint) ? "" : ("-" + property.UiHint)));
+                            var viewName = Html.BestViewName(property.Value == null ? property.ValueType : property.Value.GetType(), viewNameStart + ".") ?? (viewNameStart + ".Object");
+                            @Html.Partial(viewName, property)
+                        }
+                        if (groupedProperties.Any())
+                        {
+                            @Html.Partial("Noodles/NodeProperties", groupedProperties)
+                        }
+                       
                     }
-                    @Html.Partial(partialName, linkGroup.Select(l => l.Target))
-                    break;
-                }
-        }
-       
-    } 
-    if (!innerRendered)
-    {
-        @Html.Raw(renderInner());
-    }
-}
+                
 
-@helper Nav(HtmlHelper helper, IEnumerable<NodeLink> links, IEnumerable<Resource> walked, string navOptions)
-{
-    <ul class="nav @navOptions">
-        @foreach (var node in links)
-        {
-            var active = walked.Any(w => w.Url == node.Url);
-            <li @Html.Raw(active ? "class=\"active\"" : "")><a href="@node.Url">@node.DisplayName</a></li>
-        }
-    </ul>
+                    @foreach(var link in resource.NodeLinks.Hinted("Inline"))
+                    {
+                        var viewName = Html.BestViewName(link.TargetType, "Noodles/Node.");
+                        @Html.Partial(viewName, link.Target)   
+                    }
+                </div>
+
+                <br />
+                @{
+                    var nodeMethods = resource.NodeMethods.Hinted("").ToArray();
+                    if (nodeMethods.Any())
+                    {
+                        <div class="well" data-fragment-id="noodle-object-actions">
+                            @foreach (var method in nodeMethods)
+                            {
+                                @NoodlesHelper.NodeMethodLink(method, "btn")
+                            }
+                            @foreach (var link in resource.NodeLinks.Hinted("MethodWell"))
+                            {
+                                <a class="btn" href="@link.Url">@link.Target.DisplayName</a>
+                            }
+                            @foreach (var link in resource.NodeLinks.Hinted("Modal"))
+                            {
+                                <a class="btn" data-modal="true" href="@link.Url">@link.Target.DisplayName</a>
+                            }
+
+                        </div>
+                    }
+                }
+
+            </div>
+        </div>
+    </div>
 }
+ 

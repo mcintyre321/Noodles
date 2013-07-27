@@ -3,10 +3,13 @@
 @model Noodles.Models.NodeProperty
 <td data-node-property="@Model.Name">
     <div data-node-getter="@Model.Name">
-        @Html.BestPartial(Model.ToPropertyVm(Html),Model.ValueType, "FormFactory/Cell.")
+        @{
+            var viewName = Html.BestViewName(Model.Value == null ? Model.ValueType : Model.Value.GetType(), "FormFactory/Cell.") ?? "FormFactory.Cell.System.Object";
+        }
+        @Html.Partial(viewName, Model.ToPropertyVm(Html))
         @if (!Model.Readonly)
-            {
-                <a class="show-setter" href="#edit @Model.DisplayName"><i class="icon-edit "></i></a>
+        {
+            <a class="show-setter" href="#edit @Model.DisplayName"><i class="icon-edit "></i></a>
         }
     </div>
 
