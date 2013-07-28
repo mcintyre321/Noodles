@@ -1,0 +1,44 @@
+﻿@using System.Web.Mvc
+@using System.Web.Mvc
+@using System.Web.Mvc.Html
+@using FormFactory
+@using FormFactory.Attributes
+@using Noodles
+@using Noodles.Helpers
+@using Noodles.AspMvc.Helpers
+@using Noodles.Models
+@model Noodles.Models.NodeProperty
+
+
+<div data-node-property="@Model.Name">
+    @{
+        var propertyVm = Model.ToPropertyVm(Html);
+        propertyVm.Readonly = true;
+        <div data-node-getter="@Model.Name">
+            <div class="control-group">
+                @if (Model.CustomAttributes.OfType<NoLabelAttribute>().Any() == false)
+                {
+                    <label class="control-label">@Model.DisplayName</label>
+                }
+                <div class="controls">
+                    @{
+                        var viewNameStart = ("Noodles/NodeProperty" + (string.IsNullOrWhiteSpace(Model.UiHint) ? "" : ("-" + Model.UiHint)));
+                        var viewName = Html.BestViewName(Model.Value == null ? Model.ValueType : Model.Value.GetType(), viewNameStart + ".") ?? (viewNameStart + ".Object");
+                    }
+                    @Html.Partial(viewName, Model)
+                </div>
+            </div>
+            @if (!Model.Readonly)
+            {
+                <a class="show-setter" href="#edit @Model.DisplayName"><i class="icon-edit "></i></a>
+            }
+        </div>
+        if (!Model.Readonly)
+        {
+        <div data-node-setter="@Model.Name">
+            @Html.Partial("Noodles/NodeMethod", (IInvokeable)Model)
+            <a class="hide-setter" href="#cancel edit"><i class="icon-remove "></i></a>
+        </div>
+        }
+    }
+</div>

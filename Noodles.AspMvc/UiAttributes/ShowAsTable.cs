@@ -15,4 +15,8 @@ namespace Noodles.AspMvc.UiAttributes
 
         public string LinkColumn { get; set; }
     }
+    public class NotInTable : Attribute
+    {
+        
+    }
 }

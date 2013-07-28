@@ -1,5 +1,6 @@
 ﻿@using System.Web.Mvc
 @using System.Web.Mvc.Html
+@using FormFactory.Attributes
 @using Noodles.AspMvc.Models.Layout
 @using Noodles.AspMvc.UiAttributes
 @using Noodles.AspMvc.Helpers
@@ -18,7 +19,6 @@
                     @html.BestPartial(resource, resource.ValueType, "Noodles/NodeBody.")
                 </div>
                 <div class="noodles-properties">
-                
                     @{
                         var groupedProperties = new List<NodeProperty>();
                         foreach (var property in resource.NodeProperties)
@@ -28,8 +28,11 @@
                                 groupedProperties.Add(property);
                                 continue;
                             }
-                            var viewNameStart = ("Noodles/NodeProperty" + (string.IsNullOrWhiteSpace(property.UiHint) ? "" : ("-" + property.UiHint)));
-                            var viewName = Html.BestViewName(property.Value == null ? property.ValueType : property.Value.GetType(), viewNameStart + ".") ?? (viewNameStart + ".Object");
+                            var viewNameStart = ("Noodles/NodePropertyContainer" + (string.IsNullOrWhiteSpace(property.UiHint) ? "" : ("-" + property.UiHint)));
+                            var viewPropertyType = property.Value == null ? property.ValueType : property.Value.GetType();
+                            var viewName = Html.BestViewName(viewPropertyType, viewNameStart + ".") ?? (viewNameStart + ".Object");
+                            var view = ViewEngines.Engines.FindPartialView(this.ViewContext.Controller.ControllerContext, viewName);
+                            viewName = (view.View != null) ? viewName : Html.BestViewName(viewPropertyType, "Noodles/NodePropertyContainer.");
                             @Html.Partial(viewName, property)
                         }
                         if (groupedProperties.Any())
@@ -40,14 +43,22 @@
                     }
                 
 
-                    @foreach(var link in resource.NodeLinks.Hinted("Inline"))
+                    @foreach (var link in resource.NodeLinks.Hinted("Inline"))
                     {
-                        var viewName = Html.BestViewName(link.TargetType, "Noodles/Node.");
-                        @Html.Partial(viewName, link.Target)   
+                        <div>
+                            <div class="control-group">
+                                <label class="control-label">@link.DisplayName</label>
+                                <div class="controls">
+                                    @{
+                                        var viewName = Html.BestViewName(link.TargetType, "Noodles/Node.");
+                                    }
+                                    @Html.Partial(viewName, link.Target)
+                                </div>
+                            </div>
+          
+                        </div>
                     }
                 </div>
-
-                <br />
                 @{
                     var nodeMethods = resource.NodeMethods.Hinted("").ToArray();
                     if (nodeMethods.Any())
@@ -67,7 +78,7 @@
                             }
 
                         </div>
-                    }
+                }
                 }
 
             </div>

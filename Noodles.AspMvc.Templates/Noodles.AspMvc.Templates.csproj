@@ -150,6 +150,7 @@
     <Content Include="Views\Shared\Noodles\NodeProperty-Table.Object.cshtml">
       <SubType>Code</SubType>
     </Content>
+    <Content Include="Views\Shared\Noodles\NodePropertyContainer.Object.cshtml" />
     <None Include="Views\Web.config" />
     <Content Include="Views\_ViewStart.cshtml" />
   </ItemGroup>

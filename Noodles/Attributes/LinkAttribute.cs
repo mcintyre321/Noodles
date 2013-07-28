@@ -8,6 +8,7 @@ namespace Noodles
         {
             UiHint = "";
         }
+        public string DisplayName { get; set; }
         public string UiHint { get; set; }
         public string Slug { get; set; }
     }

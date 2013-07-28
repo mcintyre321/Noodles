@@ -11,13 +11,6 @@ namespace Noodles.Example.Domain.Tasks
         public ToDoLists()
         {
             Lists = new List<ToDoList>();
-            var toDoList = new ToDoList()
-            {
-                ListName = "Shopping List"
-            };
-
-            AddList(toDoList);
-            toDoList.AddTask(new Task() { Title = "Milk" });
         }
         public ICollection<ToDoList> Lists { [ShowAsLinkList] get; private set; }
 

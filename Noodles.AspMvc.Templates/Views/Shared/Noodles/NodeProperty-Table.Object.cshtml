@@ -3,23 +3,21 @@
 @using FormFactory
 @using FormFactory.Attributes
 @using Noodles.AspMvc.Helpers
+@using Noodles.AspMvc.UiAttributes
 @model Noodles.Models.NodeCollectionProperty
 @{
     var resources = Model.Query(0, int.MaxValue).Items.ToArray();
     var data = resources.Select(i => new
     {
         Resource = i,
-        Properties = i.NodeProperties.ToDictionary(p => p.DisplayName, p => p)
+        Properties = i.NodeProperties.Where(p => p.CustomAttributes.OfType<NotInTable>().Any() == false)
+            .ToDictionary(p => p.DisplayName, p => p)
     }).ToArray();
 
-    var columns = data.SelectMany(d => d.Properties).OrderBy(p => p.Value.Order).Select(k => k.Key).Distinct().ToArray();
+    var columns = data.SelectMany(d => d.Properties)
+        .OrderBy(p => p.Value.Order).Select(k => k.Key).Distinct().ToArray();
 }
 
-<div data-node-property="@Model.Name">
-    @if (Model.CustomAttributes.OfType<NoLabelAttribute>().Any() == false)
-    {
-        <h5>@Model.DisplayName</h5>
-    }
     @if (resources.Any())
     {
 
@@ -54,5 +52,4 @@
                 }
             </tbody>
         </table>
-    }
-</div>
+}
