@@ -20,13 +20,19 @@
 {
     var excludedMethodNames = (excludedMethodNamesCsv ?? "").Split(',');
     var filteredNodeMethods = obj.NodeMethods.ExceptNamed(excludedMethodNames);
-    if (filteredNodeMethods.Any())
+    var filteredNodeLinks = obj.NodeLinks.ExceptNamed(excludedMethodNames);
+    if (filteredNodeMethods.Cast<object>().Concat(filteredNodeLinks).Any())
     {
     @BootstrapHelper.DropdownLinksButton("Actions", @<text>
     @foreach (var method in filteredNodeMethods)
     {
         <li>@NodeMethodLink(method)</li>
     }
+    @foreach (var link in filteredNodeLinks)
+    {
+        <li><a href="@link.Url">@link.DisplayName</a></li>
+    }
+
     </text>, additionalClasses)
     }
 }

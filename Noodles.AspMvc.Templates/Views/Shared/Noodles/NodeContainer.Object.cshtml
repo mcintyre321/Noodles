@@ -91,7 +91,7 @@
                     var type = linkGroup.First().TargetType;
                     var prefix = "Noodles/Links." + linkGroup.Key + ".";
                     var partialName = Html.BestViewName(type, prefix);
-                    if (partialName == null)
+                    if (partialName != null)
                     {
                         @Html.Partial(partialName, linkGroup.Select(l => l.Target))
                     }

@@ -74,6 +74,7 @@ namespace Noodles.Example.Domain
         {
             Name = name;
             Projects = new List<Project>();
+            Settings = new OrganisationSettings();
         }
         [Show][NotInTable]
         public string Name { get; private set; }
@@ -85,7 +86,37 @@ namespace Noodles.Example.Domain
         public void AddNewProject([Required][StringLength(50, MinimumLength = 5)] String name)
         {
             Projects.Add(new Project(name));
+        }
+
+        [Link]
+        public OrganisationSettings Settings { get; set; }
+    }
+
+    public class OrganisationSettings
+    {
+        public OrganisationSettings()
+        {
+            RegistrationMode = new Public();
+        }
+        [Show]
+        public RegistrationMode RegistrationMode { get; set; }
+        public IEnumerable<RegistrationMode> RegistrationModel_choices()
+        {
+            yield return new Public();
+            yield return new InviteOnly();
         } 
+    }
+
+    public class InviteOnly : RegistrationMode
+    {
+    }
+
+    public class Public : RegistrationMode
+    {
+    }
+
+    public abstract class RegistrationMode
+    {
     }
 
     public class Project

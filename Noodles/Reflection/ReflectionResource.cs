@@ -27,6 +27,7 @@ namespace Noodles.Models
 
         static Resource CreateReflectionResource(object target, INode parent, string fragment)
         {
+            if (target == null) throw new NullReferenceException("Null resource at'" + parent.Url + "/" + fragment + "' ");
             var type = target.GetType();
             var nodeType = typeof(ReflectionResource<>).MakeGenericType(type);
             return (ReflectionResource)Activator.CreateInstance(nodeType, target, parent, fragment);

@@ -3,9 +3,8 @@ using System.Reflection;
 
 namespace Noodles.Models
 {
-    public interface NodeLink
+    public interface NodeLink : IHasName
     {
-        string Name { get; }
         Resource Target { get; }
         string DisplayName { get; }
         Type TargetType { get; }
