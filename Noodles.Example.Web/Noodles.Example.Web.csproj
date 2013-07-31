@@ -59,11 +59,11 @@
     </Reference>
     <Reference Include="FormFactory, Version=1.0.4959.39158, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\FormFactory\FormFactory.AspMvc\bin\Debug\FormFactory.dll</HintPath>
+      <HintPath>..\packages\FormFactory.1.2.281\lib\net40\FormFactory.dll</HintPath>
     </Reference>
     <Reference Include="FormFactory.AspMvc, Version=1.0.4959.39160, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\FormFactory\FormFactory.AspMvc\bin\Debug\FormFactory.AspMvc.dll</HintPath>
+      <HintPath>..\packages\FormFactory.AspMvc.1.2.281\lib\net40\FormFactory.AspMvc.dll</HintPath>
     </Reference>
     <Reference Include="Harden, Version=1.0.4827.27173, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
