@@ -100,7 +100,7 @@ namespace Noodles.Example.Domain
         }
         [Show]
         public RegistrationMode RegistrationMode { get; set; }
-        public IEnumerable<RegistrationMode> RegistrationModel_choices()
+        public IEnumerable<RegistrationMode> RegistrationMode_choices()
         {
             yield return new Public();
             yield return new InviteOnly();
