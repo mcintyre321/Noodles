@@ -13,11 +13,11 @@ namespace Noodles.AspMvc.UiAttributes.Icons
                            .Select (m => m.Value.Substring(12)).Distinct().OrderBy(m => m)
                            .Select(i => " public const string " 
 						   + i.Replace("lock", "@lock")
-							  .Replace("un@lock", "unlock") 
-							  .Replace("double", "@double")
-							  .Replace("unchecked", "@unchecked")
+							.Replace("un@lock", "unlock") 
+							.Replace("double", "@double")
+							.Replace("unchecked", "@unchecked")
 
-							  .Replace("-", "_")
+							.Replace("-", "_")
 							  + " = \"" + i + "\"; "));
         wc.Dispose();
 #>

@@ -48,16 +48,16 @@ namespace Noodles.AspMvc.RequestHandling
             var boundValues = new List<Tuple<string, object>>();
             foreach (var invokeableParameter in invokeableParameters)
             {
-                var parameterObject = BindObject(_cc, invokeableParameter.ValueType, invokeableParameter.Name, null, method.InvokeDisplayName);
+                var parameterObject = BindObject(_cc, invokeableParameter.ValueType, invokeableParameter.Name,  method.InvokeDisplayName);
                 boundValues.Add(Tuple.Create(invokeableParameter.Name, parameterObject));
             }
 
             return await Task.FromResult(boundValues);
         }
 
-        private static object BindObject(ControllerContext cc, Type desiredType, string name, IEnumerable<Attribute> attributes, string displayName)
+        private static object BindObject(ControllerContext cc, Type desiredType, string name,  string displayName)
         {
-            attributes = attributes ?? new Attribute[] { };
+            var attributes =  desiredType.GetCustomAttributes(true).Cast<Attribute>().ToArray();
             displayName = displayName ?? name.Sentencise(true);
 
             cc.HttpContext.Request.InputStream.Position = 0; //reset as Json binder will have already read it once
@@ -197,6 +197,10 @@ namespace Noodles.AspMvc.RequestHandling
             {
                 result.IsRequired = true;
             }
+
+            var validateInputAttributes = attributes.OfType<ValidateInputAttribute>().SingleOrDefault();
+            if (validateInputAttributes != null && validateInputAttributes.EnableValidation == false)
+                result.RequestValidationEnabled = false;
         }
     }
 
