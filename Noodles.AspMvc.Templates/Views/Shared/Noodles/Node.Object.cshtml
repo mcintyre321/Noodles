@@ -47,7 +47,10 @@
                     {
                         <div>
                             <div class="control-group">
-                                <label class="control-label">@link.DisplayName</label>
+                                @if (link.CustomAttributes.OfType<NoLabelAttribute>().Any() == false)
+                                {
+                                    <label class="control-label">@link.DisplayName</label>
+                                }
                                 <div class="controls">
                                     @{
                                         var viewName = Html.BestViewName(link.TargetType, "Noodles/Node.");

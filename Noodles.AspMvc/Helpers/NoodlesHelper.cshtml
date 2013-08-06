@@ -5,11 +5,9 @@
 @using Noodles
 @using Noodles.AspMvc
 @using Noodles.AspMvc.Helpers
-@using Noodles.AspMvc.Helpers.Icons
 @using Noodles.Helpers
 @using Noodles.AspMvc.Helpers
 @using FormFactory
-@using Noodles.AspMvc.Helpers.Icons
 @using Noodles.Models
 @using Noodles.RequestHandling
 @helper NodeMethodsDropdown(Resource obj)
@@ -45,7 +43,7 @@
 }
 @helper Icon(IInvokeable nm)
 {
-    var att = nm.GetAttribute<IconAttribute>();
+    var att = nm.GetAttribute<Noodles.AspMvc.UiAttributes.Icons.IconAttribute>();
     if (att != null)
     {
         var joinedParts = "icon-" + string.Join(" icon-", att.Parts);

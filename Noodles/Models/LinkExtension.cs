@@ -31,7 +31,7 @@ namespace Noodles
                 var linkAttribute = pi.Attributes().OfType<LinkAttribute>().SingleOrDefault();
                 if (linkAttribute != null)
                 {
-                    var link = new ReflectionNodeLink(parent, linkAttribute.Slug ?? pi.Name, pi.GetValue(target), linkAttribute.UiHint);
+                    var link = new ReflectionNodeLink(parent, linkAttribute.Slug ?? pi.Name, pi.GetValue(target), pi.Attributes());
                     yield return link;
                 }
                 else
@@ -43,7 +43,7 @@ namespace Noodles
                     {
                         foreach (var i in items)
                         {
-                            var link = new ReflectionNodeLink(parent, i.Key, i.Value, linksAttribute.UiHint);
+                            var link = new ReflectionNodeLink(parent, i.Key, i.Value, pi.Attributes());
                             yield return link;
                         }
                     }
@@ -51,7 +51,7 @@ namespace Noodles
                     foreach (var dynamicItem in dynamicItems)
                     {
                         var slug = SlugAttribute.GetSlug(dynamicItem);
-                        var link = new ReflectionNodeLink(parent, slug, (object)dynamicItem, linksAttribute.UiHint);
+                        var link = new ReflectionNodeLink(parent, slug, (object)dynamicItem, pi.Attributes());
                         yield return link;
                     }
                 }

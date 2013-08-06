@@ -1,6 +1,6 @@
 ﻿using System.Web.Mvc;
 
-namespace Noodles.AspMvc.Helpers
+namespace Noodles.AspMvc.UiAttributes
 {
     public static class AttemptedValueHelper
     {

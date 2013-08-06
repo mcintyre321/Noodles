@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Noodles.AspMvc.Helpers.Icons
+namespace Noodles.AspMvc.UiAttributes.Icons
 {
     public class IconAttribute : Attribute
     {

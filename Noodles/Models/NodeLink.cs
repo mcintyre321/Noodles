@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Reflection;
 
 namespace Noodles.Models
@@ -10,5 +11,6 @@ namespace Noodles.Models
         Type TargetType { get; }
         string UiHint { get; }
         Uri Url { get; }
+        IEnumerable<Attribute> CustomAttributes { get; }
     }
 }
