@@ -175,6 +175,7 @@
     <Compile Include="Infrastructure\GlobalFixUserExceptionsAttribute.cs" />
     <Compile Include="Infrastructure\ModelStateTempDataTransferAttribute.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UiAttributes\ShowAsListWithHeader.cs" />
     <Compile Include="UiAttributes\UiHelpers.cs" />
     <Compile Include="UiAttributes\FormInfo.cs" />
     <Compile Include="UiAttributes\ShowAsLinkList.cs" />
