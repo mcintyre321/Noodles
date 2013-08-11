@@ -1,6 +1,4 @@
-﻿@using System.Web.Mvc.Html
-@using FormFactory
-@using Noodles.AspMvc.UiAttributes
+﻿@using Noodles.AspMvc.UiAttributes
 @model Noodles.Models.NodeCollectionProperty
 @{
     var resources = Model.Query(0, int.MaxValue).Items.ToArray();
@@ -13,40 +11,15 @@
 
     var columns = data.SelectMany(d => d.Properties)
         .OrderBy(p => p.Value.Order).Select(k => k.Key).Distinct().ToArray();
+    var showActions = resources.SelectMany(i => i.NodeMethods.ToArray()).Any();
 }
 
-    @if (resources.Any())
+@if (resources.Any())
+{
+    foreach (var item in resources)
     {
-
-        <table class="table-bordered table-condensed table-striped">
-            <thead>
-                <tr>
-                    <th></th>
-                    @foreach (var column in columns)
-                    {
-                        <th>@column</th>
-                    }
-                    @{
-                        ViewBag.ShowActions = resources.SelectMany(i => i.NodeMethods.ToArray()).Any();
-
-                        if (ViewBag.ShowActions)
-                        {
-                            <th>Actions</th>
-                        }
-                    }
-
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var item in resources)
-                {
-                    var view = Html.BestViewName(item.ValueType, "Noodles/TableRow.");
-                    if (view == null)
-                    {
-                        view = "Noodles/TableRow.Object";
-                    }
-                    @Html.Partial(view, item, new ViewDataDictionary() { { "Columns", columns }, { "ShowActions", ViewBag.ShowActions } })
-                }
-            </tbody>
-        </table>
+        <div>
+            <a href="@item.Url">@item.DisplayName</a>
+        </div>
+    }
 }
