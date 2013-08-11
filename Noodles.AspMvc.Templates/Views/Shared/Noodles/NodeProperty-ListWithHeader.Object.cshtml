@@ -1,4 +1,7 @@
-﻿@using Noodles.AspMvc.UiAttributes
+﻿@using System.Web.Mvc.Html
+@using FormFactory
+@using Noodles.AspMvc.Helpers
+@using Noodles.AspMvc.UiAttributes
 @model Noodles.Models.NodeCollectionProperty
 @{
     var resources = Model.Query(0, int.MaxValue).Items.ToArray();
@@ -20,6 +23,7 @@
     {
         <div>
             <a href="@item.Url">@item.DisplayName</a>
+            @NoodlesHelper.NodeMethodsDropdown(item)
         </div>
     }
 }
