@@ -5,6 +5,8 @@
         public ShowAsListWithHeader()
         {
             UiHint = "ListWithHeader";
-        }       
+        }
+
+        public string ItemsPropertyName { get; set; }
     }
 }
