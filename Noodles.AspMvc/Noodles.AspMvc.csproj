@@ -281,6 +281,9 @@
     <EmbeddedResource Include="..\Noodles.AspMvc.Templates\Views\Shared\Noodles\NodePropertyContainer.Object.cshtml">
       <Link>Views\Shared\Noodles\NodePropertyContainer.Object.cshtml</Link>
     </EmbeddedResource>
+    <EmbeddedResource Include="..\Noodles.AspMvc.Templates\Views\Shared\Noodles\NodeProperty-ListWithHeader.Object.cshtml">
+      <Link>Views\Shared\Noodles\NodeProperty-ListWithHeader.Object.cshtml</Link>
+    </EmbeddedResource>
     <None Include="UiAttributes\Icons\IconNames.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>IconNames.cs</LastGenOutput>

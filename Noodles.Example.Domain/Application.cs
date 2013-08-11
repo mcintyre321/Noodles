@@ -63,7 +63,7 @@ namespace Noodles.Example.Domain
             Items = new List<Organisation>();
         }
 
-        [ShowAsTable, NoLabel]
+        [ShowAsListWithHeader, NoLabel]
         public List<Organisation> Items { get; private set; }
     }
 

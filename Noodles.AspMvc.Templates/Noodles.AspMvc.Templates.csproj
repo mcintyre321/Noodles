@@ -151,6 +151,7 @@
       <SubType>Code</SubType>
     </Content>
     <Content Include="Views\Shared\Noodles\NodePropertyContainer.Object.cshtml" />
+    <Content Include="Views\Shared\Noodles\NodeProperty-ListWithHeader.Object.cshtml" />
     <None Include="Views\Web.config" />
     <Content Include="Views\_ViewStart.cshtml" />
   </ItemGroup>
