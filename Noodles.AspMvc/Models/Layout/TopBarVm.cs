@@ -9,11 +9,11 @@ namespace Noodles.AspMvc.Models.Layout
             Brand = new BrandVm();
             LeftItems = new List<NavItemVm>();
             RightItems = new List<NavItemVm>();
-            AccountMenu = new List<NavItemVm>();
+            AccountMenuItems = new List<NavItemVm>();
         }
 
         public List<NavItemVm> RightItems { get; set; }
-        public List<NavItemVm> AccountMenu { get; set; }
+        public List<NavItemVm> AccountMenuItems { get; set; }
         public BrandVm Brand { get; set; }
         public List<NavItemVm> LeftItems { get; set; }
 
