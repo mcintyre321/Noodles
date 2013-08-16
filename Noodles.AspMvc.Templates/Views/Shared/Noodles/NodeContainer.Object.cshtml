@@ -37,6 +37,10 @@
 
     if (resource.Parent == null)
     {
+        foreach (var method in resource.NodeMethods.Hinted("TopBar.LeftItems"))
+        {
+            Html.LayoutVm().TopBar.LeftItems.Add(new NavItemVm() { Html = NoodlesHelper.NodeMethodLink(method).ToHtmlString() });
+        }
         foreach (var method in resource.NodeMethods.Hinted("TopBar.RightItems"))
         {
             Html.LayoutVm().TopBar.RightItems.Add(new NavItemVm() {Html = NoodlesHelper.NodeMethodLink(method).ToHtmlString()});
