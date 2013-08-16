@@ -41,6 +41,10 @@
         {
             Html.LayoutVm().TopBar.RightItems.Add(new NavItemVm() {Html = NoodlesHelper.NodeMethodLink(method).ToHtmlString()});
         }
+        foreach (var method in resource.NodeMethods.Hinted("TopBar.AccountMenu"))
+        {
+            Html.LayoutVm().TopBar.AccountMenuItems.Add(new NavItemVm() {Html = NoodlesHelper.NodeMethodLink(method).ToHtmlString()});
+        }
     }
     var innerRendered = false;
     foreach (var linkGroup in links)
@@ -69,6 +73,12 @@
                 Html.LayoutVm().TopBar.LeftItems.AddRange(linkGroup.Select(l => new NavItemVm() {Html = "<a href='" + l.Url + "'>" + l.DisplayName + "</a>", Active = walked.Any(u => u.Url == l.Url)}));
                 break;
             }
+                // NOTE: actually, this isn't used yet, so i haven't tested it. TI
+//            case "TopBar.AccountMenu":
+//                {
+//                    Html.LayoutVm().TopBar.AccountMenuItems.AddRange(linkGroup.Select(l => new NavItemVm() { Html = "<a href='" + l.Url + "'>" + l.DisplayName + "</a>", Active = walked.Any(u => u.Url == l.Url) }));
+//                    break;
+//                }
             case "Inline":
             case "Hidden":
             case "Modal":
