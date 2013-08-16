@@ -128,9 +128,9 @@
     <Content Include="Views\Shared\Noodles\NodeProperty.Object.cshtml" />
     <Content Include="Views\Shared\Noodles\Collection.cshtml" />
     <Content Include="Views\Shared\Noodles\Link.cshtml" />
-    <Content Include="Views\Shared\Layout\Topbar.Brand.cshtml" />
-    <Content Include="Views\Shared\Layout\Topbar.LeftItems.cshtml" />
-    <Content Include="Views\Shared\Layout\Topbar.RightItems.cshtml" />
+    <Content Include="Views\Shared\Layout\TopBar.Brand.cshtml" />
+    <Content Include="Views\Shared\Layout\TopBar.LeftItems.cshtml" />
+    <Content Include="Views\Shared\Layout\TopBar.RightItems.cshtml" />
     <Content Include="Views\Shared\Noodles\TableCell.Object.cshtml" />
     <Content Include="Views\Shared\Layout\Footer.cshtml" />
     <Content Include="Views\Shared\Noodles\TableRow.Object.cshtml" />
