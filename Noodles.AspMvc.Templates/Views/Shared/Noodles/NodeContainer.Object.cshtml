@@ -14,14 +14,14 @@
 }
 
 @{
-    var walked = Model.AncestorsAndSelf().OfType<Resource>().ToArray();
-    Func<string> inner = () => Body(Html, Model).ToHtmlString();
+    var ancestors = Model.AncestorsAndSelf().OfType<Resource>().ToArray();
+    Func<string> inner = () => Breadcrumb(ancestors.Reverse().ToArray()) + Body(Html, Model).ToHtmlString();
     if (new HttpRequestWrapper(HttpContext.Current.Request).IsAjaxRequest() == false)
     {
-        foreach (var walkedItem in walked)
+        foreach (var walkedItem in ancestors)
         {
             var i = inner;
-            inner = () => RenderMenu(Html, walkedItem, walked, i).ToHtmlString();
+            inner = () => RenderMenu(Html, walkedItem, ancestors, i).ToHtmlString();
         }
     }
     @Html.Raw(inner())
@@ -48,61 +48,62 @@
         switch (linkGroup.Key)
         {
             case "SideNav":
-                {
-                    ViewBag.Indent = (ViewBag.Indent ?? 0) + 3;
-                    <div class="row">
-                        <div class="span3">
-                            @Nav(helper, linkGroup, walked, "nav-pills nav-stacked")
-                        </div>
-                        <div class="span@(12 - (ViewBag.Indent ?? 0))">@Html.Raw(renderInner())</div>
+            {
+                ViewBag.Indent = (ViewBag.Indent ?? 0) + 3;
+                <div class="row">
+                    <div class="span3">
+                        @Nav(helper, linkGroup, walked, "nav-pills nav-stacked")
                     </div>
-                    innerRendered = true;
-                    break;
-                }
+                    <div class="span@(12 - (ViewBag.Indent ?? 0))">@Html.Raw(renderInner())</div>
+                </div>
+                innerRendered = true;
+                break;
+            }
             case "TopBar.RightItems":
-                {
-                    Html.LayoutVm().TopBar.RightItems.AddRange(linkGroup.Select(l => new NavItemVm() {Html = "<a href='" + l.Url + "'>" + l.DisplayName + "</a>", Active = walked.Any(u => u.Url == l.Url)}));
-                    break;
-                }
+            {
+                Html.LayoutVm().TopBar.RightItems.AddRange(linkGroup.Select(l => new NavItemVm() {Html = "<a href='" + l.Url + "'>" + l.DisplayName + "</a>", Active = walked.Any(u => u.Url == l.Url)}));
+                break;
+            }
             case "TopBar.LeftItems":
-                {
-                    Html.LayoutVm().TopBar.LeftItems.AddRange(linkGroup.Select(l => new NavItemVm() {Html = "<a href='" + l.Url + "'>" + l.DisplayName + "</a>", Active = walked.Any(u => u.Url == l.Url)}));
-                    break;
-                }
+            {
+                Html.LayoutVm().TopBar.LeftItems.AddRange(linkGroup.Select(l => new NavItemVm() {Html = "<a href='" + l.Url + "'>" + l.DisplayName + "</a>", Active = walked.Any(u => u.Url == l.Url)}));
+                break;
+            }
             case "Inline":
             case "Hidden":
             case "Modal":
                 break;
             case "NavBar":
-                {
-                    <div class="navbar">
-                        <div class="navbar-inner">
-                            @if (resource.Parent == null)
-                            {
-                                <a class="brand" href="@resource.Url">@resource.DisplayName</a>
-                            }
-                            @Nav(helper, linkGroup, walked, "")
-                        </div>
+            {
+                <div class="navbar">
+                    <div class="navbar-inner">
+                        @if (resource.Parent == null)
+                        {
+                            <a class="brand" href="@resource.Url">@resource.DisplayName</a>
+                        }
+                        @Nav(helper, linkGroup, walked, "")
                     </div>
-                    break;
-                }
+                </div>
+                break;
+            }
             default:
+            {
+                var type = linkGroup.First().TargetType;
+                var prefix = "Noodles/Links." + linkGroup.Key + ".";
+                var partialName = Html.BestViewName(type, prefix);
+                if (partialName != null)
                 {
-                    var type = linkGroup.First().TargetType;
-                    var prefix = "Noodles/Links." + linkGroup.Key + ".";
-                    var partialName = Html.BestViewName(type, prefix);
-                    if (partialName != null)
-                    {
-                        @Html.Partial(partialName, linkGroup.Select(l => l.Target))
-                    }
-                    break;
+                    @Html.Partial(partialName, linkGroup.Select(l => l.Target))
                 }
+                break;
+            }
         }
-       
-    } 
+
+    }
     if (!innerRendered)
     {
-        @Html.Raw(renderInner());
+       
+        @Html.Raw(renderInner())
     }
 }
 
@@ -115,4 +116,21 @@
             <li @Html.Raw(active ? "class=\"active\"" : "")><a href="@node.Url">@node.DisplayName</a></li>
         }
     </ul>
+}
+
+@helper Breadcrumb(Resource[] walked)
+{
+    if(walked.Length > 1)
+    {
+        <ul class="breadcrumb">
+            
+            @for (var i = 0; i < walked.Length - 1; i++)
+            {
+                var crumb = walked[i];
+                
+                <li><a href="@crumb.Url">@crumb.DisplayName</a> <span class="divider">/</span></li>
+            }
+            <li class="active">@walked.Last().DisplayName</li>
+        </ul>
+    }
 }
