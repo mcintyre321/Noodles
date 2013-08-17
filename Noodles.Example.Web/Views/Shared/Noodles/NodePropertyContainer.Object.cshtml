@@ -1,0 +1,35 @@
+﻿@using System.Web.Mvc
+@using System.Web.Mvc
+@using System.Web.Mvc.Html
+@using FormFactory
+@using FormFactory.Attributes
+@using Noodles
+@using Noodles.AspMvc.UiAttributes.Icons
+@using Noodles.AspMvc.UiAttributes
+@using Noodles.Helpers
+@using Noodles.AspMvc.Helpers
+@using Noodles.Models
+@model Noodles.Models.NodeProperty
+
+@{
+    var propertyVm = Model.ToPropertyVm(Html);
+    propertyVm.Readonly = true;
+    <div data-node-getter="@Model.Name">
+        <div class="control-group">
+                <label class="control-label">@Model.DisplayName</label>
+            <div class="controls">
+                @{
+                    var viewNameStart = ("Noodles/NodeProperty" + (string.IsNullOrWhiteSpace(Model.UiHint) ? "" : ("-" + Model.UiHint)));
+                    var viewName = Html.BestViewName(Model.Value == null ? Model.ValueType : Model.Value.GetType(), viewNameStart + ".") ?? (viewNameStart + ".Object");
+                }
+                @Html.Partial(viewName, Model)
+            </div>
+        </div>
+    </div>
+    if (!Model.Readonly)
+    {
+        <div data-node-setter="@Model.Name">
+            @Html.Partial("Noodles/NodeMethod", (IInvokeable) Model)
+        </div>
+    }
+}

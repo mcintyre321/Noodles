@@ -108,49 +108,14 @@
     <Content Include="Content\bootstrap-overrides.css" />
     <Content Include="Content\Noodles.AspMvc.css" />
     <Content Include="Scripts\Noodles\Noodles.js" />
-    <Content Include="Views\Shared\Noodles\NodeMethod.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\Shared\Noodles\_AjaxLayout.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\Shared\Noodles\NodeMethods.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\Shared\Noodles\NodeMethodSuccess.cshtml">
-      <LastGenOutput>Copy of NodeActionForm.generated.cs</LastGenOutput>
-    </Content>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
-    <Content Include="Views\Shared\Noodles\Link.Object.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Shared\Noodles\NodeProperty.Object.cshtml" />
-    <Content Include="Views\Shared\Noodles\Collection.cshtml" />
-    <Content Include="Views\Shared\Noodles\Link.cshtml" />
     <Content Include="Views\Shared\Layout\TopBar.Brand.cshtml" />
     <Content Include="Views\Shared\Layout\TopBar.LeftItems.cshtml" />
     <Content Include="Views\Shared\Layout\TopBar.RightItems.cshtml" />
-    <Content Include="Views\Shared\Noodles\TableCell.Object.cshtml" />
     <Content Include="Views\Shared\Layout\Footer.cshtml" />
-    <Content Include="Views\Shared\Noodles\TableRow.Object.cshtml" />
-    <Content Include="Views\Shared\Noodles\Node.Object.cshtml" />
-    <Content Include="Views\Shared\Noodles\NodeBody.Object.cshtml" />
-    <Content Include="Views\Shared\Noodles\NodeProperties.cshtml" />
-    <Content Include="Views\Shared\Noodles\NodeContainer.Object.cshtml" />
-    <Content Include="Views\Shared\Noodles\NodeProperty-Hidden.Object.cshtml">
-      <SubType>Code</SubType>
-    </Content>
-    <Content Include="Views\Shared\Noodles\NodeProperty-Inline.Object.cshtml">
-      <SubType>Code</SubType>
-    </Content>
-    <Content Include="Views\Shared\Noodles\NodeProperty-LinkList.Object.cshtml">
-      <SubType>Code</SubType>
-    </Content>
-    <Content Include="Views\Shared\Noodles\NodeProperty-Table.Object.cshtml">
-      <SubType>Code</SubType>
-    </Content>
-    <Content Include="Views\Shared\Noodles\NodePropertyContainer.Object.cshtml" />
     <None Include="Views\Web.config" />
     <Content Include="Views\_ViewStart.cshtml" />
   </ItemGroup>

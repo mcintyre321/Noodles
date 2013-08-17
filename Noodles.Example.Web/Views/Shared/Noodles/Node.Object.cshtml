@@ -1,0 +1,64 @@
+﻿@using System.Web.Mvc
+@using System.Web.Mvc.Html
+@using FormFactory.Attributes
+@using Noodles.AspMvc.Models.Layout
+@using Noodles.AspMvc.UiAttributes
+@using Noodles.AspMvc.Helpers
+@using Noodles.Models
+@using FormFactory;
+@using FormFactory.AspMvc;
+
+@model Noodles.Models.Resource
+ 
+@Body(Html, Model)
+@helper Body(HtmlHelper html, Resource resource)
+{
+    <div class="node" data-resource-url="@resource.Url">
+        <div class="row">
+            <div class="span@(12 - (ViewBag.Indent ?? 0))">
+                <div class="nodebody">
+                    @html.BestPartial(resource, resource.ValueType, "Noodles/NodeBody.")
+                </div>
+                <ul class="node-components">
+                    @{
+                        foreach (var property in resource.NodeProperties)
+                        {
+                            var viewNameStart = ("Noodles/NodePropertyContainer" + (string.IsNullOrWhiteSpace(property.UiHint) ? "" : ("-" + property.UiHint)));
+                            var viewPropertyType = property.Value == null ? property.ValueType : property.Value.GetType();
+                            var viewName = Html.BestViewName(viewPropertyType, viewNameStart + ".") ?? (viewNameStart + ".Object");
+                            var view = ViewEngines.Engines.FindPartialView(this.ViewContext.Controller.ControllerContext, viewName);
+                            viewName = (view.View != null) ? viewName : Html.BestViewName(viewPropertyType, "Noodles/NodePropertyContainer.");
+                        <li class="node-component node-property" data-uihint="@property.UiHint">
+                            @Html.Partial(viewName, property)
+                        </li>
+                        } 
+                    }
+                    @{
+                        var nodeMethods = resource.NodeMethods.ToArray();
+                        if (nodeMethods.Any())
+                        {
+                            foreach (var method in nodeMethods)
+                            {
+                        <li class="node-component node-method" data-uihint="@method.UiHint">
+                            @NoodlesHelper.NodeMethodLink(method, "uihint-" + method.UiHint)
+                        </li>
+                            }
+                        }
+                    }
+                    @{
+                        var nodeLinks = resource.NodeLinks.ToArray();
+                        if (nodeLinks.Any())
+                        {
+                            foreach (var nodelink in nodeLinks)
+                            {
+                        <li >
+                            <a class="node-component node-method" data-uihint="@nodelink.UiHint" href="@nodelink.Url">@nodelink.DisplayName</a>
+                        </li>
+                            }
+                        }
+                    }
+                </ul>
+            </div>
+        </div>
+    </div>
+}

@@ -55,7 +55,7 @@ namespace Noodles.Example.Domain
 
     }
 
-    [DisplayName("Organisations you are a member of")]
+    [DisplayName("Organisations")]
     public class Organisations
     {
         public Organisations()

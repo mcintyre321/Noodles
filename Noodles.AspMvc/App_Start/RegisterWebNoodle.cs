@@ -9,7 +9,7 @@ namespace Noodles.AspMvc.App_Start {
         public static void Start() {
             GlobalFilters.Filters.Add(new GlobalFixUserExceptionsAttribute());
             GlobalFilters.Filters.Add(new ModelStateTempDataTransferAttribute());
-
+            GlobalFilters.Filters.Add(new ModifyDocumentFilterAttribute());
         }
     }
 }

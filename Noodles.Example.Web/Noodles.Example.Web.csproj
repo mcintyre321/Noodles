@@ -259,6 +259,27 @@
     <Content Include="Content\Site.css" />
     <Content Include="Views\Shared\Link.Task.cshtml" />
     <Content Include="Views\Shared\Noodles\NodeBody.Application.cshtml" />
+    <Content Include="Views\Shared\Noodles\_AjaxLayout.cshtml" />
+    <Content Include="Views\Shared\Noodles\Collection.cshtml" />
+    <Content Include="Views\Shared\Noodles\Link.cshtml" />
+    <Content Include="Views\Shared\Noodles\Link.Object.cshtml" />
+    <Content Include="Views\Shared\Noodles\Node.Object.cshtml" />
+    <Content Include="Views\Shared\Noodles\NodeBody.Object.cshtml" />
+    <Content Include="Views\Shared\Noodles\NodeContainer.Object.cshtml" />
+    <Content Include="Views\Shared\Noodles\NodeMethod.cshtml" />
+    <Content Include="Views\Shared\Noodles\NodeMethods.cshtml" />
+    <Content Include="Views\Shared\Noodles\NodeMethodSuccess.cshtml">
+      <LastGenOutput>Copy of NodeActionForm.generated.cs</LastGenOutput>
+    </Content>
+    <Content Include="Views\Shared\Noodles\NodeProperties.cshtml" />
+    <Content Include="Views\Shared\Noodles\NodeProperty-Hidden.Object.cshtml" />
+    <Content Include="Views\Shared\Noodles\NodeProperty-Inline.Object.cshtml" />
+    <Content Include="Views\Shared\Noodles\NodeProperty-LinkList.Object.cshtml" />
+    <Content Include="Views\Shared\Noodles\NodeProperty-Table.Object.cshtml" />
+    <Content Include="Views\Shared\Noodles\NodeProperty.Object.cshtml" />
+    <Content Include="Views\Shared\Noodles\NodePropertyContainer.Object.cshtml" />
+    <Content Include="Views\Shared\Noodles\TableCell.Object.cshtml" />
+    <Content Include="Views\Shared\Noodles\TableRow.Object.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
