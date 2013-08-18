@@ -5,6 +5,8 @@ using Noodles.Helpers;
 
 namespace Noodles.Models
 {
+
+     
     public interface INode<T>
     {
     }
@@ -17,15 +19,12 @@ namespace Noodles.Models
         Uri Url { get; }
         INode Parent { get; }
         Type ValueType { get; }
-        IEnumerable<Attribute> CustomAttributes { get; } 
-        //string UiHint { get; }
-
-        //int Order { get; }
-
+        IEnumerable<Attribute> Attributes { get; }
     }
+
     public static class INodeExtensions
     {
-        public static IEnumerable<INode> Ancestors(this INode t) {  { return t.AncestorsAndSelf().Skip(1); } }
-        public static IEnumerable<INode> AncestorsAndSelf(this INode t) {  { return (t).Recurse(n => n.Parent); } }
+        public static IEnumerable<INode> Ancestors(this INode t) { { return t.AncestorsAndSelf().Skip(1); } }
+        public static IEnumerable<INode> AncestorsAndSelf(this INode t) { { return (t).Recurse(n => n.Parent); } }
     }
 }

@@ -10,7 +10,7 @@
     var data = resources.Select(i => new
     {
         Resource = i,
-        Properties = i.NodeProperties.Where(p => p.CustomAttributes.OfType<NotInTable>().Any() == false)
+        Properties = i.NodeProperties.Where(p => p.Attributes.OfType<NotInTable>().Any() == false)
             .ToDictionary(p => p.DisplayName, p => p)
     }).ToArray();
 

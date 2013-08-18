@@ -155,7 +155,7 @@ namespace Noodles
 
         public NodeMethod NodeMethod { get { return _nodeMethod; } }
 
-        public IEnumerable<Attribute> CustomAttributes
+        public IEnumerable<Attribute> Attributes
         {
             get
             {

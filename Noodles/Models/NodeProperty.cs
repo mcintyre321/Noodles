@@ -12,7 +12,7 @@ namespace Noodles.Models
         Type ValueType { get; }
         bool Readonly { get; }
         object Value { get; }
-        IEnumerable<Attribute> CustomAttributes { get; }
+        IEnumerable<Attribute> Attributes { get; }
         object Invoke(object[] objects);
         IEnumerable<NodeMethod> NodeMethods { get; }
         string UiHint { get; }

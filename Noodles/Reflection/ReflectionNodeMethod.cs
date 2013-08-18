@@ -98,7 +98,7 @@ namespace Noodles.Models
 
         public INode Parent { get; private set; }
         public Type ValueType { get { return typeof(NodeMethod); } }
-        public IEnumerable<Attribute> CustomAttributes { get { return _methodInfo.Attributes(); } }
+        public IEnumerable<Attribute> Attributes { get { return _methodInfo.Attributes(); } }
         public string UiHint { get; private set; }
 
 

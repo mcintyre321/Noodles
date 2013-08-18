@@ -131,7 +131,7 @@ namespace Noodles.Models
             get { return ""; }
         }
 
-        public IEnumerable<INode> ChildNodes { get { return this.NodeLinks.Cast<INode>().Concat(this.NodeMethods).Concat(this.NodeProperties); } }
+        public IEnumerable<INode> ChildNodes { get { return (this.NodeMethods).Cast<INode>().Concat(this.NodeProperties).Concat(this.NodeLinks); } }
 
         public INode GetChild(string name)
         {
@@ -217,7 +217,7 @@ namespace Noodles.Models
         }
 
         public Uri RootUrl { set { _url = value; }}
-        public IEnumerable<Attribute> CustomAttributes { get { return this.Value.Attributes(); } }
+        public IEnumerable<Attribute> Attributes { get { return this.Value.Attributes(); } }
     }
 
     public class ReflectionResource<T> : ReflectionResource,  Resource<T>, INode<T>

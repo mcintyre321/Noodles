@@ -4,13 +4,10 @@ using System.Reflection;
 
 namespace Noodles.Models
 {
-    public interface NodeLink : IHasName
+    public interface NodeLink : INode
     {
         Resource Target { get; }
-        string DisplayName { get; }
-        Type TargetType { get; }
+        Type ValueType { get; }
         string UiHint { get; }
-        Uri Url { get; }
-        IEnumerable<Attribute> Attributes { get; }
     }
 }

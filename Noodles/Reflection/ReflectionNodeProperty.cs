@@ -55,7 +55,7 @@ namespace Noodles.Models
 
         public string DisplayName { get; private set; }
 
-        IEnumerable<Attribute> IInvokeableParameter.CustomAttributes
+        IEnumerable<Attribute> IInvokeableParameter.Attributes
         {
             get { return this.Attributes().Concat(this._info.Attributes()); }
         }
@@ -141,7 +141,7 @@ namespace Noodles.Models
         }
 
         public Uri Url { get { return new Uri(this.Parent.Url + this.Fragment + "/", UriKind.Relative); } }
-        public string UiHint { get { return CustomAttributes.OfType<ShowAttribute>().Select(a => a.UiHint).SingleOrDefault(); } }
+        public string UiHint { get { return Attributes.OfType<ShowAttribute>().Select(a => a.UiHint).SingleOrDefault(); } }
         public string TypeName { get { return "NodeProperty"; } }
         public bool AutoSubmit { get { return false; } }
 
@@ -158,10 +158,10 @@ namespace Noodles.Models
 
         T IInvokeable.GetAttribute<T>()
         {
-            return ((Setter == null) ? null as T : Setter.GetAttribute<T>()) ?? this.CustomAttributes.OfType<T>().SingleOrDefault();
+            return ((Setter == null) ? null as T : Setter.GetAttribute<T>()) ?? this.Attributes.OfType<T>().SingleOrDefault();
         }
 
-        public IEnumerable<Attribute> CustomAttributes
+        public IEnumerable<Attribute> Attributes
         {
             get
             {

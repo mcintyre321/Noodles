@@ -12,7 +12,7 @@ namespace Noodles
         Type ValueType { get; }
         bool IsOptional { get; }
         string Name { get; }
-        IEnumerable<Attribute> CustomAttributes { get; }
+        IEnumerable<Attribute> Attributes { get; }
         object Value { get; }
         IEnumerable Choices { get; }
         IEnumerable Suggestions { get; }

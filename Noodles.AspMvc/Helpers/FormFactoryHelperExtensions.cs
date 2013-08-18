@@ -27,9 +27,9 @@ namespace Noodles.AspMvc.Helpers
 
             {
                 vm.DisplayName = parameter.DisplayName;
-                vm.GetCustomAttributes = () => parameter.CustomAttributes.Concat(customAtts);
+                vm.GetCustomAttributes = () => parameter.Attributes.Concat(customAtts);
                 vm.Readonly = parameter.Readonly;
-                vm.IsHidden = parameter.CustomAttributes.OfType<DataTypeAttribute>().Any(x => x.CustomDataType == "Hidden");
+                vm.IsHidden = parameter.Attributes.OfType<DataTypeAttribute>().Any(x => x.CustomDataType == "Hidden");
                 vm.Value = parameter.LastValue ?? parameter.Value;
                 vm.Choices = parameter.Choices;
                 vm.Suggestions = parameter.Suggestions;

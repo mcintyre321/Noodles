@@ -49,7 +49,7 @@
              
             default:
             {
-                var type = linkGroup.First().TargetType;
+                var type = linkGroup.First().ValueType;
                 var prefix = "Noodles/Links." + linkGroup.Key + ".";
                 var partialName = Html.BestViewName(type, prefix);
                 if (partialName != null)

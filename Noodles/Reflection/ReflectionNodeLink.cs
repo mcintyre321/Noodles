@@ -21,14 +21,20 @@ namespace Noodles.Models
             var uiHint = customAttributes.OfType<LinkAttribute>().Select(l => l.UiHint).SingleOrDefault()
                 ?? customAttributes.OfType<LinksAttribute>().Select(l => l.UiHint).Single();
             UiHint = parent.Value.ToString(uiHint);
-            TargetType = node.ValueType;
+            ValueType = node.ValueType;
             Target = node;
         }
 
 
+        public IEnumerable<INode> ChildNodes { get { yield break; } }
+        public INode GetChild(string name)
+        {
+            return null;
+        }
+
         public string DisplayName { get; set; }
 
-        public Type TargetType { get; set; }
+        public Type ValueType { get; set; }
 
         public Uri Url { get; private set; }
         public IEnumerable<Attribute> Attributes { get; private set; }

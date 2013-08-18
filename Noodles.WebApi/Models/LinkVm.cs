@@ -16,7 +16,7 @@ namespace Noodles.WebApi.Models
         {
             Relationship = relationship;
             Name = obj.DisplayName;
-            MediaType = obj.TargetType.FullName;
+            MediaType = obj.ValueType.FullName;
             this.Url = obj.Url;
         }
     }
