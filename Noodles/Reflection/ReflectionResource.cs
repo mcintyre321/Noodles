@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -105,6 +106,7 @@ namespace Noodles.Models
         public object Value { get; protected set; }
         public Type ValueType { get; set; }
 
+        
 
         bool IInvokeable.Active
         {
@@ -128,6 +130,8 @@ namespace Noodles.Models
         {
             get { return ""; }
         }
+
+        public IEnumerable<INode> ChildNodes { get { return this.NodeLinks.Cast<INode>().Concat(this.NodeMethods).Concat(this.NodeProperties); } }
 
         public INode GetChild(string name)
         {
@@ -213,6 +217,7 @@ namespace Noodles.Models
         }
 
         public Uri RootUrl { set { _url = value; }}
+        public IEnumerable<Attribute> CustomAttributes { get { return this.Value.Attributes(); } }
     }
 
     public class ReflectionResource<T> : ReflectionResource,  Resource<T>, INode<T>

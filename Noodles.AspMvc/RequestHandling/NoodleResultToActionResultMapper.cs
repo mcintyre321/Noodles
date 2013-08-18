@@ -4,6 +4,7 @@ using System.Web.Mvc;
 using FormFactory;
 using FormFactory.AspMvc.Wrappers;
 using Noodles.AspMvc.Infrastructure;
+using Noodles.AspMvc.RequestHandling.Transforms;
 using Noodles.Models;
 using Noodles.RequestHandling;
 using Noodles.RequestHandling.ResultTypes;
@@ -13,6 +14,13 @@ namespace Noodles.AspMvc.RequestHandling
 {
     public class NoodleResultToActionResultMapper : NoodleResultMapper<ActionResult, ControllerContext>
     {
+        private TransformRuleRegistry ruleRegistry;
+
+        public NoodleResultToActionResultMapper(TransformRuleRegistry ruleRegistry)
+        {
+            this.ruleRegistry = ruleRegistry;
+        }
+
         public override ActionResult Map(ControllerContext context, BadRequestResult result)
         {
             return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -49,20 +57,16 @@ namespace Noodles.AspMvc.RequestHandling
         public override ActionResult Map(ControllerContext context, ViewResult result)
         {
             var res = new System.Web.Mvc.ViewResult();
-            var targetResource = result.Target as Resource;
+            var targetResource = result.Target as INode;
             if (targetResource != null)
             {
-                var resource = (Resource)result.Target;
                 var ffContext = (FormFactory.IViewFinder) new FormFactoryContext(context);
-                var viewname = ViewFinderExtensions.BestViewName(ffContext, resource.ValueType, "Noodles/NodeContainer.");
+                var viewname = ViewFinderExtensions.BestViewName(ffContext, targetResource.ValueType, "Noodles/NodeContainer.");
 
                 res.ViewName = viewname;
- 
-            }
-            else if (result.Target is IInvokeable)
-            {
-                res.ViewName = "Noodles/NodeMethod";
-            }
+                context.Controller.ViewBag.NoodleTarget = targetResource;
+                ruleRegistry.RegisterTransformations(context, targetResource);
+            } 
             res.ViewData.Model = result.Target;
             if (context.HttpContext.Request.IsAjaxRequest())
             {

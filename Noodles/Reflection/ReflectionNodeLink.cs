@@ -12,7 +12,7 @@ namespace Noodles.Models
 
         public ReflectionNodeLink(Resource parent, string name, object value, IEnumerable<Attribute> customAttributes)
         {
-            CustomAttributes = customAttributes;
+            Attributes = customAttributes;
             var node = ResourceFactory.Instance.Create(value, parent, name);
             Node = node;
             DisplayName = ((INode) node).DisplayName;
@@ -31,7 +31,7 @@ namespace Noodles.Models
         public Type TargetType { get; set; }
 
         public Uri Url { get; private set; }
-        public IEnumerable<Attribute> CustomAttributes { get; private set; }
+        public IEnumerable<Attribute> Attributes { get; private set; }
         public INode Parent { get; private set; }
 
         public string Name { get; private set; }

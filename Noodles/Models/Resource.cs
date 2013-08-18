@@ -1,4 +1,6 @@
 using System;
+using System.Collections;
+using System.Collections.Generic;
 
 namespace Noodles.Models
 {
@@ -8,6 +10,7 @@ namespace Noodles.Models
         Type ValueType { get; }
         
         Uri RootUrl { set; }
+        IEnumerable<Attribute> CustomAttributes { get; }
     }
     public interface Resource<T> : Resource, INode<T>
     {

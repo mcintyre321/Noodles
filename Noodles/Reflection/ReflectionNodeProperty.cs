@@ -99,6 +99,7 @@ namespace Noodles.Models
 
         public Type ValueType { get; private set; }
 
+
         bool IInvokeableParameter.IsOptional
         {
             get { return true; }
@@ -160,7 +161,7 @@ namespace Noodles.Models
             return ((Setter == null) ? null as T : Setter.GetAttribute<T>()) ?? this.CustomAttributes.OfType<T>().SingleOrDefault();
         }
 
-        public IEnumerable<object> CustomAttributes
+        public IEnumerable<Attribute> CustomAttributes
         {
             get
             {
@@ -174,6 +175,8 @@ namespace Noodles.Models
         }
 
         public bool Readonly { get { return Setter == null; } }
+
+        public IEnumerable<INode> ChildNodes { get { yield break; } }
 
         string GetDisplayName(PropertyInfo info)
         {

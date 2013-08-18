@@ -32,9 +32,9 @@ namespace Noodles.AspMvc.Infrastructure
             //response processing
 
             var doc = new CsQuery.CQ(response);
-            foreach (var tranform in filterContext.HttpContext.Items.DocTransforms())
+            foreach (var transform in filterContext.HttpContext.Items.DocTransforms())
             {
-                tranform(doc);
+                doc = transform(doc);
             }
             output.Write(doc.Render());
         }
@@ -45,16 +45,24 @@ namespace Noodles.AspMvc.Infrastructure
         public static void AddTransform(this IDictionary items, Action<CQ> transform)
         {
             var transforms = DocTransforms(items);
-            transforms.Add(transform);
+            transforms.Add(cq =>
+            {
+                transform(cq);
+                return cq;
+            });
+        }
+        public static void AddTransform(this IDictionary items, Func<CQ, CQ> transform)
+        {
+            DocTransforms(items).Add(transform);
         }
 
-        public static List<Action<CQ>> DocTransforms(this IDictionary items)
+        public static List<Func<CQ, CQ>> DocTransforms(this IDictionary items)
         {
             if (!items.Contains("DocTransforms"))
             {
-                items["DocTransforms"] = new List<Action<CQ>>();
+                items["DocTransforms"] = new List<Func<CQ, CQ>>();
             }
-            return (List<Action<CQ>>) items["DocTransforms"];
+            return (List<Func<CQ, CQ>>) items["DocTransforms"];
         }
     }
 }

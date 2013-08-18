@@ -12,6 +12,7 @@ using FormFactory;
 using Noodles.AspMvc.Helpers;
 using Noodles.AspMvc.Models;
 using Noodles.AspMvc.RequestHandling;
+using Noodles.AspMvc.RequestHandling.Transforms;
 using Noodles.Models;
 
 
@@ -19,9 +20,10 @@ namespace Noodles.AspMvc
 {
     public static class ActionResultExtension
     {
-        public static async Task<ActionResult> GetNoodleResult(this ControllerContext cc, object root, string path = null, Func<IInvokeable, IDictionary<string, object>, object> doInvoke = null)
+        public static async Task<ActionResult> GetNoodleResult(this ControllerContext cc, object root, string path = null, Func<IInvokeable, IDictionary<string, object>, object> doInvoke = null, TransformRuleRegistry ruleRegistry = null)
         {
-            var handler = new AspMvcNoodleHandler();
+            ruleRegistry = ruleRegistry ?? TransformRuleRegistry.Default;
+            var handler = new AspMvcNoodleHandler(ruleRegistry);
             var noodleResult = handler.GetNoodleResult(cc, root, path, doInvoke);
             return await noodleResult;
         }
@@ -56,7 +58,7 @@ namespace Noodles.AspMvc
 //        var isInvoke = httpMethod == "POST" || (httpMethod == "GET" && method.GetAttribute<HttpGetAttribute>() != null);
 //        if (!isInvoke) return null;
 //        var parameters = method.Parameters
-//            .Select(pt => pt.Locked ? pt.Value : BindObject(cc, pt.ParameterType, pt.Name, pt.CustomAttributes, pt.DisplayName))
+//            .Select(pt => pt.Locked ? pt.Value : BindObject(cc, pt.ParameterType, pt.Name, pt.Attributes, pt.DisplayName))
 //            .ToArray();
 //        var msd = cc.Controller.ViewData.ModelState;
 

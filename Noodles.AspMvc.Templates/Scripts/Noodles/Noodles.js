@@ -80,7 +80,7 @@
         return true;
     }
 
-    $(document).on('click', ".nodeMethodLink", function (e) {
+    $(document).on('click', ".noodles-popup", function (e) {
         e.preventDefault();
         var $link = $(this);
         if ($link.attr("data-custom-method-handler")) {
@@ -89,7 +89,6 @@
         $link.closest(".popover").hide();
 
 
-        //if (e.target != this) return false; //why???
         var methodsPanelId = "method-" + $link.attr("href").replace(/\//g, "_");
         if ($("#" + methodsPanelId).length == false) {
             ensureLazyElement(

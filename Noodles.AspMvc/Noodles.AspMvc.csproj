@@ -149,6 +149,7 @@
     <Compile Include="Extras\RequireRoleAttribute.cs" />
     <Compile Include="Helpers\BootstrapHelper.generated.cs" />
     <Compile Include="Infrastructure\ModifyDocumentAttribute.cs" />
+    <Compile Include="RequestHandling\Transforms\TransformRuleRegistry.cs" />
     <Compile Include="UiAttributes\Icons\IconAttribute.cs" />
     <Compile Include="HelperExtensions.cs" />
     <Compile Include="UiAttributes\Icons\IconNames.cs">

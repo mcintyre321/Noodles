@@ -11,11 +11,13 @@ namespace Noodles.Models
 
     public interface INode : IHasName
     {
+        IEnumerable<INode> ChildNodes { get; }
         INode GetChild(string name);
         string DisplayName { get; }
         Uri Url { get; }
         INode Parent { get; }
-
+        Type ValueType { get; }
+        IEnumerable<Attribute> CustomAttributes { get; } 
         //string UiHint { get; }
 
         //int Order { get; }

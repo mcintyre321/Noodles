@@ -174,6 +174,8 @@ namespace Noodles
         public bool Locked { get; set; }
         public bool Readonly { get { return false; } }
 
+        public IEnumerable<INode> ChildNodes { get{ yield break;} }
+
         public INode GetChild(string name)
         {
             return null;

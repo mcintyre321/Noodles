@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Noodles.AspMvc.RequestHandling.Transforms;
 
 namespace Noodles.Example.Domain
 {
@@ -27,7 +28,7 @@ namespace Noodles.Example.Domain
             
         }
 
-        [Link( UiHint = "Modal")]
+        [Link][Modal]
         public AdvancedMembershipSettings Advanced { get; private set; }
     }
 

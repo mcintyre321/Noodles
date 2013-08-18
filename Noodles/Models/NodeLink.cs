@@ -11,6 +11,6 @@ namespace Noodles.Models
         Type TargetType { get; }
         string UiHint { get; }
         Uri Url { get; }
-        IEnumerable<Attribute> CustomAttributes { get; }
+        IEnumerable<Attribute> Attributes { get; }
     }
 }

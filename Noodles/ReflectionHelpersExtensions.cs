@@ -52,5 +52,6 @@ namespace Noodles
         {
             return typeLookup.GetOrAdd(type, (t) => t.GetCustomAttributes(true).Cast<Attribute>());
         }
+ 
     }
 }

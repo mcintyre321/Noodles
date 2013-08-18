@@ -10,6 +10,7 @@ using System.Web.Security;
 using FormFactory.Attributes;
 using Harden.ValidationAttributes;
 using Newtonsoft.Json;
+using Noodles.AspMvc.RequestHandling.Transforms;
 using Noodles.AspMvc.UiAttributes;
 using Noodles.Example.Domain.Tasks;
 
@@ -35,7 +36,7 @@ namespace Noodles.Example.Domain
             
         }
 
-        [Link(UiHint = "Inline")]
+        [Link][Modal]
         public Organisations Organisations { get; private set; }
 
 
