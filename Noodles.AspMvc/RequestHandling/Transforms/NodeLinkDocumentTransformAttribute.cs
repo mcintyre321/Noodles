@@ -6,17 +6,17 @@ using Noodles.Models;
 
 namespace Noodles.AspMvc.RequestHandling.Transforms
 {
-    public abstract class NodeLinkDocumentTransformAttribute : Attribute
+    public abstract class ChildNodeDocumentTransformAttribute : Attribute
     {
-        public void Transform(NodeLink nodeLink, ControllerContext cc, INode node)
+        public void Transform(INode child, ControllerContext cc, INode parent)
         {
             cc.HttpContext.Items.AddTransform(cq =>
             {
-                var element = cq["[data-node-url='" + nodeLink.Url + "']"];
-                Transform(element, nodeLink, cc, node);
+                var element = cq["[data-node-url='" + child.Url + "']"];
+                Transform(element, child, cc, parent);
             });
         }
 
-        public abstract void Transform(CQ element, NodeLink nodeLink, ControllerContext cc, INode resource);
+        public abstract void Transform(CQ element, INode child, ControllerContext cc, INode parent);
     }
 }

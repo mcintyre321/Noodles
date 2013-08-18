@@ -4,71 +4,21 @@
 @using Noodles.AspMvc.Helpers
 @using Noodles.Models
 @using FormFactory;
-@using Noodles.AspMvc.UiAttributes
-@model Noodles.Models.Resource
+@model Noodles.Models.INode
 @using Noodles.AspMvc.Models.Layout
 @{
     var layoutVm = this.Html.LayoutVm();
     layoutVm.RegisterScripts();
+
+    var viewName = Html.BestViewName(Model.ValueType, "Noodles/Node.") ?? "Noodles/Node.Object";
+    var resources = Model.AncestorsAndSelf().ToArray().Reverse().ToArray();
 }
 
-@{
-    var ancestors = Model.AncestorsAndSelf().OfType<Resource>().ToArray();
-}
-@Breadcrumb(ancestors.Reverse().ToArray())
-@Html.BestPartial(Model, Model.ValueType, "Noodles/Node.")
+@Breadcrumb(resources)
 
-@helper RenderMenu(HtmlHelper helper, Resource resource, IEnumerable<Resource> walked, Func<string> renderInner)
-{
-    var links = resource.NodeLinks.GroupBy(l => l.UiHint);
+@Html.Partial(viewName, Model) 
 
-    if (resource.Parent == null)
-    {
-        foreach (var method in resource.NodeMethods.Hinted("TopBar.LeftItems"))
-        {
-            Html.LayoutVm().TopBar.LeftItems.Add(new NavItemVm() { Html = NoodlesHelper.NodeMethodLink(method).ToHtmlString() });
-        }
-        foreach (var method in resource.NodeMethods.Hinted("TopBar.RightItems"))
-        {
-            Html.LayoutVm().TopBar.RightItems.Add(new NavItemVm() {Html = NoodlesHelper.NodeMethodLink(method).ToHtmlString()});
-        }
-        foreach (var method in resource.NodeMethods.Hinted("TopBar.AccountMenu"))
-        {
-            Html.LayoutVm().TopBar.AccountMenuItems.Add(new NavItemVm() {Html = NoodlesHelper.NodeMethodLink(method).ToHtmlString()});
-        }
-    }
-    var innerRendered = false;
-    foreach (var linkGroup in links)
-    {
-        switch (linkGroup.Key)
-        {
-            case "Inline":
-            case "Hidden":
-            case "Modal":
-                break;
-             
-            default:
-            {
-                var type = linkGroup.First().ValueType;
-                var prefix = "Noodles/Links." + linkGroup.Key + ".";
-                var partialName = Html.BestViewName(type, prefix);
-                if (partialName != null)
-                {
-                    @Html.Partial(partialName, linkGroup.Select(l => l.Target))
-                }
-                break;
-            }
-        }
-
-    }
-    if (!innerRendered)
-    {
-       
-        @Html.Raw(renderInner())
-    }
-}
-
-@helper Nav(HtmlHelper helper, IEnumerable<NodeLink> links, IEnumerable<Resource> walked, string navOptions)
+@helper Nav(HtmlHelper helper, IEnumerable<NodeLink> links, IEnumerable<INode> walked, string navOptions)
 {
     <ul class="nav @navOptions">
         @foreach (var node in links)
@@ -79,7 +29,7 @@
     </ul>
 }
 
-@helper Breadcrumb(Resource[] walked)
+@helper Breadcrumb(INode[] walked)
 {
     if(walked.Length > 1)
     {

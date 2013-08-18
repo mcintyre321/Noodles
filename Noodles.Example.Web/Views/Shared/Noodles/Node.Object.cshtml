@@ -8,18 +8,21 @@
 @using FormFactory;
 @using FormFactory.AspMvc;
 
-@model Noodles.Models.Resource
+@model Noodles.Models.INode
  
 @Body(Html, Model)
-@helper Body(HtmlHelper html, Resource resource)
+@helper Body(HtmlHelper html, INode resource)
 {
     <div class="node-container" data-node-url="@resource.Url">
         <div class="nodebody">
-            @html.BestPartial(resource, resource.ValueType, "Noodles/NodeBody.")
+            @{
+                var bodyView = html.BestViewName(resource.ValueType, "Noodles/NodeBody.") ?? "Noodles/NodeBody.Object";
+            }
+            @html.Partial(bodyView, resource)
         </div>
         <div class="node-components">
             @{
-                foreach (var property in resource.NodeProperties)
+                foreach (var property in resource.ChildNodes.OfType<NodeProperty>())
                 {
                     var viewNameStart = ("Noodles/NodePropertyContainer" + (string.IsNullOrWhiteSpace(property.UiHint) ? "" : ("-" + property.UiHint)));
                     var viewPropertyType = property.Value == null ? property.ValueType : property.Value.GetType();
@@ -30,21 +33,19 @@
                     @Html.Partial(viewName, property)
                 </div>
                 } 
-            }
-            @{
-                var nodeMethods = resource.NodeMethods.ToArray();
+             
+                var nodeMethods = resource.ChildNodes.OfType<NodeMethod>().ToArray();
                 if (nodeMethods.Any())
                 {
                     foreach (var method in nodeMethods)
                     {
                 <li class="node-component node-method" data-uihint="@method.UiHint" data-node-url="@method.Url">
-                    @NoodlesHelper.NodeMethodLink(method)
+                    <a  href="@method.Url">@method.DisplayName</a>
                 </li>
                     }
                 }
-            }
-            @{
-                var nodeLinks = resource.NodeLinks.ToArray();
+             
+                var nodeLinks = resource.ChildNodes.OfType<NodeLink>().ToArray();
                 if (nodeLinks.Any())
                 {
                     foreach (var nodeLink in nodeLinks)

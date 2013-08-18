@@ -32,11 +32,19 @@ namespace Noodles.AspMvc.Infrastructure
             //response processing
 
             var doc = new CsQuery.CQ(response);
-            foreach (var transform in filterContext.HttpContext.Items.DocTransforms())
+            try
             {
-                doc = transform(doc);
+                foreach (var transform in filterContext.HttpContext.Items.DocTransforms())
+                {
+                    doc = transform(doc);
+                }
+                output.Write(doc.Render());
             }
-            output.Write(doc.Render());
+            catch (Exception ex)
+            {
+                output.Write(ex.ToString());
+                throw;
+            }
         }
     }
 

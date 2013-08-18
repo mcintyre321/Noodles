@@ -266,7 +266,7 @@
     <Content Include="Views\Shared\Noodles\Node.Object.cshtml" />
     <Content Include="Views\Shared\Noodles\NodeBody.Object.cshtml" />
     <Content Include="Views\Shared\Noodles\NodeContainer.Object.cshtml" />
-    <Content Include="Views\Shared\Noodles\NodeMethod.cshtml" />
+    <Content Include="Views\Shared\Noodles\_NodeContainer.NodeMethod.cshtml" />
     <Content Include="Views\Shared\Noodles\NodeMethods.cshtml" />
     <Content Include="Views\Shared\Noodles\NodeMethodSuccess.cshtml">
       <LastGenOutput>Copy of NodeActionForm.generated.cs</LastGenOutput>

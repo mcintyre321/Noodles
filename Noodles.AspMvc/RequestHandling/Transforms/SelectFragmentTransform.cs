@@ -12,7 +12,7 @@ namespace Noodles.AspMvc.RequestHandling.Transforms
             var fragmentSelector = cc.RequestContext.HttpContext.Request["fragment-selector"];
             if (fragmentSelector != null)
             {
-                cc.HttpContext.Items.AddTransform(cq => CQ.CreateFragment((string) cq.Document.QuerySelector(fragmentSelector).OuterHTML));
+                cc.HttpContext.Items.AddTransform(cq => CQ.CreateFragment(cq.Document.QuerySelector(fragmentSelector).OuterHTML));
             }
         }
     }

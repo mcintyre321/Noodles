@@ -61,7 +61,9 @@ namespace Noodles.AspMvc.RequestHandling
             if (targetResource != null)
             {
                 var ffContext = (FormFactory.IViewFinder) new FormFactoryContext(context);
-                var viewname = ViewFinderExtensions.BestViewName(ffContext, targetResource.ValueType, "Noodles/NodeContainer.");
+                var viewname = ViewFinderExtensions.BestViewName(ffContext, targetResource.ValueType, "Noodles/NodeContainer.")
+                               ?? "Noodles/NodeContainer.Object";
+
 
                 res.ViewName = viewname;
                 context.Controller.ViewBag.NoodleTarget = targetResource;
