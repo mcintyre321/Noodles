@@ -111,7 +111,7 @@
     var showMethodForm = function ($link) {
         var methodsPanelId = "method-" + $link.attr("href").replace(/\//g, "_");
         var $method = $("#" + methodsPanelId);
-        if ($link.hasClass("autoSubmit")) {
+        if ($link.hasClass("auto-submit")) {
             $method.find("form").submit();
         } else {
             $method.modal({ show: true, backdrop: true });

@@ -84,13 +84,23 @@ namespace Noodles.AspMvc.RequestHandling
                 return new AjaxRedirectRewritingActionResult((ActionResult) result.Result);
             }
             var res = new System.Web.Mvc.ViewResult();
+            var targetResource = result.Invokeable as INode;
+            if (targetResource != null)
+            {
+                var ffContext = (FormFactory.IViewFinder)new FormFactoryContext(context);
+                var viewname = ViewFinderExtensions.BestViewName(ffContext, targetResource.ValueType, "Noodles/NodeContainer.")
+                               ?? "Noodles/NodeContainer.Object";
 
+
+                res.ViewName = viewname;
+                context.Controller.ViewBag.NoodleTarget = targetResource;
+                ruleRegistry.RegisterTransformations(context, targetResource);
+            }
+            res.ViewData.Model = result.Invokeable;
             if (context.HttpContext.Request.IsAjaxRequest())
             {
                 res.MasterName = "Noodles/_AjaxLayout";
             }
-            res.ViewName = "Noodles/NodeMethodSuccess";
-            res.ViewData.Model = result;
             return res;
         }
 

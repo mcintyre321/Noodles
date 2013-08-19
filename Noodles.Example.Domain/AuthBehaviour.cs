@@ -2,7 +2,9 @@ using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Reflection;
 using System.Web;
+using System.Web.Mvc;
 using FormFactory.Attributes;
+using Noodles.AspMvc.RequestHandling.Transforms;
 
 namespace Noodles.Example.Domain
 {
@@ -13,7 +15,7 @@ namespace Noodles.Example.Domain
         }
 
         [Show(UiHint = "TopBar.RightItems")][Description("You can enter any email/password combo - this is just an example!")]
-        public void SignIn([Required] [Placeholder("Enter any email address")]string email, [DataType(DataType.Password)][Required]  string password)
+        public RedirectResult SignIn([Required] [Placeholder("Enter any email address")]string email, [DataType(DataType.Password)][Required]  string password)
         {
             if (string.IsNullOrEmpty(email) || string.IsNullOrEmpty(password))
             {
@@ -21,6 +23,7 @@ namespace Noodles.Example.Domain
             }
             //check username and password here
             AuthService.SetAuthToken(email);
+            return new RedirectResult(HttpContext.Current.Request["ReturnUrl"] ?? "/");
         }
         
         public string SignIn_email_default()
@@ -34,9 +37,10 @@ namespace Noodles.Example.Domain
         }
 
         [Show(UiHint = "TopBar.RightItems"), AutoSubmit]
-        public void SignOut()
+        public RedirectResult SignOut()
         {
             AuthService.ClearAuthToken();
+            return new RedirectResult(HttpContext.Current.Request["ReturnUrl"] ?? "/");
         }
 
         public bool? Allow(MethodInfo methodInfo)

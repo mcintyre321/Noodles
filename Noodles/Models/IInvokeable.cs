@@ -12,7 +12,6 @@ namespace Noodles.Models
         Uri InvokeUrl { get; }
         object Target { get; }
         string Message { get; }
-        bool AutoSubmit { get; }
         Type ParameterType { get; }
         Type ResultType { get; }
         //object Parameter { get; }

@@ -39,10 +39,6 @@ namespace Noodles.AspMvc.UiAttributes
             get { return _resource.InvokeUrl; }
         }
 
-        public bool AutoSubmit
-        {
-            get { return _resource.AutoSubmit; }
-        }
 
         public Type ParameterType
         {

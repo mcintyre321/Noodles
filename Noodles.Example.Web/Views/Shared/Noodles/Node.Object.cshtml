@@ -1,6 +1,7 @@
 ﻿@using System.Web.Mvc
 @using System.Web.Mvc.Html
 @using FormFactory.Attributes
+@using Noodles
 @using Noodles.AspMvc.Models.Layout
 @using Noodles.AspMvc.UiAttributes
 @using Noodles.AspMvc.Helpers
@@ -22,35 +23,60 @@
         </div>
         <div class="node-components">
             @{
-                foreach (var property in resource.ChildNodes.OfType<NodeProperty>())
+                Func<NodeProperty, string> getBestViewName = property =>
                 {
                     var viewNameStart = ("Noodles/NodePropertyContainer" + (string.IsNullOrWhiteSpace(property.UiHint) ? "" : ("-" + property.UiHint)));
                     var viewPropertyType = property.Value == null ? property.ValueType : property.Value.GetType();
                     var viewName = Html.BestViewName(viewPropertyType, viewNameStart + ".") ?? (viewNameStart + ".Object");
                     var view = ViewEngines.Engines.FindPartialView(this.ViewContext.Controller.ControllerContext, viewName);
                     viewName = (view.View != null) ? viewName : Html.BestViewName(viewPropertyType, "Noodles/NodePropertyContainer.");
-                <div class="node-component node-property" data-uihint="@property.UiHint" data-node-url="@property.Url">
-                    @Html.Partial(viewName, property)
+                    return viewName;
+                };
+
+                var settableProperties = resource.ChildNodes.OfType<IInvokeableParameter>().Where(p => p.Readonly == false);
+                if (settableProperties.Any() || resource is NodeMethod)
+                {
+                <form class="node-update-form" action="@Model.Url" method="POST">
+                    @foreach (var parameter in settableProperties)
+                    {
+                        <div class="node-component node-settable-property" data-node-url="@parameter.Url">
+                            @{
+                        var vm = parameter.ToPropertyVm(Html);
+                        Html.RenderPartial("FormFactory/Form.Property", vm);
+                            }
+                        </div>        
+                    }
+                    <input type="submit" value="@(resource is NodeMethod ? resource.DisplayName : "Update")" />
+                </form>
+                }
+                var readonlyProperties = resource.ChildNodes.OfType<NodeProperty>().Where(p => p.Readonly);
+                if (readonlyProperties.Any())
+                {
+                    foreach (var property in readonlyProperties)
+                    {
+                <div class="node-component node-readonly-property" data-uihint="@property.UiHint" data-node-url="@property.Url">
+                    @Html.Partial(getBestViewName(property), property)
                 </div>
-                } 
-             
+                    }
+                }
+
                 var nodeMethods = resource.ChildNodes.OfType<NodeMethod>().ToArray();
                 if (nodeMethods.Any())
                 {
                     foreach (var method in nodeMethods)
                     {
-                <li class="node-component node-method" data-uihint="@method.UiHint" data-node-url="@method.Url">
+                <div class="node-component node-method" data-uihint="@method.UiHint" data-node-url="@method.Url">
                     <a  href="@method.Url">@method.DisplayName</a>
-                </li>
+                </div>
                     }
                 }
-             
+
                 var nodeLinks = resource.ChildNodes.OfType<NodeLink>().ToArray();
                 if (nodeLinks.Any())
                 {
                     foreach (var nodeLink in nodeLinks)
                     {
-                <div class="node-component node-method" data-uihint="@nodeLink.UiHint" data-node-url="@nodeLink.Url">
+                <div class="node-component node-link" data-uihint="@nodeLink.UiHint" data-node-url="@nodeLink.Url">
                     <a  href="@nodeLink.Url">@nodeLink.DisplayName</a>
                 </div>
                     }

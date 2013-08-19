@@ -166,11 +166,6 @@ namespace Noodles.Models
             set { _url = value; }
         }
 
-        bool IInvokeable.AutoSubmit
-        {
-            get { return false; }
-        }
-
         Type IInvokeable.ParameterType
         {
             get { return ValueType; }

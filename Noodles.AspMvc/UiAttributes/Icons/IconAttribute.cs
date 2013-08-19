@@ -1,14 +1,23 @@
 ﻿using System;
+using System.Web.Mvc;
+using CsQuery;
+using Noodles.Models;
 
 namespace Noodles.AspMvc.UiAttributes.Icons
 {
-    public class IconAttribute : Attribute
+    public class IconAttribute : Noodles.AspMvc.RequestHandling.Transforms.ChildNodeDocumentTransformAttribute
     {
-        public string[] Parts { get; set; }
+        public string IconName { get; private set; }
 
-        public IconAttribute(params string[] parts)
+        public IconAttribute(string iconName)
         {
-            Parts = parts;
+            IconName = iconName;
+        }
+
+        public override void Transform(CQ element, INode child, ControllerContext cc, INode parent)
+        {
+            var link = element.Find("> a");
+            link.Html("<i class=\"icon-" + IconName + "\"></i>&nbsp;" + link.Html());
         }
     }
 }

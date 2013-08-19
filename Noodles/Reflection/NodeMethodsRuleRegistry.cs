@@ -34,16 +34,7 @@ namespace Noodles
         public Type ColType { get; set; }
     }
 
-    [AttributeUsage(AttributeTargets.Method)]
-    public class AutoSubmitAttribute : Attribute
-    {
-        public bool AutoSubmit { get; private set; }
-
-        public AutoSubmitAttribute(bool autoSubmit = true)
-        {
-            AutoSubmit = autoSubmit;
-        }
-    }
+  
     public static class NodeMethodsRuleRegistry
     {
         /// <returns>
@@ -76,11 +67,6 @@ namespace Noodles
         /// null when not sure
         /// </returns>
         public delegate bool? AutoSubmitRule(MethodInfo methodInfo);
-        public static bool AutoSubmitByDefault { get; set; }
-        public static List<AutoSubmitRule> AutoSubmitRules { get; private set; }
-
-        public static AutoSubmitRule NoAutoSubmitWhenHasParams = (mi) => mi.GetParameters().Any() ? false : null as bool?;
-        public static AutoSubmitRule AutoSubmitAttribute = (mi) => mi.GetCustomAttributes(typeof(AutoSubmitAttribute), true).Cast<AutoSubmitAttribute>().FirstOrDefault().Maybe(x => x.AutoSubmit as bool?);
 
         static NodeMethodsRuleRegistry()
         {
@@ -88,11 +74,6 @@ namespace Noodles
             {
                 ShowAttributedMethods,
             };
-            AutoSubmitRules = new List<AutoSubmitRule>
-                                  {
-                                      NoAutoSubmitWhenHasParams,
-                                      AutoSubmitAttribute
-                                  };
         }
 
         internal static U Maybe<T, U>(this T t, Func<T, U> f) where T : class

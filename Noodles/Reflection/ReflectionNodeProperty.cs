@@ -143,7 +143,6 @@ namespace Noodles.Models
         public Uri Url { get { return new Uri(this.Parent.Url + this.Fragment + "/", UriKind.Relative); } }
         public string UiHint { get { return Attributes.OfType<ShowAttribute>().Select(a => a.UiHint).SingleOrDefault(); } }
         public string TypeName { get { return "NodeProperty"; } }
-        public bool AutoSubmit { get { return false; } }
 
         public object Invoke(IDictionary<string, object> parameterDictionary)
         {

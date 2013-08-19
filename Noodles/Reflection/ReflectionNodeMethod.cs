@@ -151,28 +151,6 @@ namespace Noodles.Models
 
         public IEnumerable<INode> ChildNodes { get { return this.Parameters; } }
 
-        private bool? _autoSubmit;
-
-        public bool AutoSubmit
-        {
-            get
-            {
-                if (_autoSubmit == null)
-                {
-                    foreach (var rule in NodeMethodsRuleRegistry.AutoSubmitRules)
-                    {
-                        _autoSubmit = rule(this._methodInfo);
-                        if (_autoSubmit.HasValue) break;
-                    }
-                    if (_autoSubmit == null)
-                    {
-                        _autoSubmit = NodeMethodsRuleRegistry.AutoSubmitByDefault;
-                    }
-                }
-                return _autoSubmit.Value;
-            }
-        }
-
         public Type ReturnType
         {
             get { return _methodInfo.ReturnType; }

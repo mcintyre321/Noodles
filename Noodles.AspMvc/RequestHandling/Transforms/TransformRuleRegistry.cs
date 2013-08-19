@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Web;
 using System.Web.Mvc;
+using Noodles.AspMvc.Infrastructure;
 using Noodles.Models;
 
 namespace Noodles.AspMvc.RequestHandling.Transforms
@@ -15,6 +16,7 @@ namespace Noodles.AspMvc.RequestHandling.Transforms
             {
                 Transforms =
                 {
+                    new ApplyButtonClass(),
                     new ApplyAttributeTransforms(),
                     new SelectFragmentTransform()
                 }
@@ -34,5 +36,17 @@ namespace Noodles.AspMvc.RequestHandling.Transforms
             }
         }
 
+    }
+
+    public class ApplyButtonClass : IDocumentTransform
+    {
+        public void Register(ControllerContext cc, INode resource)
+        {
+            cc.HttpContext.Items.AddTransform(cq =>
+            {
+                cq[" input[type=submit]"].AddClass("btn");
+                cq[".node-component.node-method > a"].AddClass("btn");
+            });
+        }
     }
 }

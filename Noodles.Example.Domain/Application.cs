@@ -12,6 +12,7 @@ using Harden.ValidationAttributes;
 using Newtonsoft.Json;
 using Noodles.AspMvc.RequestHandling.Transforms;
 using Noodles.AspMvc.UiAttributes;
+using Noodles.AspMvc.UiAttributes.Icons;
 using Noodles.Example.Domain.Tasks;
 
 namespace Noodles.Example.Domain
@@ -47,7 +48,7 @@ namespace Noodles.Example.Domain
         public Settings Settings { get; private set; }
 
         [Show(UiHint = "TopBar.RightItems")]
-        [HttpGet]
+        [HttpGet][Icon(IconNames.cog)][DisplayName("API")]
         public RedirectResult API()
         {
             return new RedirectResult("/api");
