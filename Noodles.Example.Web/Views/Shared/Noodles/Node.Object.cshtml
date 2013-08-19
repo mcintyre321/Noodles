@@ -33,7 +33,7 @@
                     return viewName;
                 };
 
-                var settableProperties = resource.ChildNodes.OfType<IInvokeableParameter>().Where(p => p.Readonly == false);
+                var settableProperties = resource.ChildNodes.OfType<NodeProperty>().Where(p => p.Readonly == false);
                 if (settableProperties.Any() || resource is NodeMethod)
                 {
                 <form class="node-update-form" action="@Model.Url" method="POST">

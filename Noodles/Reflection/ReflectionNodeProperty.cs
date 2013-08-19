@@ -55,11 +55,7 @@ namespace Noodles.Models
 
         public string DisplayName { get; private set; }
 
-        IEnumerable<Attribute> IInvokeableParameter.Attributes
-        {
-            get { return this.Attributes().Concat(this._info.Attributes()); }
-        }
-
+       
         public object Value { get; private set; }
 
         IEnumerable IInvokeableParameter.Choices
@@ -124,7 +120,7 @@ namespace Noodles.Models
             get
             {
                 if (Setter == null) return Enumerable.Empty<NodeMethodParameter>();
-                return Setter.Parameters.Then(p => p.DisplayName = this.DisplayName);
+                return Setter.Parameters;
             }
         }
         public string Name { get; private set; }
@@ -134,11 +130,6 @@ namespace Noodles.Models
             get { return _target; }
         }
 
-        string IInvokeableParameter.DisplayName
-        {
-            get { return DisplayName; }
-            set { DisplayName = value; }
-        }
 
         public Uri Url { get { return new Uri(this.Parent.Url + this.Fragment + "/", UriKind.Relative); } }
         public string UiHint { get { return Attributes.OfType<ShowAttribute>().Select(a => a.UiHint).SingleOrDefault(); } }

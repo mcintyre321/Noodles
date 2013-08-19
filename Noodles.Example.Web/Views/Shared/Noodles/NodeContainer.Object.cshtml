@@ -41,7 +41,8 @@
                 var parentResource = crumb.Parent as Resource;
                 if (parentResource != null)
                 {
-                    if (parentResource.NodeLink(crumb.Name).UiHint == "Inline")
+                    var nodeLink = parentResource.NodeLink(crumb.Name);
+                    if (nodeLink == null || nodeLink.UiHint == "Inline")
                     {
                         continue;
                     }

@@ -12,14 +12,4 @@
             <a class="show-setter" href="#edit @Model.DisplayName"><i class="icon-edit "></i></a>
         }
     </div>
-
-    @if (!Model.Readonly)
-    {
-        ViewBag.UseIconSubmit = true;
-                
-        <div data-node-setter="@Model.Name">
-            @Html.Partial("Noodles/NodeMethod", Model)
-            <a class="hide-setter" href="#cancel edit"><i class="icon-remove "></i></a>            
-        </div>
-    }
 </td>

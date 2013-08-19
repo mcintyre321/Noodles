@@ -5,18 +5,12 @@ using Noodles.Models;
 
 namespace Noodles
 {
-    public interface IInvokeableParameter : INode
+    public interface IInvokeableParameter : INode, NodeProperty
     {
-        string DisplayName { get; set; }
         object LastValue { get; set; }
-        Type ValueType { get; }
         bool IsOptional { get; }
-        string Name { get; }
-        IEnumerable<Attribute> Attributes { get; }
-        object Value { get; }
         IEnumerable Choices { get; }
         IEnumerable Suggestions { get; }
         bool Locked { get; }
-        bool Readonly { get; }
     }
 }

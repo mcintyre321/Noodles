@@ -43,6 +43,11 @@ namespace Noodles
         public Type Type { get { return this.GetType(); } }
 
         public int Order { get; private set; }
+        public object Invoke(object[] objects)
+        {
+            throw new NotImplementedException();
+        }
+
         public IEnumerable<NodeMethod> NodeMethods { get { yield break; } }
         public IEnumerable<NodeProperty> NodeProperties { get { yield break; } }
         public IEnumerable<Resource> Children { get { yield break; } }
