@@ -101,7 +101,6 @@ namespace Noodles.Models
         public IEnumerable<Attribute> Attributes { get { return _methodInfo.Attributes(); } }
         public string UiHint { get; private set; }
 
-
         private IEnumerable<IInvokeableParameter> _parameters;
 
         public bool Active { get { return true; } }

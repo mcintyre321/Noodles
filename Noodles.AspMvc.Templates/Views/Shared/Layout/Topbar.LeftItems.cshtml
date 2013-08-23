@@ -4,6 +4,6 @@
 <!-- begin /Layout/Topbar.LeftItems.cshtml -->
     @foreach (var item in Html.LayoutVm().TopBar.LeftItems)
     {
-         <li @Html.Raw(item.Active ? "class=\"active\"": "") > @Html.Raw(item.Html) </li>
+         <li class="navbar-left @Html.Raw(item.Active ? "active": "")" > @Html.Raw(item.Html) </li>
     }
 <!-- end /Layout/Topbar.LeftItems.cshtml -->

@@ -44,8 +44,8 @@ namespace Noodles.AspMvc.RequestHandling.Transforms
         {
             cc.HttpContext.Items.AddTransform(cq =>
             {
-                cq[" input[type=submit]"].AddClass("btn");
-                cq[".node-component.node-method > a"].AddClass("btn");
+                cq[" input[type=submit]"].AddClass("btn").AddClass("btn-primary");
+                cq[".node-component.node-method > a"].AddClass("btn").AddClass("btn-default");
             });
         }
     }

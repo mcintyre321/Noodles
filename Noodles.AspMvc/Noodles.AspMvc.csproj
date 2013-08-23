@@ -56,13 +56,13 @@
     <Reference Include="CsQuery">
       <HintPath>..\packages\CsQuery.1.3.4\lib\net40\CsQuery.dll</HintPath>
     </Reference>
-    <Reference Include="FormFactory, Version=1.2.281.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\FormFactory.1.2.281\lib\net40\FormFactory.dll</HintPath>
+    <Reference Include="FormFactory">
+      <HintPath>..\packages\FormFactory.1.2.286\lib\net40\FormFactory.dll</HintPath>
+      <Private>True</Private>
     </Reference>
-    <Reference Include="FormFactory.AspMvc, Version=1.2.281.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\FormFactory.AspMvc.1.2.281\lib\net40\FormFactory.AspMvc.dll</HintPath>
+    <Reference Include="FormFactory.AspMvc">
+      <HintPath>..\packages\FormFactory.AspMvc.1.2.286\lib\net40\FormFactory.AspMvc.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="Harden">
       <HintPath>..\packages\Harden.1.2.7\lib\net40\Harden.dll</HintPath>
@@ -236,6 +236,14 @@
     <EmbeddedResource Include="..\Noodles.AspMvc.Templates\Views\Shared\Layout\Topbar.RightItems.cshtml">
       <Link>Views\Shared\Layout\Topbar.RightItems.cshtml</Link>
     </EmbeddedResource>
+    <EmbeddedResource Include="Content\bootstrap\bootstrap-theme.css" />
+    <EmbeddedResource Include="Content\bootstrap\bootstrap-theme.min.css" />
+    <EmbeddedResource Include="Content\bootstrap\bootstrap.css" />
+    <EmbeddedResource Include="Content\bootstrap\bootstrap.min.css" />
+    <Content Include="Content\fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Content\fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="Content\fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="Content\fonts\glyphicons-halflings-regular.eot" />
     <None Include="UiAttributes\Icons\IconNames.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>IconNames.cs</LastGenOutput>
@@ -253,10 +261,6 @@
     <EmbeddedResource Include="..\Noodles.AspMvc.Templates\Content\Noodles.AspMvc.css">
       <Link>Content\Noodles.AspMvc.css</Link>
     </EmbeddedResource>
-    <EmbeddedResource Include="Content\bootstrap-responsive.css" />
-    <EmbeddedResource Include="Content\bootstrap-responsive.min.css" />
-    <EmbeddedResource Include="Content\bootstrap.css" />
-    <EmbeddedResource Include="Content\bootstrap.min.css" />
     <EmbeddedResource Include="Content\font-awesome-ie7.min.css" />
     <EmbeddedResource Include="Content\font-awesome.css" />
     <EmbeddedResource Include="Content\font-awesome.min.css" />
@@ -294,12 +298,8 @@
     <EmbeddedResource Include="Content\themes\base\minified\jquery.ui.tabs.min.css" />
     <EmbeddedResource Include="Content\themes\base\minified\jquery.ui.theme.min.css" />
     <EmbeddedResource Include="Content\themes\base\minified\jquery.ui.tooltip.min.css" />
-    <EmbeddedResource Include="Scripts\bootstrap.js" />
-    <EmbeddedResource Include="Scripts\bootstrap.min.js" />
     <EmbeddedResource Include="Scripts\jquery-migrate-1.1.0.min.js" />
     <EmbeddedResource Include="Scripts\modernizr-2.6.2.js" />
-    <Content Include="Content\images\glyphicons-halflings-white.png" />
-    <Content Include="Content\images\glyphicons-halflings.png" />
     <EmbeddedResource Include="Scripts\jquery-migrate-1.1.1.js" />
     <EmbeddedResource Include="Scripts\jquery-migrate-1.1.1.min.js" />
     <EmbeddedResource Include="Scripts\jquery.unobtrusive-ajax.js" />
@@ -339,6 +339,8 @@
     <EmbeddedResource Include="Scripts\jquery.validate.min.js" />
     <EmbeddedResource Include="Scripts\jquery.validate.unobtrusive.js" />
     <EmbeddedResource Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <EmbeddedResource Include="Scripts\bootstrap.js" />
+    <EmbeddedResource Include="Scripts\bootstrap.min.js" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>

@@ -14,6 +14,7 @@ using Noodles.AspMvc.RequestHandling.Transforms;
 using Noodles.AspMvc.UiAttributes;
 using Noodles.AspMvc.UiAttributes.Icons;
 using Noodles.Example.Domain.Tasks;
+using Noodles.Models;
 
 namespace Noodles.Example.Domain
 {
@@ -84,7 +85,7 @@ namespace Noodles.Example.Domain
         [NotInTable]
         public List<Project> Projects { [ShowAsTable] get; set; }
 
-        [Show]
+        [Show][Modal]
         public void AddNewProject([Required][StringLength(50, MinimumLength = 5)] String name)
         {
             Projects.Add(new Project(name));

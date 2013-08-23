@@ -4,7 +4,30 @@ using Noodles.Models;
 
 namespace Noodles.AspMvc.RequestHandling.Transforms
 {
-    public class ModalAttribute: ChildNodeDocumentTransformAttribute
+    public class ModalAttribute : ChildNodeDocumentTransformAttribute
+    {
+        public override void Transform(CQ element, INode child, ControllerContext cc, INode parent)
+        {
+            var link = element.Find("> a");
+            if (link != null)
+            {
+                var uri = link.Attr("href");
+                if (!uri.Contains("?")) uri += "?";
+                uri += "fragment-selector=.node-container";
+                //link.Attr("href", uri);
+                link.Data("toggle", "modal").Data("target", "#noodles-modal").Data("remote", uri);
+
+                if (element.Document.QuerySelector("#noodles-modal") == null)
+                {
+                    CQ.Create(
+                        "<div class=\"modal hide\" id=\"noodles-modal\"><div class=\"modal-header\"><a class=\"close\" data-dismiss=\"modal\">×</a><h3 class=\"title\">&nbsp;</h3></div><div class=\"modal-body\"></div><div class=\"modal-footer\"></div></div>")
+                      .AppendTo(element.Document.Body);
+
+                }
+            }
+        }
+    }
+    public class DropdownAttribute : ChildNodeDocumentTransformAttribute
     {
         public override void Transform(CQ element, INode child, ControllerContext cc, INode parent)
         {

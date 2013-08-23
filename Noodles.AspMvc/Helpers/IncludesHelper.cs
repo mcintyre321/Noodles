@@ -12,7 +12,7 @@ namespace Noodles.AspMvc.Helpers
         {
             layout.HeadBundle.ScriptIncludes.Add("/Scripts/modernizr-2.6.2.js");
             var styles = layout.HeadBundle.StyleIncludes;
-            styles.Add("/Content/bootstrap.min.css");
+            styles.Add("/Content/bootstrap/bootstrap.min.css");
             styles.Add("/Content/bootstrap-overrides.css");
             styles.Add("/Content/font-awesome.min.css");
             styles.Add("/Content/themes/base/jquery-ui.css");

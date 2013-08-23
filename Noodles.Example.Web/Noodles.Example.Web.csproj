@@ -57,13 +57,13 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\EmbeddedResourceVirtualPathProvider.1.2.17\lib\net40\EmbeddedResourceVirtualPathProvider.dll</HintPath>
     </Reference>
-    <Reference Include="FormFactory, Version=1.0.4959.39158, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="FormFactory, Version=1.2.286.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\FormFactory.1.2.281\lib\net40\FormFactory.dll</HintPath>
+      <HintPath>..\packages\FormFactory.1.2.286\lib\net40\FormFactory.dll</HintPath>
     </Reference>
-    <Reference Include="FormFactory.AspMvc, Version=1.0.4959.39160, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="FormFactory.AspMvc, Version=1.2.286.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\FormFactory.AspMvc.1.2.281\lib\net40\FormFactory.AspMvc.dll</HintPath>
+      <HintPath>..\packages\FormFactory.AspMvc.1.2.286\lib\net40\FormFactory.AspMvc.dll</HintPath>
     </Reference>
     <Reference Include="Harden, Version=1.0.4827.27173, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -152,6 +152,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Code\RegisterVirtualPathProvider.cs" />
+    <Compile Include="ActionFilters\TurbolinksAttribute.cs" />
     <Compile Include="App_Start\MunqMvc3Startup.cs" />
     <Compile Include="App_Start\RegisterDatatablesModelBinder.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
@@ -162,16 +163,15 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Content\bootstrap-responsive.css" />
-    <Content Include="Content\bootstrap-responsive.min.css" />
-    <Content Include="Content\bootstrap.css" />
-    <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\bootstrap\bootstrap-theme.css" />
+    <Content Include="Content\bootstrap\bootstrap-theme.min.css" />
+    <Content Include="Content\bootstrap\bootstrap.css" />
+    <Content Include="Content\bootstrap\bootstrap.min.css" />
     <Content Include="Content\font-awesome-ie7.min.css" />
     <Content Include="Content\font-awesome.css" />
     <Content Include="Content\font-awesome.min.css" />
+    <Content Include="Content\fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Content\font\fontawesome-webfont.svg" />
-    <Content Include="Content\images\glyphicons-halflings-white.png" />
-    <Content Include="Content\images\glyphicons-halflings.png" />
     <Content Include="Content\themes\base\images\animated-overlay.gif" />
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
@@ -242,13 +242,20 @@
     <Content Include="Content\font\fontawesome-webfont.ttf" />
     <Content Include="Content\font\fontawesome-webfont.eot" />
     <Content Include="Content\font\FontAwesome.otf" />
+    <Content Include="Content\fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="Content\fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="Content\fonts\glyphicons-halflings-regular.eot" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\bootstrap.js" />
+    <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\jquery-ui-1.10.2.js" />
     <Content Include="Scripts\jquery-ui-1.10.2.min.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\turbolinks.js" />
+    <Content Include="Scripts\turbolinks.min.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>

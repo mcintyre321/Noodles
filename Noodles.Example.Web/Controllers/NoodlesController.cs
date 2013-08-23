@@ -2,10 +2,12 @@
 using System.Web.Mvc;
 using Noodles.AspMvc;
 using Noodles.AspMvc.Models.Layout;
+using Noodles.Example.ActionFilters;
 using Noodles.Example.Domain;
 
 namespace Noodles.Example.Controllers
 {
+    [Turbolinks]
     public class NoodlesController : Controller
     {
         public async Task<ActionResult> Index(string path)

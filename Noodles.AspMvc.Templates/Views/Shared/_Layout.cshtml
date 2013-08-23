@@ -6,7 +6,7 @@
 <head>
     @Html.Partial("Layout/Head.Top")
         <meta charset="utf-8" />
-  
+    <script type="text/javascript" src="/scripts/turbolinks.js"></script>
     @Html.Partial("Layout/Head.Bottom")
 </head>
 <body @Html.Raw(Html.LayoutVm().TopBar.Fixed ? "style=\"margin-top: 60px\"" : "")>
