@@ -22,35 +22,5 @@ namespace Noodles
 
     }
 
-    public interface IHasNodeMethods
-    {
-        IEnumerable<NodeMethod> NodeMethods { get; }
-    }
-
-    public interface IHasNodeProperties
-    {
-        IEnumerable<NodeProperty> NodeProperties { get; }
-    }
-
-    public interface IHasNodeLinks
-    {
-        IEnumerable<NodeLink> NodeLinks { get; }
-    }
-
-    public static class HasNodeHelperExtensions
-    {
-        public static NodeMethod NodeMethod(this IHasNodeMethods o, string methodName)
-        {
-            return o.NodeMethods.SingleOrDefault(n => StringComparer.InvariantCultureIgnoreCase.Compare(n.Name, methodName) == 0);
-        }
-        public static NodeProperty NodeProperty(this IHasNodeProperties o, string methodName)
-        {
-            return o.NodeProperties.SingleOrDefault(n => StringComparer.InvariantCultureIgnoreCase.Compare(n.Name, methodName) == 0);
-        }
-        public static NodeLink NodeLink(this IHasNodeLinks o, string LinkName)
-        {
-            return o.NodeLinks.SingleOrDefault(n => StringComparer.InvariantCultureIgnoreCase.Compare(n.Name, LinkName) == 0);
-        }
-
-    }
+  
 }

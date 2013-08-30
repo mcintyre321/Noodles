@@ -8,8 +8,6 @@ namespace Noodles.WebApi.Models
         //self
         public string Name { get; set; }
 
-        public LinkVm[] Links { get; set; }
-
         public ActionVm(NodeMethod target)
         {
             this.Name = target.Name;

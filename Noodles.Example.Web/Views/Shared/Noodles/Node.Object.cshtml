@@ -33,7 +33,7 @@
                     return viewName;
                 };
 
-                var settableProperties = resource.ChildNodes.OfType<NodeProperty>().Where(p => p.Readonly == false);
+                var settableProperties = resource.ChildNodes.OfType<IInvokeableParameter>().Where(p => p.Readonly == false);
                 if (settableProperties.Any() || resource is NodeMethod)
                 {
                 <form class="node-update-form" action="@Model.Url" method="POST">
@@ -54,9 +54,7 @@
                 {
                     foreach (var property in readonlyProperties)
                     {
-                <div class="node-component node-readonly-property" data-uihint="@property.UiHint" data-node-url="@property.Url">
-                    @Html.Partial(getBestViewName(property), property)
-                </div>
+               <a class="node-component node-property" data-uihint="@property.UiHint" data-node-url="@property.Url" href="@property.Url">@property.DisplayName</a>
                     }
                 }
 
@@ -65,22 +63,10 @@
                 {
                     foreach (var method in nodeMethods)
                     {
-                <div class="node-component node-method" data-uihint="@method.UiHint" data-node-url="@method.Url">
-                    <a  href="@method.Url">@method.DisplayName</a>
-                </div>
+                        <a class="node-component node-method" data-uihint="@method.UiHint" data-node-url="@method.Url" href="@method.Url">@method.DisplayName</a>
                     }
                 }
 
-                var nodeLinks = resource.ChildNodes.OfType<NodeLink>().ToArray();
-                if (nodeLinks.Any())
-                {
-                    foreach (var nodeLink in nodeLinks)
-                    {
-                <div class="node-component node-link" data-uihint="@nodeLink.UiHint" data-node-url="@nodeLink.Url">
-                    <a  href="@nodeLink.Url">@nodeLink.DisplayName</a>
-                </div>
-                    }
-                }
             }
         </div>
     </div>

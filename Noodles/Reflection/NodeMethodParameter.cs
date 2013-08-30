@@ -81,7 +81,6 @@ namespace Noodles
             set { _value = value; }
         }
 
-        public object LastValue { get; set; }
         public IEnumerable Choices
         {
             get
@@ -181,7 +180,7 @@ namespace Noodles
 
         public IEnumerable<INode> ChildNodes { get{ yield break;} }
 
-        public INode GetChild(string name)
+        public Resource GetChild(string name)
         {
             return null;
         }

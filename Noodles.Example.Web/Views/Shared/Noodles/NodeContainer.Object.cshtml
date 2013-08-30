@@ -18,7 +18,7 @@
 
 @Html.Partial(viewName, Model) 
 
-@helper Nav(HtmlHelper helper, IEnumerable<NodeLink> links, IEnumerable<INode> walked, string navOptions)
+@helper Nav(HtmlHelper helper, IEnumerable<INode> links, IEnumerable<INode> walked, string navOptions)
 {
     <ul class="nav @navOptions">
         @foreach (var node in links)
@@ -38,15 +38,6 @@
             @for (var i = 0; i < walked.Length - 1; i++)
             {
                 var crumb = walked[i];
-                var parentResource = crumb.Parent as Resource;
-                if (parentResource != null)
-                {
-                    var nodeLink = parentResource.NodeLink(crumb.Name);
-                    if (nodeLink == null || nodeLink.UiHint == "Inline")
-                    {
-                        continue;
-                    }
-                }
                 <li><a href="@crumb.Url">@crumb.DisplayName</a> <span class="divider"></span></li>
             }
             <li class="active">@walked.Last().DisplayName</li>

@@ -15,7 +15,6 @@ namespace Noodles
             NodeMethodsRuleRegistry.ShowMethodRules.Insert(0, (o, m) => m.Name.StartsWith("Allow") ? false : null as bool?);
 
             NodePropertiesRuleRegistry.ShowPropertyRules.Insert(0, (o, info) => Harden.Allow.Get(o, info) ? null as bool? : false);
-            NodeLinkRuleRegistry.ShowLinkRules.Insert(0, (o, info) => Harden.Allow.Get(o, info) ? null as bool? : false);
 
 
             

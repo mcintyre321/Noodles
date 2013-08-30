@@ -17,6 +17,6 @@ namespace Noodles.AspMvc.RequestHandling.Transforms
             });
         }
 
-        public abstract void Transform(CQ element, INode child, ControllerContext cc, INode parent);
+        public abstract void Transform(CQ elements, INode child, ControllerContext cc, INode parent);
     }
 }

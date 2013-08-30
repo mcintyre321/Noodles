@@ -37,7 +37,7 @@ namespace Noodles.Reflection
             (object[] parameters, IInvokeableParameter parameterInfo, int index, out object result) =>
             {
                 result = null;
-                return index >= parameters.Length && parameterInfo.IsOptional;
+                return index >= parameters.Length;
             };
 
         public static readonly ParameterValueGetter FixEnumTypes =

@@ -6,32 +6,31 @@ namespace Noodles.AspMvc.RequestHandling.Transforms
 {
     public class ModalAttribute : ChildNodeDocumentTransformAttribute
     {
-        public override void Transform(CQ element, INode child, ControllerContext cc, INode parent)
+        public override void Transform(CQ elements, INode child, ControllerContext cc, INode parent)
         {
-            var link = element.Find("> a");
-            if (link != null)
+            elements.Each(o =>
             {
-                var uri = link.Attr("href");
+                var uri = elements.Attr("href");
                 if (!uri.Contains("?")) uri += "?";
                 uri += "fragment-selector=.node-container";
                 //link.Attr("href", uri);
-                link.Data("toggle", "modal").Data("target", "#noodles-modal").Data("remote", uri);
+                elements.Data("toggle", "modal").Data("target", "#noodles-modal").Data("remote", uri);
 
-                if (element.Document.QuerySelector("#noodles-modal") == null)
+                if (elements.Document.QuerySelector("#noodles-modal") == null)
                 {
                     CQ.Create(
                         "<div class=\"modal hide\" id=\"noodles-modal\"><div class=\"modal-header\"><a class=\"close\" data-dismiss=\"modal\">×</a><h3 class=\"title\">&nbsp;</h3></div><div class=\"modal-body\"></div><div class=\"modal-footer\"></div></div>")
-                      .AppendTo(element.Document.Body);
+                      .AppendTo(elements.Document.Body);
 
                 }
-            }
+            });
         }
     }
     public class DropdownAttribute : ChildNodeDocumentTransformAttribute
     {
-        public override void Transform(CQ element, INode child, ControllerContext cc, INode parent)
+        public override void Transform(CQ elements, INode child, ControllerContext cc, INode parent)
         {
-            var link = element.Find("> a");
+            var link = elements.Find("> a");
             if (link != null)
             {
                 var uri = link.Attr("href");
@@ -40,11 +39,11 @@ namespace Noodles.AspMvc.RequestHandling.Transforms
                 //link.Attr("href", uri);
                 link.Data("toggle", "modal").Data("target", "#noodles-modal").Data("remote", uri);
 
-                if (element.Document.QuerySelector("#noodles-modal") == null)
+                if (elements.Document.QuerySelector("#noodles-modal") == null)
                 {
                     CQ.Create(
                         "<div class=\"modal hide\" id=\"noodles-modal\"><div class=\"modal-header\"><a class=\"close\" data-dismiss=\"modal\">×</a><h3 class=\"title\">&nbsp;</h3></div><div class=\"modal-body\"></div><div class=\"modal-footer\"></div></div>")
-                      .AppendTo(element.Document.Body);
+                      .AppendTo(elements.Document.Body);
 
                 }
             }

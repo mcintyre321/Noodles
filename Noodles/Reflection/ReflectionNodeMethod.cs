@@ -10,7 +10,7 @@ using Noodles.Reflection;
 namespace Noodles.Models
 {
     [DebuggerDisplay("{ToString()} - Name={Name}")]
-    public class ReflectionNodeMethod : NodeMethod, IInvokeable, INode
+    public class ReflectionNodeMethod : NodeMethod
     {
         private readonly MethodInfo _methodInfo;
 
@@ -134,19 +134,7 @@ namespace Noodles.Models
         }
          
 
-        public object Invoke(object[] parameters)
-        {
-            var methodParameterInfos = ((IInvokeable)this).Parameters.ToArray();
-            for (int index = 0; index < methodParameterInfos.Length; index++)
-            {
-                var nodeMethodParameter = methodParameterInfos[index];
-                var resolvedParameterValue = GetParameterValue(parameters, nodeMethodParameter, index);
-                methodParameterInfos[index].LastValue = resolvedParameterValue;
-            }
-            parameters = methodParameterInfos.Select(mp => mp.LastValue).ToArray();
-
-            return _methodInfo.Invoke(Target, parameters.ToArray());
-        }
+       
 
 
         public IEnumerable<INode> ChildNodes { get { return this.Parameters; } }
@@ -186,9 +174,9 @@ namespace Noodles.Models
             return parameters[index];
         }
 
-        public INode GetChild(string fragment)
+        public Resource GetChild(string fragment)
         {
-            return ((IInvokeable)this).Parameters.SingleOrDefault(p => p.Name == fragment);
+            return null;
         }
 
         public string Fragment { get { return Name; } }
@@ -211,8 +199,21 @@ namespace Noodles.Models
         public object Invoke(IDictionary<string, object> parameterDictionary)
         {
             var parameters = ((IInvokeable)this).Parameters.Select(p => p.Name).Select(name => parameterDictionary[name]).ToArray();
-            return ((IInvokeable)this).Invoke(parameters);
+            return Invoke(parameters);
         }
 
+        private object Invoke(object[] parameters)
+        {
+            var methodParameterInfos = ((IInvokeable) this).Parameters.ToArray();
+            var parameterValues = new object[methodParameterInfos.Length];
+            for (int index = 0; index < methodParameterInfos.Length; index++)
+            {
+                var nodeMethodParameter = methodParameterInfos[index];
+                var resolvedParameterValue = GetParameterValue(parameters, nodeMethodParameter, index);
+                parameterValues[index] = resolvedParameterValue;
+            }
+
+            return _methodInfo.Invoke(Target, parameterValues);
+        }
     }
 }

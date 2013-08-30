@@ -17,7 +17,7 @@ namespace Noodles
 
         public static ShowPropertyRule ShowAttributedProperties = (t, propertyInfo) =>
         {
-            if (ShowByDefault == false && propertyInfo.GetCustomAttributes(typeof(ShowAttribute), true).Any())
+            if (propertyInfo.GetCustomAttributes(typeof(ShowAttribute), true).Any())
             {
                 return true;
             }
@@ -26,7 +26,7 @@ namespace Noodles
         public static ShowPropertyRule ShowAttributedPropertyGetters = (t, propertyInfo) =>
         {
             var methodInfo = propertyInfo.DeclaringType.GetMethod("get_" + propertyInfo.Name);
-            if (methodInfo != null && ShowByDefault == false && methodInfo.GetCustomAttributes(typeof (ShowAttribute), true).Any())
+            if (methodInfo != null &&  methodInfo.GetCustomAttributes().OfType<ShowAttribute>().Any())
             {
                 return true;
             }
@@ -35,7 +35,7 @@ namespace Noodles
         public static ShowPropertyRule ShowAttributedPropertySetters = (t, propertyInfo) =>
         {
             var methodInfo = propertyInfo.DeclaringType.GetMethod("set_" + propertyInfo.Name);
-            if (methodInfo != null && ShowByDefault == false && methodInfo.GetCustomAttributes(typeof (ShowAttribute), true).Any())
+            if (methodInfo != null && methodInfo.Attributes().OfType<ShowAttribute>().Any())
             {
                 return true;
             }
@@ -45,7 +45,6 @@ namespace Noodles
 
         public static ShowPropertyRule ClassLevelShowByDefault = (t, mi) => mi.DeclaringType.GetCustomAttributes(typeof(ShowAttribute), true).Any() ? true : null as bool?;
 
-        public static bool ShowByDefault { get; set; }
         public static List<ShowPropertyRule> ShowPropertyRules { get; private set; }
 
          

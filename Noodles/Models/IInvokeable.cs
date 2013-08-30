@@ -16,7 +16,6 @@ namespace Noodles.Models
         Type ResultType { get; }
         //object Parameter { get; }
         object Invoke(IDictionary<string, object> parameterDictionary);
-        object Invoke(object[] parameters);
         T GetAttribute<T>() where T : Attribute;
     }
 

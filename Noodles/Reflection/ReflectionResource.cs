@@ -115,7 +115,11 @@ namespace Noodles.Models
 
         IEnumerable<IInvokeableParameter> IInvokeable.Parameters
         {
-            get { return this.NodeProperties.Where(x => !x.Readonly).Select(s => (IInvokeableParameter) s); }
+            get
+            {
+                return this.ChildNodes.OfType<NodeProperty>()
+                    .Where(x => !x.Readonly).Select(s => (IInvokeableParameter) s);
+            }
         }
 
         public string InvokeDisplayName { get { return "Save"; } }
@@ -131,23 +135,25 @@ namespace Noodles.Models
             get { return ""; }
         }
 
-        public IEnumerable<INode> ChildNodes { get { return (this.NodeMethods).Cast<INode>().Concat(this.NodeProperties).Concat(this.NodeLinks); } }
+        public IEnumerable<INode> ChildNodes { get { return this.Value.GetNodeMethods(this).Concat(this.Value.GetNodeProperties(this)); } }
 
-        public INode GetChild(string name)
+        public Resource GetChild(string name)
         {
-            var child = GetChildRules.Select(r => r(Value, name)).Where(c => c != null)
-                                        .Select(o => ResourceFactory.Instance.Create(o.Item1, this, name))
-                                        .FirstOrDefault();
-            if (child != null) return child;
+            //return ChildNodes.SingleOrDefault(n => n.Name.Equals(name, StringComparison.InvariantCultureIgnoreCase));
+            //var child = GetChildRules.Select(r => r(Value, name)).Where(c => c != null)
+            //                            .Select(o => ResourceFactory.Instance.Create(o.Item1, this, name))
+            //                            .FirstOrDefault();
+            //if (child != null) return child;
 
-            var method = NodeMethods.SingleOrDefault(nm => nm.Name.ToLowerInvariant() == name.ToLowerInvariant());
-            if (method != null) return method;
+            //var method = NodeMethods.SingleOrDefault(nm => nm.Name.ToLowerInvariant() == name.ToLowerInvariant());
+            //if (method != null) return method;
+            var childMethod = this.ChildNodes.OfType<NodeMethod>()
+                   .SingleOrDefault(np => np.Name.ToLowerInvariant() == name.ToLowerInvariant());
+            if (childMethod != null) return childMethod;
 
-            var link = NodeLinks.SingleOrDefault(nm => nm.Name.ToLowerInvariant() == name.ToLowerInvariant());
-            if (link != null) return link.Target;
-
-            var property = Value.GetNodeProperties(this).SingleOrDefault(nm => nm.Name.ToLowerInvariant() == name.ToLowerInvariant());
-            if (property != null) return property;
+            var childProperty = this.ChildNodes.OfType<NodeProperty>()
+                    .SingleOrDefault(np => np.Name.ToLowerInvariant() == name.ToLowerInvariant());
+            if (childProperty != null) return ResourceFactory.Instance.Create(childProperty.Value, this, childProperty.Name);
 
             return null;
         }
@@ -161,8 +167,7 @@ namespace Noodles.Models
 
         public Uri Url
         {
-            //_url should have been set via RootUrl if .Parent is null (i.e. this is a root object)
-            get { return _url ?? (new Uri(Parent.Url.ToString() + Name + "/", UriKind.Relative)); }
+            get { return Parent == null ? new Uri("/", UriKind.Relative) : (new Uri(Parent.Url.ToString() + Name + "/", UriKind.Relative)); }
             set { _url = value; }
         }
 
@@ -174,21 +179,18 @@ namespace Noodles.Models
         Type IInvokeable.ResultType { get { return this.GetType(); } }
 
 
-        object IInvokeable.Invoke(IDictionary<string, object> parameterDictionary)
+        public object Invoke(IDictionary<string, object> parameterDictionary)
         {
             foreach (var key in parameterDictionary.Keys)
             {
-                var p = this.NodeProperties.SingleOrDefault(x => x.Readonly == false && x.Name == key);
+                var p = this.ChildNodes.OfType<NodeProperty>().SingleOrDefault(x => x.Readonly == false && x.Name == key);
                 if (p == null) continue;
-                p.Invoke(new[] {parameterDictionary[key]});
+                p.SetValue(parameterDictionary[key]);
             }
+
             return null;
         }
 
-        object IInvokeable.Invoke(object[] parameters)
-        {
-            throw new NotImplementedException();
-        }
 
         T IInvokeable.GetAttribute<T>()
         {
@@ -196,9 +198,7 @@ namespace Noodles.Models
         }
 
         public int Order { get { return int.MaxValue; } }
-        public IEnumerable<NodeMethod> NodeMethods { get { return Value.GetNodeMethods(this); } }
-        public IEnumerable<NodeProperty> NodeProperties { get { return Value.GetNodeProperties(this); } }
-        public IEnumerable<NodeLink> NodeLinks { get { return Value.NodeLinks(this, ValueType); } }
+
         public INode Parent { get; protected set; }
 
         INode INode.Parent

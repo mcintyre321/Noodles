@@ -4,11 +4,8 @@ using System.Collections.Generic;
 
 namespace Noodles.Models
 {
-    public interface Resource : INode, IInvokeable, IHasNodeMethods, IHasNodeProperties, IHasNodeLinks
+    public interface Resource : INode, IInvokeable
     {
-        object Value { get; }
-        
-        Uri RootUrl { set; }
     }
     public interface Resource<T> : Resource, INode<T>
     {

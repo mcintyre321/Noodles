@@ -38,15 +38,20 @@ namespace Noodles.AspMvc.RequestHandling
 
         public override ActionResult Map(ControllerContext context, ValidationErrorResult result)
         {
-            context.HttpContext.Response.StatusCode = (int)HttpStatusCode.BadRequest;
             var res = new System.Web.Mvc.ViewResult();
-            res.ViewName = "Noodles/NodeMethod";
-            res.ViewData.Model = result.Invokeable;
-            foreach (var error in result)
+            var targetResource = result.Invokeable as INode;
+            if (targetResource != null)
             {
-                res.ViewData.ModelState.AddModelError(error.Key, error.Value);
+                var ffContext = (FormFactory.IViewFinder)new FormFactoryContext(context);
+                var viewname = ViewFinderExtensions.BestViewName(ffContext, targetResource.ValueType, "Noodles/NodeContainer.")
+                               ?? "Noodles/NodeContainer.Object";
+
+
+                res.ViewName = viewname;
+                context.Controller.ViewBag.NoodleTarget = targetResource;
+                ruleRegistry.RegisterTransformations(context, targetResource);
             }
-            res.ViewData.ModelState.Merge(context.Controller.ViewData.ModelState);
+            res.ViewData.Model = result.Invokeable;
             if (context.HttpContext.Request.IsAjaxRequest())
             {
                 res.MasterName = "Noodles/_AjaxLayout";

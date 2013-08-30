@@ -11,7 +11,6 @@ namespace Noodles.RequestHandling
     {
         public static Func<INode, bool> AllowGet = o => true;
 
-        public static Func<NodeLink, bool> AllowLink = l => true;
     }
 
     public abstract class Handler<TContext>
@@ -32,7 +31,7 @@ namespace Noodles.RequestHandling
         public async Task<Result> HandleRequest(TContext cc, RequestInfo requestInfo, object root, string[] path, Func<IInvokeable, IDictionary<string, object>, object> doInvoke = null)
         {
             var rootResource = ResourceFactory.Instance.Create(root, null, null);
-            rootResource.RootUrl = requestInfo.RootUrl;
+            //rootResource.RootUrl = requestInfo.RootUrl;
             var node = (INode) rootResource;
             foreach (var fragment in path)
             {

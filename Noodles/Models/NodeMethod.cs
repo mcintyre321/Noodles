@@ -3,7 +3,7 @@ using System.Security.Policy;
 
 namespace Noodles.Models
 {
-    public interface NodeMethod : INode, IInvokeable
+    public interface NodeMethod : Resource
     {
         string UiHint { get; }
     }

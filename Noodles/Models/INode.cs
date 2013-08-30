@@ -14,7 +14,7 @@ namespace Noodles.Models
     public interface INode : IHasName
     {
         IEnumerable<INode> ChildNodes { get; }
-        INode GetChild(string name);
+        Resource GetChild(string name);
         string DisplayName { get; }
         Uri Url { get; }
         INode Parent { get; }

@@ -189,7 +189,6 @@
     <Compile Include="Infrastructure\ModelStateTempDataTransferAttribute.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UiAttributes\UiHelpers.cs" />
-    <Compile Include="UiAttributes\FormInfo.cs" />
     <Compile Include="UiAttributes\ShowAsLinkList.cs" />
     <Compile Include="UiAttributes\ShowAsTable.cs" />
     <Compile Include="Models\Layout\TopBarVm.cs" />

@@ -72,7 +72,6 @@
     <Compile Include="HtmlMediaTypeFormatter.cs" />
     <Compile Include="Models\ActionVm.cs" />
     <Compile Include="Models\InvokeVm.cs" />
-    <Compile Include="Models\LinkVm.cs" />
     <Compile Include="Models\NodeVm.cs" />
     <Compile Include="Models\PropertyVm.cs" />
     <Compile Include="Models\ResourceVm.cs" />

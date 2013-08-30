@@ -10,7 +10,6 @@ namespace Noodles.WebApi.Models
 {
     [KnownType(typeof(PropertyVm))]
     [KnownType(typeof(ActionVm))]
-    [KnownType(typeof(LinkVm))]
 
     public class ResourceVm : NodeVm
     {
@@ -18,7 +17,6 @@ namespace Noodles.WebApi.Models
         //public string Name { get; set; }
         public PropertyVm[] Properties { get; set; }
         public ActionVm[] Actions { get; set; }
-        public LinkVm[] Links { get; set; }
         public ResourceVm()
         {
             
@@ -30,13 +28,10 @@ namespace Noodles.WebApi.Models
             this.Url = target.Url;
             //this.ValueType = target.ValueType.FullName;
 
-            Properties = target.NodeProperties.Select(p => new PropertyVm(p)).ToArray();
-            Actions = target.NodeMethods.Select(nm => new ActionVm(nm)).ToArray();
-            var links = new List<LinkVm>();
+            //Properties = target.NodeProperties.Select(p => new PropertyVm(p)).ToArray();
+            //Actions = target.NodeMethods.Select(nm => new ActionVm(nm)).ToArray();
 
             //if (target.Parent != null) links.Add(new LinkVm(target.Parent, "parent"));
-            links.AddRange(target.NodeLinks.Select(c => new LinkVm(c, "child")).ToArray());
-            this.Links = links.ToArray();
         }
 
         //public string DisplayName { get; set; }

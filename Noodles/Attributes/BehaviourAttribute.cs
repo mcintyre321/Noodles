@@ -8,7 +8,7 @@ namespace Noodles
 {
     public class BehaviourAttribute : Attribute
     {
-        public static IEnumerable<NodeProperty> GetBehaviourProperties(Type t, object o, INode resource)
+        public static IEnumerable<INode> GetBehaviourProperties(Type t, object o, INode resource)
         {
             foreach (var behaviour in GetBehavioursFromProperties(t, o))
             {

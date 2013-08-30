@@ -28,7 +28,7 @@ namespace Noodles.Example.Domain
             
         }
 
-        [Link][Modal]
+        [Show][Modal]
         public AdvancedMembershipSettings Advanced { get; private set; }
     }
 

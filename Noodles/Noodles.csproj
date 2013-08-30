@@ -80,16 +80,11 @@
     <Compile Include="Models\IHasNodeMethods.cs" />
     <Compile Include="Models\Resource.cs" />
     <Compile Include="Attributes\NodePropertiesAttribute.cs" />
-    <Compile Include="Reflection\ReflectionNodeLink.cs" />
     <Compile Include="Reflection\ReflectionNodeMethod.cs" />
     <Compile Include="Name.cs" />
-    <Compile Include="Models\NodeLink.cs" />
     <Compile Include="Reflection\NodeMethodExtensions.cs" />
     <Compile Include="NodeTypeExtension.cs" />
     <Compile Include="Models\IInvokeableParameter.cs" />
-    <Compile Include="Attributes\LinkAttribute.cs" />
-    <Compile Include="Models\LinkExtension.cs" />
-    <Compile Include="Reflection\NodeLinkRuleRegistry.cs" />
     <Compile Include="Reflection\NodePropertiesRuleRegistry.cs" />
     <Compile Include="Reflection\NodePropertiesExtension.cs" />
     <Compile Include="Reflection\NodeMethodParameterFixes.cs" />

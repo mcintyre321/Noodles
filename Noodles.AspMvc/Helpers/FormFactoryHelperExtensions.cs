@@ -9,20 +9,9 @@ namespace Noodles.AspMvc.Helpers
 {
     public static class FormFactoryHelperExtensions
     {
-        static object GetAttemptedValue(this HtmlHelper helper, string modelKey)
-        {
-            System.Web.Mvc.ModelState modelState;
-            if (helper.ViewData.ModelState.TryGetValue(modelKey, out modelState))
-            {
-                return modelState.Value.AttemptedValue;
-            }
-            return null;
-        }
-
         public static PropertyVm ToPropertyVm(this IInvokeableParameter parameter, HtmlHelper html)
         {
             var customAtts = new List<object>();
-            if (parameter.IsOptional == false) customAtts.Add(new RequiredAttribute());
             var vm = html.CreatePropertyVm(parameter.ValueType, parameter.Name);
 
             {
@@ -30,12 +19,11 @@ namespace Noodles.AspMvc.Helpers
                 vm.GetCustomAttributes = () => parameter.Attributes.Concat(customAtts);
                 vm.Readonly = parameter.Readonly;
                 vm.IsHidden = parameter.Attributes.OfType<DataTypeAttribute>().Any(x => x.CustomDataType == "Hidden");
-                vm.Value = parameter.LastValue ?? parameter.Value;
+                vm.Value = parameter.Value;
                 vm.Choices = parameter.Choices;
                 vm.Suggestions = parameter.Suggestions;
                 vm.Source = parameter;
             };
-            vm.IsHidden |= parameter.Locked;
             return vm;
         }
          

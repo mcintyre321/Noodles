@@ -9,12 +9,12 @@ using Noodles.Helpers;
 namespace Noodles.Models
 {
     [DisplayName("{DisplayName}")]
-    public class ReflectionNodeProperty<TParent> : IInvokeable, INode, IInvokeableParameter, NodeProperty where TParent : INode
+    public class ReflectionNodeProperty : IInvokeable, NodeProperty 
     {
         private readonly object _target;
         private readonly PropertyInfo _info;
 
-        public ReflectionNodeProperty(TParent parent, object target, PropertyInfo info)
+        public ReflectionNodeProperty(INode parent, object target, PropertyInfo info)
         {
             _target = target;
             _info = info;
@@ -42,16 +42,10 @@ namespace Noodles.Models
         public Uri InvokeUrl { get { return Url; } }
         INode INode.Parent { get { return Parent; } }
 
-        public TParent Parent { get; private set; }
-        INode  NodeProperty.Parent { get { return Parent; } }
+        public INode Parent { get; private set; }
 
    
-
-        object IInvokeableParameter.LastValue
-        {
-            get { return this.Value; }
-            set { this.Value = value; }
-        }
+ 
 
         public string DisplayName { get; private set; }
 
@@ -88,19 +82,10 @@ namespace Noodles.Models
             }
         }
 
-        bool IInvokeableParameter.Locked
-        {
-            get { return false; }
-        }
-
         public Type ValueType { get; private set; }
 
 
-        bool IInvokeableParameter.IsOptional
-        {
-            get { return true; }
-        }
-
+         
         public Type ParameterType { get { return Siggs.SiggsExtensions.GetTypeForMethodInfo(_info.GetSetMethod()); } }
         public Type ResultType { get { return ValueType; } }
         public object Parameter { get; private set; }
@@ -133,6 +118,11 @@ namespace Noodles.Models
 
         public Uri Url { get { return new Uri(this.Parent.Url + this.Fragment + "/", UriKind.Relative); } }
         public string UiHint { get { return Attributes.OfType<ShowAttribute>().Select(a => a.UiHint).SingleOrDefault(); } }
+        public void SetValue(object value)
+        {
+            Value = value;
+        }
+
         public string TypeName { get { return "NodeProperty"; } }
 
         public object Invoke(IDictionary<string, object> parameterDictionary)
@@ -140,11 +130,6 @@ namespace Noodles.Models
             return Setter.Invoke(parameterDictionary);
         }
         public string Message { get { return ""; } }
-
-        public object Invoke(object[] parameters)
-        {
-            return Setter.Invoke(parameters);
-        }
 
         T IInvokeable.GetAttribute<T>()
         {
@@ -179,10 +164,9 @@ namespace Noodles.Models
         }
 
 
-        public virtual INode GetChild(string name)
+        public virtual Resource GetChild(string name)
         {
-            return NodeProperties.SingleOrDefault(p => p.Name == name) as INode
-            ?? NodeMethods.SingleOrDefault(p => p.Name == name);
+            return null;
         }
 
 

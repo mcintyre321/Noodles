@@ -12,11 +12,5 @@ namespace Noodles.AspMvc.UiAttributes
         {
             return nodeMethods.Where(nm => nm.UiHint == hint);
         }
-
-        public static IEnumerable<NodeLink> Hinted(this IEnumerable<NodeLink> links, string hint)
-        {
-            return links.Where(nm => nm.UiHint == hint);
-        } 
-
     }
 }

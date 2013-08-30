@@ -3,19 +3,12 @@ using System.Collections.Generic;
 
 namespace Noodles.Models
 {
-    public interface NodeProperty : INode
+    public interface NodeProperty : INode, IInvokeableParameter
     {
-        string Name { get; }
-        string DisplayName { get; }
-        INode Parent { get; }
         int Order { get; }
-        Type ValueType { get; }
-        bool Readonly { get; }
-        object Value { get; }
-        IEnumerable<Attribute> Attributes { get; }
-        object Invoke(object[] objects);
         IEnumerable<NodeMethod> NodeMethods { get; }
         string UiHint { get; }
+        void SetValue(object value);
     }
     public interface NodeCollectionProperty : NodeProperty
     {

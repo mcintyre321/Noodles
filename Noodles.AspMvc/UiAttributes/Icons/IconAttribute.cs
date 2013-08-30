@@ -14,9 +14,9 @@ namespace Noodles.AspMvc.UiAttributes.Icons
             IconName = iconName;
         }
 
-        public override void Transform(CQ element, INode child, ControllerContext cc, INode parent)
+        public override void Transform(CQ elements, INode child, ControllerContext cc, INode parent)
         {
-            var link = element.Find("> a");
+            var link = elements.Find("> a");
             link.Html("<i class=\"icon-" + IconName + "\"></i>&nbsp;" + link.Html());
         }
     }

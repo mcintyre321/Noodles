@@ -38,14 +38,14 @@ namespace Noodles.Example.Domain
             
         }
 
-        [Link][Modal]
+        [Show]
         public Organisations Organisations { get; private set; }
 
 
-        [Link(UiHint = "TopBar.LeftItems")]
+        [Show(UiHint = "TopBar.LeftItems")]
         public Membership Membership { get; private set; }
 
-        [Link(UiHint = "TopBar.RightItems")]
+        [Show(UiHint = "TopBar.RightItems")]
         public Settings Settings { get; private set; }
 
         [Show(UiHint = "TopBar.RightItems")]
@@ -66,7 +66,7 @@ namespace Noodles.Example.Domain
             Items = new List<Organisation>();
         }
 
-        [ShowAsTable, NoLabel]
+        [Show]
         public List<Organisation> Items { get; private set; }
     }
 
@@ -79,20 +79,18 @@ namespace Noodles.Example.Domain
             Projects = new List<Project>();
             Settings = new OrganisationSettings();
         }
-        [Show][NotInTable]
+        [Show] 
         public string Name { get; private set; }
 
-        [NotInTable]
-        public List<Project> Projects { [ShowAsTable] get; set; }
+        public List<Project> Projects { [Show] get; set; }
 
-        [Show][Modal]
+        [Show]
         public void AddNewProject([Required][StringLength(50, MinimumLength = 5)] String name)
         {
             Projects.Add(new Project(name));
         }
 
-        [Link]
-        public OrganisationSettings Settings { get; set; }
+        public OrganisationSettings Settings { [Show] get; set; }
     }
 
     public class OrganisationSettings
@@ -130,11 +128,11 @@ namespace Noodles.Example.Domain
             ToDoLists = new ToDoLists();
             DiscussionsManager = new Discussions.DiscussionsManager();
         }
-        [Link(UiHint = "Inline")]
+        [Show(UiHint = "Inline")]
         [NotInTable]
         public ToDoLists ToDoLists { get; private set; }
 
-        [Link(UiHint = "Inline")]
+        [Show(UiHint = "Inline")]
         [NotInTable]
         public Discussions.DiscussionsManager DiscussionsManager { get; private set; }
         

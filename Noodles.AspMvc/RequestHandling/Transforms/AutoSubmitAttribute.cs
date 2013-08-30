@@ -15,9 +15,9 @@ namespace Noodles.AspMvc.RequestHandling.Transforms
             AutoSubmit = autoSubmit;
         }
 
-        public override void Transform(CQ element, INode child, ControllerContext cc, INode parent)
+        public override void Transform(CQ elements, INode child, ControllerContext cc, INode parent)
         {
-            var link = element.Find("> a");
+            var link = elements.Find("> a");
             link.AddClass("auto-submit");
 
         }

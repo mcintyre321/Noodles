@@ -23,7 +23,7 @@ namespace Noodles
                     ruleResult = rule(target, info);
                     if (ruleResult.HasValue) break;
                 }
-                if (ruleResult ?? NodeMethodsRuleRegistry.ShowByDefault)
+                if (ruleResult ?? false)
                 {
                     yield return new ReflectionNodeMethod(resource, target, info);
                 }

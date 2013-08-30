@@ -10,37 +10,37 @@ namespace Noodles
 {
     public static class NodePropertiesExtension
     {
-        public static IEnumerable<NodeProperty> GetNodeProperties<TNode>(this object o, TNode resource, Type fallback = null) where TNode : INode
+        public static IEnumerable<INode> GetNodeProperties<TNode>(this object o, TNode resource, Type fallback = null) where TNode : INode
         {
             fallback = fallback ?? o.GetType();
-            return YieldFindNodePropertiesUsingReflection(resource, o, fallback).OrderBy(p => p.Order)
+            return YieldFindNodePropertiesUsingReflection(resource, o, fallback)
                 .Concat(NodePropertiesAttribute.GetDynamicNodeProperties(o, resource))
                 .Concat(BehaviourAttribute.GetBehaviourProperties(fallback, o, resource));
         }
 
        
-        public static NodeProperty NodeProperty<TNode>(this object o, TNode resource, string propertyName, Type fallback = null) where TNode : INode
+        public static INode NodeProperty<TNode>(this object o, TNode resource, string propertyName, Type fallback = null) where TNode : INode
         {
             return o.GetNodeProperties(resource, fallback).SingleOrDefault(m => m.Name.ToLowerInvariant() == propertyName.ToLowerInvariant());
         }
 
-        public static IEnumerable<NodeProperty> YieldFindNodePropertiesUsingReflection<TNode>(TNode node, object target, Type fallback)where TNode : INode
+        public static IEnumerable<INode> YieldFindNodePropertiesUsingReflection<TNode>(TNode node, object target, Type fallback)where TNode : INode
         {
             return YieldFindPropertyInfosUsingReflection(target, fallback).Select(pi => NodeProperty(node, target, pi));
         }
 
-        private static NodeProperty NodeProperty<TNode>(TNode node, object target, PropertyInfo pi) where TNode : INode
+        private static INode NodeProperty<TNode>(TNode node, object target, PropertyInfo pi) where TNode : INode
         {
             var atts = pi.Attributes().OfType<ShowAttribute>();
             var getter = pi.GetGetMethod();
             if (getter != null) atts = atts.Concat(getter.Attributes().OfType<ShowAttribute>());
-            var showCollectionAttribute = atts.SingleOrDefault() as ShowCollectionAttribute;
-            if (showCollectionAttribute != null)
-            {
-                var type = showCollectionAttribute.ColType ?? pi.PropertyType.GenericTypeArguments.First();
-                return new NodeCollectionProperty<TNode>(node, target, pi, type);
-            }
-            return new ReflectionNodeProperty<TNode>(node, target, pi);
+            //var showCollectionAttribute = atts.SingleOrDefault() as ShowCollectionAttribute;
+            //if (showCollectionAttribute != null)
+            //{
+            //    var type = showCollectionAttribute.ColType ?? pi.PropertyType.GenericTypeArguments.First();
+            //    return new NodeCollectionProperty<TNode>(node, target, pi, type);
+            //}
+            return new ReflectionNodeProperty(node, target, pi);
         }
 
         public static IEnumerable<PropertyInfo> YieldFindPropertyInfosUsingReflection(this object target, Type fallback)
@@ -57,7 +57,7 @@ namespace Noodles
                     ruleResult = rule(target, info);
                     if (ruleResult.HasValue) break;
                 }
-                if (ruleResult ?? NodePropertiesRuleRegistry.ShowByDefault)
+                if (ruleResult ?? false)
                 {
                     yield return info;
                 }

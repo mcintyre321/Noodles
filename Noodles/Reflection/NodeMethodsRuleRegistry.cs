@@ -44,20 +44,9 @@ namespace Noodles
         /// </returns>
         public delegate bool? ShowMethodRule(object target, MethodInfo methodInfo);
 
-        public static ShowMethodRule ShowAttributedMethods = (t, mi) =>
-        {
-            if (ShowByDefault == false && mi.GetCustomAttributes(typeof(ShowAttribute), true).Any())
-            {
-                return true;
-            }
-            return null as bool?;
-        };
+        public static ShowMethodRule ShowAttributedMethods = (t, mi) => mi.Attributes().OfType<ShowAttribute>().Any() ? true : null as bool?;
      
         
-
-        public static ShowMethodRule ClassLevelShowByDefault = (t, mi) => mi.DeclaringType.GetCustomAttributes(typeof(ShowAttribute), true).Any() ? true : null as bool?;
-
-        public static bool ShowByDefault { get; set; }
         public static List<ShowMethodRule> ShowMethodRules { get; private set; }
 
 
