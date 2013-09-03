@@ -77,8 +77,19 @@ namespace Noodles.Models
     {
         public static readonly List<Func<object, string, Tuple<object, IChildInfo>>> GetChildRules = new List<Func<object, string, Tuple<object, IChildInfo>>>()
         {
-            (GetChildFromAttributedMethods)
+            (GetChildFromAttributedMethods),
+            GetChildFromIGetChildrenRule
         };
+
+        private static Tuple<object, IChildInfo> GetChildFromIGetChildrenRule(object arg1, string arg2)
+        {
+            var hasChildren = arg1 as IHasChildren;
+            if (hasChildren != null)
+            {
+                return new Tuple<object, IChildInfo>(hasChildren.GetChild(arg2), new GetChildAttribute());
+            }
+            return null;
+        }
 
         private static Tuple<object, IChildInfo> GetChildFromAttributedMethods(object target, string slug)
         {
@@ -132,6 +143,7 @@ namespace Noodles.Models
         public INode GetChild(string name)
         {
             var child = GetChildRules.Select(r => r(Value, name)).Where(c => c != null)
+                                    .Where(o => o.Item1 != null)
                                         .Select(o => ResourceFactory.Instance.Create(o.Item1, this, name))
                                         .FirstOrDefault();
             if (child != null) return child;
@@ -213,6 +225,11 @@ namespace Noodles.Models
         }
 
         public Uri RootUrl { set { _url = value; }}
+    }
+
+    public interface IHasChildren
+    {
+        object GetChild(string fragment);
     }
 
     public class ReflectionResource<T> : ReflectionResource,  Resource<T>, INode<T>
