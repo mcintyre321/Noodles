@@ -11,7 +11,7 @@ namespace Noodles.Example.Domain.Discussions
             Discussions = new List<Discussion>();
           
         }
-        [ShowAsLinkList]
+        [ShowCollection]
         public List<Discussion> Discussions { get; private set; }
 
         [Show]

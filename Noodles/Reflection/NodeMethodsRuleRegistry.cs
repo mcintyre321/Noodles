@@ -15,16 +15,8 @@ namespace Noodles
             
         }
     }
-    [AttributeUsage(AttributeTargets.Property | AttributeTargets.Method)]
-    public class ShowAttribute : Attribute
-    {
-        public ShowAttribute()
-        {
-            UiOrder = int.MaxValue;
-        }
-        public string UiHint { get; set; }
-        public int UiOrder { get; set; }
-    }
+
+
     [AttributeUsage(AttributeTargets.Property | AttributeTargets.Method)]
     public class ShowCollectionAttribute : ShowAttribute
     {

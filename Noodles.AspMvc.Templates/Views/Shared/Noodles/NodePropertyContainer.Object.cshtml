@@ -16,7 +16,7 @@
         <label class="control-label">@Model.DisplayName</label>
         <div class="controls">
             @{
-                var viewNameStart = ("Noodles/NodeProperty" + (string.IsNullOrWhiteSpace(Model.UiHint) ? "" : ("-" + Model.UiHint)));
+                var viewNameStart = ("Noodles/NodeProperty");
                 var viewName = Html.BestViewName(Model.Value == null ? Model.ValueType : Model.Value.GetType(), viewNameStart + ".") ?? (viewNameStart + ".Object");
             }
             @Html.Partial(viewName, Model)

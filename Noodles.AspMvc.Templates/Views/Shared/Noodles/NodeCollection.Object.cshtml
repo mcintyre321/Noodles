@@ -1,0 +1,11 @@
+﻿@using System.Web.Mvc.Html
+@model Noodles.Models.NodeCollectionProperty
+            
+<ul>
+    @foreach (var child in Model.Query(0, int.MaxValue).Items)
+    {
+        <li>
+            asdf
+        </li>
+    }
+</ul>

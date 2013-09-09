@@ -9,9 +9,9 @@
     <script type="text/javascript" src="/scripts/turbolinks.js"></script>
     @Html.Partial("Layout/Head.Bottom")
 </head>
-<body @Html.Raw(Html.LayoutVm().TopBar.Fixed ? "style=\"margin-top: 60px\"" : "")>
+<body@* @Html.Raw(Html.LayoutVm().TopBar.Fixed ? "style=\"margin-top: 60px\"" : "")*@>
     @Html.Partial("Layout/Body.Top")
-        @Html.Partial("Layout/TopBar")
+       @* @Html.Partial("Layout/TopBar")*@
         <div class="container">
             @RenderBody()
         </div>

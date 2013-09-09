@@ -154,7 +154,6 @@
     <Compile Include="RequestHandling\Transforms\ApplyAttributeTransforms.cs" />
     <Compile Include="RequestHandling\Transforms\AutoSubmitAttribute.cs" />
     <Compile Include="RequestHandling\Transforms\IDocumentTransform.cs" />
-    <Compile Include="RequestHandling\Transforms\ModalAttribute.cs" />
     <Compile Include="RequestHandling\Transforms\NodeLinkDocumentTransformAttribute.cs" />
     <Compile Include="RequestHandling\Transforms\SelectFragmentTransform.cs" />
     <Compile Include="RequestHandling\Transforms\TransformRuleRegistry.cs" />
@@ -188,9 +187,6 @@
     <Compile Include="Infrastructure\GlobalFixUserExceptionsAttribute.cs" />
     <Compile Include="Infrastructure\ModelStateTempDataTransferAttribute.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="UiAttributes\UiHelpers.cs" />
-    <Compile Include="UiAttributes\ShowAsLinkList.cs" />
-    <Compile Include="UiAttributes\ShowAsTable.cs" />
     <Compile Include="Models\Layout\TopBarVm.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -243,6 +239,9 @@
     <EmbeddedResource Include="Content\fonts\glyphicons-halflings-regular.woff" />
     <EmbeddedResource Include="Content\fonts\glyphicons-halflings-regular.ttf" />
     <EmbeddedResource Include="Content\fonts\glyphicons-halflings-regular.eot" />
+    <EmbeddedResource Include="..\Noodles.AspMvc.Templates\Views\Shared\Noodles\Node.Object.cshtml">
+      <Link>Views\Shared\Noodles\Node.Object.cshtml</Link>
+    </EmbeddedResource>
     <None Include="UiAttributes\Icons\IconNames.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>IconNames.cs</LastGenOutput>
@@ -368,9 +367,7 @@
       <Name>Noodles</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Views\Shared\Noodles\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>

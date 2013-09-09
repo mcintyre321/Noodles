@@ -13,11 +13,15 @@ namespace Noodles.Example.Domain
 
         [Slug]
         public string Slug { get { return _slug ?? (_slug = DisplayName.Replace(" ", "").ToLower()); } }
-        
-        [Show][Required][DataType(DataType.Password)]
+
+        [Show]
+        [Required]
+        [DataType(DataType.Password)]
         public string Password { get; set; }
 
-        [Show][Required][DataType(DataType.EmailAddress)]
+        [Show]
+        [Required]
+        [DataType(DataType.EmailAddress)]
         public string Email { get; set; }
     }
 }

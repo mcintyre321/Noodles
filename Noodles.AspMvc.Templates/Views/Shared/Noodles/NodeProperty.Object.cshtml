@@ -10,6 +10,7 @@
 @model Noodles.Models.NodeProperty
 @{
     var property = Model;
+    var propertyVm = property.ToPropertyVm(Html);
 }
-@Html.BestProperty(property.ToPropertyVm(Html))
+@Html.BestProperty(propertyVm)
                 

@@ -40,7 +40,7 @@
 {
     if (method != null)
     {
-        <a class="nodeMethodLink @(additionalClasses ?? "") @(method.Target.NodeType().Name.ToClassName())" href="@method.InvokeUrl">@innerHtml(null)</a>
+    <a class="nodeMethodLink @(additionalClasses ?? "") @(method.Target.NodeType().Name.ToClassName())" href="@method.InvokeUrl">@innerHtml(null)</a>
     }
 }
 @helper NodeMethodForm(System.Web.Mvc.HtmlHelper html, IInvokeable method, string formClass)
@@ -84,4 +84,41 @@
         viewData.Add("Inline", true);
     @NodeMethodForm(html, method, "form-inline", viewData)
     }
+}
+
+@helper Form(HtmlHelper html, INode node)
+{
+    var settableProperties = ((IInvokeable)node).Parameters.Where(p => p.Readonly == false);
+    @Form(html, node, settableProperties)
+}
+
+@helper Form(HtmlHelper html, INode node, IEnumerable<IInvokeableParameter> fieldsToDisplay)
+{
+
+    var isNodeMethod = node is NodeMethod;
+    var fields = fieldsToDisplay as IInvokeableParameter[] ?? fieldsToDisplay.ToArray();
+    if (isNodeMethod || fields.Any())
+    {
+
+        <form class="node-form" action="@node.Url" method="POST">
+            
+            @foreach (var field in fields)
+            {
+                var parameter = field;
+                var vm = parameter.ToPropertyVm();
+                @html.Partial("FormFactory/Form.Property", vm)
+            }
+            <input type="submit" value="@(isNodeMethod ? node.DisplayName : "Update")" />
+
+        </form>
+
+    }
+}
+
+
+@helper Property(HtmlHelper html, NodeProperty property)
+{
+    var vm = property.ToPropertyVm();
+    vm.Readonly = true;
+    html.RenderPartial("FormFactory/Form.Property", vm);
 }

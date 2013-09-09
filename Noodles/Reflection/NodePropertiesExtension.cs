@@ -34,18 +34,17 @@ namespace Noodles
             var atts = pi.Attributes().OfType<ShowAttribute>();
             var getter = pi.GetGetMethod();
             if (getter != null) atts = atts.Concat(getter.Attributes().OfType<ShowAttribute>());
-            //var showCollectionAttribute = atts.SingleOrDefault() as ShowCollectionAttribute;
-            //if (showCollectionAttribute != null)
-            //{
-            //    var type = showCollectionAttribute.ColType ?? pi.PropertyType.GenericTypeArguments.First();
-            //    return new NodeCollectionProperty<TNode>(node, target, pi, type);
-            //}
+            var showCollectionAttribute = atts.SingleOrDefault() as ShowCollectionAttribute;
+            if (showCollectionAttribute != null)
+            {
+                var type = showCollectionAttribute.ColType ?? pi.PropertyType.GenericTypeArguments.First();
+                return new ReflectionNodeCollectionProperty(node, target, pi, type);
+            }
             return new ReflectionNodeProperty(node, target, pi);
         }
 
         public static IEnumerable<PropertyInfo> YieldFindPropertyInfosUsingReflection(this object target, Type fallback)
         {
-
             const BindingFlags bindingFlags = BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.FlattenHierarchy;
             var type = target == null ? fallback : target.GetType();
             var propertyInfos = type.GetProperties(bindingFlags).ToArray();

@@ -38,43 +38,52 @@ namespace Noodles.AspMvc.RequestHandling
 
         public override ActionResult Map(ControllerContext context, ValidationErrorResult result)
         {
-            var res = new System.Web.Mvc.ViewResult();
-            var targetResource = result.Invokeable as INode;
-            if (targetResource != null)
+            foreach (var error in result)
             {
-                var ffContext = (FormFactory.IViewFinder)new FormFactoryContext(context);
-                var viewname = ViewFinderExtensions.BestViewName(ffContext, targetResource.ValueType, "Noodles/NodeContainer.")
-                               ?? "Noodles/NodeContainer.Object";
+                context.Controller.ViewData.ModelState.AddModelError(error.Key, error.Value);
+            }
+            return BuildActionResult(context, (INode) result.Invokeable);
+            //var res = new System.Web.Mvc.ViewResult();
+            //var targetResource = result.Invokeable as INode;
+            //if (targetResource != null)
+            //{
+            //    var ffContext = (FormFactory.IViewFinder)new FormFactoryContext(context);
+            //    var viewname = ViewFinderExtensions.BestViewName(ffContext, targetResource.ValueType, "Noodles/Node.")
+            //                   ?? "Noodles/Node.Object";
 
 
-                res.ViewName = viewname;
-                context.Controller.ViewBag.NoodleTarget = targetResource;
-                ruleRegistry.RegisterTransformations(context, targetResource);
-            }
-            res.ViewData.Model = result.Invokeable;
-            if (context.HttpContext.Request.IsAjaxRequest())
-            {
-                res.MasterName = "Noodles/_AjaxLayout";
-            }
-            return res;
+            //    res.ViewName = viewname;
+            //    context.Controller.ViewBag.NoodleTarget = targetResource;
+            //    ruleRegistry.RegisterTransformations(context, targetResource);
+            //}
+            //res.ViewData.Model = result.Invokeable;
+            //if (context.HttpContext.Request.IsAjaxRequest())
+            //{
+            //    res.MasterName = "Noodles/_AjaxLayout";
+            //}
+            //return res;
         }
 
         public override ActionResult Map(ControllerContext context, ViewResult result)
         {
+            return BuildActionResult(context, result.Target);
+        }
+
+        private ActionResult BuildActionResult(ControllerContext context,  INode targetResource)
+        {
             var res = new System.Web.Mvc.ViewResult();
-            var targetResource = result.Target as INode;
             if (targetResource != null)
             {
                 var ffContext = (FormFactory.IViewFinder) new FormFactoryContext(context);
-                var viewname = ViewFinderExtensions.BestViewName(ffContext, targetResource.ValueType, "Noodles/NodeContainer.")
-                               ?? "Noodles/NodeContainer.Object";
+                var viewname = ViewFinderExtensions.BestViewName(ffContext, targetResource.ValueType, "Noodles/Node.")
+                               ?? "Noodles/Node.Object";
 
 
                 res.ViewName = viewname;
                 context.Controller.ViewBag.NoodleTarget = targetResource;
                 ruleRegistry.RegisterTransformations(context, targetResource);
-            } 
-            res.ViewData.Model = result.Target;
+            }
+            res.ViewData.Model = targetResource;
             if (context.HttpContext.Request.IsAjaxRequest())
             {
                 res.MasterName = "Noodles/_AjaxLayout";
@@ -88,25 +97,8 @@ namespace Noodles.AspMvc.RequestHandling
             {
                 return new AjaxRedirectRewritingActionResult((ActionResult) result.Result);
             }
-            var res = new System.Web.Mvc.ViewResult();
             var targetResource = result.Invokeable as INode;
-            if (targetResource != null)
-            {
-                var ffContext = (FormFactory.IViewFinder)new FormFactoryContext(context);
-                var viewname = ViewFinderExtensions.BestViewName(ffContext, targetResource.ValueType, "Noodles/NodeContainer.")
-                               ?? "Noodles/NodeContainer.Object";
-
-
-                res.ViewName = viewname;
-                context.Controller.ViewBag.NoodleTarget = targetResource;
-                ruleRegistry.RegisterTransformations(context, targetResource);
-            }
-            res.ViewData.Model = result.Invokeable;
-            if (context.HttpContext.Request.IsAjaxRequest())
-            {
-                res.MasterName = "Noodles/_AjaxLayout";
-            }
-            return res;
+            return BuildActionResult(context, targetResource);
         }
 
     }

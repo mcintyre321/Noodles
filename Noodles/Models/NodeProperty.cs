@@ -3,16 +3,13 @@ using System.Collections.Generic;
 
 namespace Noodles.Models
 {
-    public interface NodeProperty : INode, IInvokeableParameter
+    public interface NodeProperty : IInvokeableParameter
     {
-        int Order { get; }
-        IEnumerable<NodeMethod> NodeMethods { get; }
-        string UiHint { get; }
         void SetValue(object value);
     }
-    public interface NodeCollectionProperty : NodeProperty
-    {
 
+    public interface NodeCollectionProperty : Resource
+    {
         QueryPage Query(int skip, int take);
     }
 }

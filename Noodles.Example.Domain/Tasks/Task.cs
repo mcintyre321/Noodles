@@ -7,7 +7,7 @@ namespace Noodles.Example.Domain.Tasks
     [DisplayName("{Title}")]
     public class Task
     {
-        [Show(UiOrder = 1)][Required][StringLength(30)]
+        [Required][StringLength(30)]
         public string Title { get; set; }
 
         [Show]

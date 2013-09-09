@@ -15,7 +15,7 @@ namespace Noodles.Example.Domain
             _users = new List<User>();
         }
 
-        [ShowAsLinkList]
+        [ShowCollection]
         public List<User> Users
         {
             get { return _users; }

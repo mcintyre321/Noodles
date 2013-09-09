@@ -9,9 +9,9 @@ namespace Noodles.Example.Domain
             MembershipSettings = new MembershipSettings();
         }
 
-        [Show (UiHint = "SideNav")]
+        [Show]
         public ProfileSettings ProfileSettings { get; private set; }
-        [Show(UiHint = "SideNav")]
+        [Show]
         public MembershipSettings MembershipSettings { get; private set; }
     }
 }

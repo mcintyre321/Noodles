@@ -5,7 +5,6 @@ namespace Noodles.Models
 {
     public interface NodeMethod : Resource
     {
-        string UiHint { get; }
     }
 
     public class NotEnoughParametersForNodeMethodException : Exception

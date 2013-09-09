@@ -12,7 +12,7 @@ namespace Noodles.Example.Domain.Tasks
         {
             Lists = new List<ToDoList>();
         }
-        public ICollection<ToDoList> Lists { [ShowAsLinkList] get; private set; }
+        public ICollection<ToDoList> Lists { [ShowCollection] get; private set; }
 
         [Show]
         public void AddList(ToDoList list)

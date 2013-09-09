@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Reflection;
@@ -42,13 +43,13 @@ namespace Noodles.Example.Domain
         public Organisations Organisations { get; private set; }
 
 
-        [Show(UiHint = "TopBar.LeftItems")]
+        [Show]
         public Membership Membership { get; private set; }
 
-        [Show(UiHint = "TopBar.RightItems")]
+        [Show]
         public Settings Settings { get; private set; }
 
-        [Show(UiHint = "TopBar.RightItems")]
+        [Show]
         [HttpGet][Icon(IconNames.cog)][DisplayName("API")]
         public RedirectResult API()
         {
@@ -66,8 +67,8 @@ namespace Noodles.Example.Domain
             Items = new List<Organisation>();
         }
 
-        [Show]
-        public List<Organisation> Items { get; private set; }
+        [GetChildBy("Name")]
+        public IList<Organisation> Items { get; private set; }
     }
 
     [DisplayName("{Name}")]
@@ -79,18 +80,20 @@ namespace Noodles.Example.Domain
             Projects = new List<Project>();
             Settings = new OrganisationSettings();
         }
-        [Show] 
-        public string Name { get; private set; }
+        [Show][Required]
+        public string Name { get; set; }
 
-        public List<Project> Projects { [Show] get; set; }
+        [ShowCollection]
+        public List<Project> Projects { get; set; }
 
-        [Show]
+        [Show][Description("This description was added using a [Description] attribute")]
         public void AddNewProject([Required][StringLength(50, MinimumLength = 5)] String name)
         {
             Projects.Add(new Project(name));
         }
 
-        public OrganisationSettings Settings { [Show] get; set; }
+        [Show]
+        public OrganisationSettings Settings { get; private set; }
     }
 
     public class OrganisationSettings
@@ -128,18 +131,16 @@ namespace Noodles.Example.Domain
             ToDoLists = new ToDoLists();
             DiscussionsManager = new Discussions.DiscussionsManager();
         }
-        [Show(UiHint = "Inline")]
-        [NotInTable]
+        [Show ]
+   
         public ToDoLists ToDoLists { get; private set; }
 
-        [Show(UiHint = "Inline")]
-        [NotInTable]
+        [Show ]
         public Discussions.DiscussionsManager DiscussionsManager { get; private set; }
         
        
         [Show]
-        [NotInTable]
-        [DisplayName]
+        [DisplayName][Required][StringLength(50, MinimumLength = 5)]
         public string Name
         {
             get; set;

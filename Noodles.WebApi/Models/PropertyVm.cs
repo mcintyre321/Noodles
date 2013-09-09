@@ -22,7 +22,6 @@ namespace Noodles.WebApi.Models
             this.Value = target.Value;
             this.ValueType = target.ValueType.FullName;
 
-            Actions = target.NodeMethods.Select(nm => new ActionVm(nm)).ToArray();
         }
     }
 }

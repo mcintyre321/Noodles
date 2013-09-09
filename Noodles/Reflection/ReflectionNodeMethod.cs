@@ -24,7 +24,6 @@ namespace Noodles.Models
             Order = int.MaxValue;
             Parent = parent;
             Target = target;
-            UiHint = methodInfo.Attributes().OfType<ShowAttribute>().Select(a => a.UiHint).SingleOrDefault() ?? "";
         }
 
         public Uri InvokeUrl { get { return Url; } }
@@ -99,12 +98,8 @@ namespace Noodles.Models
         public INode Parent { get; private set; }
         public Type ValueType { get { return typeof(NodeMethod); } }
         public IEnumerable<Attribute> Attributes { get { return _methodInfo.Attributes(); } }
-        public string UiHint { get; private set; }
 
         private IEnumerable<IInvokeableParameter> _parameters;
-
-        public bool Active { get { return true; } }
-
         public IEnumerable<IInvokeableParameter> Parameters
         {
             get

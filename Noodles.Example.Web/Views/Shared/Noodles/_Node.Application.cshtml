@@ -1,0 +1,13 @@
+﻿@using Noodles.Example.Domain
+@model Noodles.Models.Resource<Application>
+@{
+    var application = Model.Target;
+
+    <h1>Welcome to the Noodles Example application!</h1>
+
+
+    foreach (var organisation in application.Organisations.Items)
+    {
+        <a href="organisations/@organisation.Name">@organisation.Name</a>
+    }
+}

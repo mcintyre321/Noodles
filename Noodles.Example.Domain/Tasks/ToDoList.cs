@@ -10,12 +10,12 @@ namespace Noodles.Example.Domain.Tasks
     {
         private List<Task> _tasks;
 
-        [Show(UiHint = "Inline")]
+        [Show]
         [StringLength(20)]
         [Required]
         public string ListName { get; set; }
 
-        [ShowAsTable]
+        [ShowCollection]
         public IQueryable<Task> Tasks
         {
             get { return _tasks.AsQueryable(); }

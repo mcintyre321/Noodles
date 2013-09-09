@@ -13,10 +13,12 @@ namespace Noodles.Example.Domain.Discussions
         {
             Messages = new List<Message>();
         }
-        [ShowAsTable]
+        [ShowCollection]
         public List<Message> Messages { get; private set; }
-        
-        [Show(UiOrder = 1)][Required][StringLength(30)]
+
+        [Show]
+        [Required]
+        [StringLength(30)]
         public string Title { get; set; }
 
         [Show]

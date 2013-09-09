@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Dynamic;
 using System.Reflection;
 using System.Security.Policy;
 using Noodles.Helpers;
@@ -36,15 +37,26 @@ namespace Noodles.Models
 
     }
 
-    public class GetChildAttribute : Attribute, IChildInfo
+    public class GetChildByAttribute : Attribute, IResolveChildren
     {
-        public string UiHint { get; set; }
+        private readonly string _searchField;
+
+        public GetChildByAttribute(string searchField)
+        {
+            _searchField = searchField;
+        }
+
+        public object ResolveChild(Func<IQueryable> getChildren, string key)
+        {
+            return getChildren().Where(_searchField + " == @0", key).Cast<object>().SingleOrDefault();
+        }
     }
 
-    public interface IChildInfo
+    public interface IResolveChildren
     {
-        string UiHint { get; }
+        object ResolveChild(Func<IQueryable> getChildren, string key);
     }
+
 
     /// <summary>
     /// If a property  is marked as a Slug, it will be used to build the url instead of the collection index
@@ -74,23 +86,30 @@ namespace Noodles.Models
     }
 
 
-    public class ReflectionResource : Resource, INode, IInvokeable
+    public class ReflectionResource : Resource
     {
-        public static readonly List<Func<object, string, Tuple<object, IChildInfo>>> GetChildRules = new List<Func<object, string, Tuple<object, IChildInfo>>>()
-        {
-            (GetChildFromAttributedMethods)
-        };
-
-        private static Tuple<object, IChildInfo> GetChildFromAttributedMethods(object target, string slug)
+        private static IEnumerable<Tuple<Func<IQueryable>, IResolveChildren>> ResolversAndChildGettersFromAttributedMethods(object target)
         {
             const BindingFlags bindingFlags = BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.FlattenHierarchy;
-            var methodInfos = target.GetType().GetMethods(bindingFlags)
-                .Select(mi => new { mi, GetChildAttribute = mi.Attributes().OfType<GetChildAttribute>().SingleOrDefault() })
-                    .Where(pair => pair.GetChildAttribute != null);
-            var childFromAttributedMethods = methodInfos.Select(m => Tuple.Create(m.mi.Invoke(target, new object[] { slug }), (IChildInfo) m.GetChildAttribute))
-                .FirstOrDefault(o => o.Item1 != null);
-            return childFromAttributedMethods;
+            return target.GetType().GetMethods(bindingFlags)
+                         .Select(mi => new Tuple<Func<IQueryable>, IResolveChildren>(
+                             () => ((IEnumerable)mi.Invoke(target, null)).AsQueryable(),
+                             mi.Attributes().OfType<IResolveChildren>().SingleOrDefault()
+                         ))
+                         .Where(pair => pair.Item2 != null);
+
         }
+        private static IEnumerable<Tuple<Func<IQueryable>, IResolveChildren>> ResolversAndChildGettersFromAttributedProperties(object target)
+        {
+            const BindingFlags bindingFlags = BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.FlattenHierarchy;
+            return target.GetType().GetProperties(bindingFlags)
+                         .Select(mi => new Tuple<Func<IQueryable>, IResolveChildren>(  
+                             () => ((IEnumerable)mi.GetGetMethod().Invoke(target, null)).AsQueryable(), 
+                             mi.Attributes().OfType<IResolveChildren>().SingleOrDefault()
+                         ))
+                         .Where(pair => pair.Item2 != null);
+        }
+
 
         protected ReflectionResource(object target, INode parent, string name)
         {
@@ -107,11 +126,7 @@ namespace Noodles.Models
         public Type ValueType { get; set; }
 
         
-
-        bool IInvokeable.Active
-        {
-            get { return true; }
-        }
+ 
 
         IEnumerable<IInvokeableParameter> IInvokeable.Parameters
         {
@@ -130,20 +145,18 @@ namespace Noodles.Models
             get { return this; }
         }
 
-        string IInvokeable.Message
-        {
-            get { return ""; }
-        }
 
         public IEnumerable<INode> ChildNodes { get { return this.Value.GetNodeMethods(this).Concat(this.Value.GetNodeProperties(this)); } }
 
         public Resource GetChild(string name)
         {
-            //return ChildNodes.SingleOrDefault(n => n.Name.Equals(name, StringComparison.InvariantCultureIgnoreCase));
-            //var child = GetChildRules.Select(r => r(Value, name)).Where(c => c != null)
-            //                            .Select(o => ResourceFactory.Instance.Create(o.Item1, this, name))
-            //                            .FirstOrDefault();
-            //if (child != null) return child;
+            var childFromMarkedEnumerables =
+                ResolversAndChildGettersFromAttributedMethods(this.Value)
+                    .Concat(ResolversAndChildGettersFromAttributedProperties(this.Value))
+                    .Select(pair => pair.Item2.ResolveChild(pair.Item1, name))
+                    .Select(o => ResourceFactory.Instance.Create(o, this, name))
+                    .FirstOrDefault();
+            if (childFromMarkedEnumerables != null) return childFromMarkedEnumerables;
 
             //var method = NodeMethods.SingleOrDefault(nm => nm.Name.ToLowerInvariant() == name.ToLowerInvariant());
             //if (method != null) return method;
@@ -154,6 +167,11 @@ namespace Noodles.Models
             var childProperty = this.ChildNodes.OfType<NodeProperty>()
                     .SingleOrDefault(np => np.Name.ToLowerInvariant() == name.ToLowerInvariant());
             if (childProperty != null) return ResourceFactory.Instance.Create(childProperty.Value, this, childProperty.Name);
+
+            var childCollectionProperty = this.ChildNodes.OfType<NodeCollectionProperty>()
+                                .SingleOrDefault(np => np.Name.ToLowerInvariant() == name.ToLowerInvariant());
+            if (childCollectionProperty != null) return childCollectionProperty;
+
 
             return null;
         }

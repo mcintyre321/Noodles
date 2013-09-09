@@ -25,10 +25,9 @@ namespace Noodles.Example.Domain
         [Show]//this is here to test that nested method panels are the right width
         public void ResetAllPasswords()
         {
-            
         }
 
-        [Show][Modal]
+        [Show]
         public AdvancedMembershipSettings Advanced { get; private set; }
     }
 

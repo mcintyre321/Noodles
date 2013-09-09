@@ -1,6 +1,7 @@
 ﻿using System.Threading.Tasks;
 using System.Web.Mvc;
 using Noodles.AspMvc;
+using Noodles.AspMvc.Helpers;
 using Noodles.AspMvc.Models.Layout;
 using Noodles.Example.ActionFilters;
 using Noodles.Example.Domain;
@@ -12,7 +13,7 @@ namespace Noodles.Example.Controllers
     {
         public async Task<ActionResult> Index(string path)
         {
-            this.HttpContext.LayoutVm().TopBar.Fixed = true;
+            this.HttpContext.LayoutVm().RegisterScripts();
 
             var actionResult = this.ControllerContext.GetNoodleResult(CurrentApplication);
             return await actionResult;

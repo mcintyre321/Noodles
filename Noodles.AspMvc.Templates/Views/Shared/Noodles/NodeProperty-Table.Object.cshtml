@@ -4,18 +4,18 @@
 @using FormFactory.Attributes
 @using Noodles.AspMvc.Helpers
 @using Noodles.AspMvc.UiAttributes
+@using Noodles.Models
 @model Noodles.Models.NodeCollectionProperty
 @{
     var resources = Model.Query(0, int.MaxValue).Items.ToArray();
     var data = resources.Select(i => new
     {
         Resource = i,
-        Properties = i.NodeProperties.Where(p => p.Attributes.OfType<NotInTable>().Any() == false)
+        Properties = i.ChildNodes
             .ToDictionary(p => p.DisplayName, p => p)
     }).ToArray();
 
-    var columns = data.SelectMany(d => d.Properties)
-        .OrderBy(p => p.Value.Order).Select(k => k.Key).Distinct().ToArray();
+    var columns = data.SelectMany(d => d.Properties).Select(k => k.Key).Distinct().ToArray();
 }
 
     @if (resources.Any())
@@ -30,7 +30,7 @@
                         <th>@column</th>
                     }
                     @{
-                        ViewBag.ShowActions = resources.SelectMany(i => i.NodeMethods.ToArray()).Any();
+                        ViewBag.ShowActions = resources.SelectMany(i => i.ChildNodes.OfType<NodeMethod>().ToArray()).Any();
 
                         if (ViewBag.ShowActions)
                         {

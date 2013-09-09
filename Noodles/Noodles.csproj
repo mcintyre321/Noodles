@@ -73,7 +73,7 @@
     <Compile Include="Helpers\ThenExtension.cs" />
     <Compile Include="Logger.cs" />
     <Compile Include="Models\NodeProperty.cs" />
-    <Compile Include="Models\NodeCollectionProperty.cs" />
+    <Compile Include="Models\ReflectionNodeCollectionProperty.cs" />
     <Compile Include="Models\IInvokeable.cs" />
     <Compile Include="Models\INode.cs" />
     <Compile Include="Models\QueryPage.cs" />
@@ -98,6 +98,7 @@
     <Compile Include="Reflection\NodeMethodsRuleRegistry.cs" />
     <Compile Include="Reflection\ReflectionNodeProperty.cs" />
     <Compile Include="Helpers\SentenciseTextExtensions.cs" />
+    <Compile Include="Reflection\ShowAttribute.cs" />
     <Compile Include="RequestHandling\ArgumentBindingException.cs" />
     <Compile Include="RequestHandling\ResultTypes\BadRequestResult.cs" />
     <Compile Include="RequestHandling\DefaultProcessors.cs" />

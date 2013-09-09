@@ -37,3 +37,34 @@ td > div[data-node-getter] input[readonly] {
     border: 0 none;
     box-shadow: none;
 }
+
+/* Common styles for all types */
+.noodles-callout {
+  margin: 20px 0;
+  padding: 15px 30px 15px 15px;
+  border-left: 5px solid #eee;
+}
+.noodles-callout h4 {
+  margin-top: 0;
+}
+.noodles-callout p:last-child {
+  margin-bottom: 0;
+}
+.noodles-callout code,
+.noodles-callout .highlight {
+  background-color: #fff;
+}
+
+/* Variations */
+.noodles-callout-danger {
+  background-color: #fcf2f2;
+  border-color: #dFb5b4;
+}
+.noodles-callout-warning {
+  background-color: #fefbed;
+  border-color: #f1e7bc;
+}
+.noodles-callout-info {
+  background-color: #f0f7fd;
+  border-color: #d0e3f0;
+}

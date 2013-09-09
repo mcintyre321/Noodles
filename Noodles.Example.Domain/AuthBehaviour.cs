@@ -14,13 +14,15 @@ namespace Noodles.Example.Domain
         {
         }
 
-        [Show(UiHint = "TopBar.RightItems")][Description("You can enter any email/password combo - this is just an example!")]
+        [Show]
+        [Description("You can enter any email/password combo - this is just an example!")]
         public RedirectResult SignIn([Required] [Placeholder("Enter any email address")]string email, [DataType(DataType.Password)][Required]  string password)
         {
             if (string.IsNullOrEmpty(email) || string.IsNullOrEmpty(password))
             {
                 throw new UserException("Please enter any username or password");
             }
+            if(password == "error") throw new UserException("An error occurred");
             //check username and password here
             AuthService.SetAuthToken(email);
             return new RedirectResult(HttpContext.Current.Request["ReturnUrl"] ?? "/");
@@ -36,11 +38,11 @@ namespace Noodles.Example.Domain
             return !AuthService.RequestHasAuthToken();
         }
 
-        [Show(UiHint = "TopBar.RightItems"), AutoSubmit]
+        [Show(), AutoSubmit]
         public RedirectResult SignOut()
         {
             AuthService.ClearAuthToken();
-            return new RedirectResult(HttpContext.Current.Request["ReturnUrl"] ?? "/");
+            return new RedirectResult(HttpContext.Current.Request["ReturnUrl"] ?? "../");
         }
 
         public bool? Allow(MethodInfo methodInfo)

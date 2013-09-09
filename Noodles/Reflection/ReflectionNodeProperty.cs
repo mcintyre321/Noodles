@@ -91,13 +91,7 @@ namespace Noodles.Models
         public object Parameter { get; private set; }
         public Type Type { get { return this.GetType(); } }
 
-        public int Order
-        {
-            get
-            {
-                return this._info.Attributes().OfType<ShowAttribute>().Select(a => a.UiOrder as int?).SingleOrDefault() ?? int.MaxValue;
-            }
-        }
+        
 
         public bool Active { get { return !Readonly; } }
         public IEnumerable<IInvokeableParameter> Parameters
@@ -117,7 +111,6 @@ namespace Noodles.Models
 
 
         public Uri Url { get { return new Uri(this.Parent.Url + this.Fragment + "/", UriKind.Relative); } }
-        public string UiHint { get { return Attributes.OfType<ShowAttribute>().Select(a => a.UiHint).SingleOrDefault(); } }
         public void SetValue(object value)
         {
             Value = value;
@@ -170,10 +163,6 @@ namespace Noodles.Models
         }
 
 
-        public virtual IEnumerable<NodeMethod> NodeMethods
-        {
-            get { yield break; }
-        }
 
         public IEnumerable<NodeProperty> NodeProperties { get { yield break; } }
         public IEnumerable<Resource> Children { get { yield break; } }
