@@ -37,25 +37,24 @@ namespace Noodles.Models
 
     }
 
-    public class GetChildByAttribute : Attribute, IResolveChildren
+    public class ChildrenAttribute : Attribute 
     {
-        private readonly string _searchField;
+        public string KeyName { get; private set; }
+        internal readonly bool _allowEnumeration;
 
-        public GetChildByAttribute(string searchField)
+        public ChildrenAttribute(string key, bool allowEnumeration = false)
         {
-            _searchField = searchField;
+            KeyName = key;
+            _allowEnumeration = allowEnumeration;
         }
 
         public object ResolveChild(Func<IQueryable> getChildren, string key)
         {
-            return getChildren().Where(_searchField + " == @0", key).Cast<object>().SingleOrDefault();
+            return getChildren().Where(KeyName + " == @0", key).Cast<object>().SingleOrDefault();
         }
     }
 
-    public interface IResolveChildren
-    {
-        object ResolveChild(Func<IQueryable> getChildren, string key);
-    }
+   
 
 
     /// <summary>
@@ -88,27 +87,7 @@ namespace Noodles.Models
 
     public class ReflectionResource : Resource
     {
-        private static IEnumerable<Tuple<Func<IQueryable>, IResolveChildren>> ResolversAndChildGettersFromAttributedMethods(object target)
-        {
-            const BindingFlags bindingFlags = BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.FlattenHierarchy;
-            return target.GetType().GetMethods(bindingFlags)
-                         .Select(mi => new Tuple<Func<IQueryable>, IResolveChildren>(
-                             () => ((IEnumerable)mi.Invoke(target, null)).AsQueryable(),
-                             mi.Attributes().OfType<IResolveChildren>().SingleOrDefault()
-                         ))
-                         .Where(pair => pair.Item2 != null);
-
-        }
-        private static IEnumerable<Tuple<Func<IQueryable>, IResolveChildren>> ResolversAndChildGettersFromAttributedProperties(object target)
-        {
-            const BindingFlags bindingFlags = BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.FlattenHierarchy;
-            return target.GetType().GetProperties(bindingFlags)
-                         .Select(mi => new Tuple<Func<IQueryable>, IResolveChildren>(  
-                             () => ((IEnumerable)mi.GetGetMethod().Invoke(target, null)).AsQueryable(), 
-                             mi.Attributes().OfType<IResolveChildren>().SingleOrDefault()
-                         ))
-                         .Where(pair => pair.Item2 != null);
-        }
+        
 
 
         protected ReflectionResource(object target, INode parent, string name)
@@ -146,37 +125,37 @@ namespace Noodles.Models
         }
 
 
-        public IEnumerable<INode> ChildNodes { get { return this.Value.GetNodeMethods(this).Concat(this.Value.GetNodeProperties(this)); } }
+        public IEnumerable<object> ChildNodes { get
+        {
+            return this.Value.GetNodeMethods(this).Cast<object>()
+                       .Concat(this.Value.GetNodeProperties(this))
+                       .Concat(new[] {QueryableChild.GetChildCollection(this, this.Value)})
+                       .Where(o => o != null);
+        } }
 
         public Resource GetChild(string name)
         {
-            var childFromMarkedEnumerables =
-                ResolversAndChildGettersFromAttributedMethods(this.Value)
-                    .Concat(ResolversAndChildGettersFromAttributedProperties(this.Value))
-                    .Select(pair => pair.Item2.ResolveChild(pair.Item1, name))
-                    .Select(o => ResourceFactory.Instance.Create(o, this, name))
+            var resolvedChild = ChildNodes.OfType<IResolveChild>()
+                .Select(c => c.ResolveChild(name))
+                .Select(o => ResourceFactory.Instance.Create(o, this, name))
                     .FirstOrDefault();
-            if (childFromMarkedEnumerables != null) return childFromMarkedEnumerables;
+            if (resolvedChild != null) return resolvedChild;
 
-            //var method = NodeMethods.SingleOrDefault(nm => nm.Name.ToLowerInvariant() == name.ToLowerInvariant());
-            //if (method != null) return method;
-            var childMethod = this.ChildNodes.OfType<NodeMethod>()
+            var childResource = this.ChildNodes.OfType<Resource>()
                    .SingleOrDefault(np => np.Name.ToLowerInvariant() == name.ToLowerInvariant());
-            if (childMethod != null) return childMethod;
+            if (childResource != null) return childResource;
 
-            var childProperty = this.ChildNodes.OfType<NodeProperty>()
-                    .SingleOrDefault(np => np.Name.ToLowerInvariant() == name.ToLowerInvariant());
-            if (childProperty != null) return ResourceFactory.Instance.Create(childProperty.Value, this, childProperty.Name);
+            var property = this.ChildNodes.OfType<NodeProperty>()
+                               .SingleOrDefault(np => np.Name.ToLowerInvariant() == name.ToLowerInvariant());
+            if (property  != null) return ResourceFactory.Instance.Create(property.Value, this, property.Name);
 
-            var childCollectionProperty = this.ChildNodes.OfType<NodeCollectionProperty>()
-                                .SingleOrDefault(np => np.Name.ToLowerInvariant() == name.ToLowerInvariant());
-            if (childCollectionProperty != null) return childCollectionProperty;
 
 
             return null;
         }
 
-      
+        
+
 
         private Uri _url;
 

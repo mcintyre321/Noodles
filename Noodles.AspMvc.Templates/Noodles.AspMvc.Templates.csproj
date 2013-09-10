@@ -120,7 +120,6 @@
     <EmbeddedResource Include="Views\Shared\Noodles\_NodeContainer.NodeMethod.cshtml" />
     <EmbeddedResource Include="Views\Shared\Noodles\Link.cshtml" />
     <EmbeddedResource Include="Views\Shared\Noodles\Link.Object.cshtml" />
-    <Content Include="Views\Shared\Noodles\Node.Object.cshtml" />
     <EmbeddedResource Include="Views\Shared\Noodles\NodeCollection.Object.cshtml" />
     <EmbeddedResource Include="Views\Shared\Noodles\NodeMethods.cshtml" />
     <EmbeddedResource Include="Views\Shared\Noodles\NodeMethodSuccess.cshtml">

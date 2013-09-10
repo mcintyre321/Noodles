@@ -67,7 +67,7 @@ namespace Noodles.Example.Domain
             Items = new List<Organisation>();
         }
 
-        [GetChildBy("Name")]
+        [Children("Name")]
         public IList<Organisation> Items { get; private set; }
     }
 

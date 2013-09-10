@@ -25,7 +25,7 @@ namespace Noodles.Example.Domain
             if(password == "error") throw new UserException("An error occurred");
             //check username and password here
             AuthService.SetAuthToken(email);
-            return new RedirectResult(HttpContext.Current.Request["ReturnUrl"] ?? "/");
+            return new RedirectResult(HttpContext.Current.Request["ReturnUrl"] ?? "../");
         }
         
         public string SignIn_email_default()

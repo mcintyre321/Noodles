@@ -99,9 +99,14 @@
     var fields = fieldsToDisplay as IInvokeableParameter[] ?? fieldsToDisplay.ToArray();
     if (isNodeMethod || fields.Any())
     {
-
         <form class="node-form" action="@node.Url" method="POST">
-            
+            @if (html.ViewData.ModelState.SelectMany(ms => ms.Value.Errors).Any())
+            {
+                <div class="noodles-callout noodles-callout-danger">
+                    Please correct the issues below:
+                    @html.ValidationSummary(true)
+                </div>
+            }
             @foreach (var field in fields)
             {
                 var parameter = field;

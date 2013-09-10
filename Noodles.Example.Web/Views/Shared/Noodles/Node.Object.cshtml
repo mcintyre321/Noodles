@@ -1,0 +1,97 @@
+﻿@using Noodles.AspMvc.Helpers
+@using Noodles.Models
+@model Noodles.Models.Resource
+<pre>
+    This is the default generated view. Please create a file called 'Noodles/Node.@(Model.ValueType.Name).cshtml' to override.
+</pre>
+ 
+<div class="row">
+    <div class="col-md-12">
+        <ol class="breadcrumb" style="margin-bottom: 5px;">
+            @foreach (var item in Model.Ancestors().Reverse())
+            {
+                <li><a href="@item.Url">@item.DisplayName</a></li>
+            }
+            <li class="active">@Model.DisplayName</li>
+        </ol>
+    </div>
+</div>
+<div class="row">
+    @{
+        var nodeMethods = Model.ChildNodes.OfType<NodeMethod>();
+        if (nodeMethods.Any())
+        {
+
+            <div class="col-md-4 node-actions-container">
+                <h3 class="page-header">Actions</h3>
+                @foreach (var method in nodeMethods)
+                {
+                    <a class="btn btn-default" href="@method.Url">@method.DisplayName</a>
+                }
+            </div>
+        }
+        var readonlyProperties = Model.ChildNodes.OfType<NodeProperty>().Where(p => p.Readonly);
+        if (readonlyProperties.Any())
+        {
+            <div class="col-md-8 node-properties-container">
+                <h3 class="page-header">Properties</h3>
+                @foreach (var property in readonlyProperties)
+                {
+                    <a href="@property.Url">@property.DisplayName</a>
+                }
+            </div>
+        }
+
+        var queryableCollections = Model.ChildNodes.OfType<QueryableChild>().ToArray();
+
+        if (queryableCollections.Any())
+        {
+            <div class="col-md-8 node-properties-container">
+                <h3 class="page-header">Children</h3>
+               
+                @foreach (var queryableCollection in queryableCollections)
+                {
+                    foreach (var item in queryableCollection.ResourceQueryable)
+                    {
+                        <a href="@item.Url">@item.DisplayName</a>
+                    }
+                }
+            </div>
+        }
+        
+        
+        
+        var parameters = Model.Parameters.ToArray();
+                if (parameters.Any() || Model is NodeMethod)
+                {
+                <div class="col-md-8 node-form-container">
+                
+                    @{
+                        var nodeMethod = Model as NodeMethod;
+                        if (nodeMethod == null)
+                        {
+                            <h3 class="page-header">Update</h3>
+                        }
+                        else
+                        {
+                        
+                        }
+                        var descriptionAttribute = Model.Attributes.OfType<System.ComponentModel.DescriptionAttribute>().SingleOrDefault();
+                        if (descriptionAttribute != null)
+                        {
+                            <div class="noodles-callout noodles-callout-info">
+                                @descriptionAttribute.Description
+                            </div>
+                        }
+                    }
+                    @NoodlesHelper.Form(Html, Model, parameters)
+                </div>
+                }
+                }
+            </div>
+
+
+@*@foreach (var collection in Model.ChildNodes.OfType<NodeCollectionProperty>())
+{
+    @Html.Partial("Noodles/NodeCollection.Object", collection)  
+}*@

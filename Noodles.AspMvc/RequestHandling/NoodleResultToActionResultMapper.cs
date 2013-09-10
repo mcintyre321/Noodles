@@ -83,6 +83,7 @@ namespace Noodles.AspMvc.RequestHandling
                 context.Controller.ViewBag.NoodleTarget = targetResource;
                 ruleRegistry.RegisterTransformations(context, targetResource);
             }
+            res.ViewData.ModelState.Merge(context.Controller.ViewData.ModelState);
             res.ViewData.Model = targetResource;
             if (context.HttpContext.Request.IsAjaxRequest())
             {

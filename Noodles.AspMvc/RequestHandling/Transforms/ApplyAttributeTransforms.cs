@@ -8,13 +8,13 @@ namespace Noodles.AspMvc.RequestHandling.Transforms
     {
         public void Register(ControllerContext cc, INode resource)
         {
-            foreach (var nodeLink in resource.ChildNodes)
-            {
-                foreach (var att in nodeLink.Attributes.OfType<ChildNodeDocumentTransformAttribute>())
-                {
-                    att.Transform(nodeLink, cc, resource);
-                }
-            }
+            //foreach (var nodeLink in resource.ChildNodes.OfType<No>())
+            //{
+            //    foreach (var att in nodeLink.Attributes.OfType<ChildNodeDocumentTransformAttribute>())
+            //    {
+            //        att.Transform(nodeLink, cc, resource);
+            //    }
+            //}
         }
     }
 }

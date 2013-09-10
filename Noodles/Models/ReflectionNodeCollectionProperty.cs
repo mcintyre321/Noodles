@@ -24,7 +24,7 @@ namespace Noodles.Models
             _collectionItemType = collectionItemType;
         }
 
-        public IEnumerable<INode> ChildNodes { get { return this.GetNodeMethods(this).Concat(this.GetNodeMethods(this)); } }
+        public IEnumerable<object> ChildNodes { get { return this.GetNodeMethods(this); } }
 
         public Resource GetChild(string name)
         {
@@ -133,5 +133,6 @@ namespace Noodles.Models
         {
             return this.Attributes.OfType<T>().SingleOrDefault();
         }
+ 
     }
 }

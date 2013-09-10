@@ -266,6 +266,7 @@
     <Content Include="Content\Site.css" />
     <Content Include="Views\Shared\Link.Task.cshtml" />
     <Content Include="Views\Shared\Noodles\_Node.Application.cshtml" />
+    <Content Include="Views\Shared\Noodles\Node.Object.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

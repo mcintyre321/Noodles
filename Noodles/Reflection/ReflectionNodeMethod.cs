@@ -132,7 +132,7 @@ namespace Noodles.Models
        
 
 
-        public IEnumerable<INode> ChildNodes { get { return this.Parameters; } }
+        public IEnumerable<object> ChildNodes { get { return this.Parameters; } }
 
         public Type ReturnType
         {

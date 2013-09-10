@@ -545,7 +545,6 @@ return new System.Web.WebPages.HelperResult(__razor_helper_writer => {
     if (isNodeMethod || fields.Any())
     {
 
-
 #line default
 #line hidden
 
@@ -553,17 +552,47 @@ WebViewPage.WriteLiteralTo(@__razor_helper_writer, "        <form class=\"node-f
 
 
 
-#line 103 "..\..\Helpers\NoodlesHelper.cshtml"
+#line 102 "..\..\Helpers\NoodlesHelper.cshtml"
 WebViewPage.WriteTo(@__razor_helper_writer, node.Url);
 
 #line default
 #line hidden
 
-WebViewPage.WriteLiteralTo(@__razor_helper_writer, "\" method=\"POST\">\r\n            \r\n");
+WebViewPage.WriteLiteralTo(@__razor_helper_writer, "\" method=\"POST\">\r\n");
 
 
 
-#line 105 "..\..\Helpers\NoodlesHelper.cshtml"
+#line 103 "..\..\Helpers\NoodlesHelper.cshtml"
+             if (html.ViewData.ModelState.SelectMany(ms => ms.Value.Errors).Any())
+            {
+
+#line default
+#line hidden
+
+WebViewPage.WriteLiteralTo(@__razor_helper_writer, "                <div class=\"noodles-callout noodles-callout-danger\">\r\n           " +
+"         Please correct the issues below:\r\n                    ");
+
+
+
+#line 107 "..\..\Helpers\NoodlesHelper.cshtml"
+WebViewPage.WriteTo(@__razor_helper_writer, html.ValidationSummary(true));
+
+#line default
+#line hidden
+
+WebViewPage.WriteLiteralTo(@__razor_helper_writer, "\r\n                </div>\r\n");
+
+
+
+#line 109 "..\..\Helpers\NoodlesHelper.cshtml"
+            }
+
+#line default
+#line hidden
+
+
+
+#line 110 "..\..\Helpers\NoodlesHelper.cshtml"
              foreach (var field in fields)
             {
                 var parameter = field;
@@ -573,14 +602,14 @@ WebViewPage.WriteLiteralTo(@__razor_helper_writer, "\" method=\"POST\">\r\n     
 #line hidden
 
 
-#line 109 "..\..\Helpers\NoodlesHelper.cshtml"
+#line 114 "..\..\Helpers\NoodlesHelper.cshtml"
 WebViewPage.WriteTo(@__razor_helper_writer, html.Partial("FormFactory/Form.Property", vm));
 
 #line default
 #line hidden
 
 
-#line 109 "..\..\Helpers\NoodlesHelper.cshtml"
+#line 114 "..\..\Helpers\NoodlesHelper.cshtml"
                                                               
             }
 
@@ -591,7 +620,7 @@ WebViewPage.WriteLiteralTo(@__razor_helper_writer, "            <input type=\"su
 
 
 
-#line 111 "..\..\Helpers\NoodlesHelper.cshtml"
+#line 116 "..\..\Helpers\NoodlesHelper.cshtml"
 WebViewPage.WriteTo(@__razor_helper_writer, isNodeMethod ? node.DisplayName : "Update");
 
 #line default
@@ -601,7 +630,7 @@ WebViewPage.WriteLiteralTo(@__razor_helper_writer, "\" />\r\n\r\n        </form>
 
 
 
-#line 114 "..\..\Helpers\NoodlesHelper.cshtml"
+#line 119 "..\..\Helpers\NoodlesHelper.cshtml"
 
     }
 
@@ -619,7 +648,7 @@ return new System.Web.WebPages.HelperResult(__razor_helper_writer => {
 
 
 
-#line 120 "..\..\Helpers\NoodlesHelper.cshtml"
+#line 125 "..\..\Helpers\NoodlesHelper.cshtml"
  
     var vm = property.ToPropertyVm();
     vm.Readonly = true;

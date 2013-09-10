@@ -144,7 +144,7 @@ namespace Noodles.Models
 
         public bool Readonly { get { return Setter == null; } }
 
-        public IEnumerable<INode> ChildNodes { get { yield break; } }
+        public IEnumerable<object> ChildNodes { get { yield break; } }
 
         string GetDisplayName(PropertyInfo info)
         {
@@ -168,5 +168,6 @@ namespace Noodles.Models
         public IEnumerable<Resource> Children { get { yield break; } }
 
         public string Fragment { get { return Name; } }
+        
     }
 }

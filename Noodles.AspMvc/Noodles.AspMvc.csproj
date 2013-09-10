@@ -239,9 +239,6 @@
     <EmbeddedResource Include="Content\fonts\glyphicons-halflings-regular.woff" />
     <EmbeddedResource Include="Content\fonts\glyphicons-halflings-regular.ttf" />
     <EmbeddedResource Include="Content\fonts\glyphicons-halflings-regular.eot" />
-    <EmbeddedResource Include="..\Noodles.AspMvc.Templates\Views\Shared\Noodles\Node.Object.cshtml">
-      <Link>Views\Shared\Noodles\Node.Object.cshtml</Link>
-    </EmbeddedResource>
     <None Include="UiAttributes\Icons\IconNames.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>IconNames.cs</LastGenOutput>
@@ -367,7 +364,9 @@
       <Name>Noodles</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Views\Shared\Noodles\" />
+  </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>

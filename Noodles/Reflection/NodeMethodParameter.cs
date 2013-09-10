@@ -8,7 +8,7 @@ using Noodles.Models;
 
 namespace Noodles
 {
-    public class NodeMethodParameter : INode, IInvokeableParameter
+    public class NodeMethodParameter : IInvokeableParameter
     {
         private readonly NodeMethod _nodeMethod;
         private readonly MethodInfo _mi;
@@ -178,12 +178,14 @@ namespace Noodles
         public bool Locked { get; set; }
         public bool Readonly { get { return false; } }
 
-        public IEnumerable<INode> ChildNodes { get{ yield break;} }
+        public IEnumerable<object> ChildNodes { get{ yield break;} }
 
         public Resource GetChild(string name)
         {
             return null;
         }
+
+         
 
         public string Fragment { get { return Name; }}
     }

@@ -121,18 +121,20 @@
         }
 
     };
-    $(document).on("submit", "form.nodeMethod", function(e) {
-        var submitButton = $(this).find(".submitMethod");
-        if (!submitButton[0]) {
-            submitButton = $(this).parents('div.nodeMethod').find('.submitMethod');
-        }
-        if (submitButton[0]) {
+    $(document).on("submit", "form.node-form", function(e) {
+        var $submitButton = $(this).find("> input[type=submit]");
+        //if (!submitButton[0]) {
+        //    submitButton = $(this).parents('div.nodeMethod').find('.submitMethod');
+        //}
+        
+
+        if (!$(this).valid()) {
             e.preventDefault();
-            submitButton.click();
+            //$submitButton.trigger("click");
         }
     });
-    $(document).on("click", ".submitMethod", function (e) {
-        var $container = $(this).closest(".nodeMethod");
+    $(document).on("click", "form.node-form > input[type=submit]", function (e) {
+        var $container = $(this).closest(".form.node-form");
         var $form = $container.is("form") ? $container : $container.find("form");
         if (!$form.valid()) return false;
         var formdata = false;
