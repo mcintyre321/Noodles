@@ -18,17 +18,27 @@ namespace Noodles.AspMvc.Infrastructure
         private StringBuilder sb;
         private HttpWriter output;
 
-        public override void OnActionExecuting(ActionExecutingContext filterContext)
+        public override void OnActionExecuted(ActionExecutedContext filterContext)
         {
-            sb = new StringBuilder();
-            sw = new StringWriter(sb);
-            tw = new HtmlTextWriter(sw);
-            output = (HttpWriter)filterContext.RequestContext.HttpContext.Response.Output;
-            filterContext.RequestContext.HttpContext.Response.Output = tw;
+            if (filterContext.Exception == null)
+            {
+                sb = new StringBuilder();
+                sw = new StringWriter(sb);
+                tw = new HtmlTextWriter(sw);
+                output = (HttpWriter)filterContext.RequestContext.HttpContext.Response.Output;
+                filterContext.RequestContext.HttpContext.Response.Output = tw;
+            }
+            base.OnActionExecuted(filterContext);
         }
 
         public override void OnResultExecuted(ResultExecutedContext filterContext)
         {
+            if (filterContext.Exception != null)
+            {
+                filterContext.RequestContext.HttpContext.Response.Output = output;
+                base.OnResultExecuted(filterContext);
+                return;
+            }
             if (filterContext.HttpContext.Items.DocTransforms().Any())
             {
                 string response = sb.ToString();
@@ -50,6 +60,7 @@ namespace Noodles.AspMvc.Infrastructure
                     throw;
                 }
             }
+            base.OnResultExecuted(filterContext);
         }
     }
 
