@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web.Mvc;
@@ -27,10 +28,19 @@ namespace Noodles.AspMvc.Helpers
             return vm;
         }
          
-
-        public static PropertyVm ToPropertyVm(this NodeProperty property, HtmlHelper html)
+        public static PropertyVm ToPropertyVm(this INode node)
         {
-            return property.ToPropertyVm();
+            if (node is NodeProperty)
+            {
+                return ((NodeProperty)node).ToPropertyVm();
+            } 
+            
+            throw new Exception("Cannot render as FormFactory property VM - type " + node + " is not supported.");
+        }
+
+        public static PropertyVm ToPropertyVm(this NodeProperty property)
+        {
+            return ((IInvokeableParameter)property).ToPropertyVm();
         }
     }
 }

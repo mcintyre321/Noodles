@@ -67,7 +67,7 @@ namespace Noodles.Example.Domain
             Items = new List<Organisation>();
         }
 
-        [Show]
+        [Show][RenderFf]
         public string SomeSimpleThing { get { return "Hello there"; } }
 
         [Children("Name")]
@@ -134,8 +134,7 @@ namespace Noodles.Example.Domain
             ToDoLists = new ToDoLists();
             DiscussionsManager = new Discussions.DiscussionsManager();
         }
-        [Show ]
-   
+        [Show]
         public ToDoLists ToDoLists { get; private set; }
 
         [Show ]

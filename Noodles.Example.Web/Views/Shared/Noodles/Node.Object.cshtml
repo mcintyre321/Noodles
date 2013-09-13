@@ -27,7 +27,7 @@
                 <h3 class="page-header">Actions</h3>
                 @foreach (var method in nodeMethods)
                 {
-                    @NoodlesHelper.NodeLink(method)
+                    @NoodlesHelper.NodeLink(Html, method)
                 }
             </div>
         }
@@ -38,7 +38,7 @@
                 <h3 class="page-header">Properties</h3>
                 @foreach (var property in readonlyProperties)
                 {
-                    @NoodlesHelper.NodeLink(property)
+                    @NoodlesHelper.NodeLink(Html, property)
                 }
             </div>
         }
@@ -54,7 +54,7 @@
                 {
                     foreach (var item in queryableCollection.ResourceQueryable)
                     {
-                        @NoodlesHelper.NodeLink(item)
+                        @NoodlesHelper.NodeLink(Html, item)
                     }
                 }
             </div>

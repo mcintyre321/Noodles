@@ -5,6 +5,7 @@
 @using Noodles
 @using Noodles.AspMvc
 @using Noodles.AspMvc.Helpers
+@using Noodles.AspMvc.UiAttributes
 @using Noodles.Helpers
 @using Noodles.AspMvc.Helpers
 @using FormFactory
@@ -24,21 +25,30 @@
     @foreach (var method in filteredNodeMethods)
     {
         <li>@NodeMethodLink(method)</li>
-    }
+    
 
     </text>, additionalClasses)
     }
 *@
 }
-@helper NodeLink(INode node)
-{ @NodeLink(node, null)}
-@helper NodeLink(INode node, string additionalClasses)
+@helper NodeLink(HtmlHelper html, INode node)
+{ @NodeLink(html, node, null)}
+@helper NodeLink(HtmlHelper html, INode node, string additionalClasses)
 {
-    @NodeLink(node, additionalClasses, @<text>@node.DisplayName</text>)
+    @NodeLink(html, node, additionalClasses, @<text>@node.DisplayName</text>)
 }
-@helper NodeLink(INode node, string additionalClasses, Func<dynamic, HelperResult> innerHtml)
+@helper NodeLink(HtmlHelper html, INode node, string additionalClasses, Func<dynamic, HelperResult> innerHtml)
 {
-    <a class="node-link @(additionalClasses ?? "") @(node.DisplayName)" href="@node.Url">@innerHtml(null)</a>
+    var viewAtt = node.Attributes.OfType<IRenderHtml>().SingleOrDefault();
+
+    if (viewAtt != null)
+    {
+        @viewAtt.Render(html, node)
+    }
+    else
+    {
+        <a class="node-link @(additionalClasses ?? "") @(node.DisplayName)" href="@node.Url">@innerHtml(null)</a>
+    }
 }
 
 @helper NodeMethodLink(IInvokeable method)
