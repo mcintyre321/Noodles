@@ -50,7 +50,7 @@ namespace Noodles.Example.Domain
         public Settings Settings { get; private set; }
 
         [Show]
-        [HttpGet][Icon(IconNames.cog)][DisplayName("API")]
+        [HttpGet][DisplayName("API")]
         public RedirectResult API()
         {
             return new RedirectResult("/api");

@@ -152,13 +152,10 @@
     <Compile Include="RequestHandling\AjaxRedirectRewritingActionResult.cs" />
     <Compile Include="RequestHandling\AspMvcArgumentBindingException.cs" />
     <Compile Include="RequestHandling\Transforms\ApplyAttributeTransforms.cs" />
-    <Compile Include="RequestHandling\Transforms\AutoSubmitAttribute.cs" />
     <Compile Include="RequestHandling\Transforms\IDocumentTransform.cs" />
-    <Compile Include="RequestHandling\Transforms\NodeLinkDocumentTransformAttribute.cs" />
     <Compile Include="RequestHandling\Transforms\SelectFragmentTransform.cs" />
     <Compile Include="RequestHandling\Transforms\TransformRuleRegistry.cs" />
     <Compile Include="UiAttributes\FfAttribute.cs" />
-    <Compile Include="UiAttributes\Icons\IconAttribute.cs" />
     <Compile Include="HelperExtensions.cs" />
     <Compile Include="UiAttributes\Icons\IconNames.cs">
       <AutoGen>True</AutoGen>
