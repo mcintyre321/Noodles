@@ -13,7 +13,7 @@ namespace Noodles.Example.Controllers
     {
         public async Task<ActionResult> Index(string path)
         {
-            this.HttpContext.LayoutVm().RegisterScripts();
+            this.HttpContext.Items.RegisterScripts();
 
             var actionResult = this.ControllerContext.GetNoodleResult(CurrentApplication);
             return await actionResult;
