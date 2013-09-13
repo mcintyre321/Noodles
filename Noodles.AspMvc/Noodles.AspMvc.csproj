@@ -240,6 +240,54 @@
     <EmbeddedResource Include="Content\fonts\glyphicons-halflings-regular.woff" />
     <EmbeddedResource Include="Content\fonts\glyphicons-halflings-regular.ttf" />
     <EmbeddedResource Include="Content\fonts\glyphicons-halflings-regular.eot" />
+    <EmbeddedResource Include="..\Noodles.AspMvc.Templates\Views\Shared\Noodles\Link.cshtml">
+      <Link>Views\Shared\Noodles\Link.cshtml</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\Noodles.AspMvc.Templates\Views\Shared\Noodles\Link.Object.cshtml">
+      <Link>Views\Shared\Noodles\Link.Object.cshtml</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\Noodles.AspMvc.Templates\Views\Shared\Noodles\Node.Object.cshtml">
+      <Link>Views\Shared\Noodles\Node.Object.cshtml</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\Noodles.AspMvc.Templates\Views\Shared\Noodles\NodeCollection.Object.cshtml">
+      <Link>Views\Shared\Noodles\NodeCollection.Object.cshtml</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\Noodles.AspMvc.Templates\Views\Shared\Noodles\NodeMethods.cshtml">
+      <Link>Views\Shared\Noodles\NodeMethods.cshtml</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\Noodles.AspMvc.Templates\Views\Shared\Noodles\NodeMethodSuccess.cshtml">
+      <Link>Views\Shared\Noodles\NodeMethodSuccess.cshtml</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\Noodles.AspMvc.Templates\Views\Shared\Noodles\NodeProperty-Hidden.Object.cshtml">
+      <Link>Views\Shared\Noodles\NodeProperty-Hidden.Object.cshtml</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\Noodles.AspMvc.Templates\Views\Shared\Noodles\NodeProperty-Inline.Object.cshtml">
+      <Link>Views\Shared\Noodles\NodeProperty-Inline.Object.cshtml</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\Noodles.AspMvc.Templates\Views\Shared\Noodles\NodeProperty-LinkList.Object.cshtml">
+      <Link>Views\Shared\Noodles\NodeProperty-LinkList.Object.cshtml</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\Noodles.AspMvc.Templates\Views\Shared\Noodles\NodeProperty-Table.Object.cshtml">
+      <Link>Views\Shared\Noodles\NodeProperty-Table.Object.cshtml</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\Noodles.AspMvc.Templates\Views\Shared\Noodles\NodeProperty.Object.cshtml">
+      <Link>Views\Shared\Noodles\NodeProperty.Object.cshtml</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\Noodles.AspMvc.Templates\Views\Shared\Noodles\NodePropertyContainer.Object.cshtml">
+      <Link>Views\Shared\Noodles\NodePropertyContainer.Object.cshtml</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\Noodles.AspMvc.Templates\Views\Shared\Noodles\TableCell.Object.cshtml">
+      <Link>Views\Shared\Noodles\TableCell.Object.cshtml</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\Noodles.AspMvc.Templates\Views\Shared\Noodles\TableRow.Object.cshtml">
+      <Link>Views\Shared\Noodles\TableRow.Object.cshtml</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\Noodles.AspMvc.Templates\Views\Shared\Noodles\_AjaxLayout.cshtml">
+      <Link>Views\Shared\Noodles\_AjaxLayout.cshtml</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\Noodles.AspMvc.Templates\Views\Shared\Noodles\_NodeContainer.NodeMethod.cshtml">
+      <Link>Views\Shared\Noodles\_NodeContainer.NodeMethod.cshtml</Link>
+    </EmbeddedResource>
     <None Include="UiAttributes\Icons\IconNames.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>IconNames.cs</LastGenOutput>
@@ -365,9 +413,7 @@
       <Name>Noodles</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Views\Shared\Noodles\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>

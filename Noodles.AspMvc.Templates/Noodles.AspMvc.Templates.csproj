@@ -133,6 +133,7 @@
     <EmbeddedResource Include="Views\Shared\Noodles\NodePropertyContainer.Object.cshtml" />
     <EmbeddedResource Include="Views\Shared\Noodles\TableCell.Object.cshtml" />
     <EmbeddedResource Include="Views\Shared\Noodles\TableRow.Object.cshtml" />
+    <Content Include="Views\Shared\Noodles\Node.Object.cshtml" />
     <None Include="Views\Web.config" />
     <Content Include="Views\_ViewStart.cshtml" />
   </ItemGroup>
