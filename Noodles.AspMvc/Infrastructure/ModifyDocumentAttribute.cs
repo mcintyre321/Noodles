@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Text;
 using System.Web;
 using System.Web.Mvc;
@@ -28,22 +29,26 @@ namespace Noodles.AspMvc.Infrastructure
 
         public override void OnResultExecuted(ResultExecutedContext filterContext)
         {
-            string response = sb.ToString();
-            //response processing
+            if (filterContext.HttpContext.Items.DocTransforms().Any())
+            {
+                string response = sb.ToString();
+                //response processing
 
-            var doc = new CsQuery.CQ(response);
-            try
-            {
-                foreach (var transform in filterContext.HttpContext.Items.DocTransforms())
+                var doc = new CsQuery.CQ(response);
+                try
                 {
-                    doc = transform(doc);
+                    foreach (var transform in filterContext.HttpContext.Items.DocTransforms())
+                    {
+                        doc = transform(doc);
+                        doc = doc.Closest("html");
+                    }
+                    output.Write(doc.Render());
                 }
-                output.Write(doc.Render());
-            }
-            catch (Exception ex)
-            {
-                output.Write(ex.ToString());
-                throw;
+                catch (Exception ex)
+                {
+                    output.Write(ex.ToString());
+                    throw;
+                }
             }
         }
     }
