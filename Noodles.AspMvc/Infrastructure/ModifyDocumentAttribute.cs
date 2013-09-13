@@ -40,7 +40,7 @@ namespace Noodles.AspMvc.Infrastructure
                     foreach (var transform in filterContext.HttpContext.Items.DocTransforms())
                     {
                         doc = transform(doc);
-                        doc = doc.Closest("html");
+                        doc = new CQ(doc.Document);
                     }
                     output.Write(doc.Render());
                 }
