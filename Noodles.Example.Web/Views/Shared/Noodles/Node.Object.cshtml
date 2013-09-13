@@ -3,6 +3,7 @@
 @model Noodles.Models.Resource
 <pre>
     This is the default generated view. Please create a file called 'Noodles/Node.@(Model.ValueType.Name).cshtml' to override.
+    You can base it off <a href="https://github.com/mcintyre321/Noodles/blob/master/Noodles.AspMvc.Templates/Views/Shared/Noodles/Node.Object.cshtml"> template</a>
 </pre>
  
 <div class="row">
@@ -26,7 +27,7 @@
                 <h3 class="page-header">Actions</h3>
                 @foreach (var method in nodeMethods)
                 {
-                    <a class="btn btn-default" href="@method.Url">@method.DisplayName</a>
+                    @NoodlesHelper.NodeLink(method)
                 }
             </div>
         }
@@ -37,7 +38,7 @@
                 <h3 class="page-header">Properties</h3>
                 @foreach (var property in readonlyProperties)
                 {
-                    <a href="@property.Url">@property.DisplayName</a>
+                    @NoodlesHelper.NodeLink(property)
                 }
             </div>
         }
@@ -53,7 +54,7 @@
                 {
                     foreach (var item in queryableCollection.ResourceQueryable)
                     {
-                        <a href="@item.Url">@item.DisplayName</a>
+                        @NoodlesHelper.NodeLink(item)
                     }
                 }
             </div>

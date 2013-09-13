@@ -137,6 +137,7 @@ namespace Noodles.Models
         {
             var resolvedChild = ChildNodes.OfType<IResolveChild>()
                 .Select(c => c.ResolveChild(name))
+                .Where(o => o != null)
                 .Select(o => ResourceFactory.Instance.Create(o, this, name))
                     .FirstOrDefault();
             if (resolvedChild != null) return resolvedChild;

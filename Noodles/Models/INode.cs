@@ -100,7 +100,7 @@ namespace Noodles.Models
         public static IEnumerable<INode> AncestorsAndSelf(this INode t) { { return (t).Recurse(n => n.Parent); } }
         public static INode Named(this IEnumerable<INode> nodes, string name)
         {
-            return nodes.Where(n => n.Name.Equals(name, StringComparison.InvariantCultureIgnoreCase)).SingleOrDefault();
+            return nodes.SingleOrDefault(n => n.Name.Equals(name, StringComparison.InvariantCultureIgnoreCase));
         }
     }
 

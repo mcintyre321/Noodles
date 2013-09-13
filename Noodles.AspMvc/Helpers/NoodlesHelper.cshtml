@@ -30,6 +30,17 @@
     }
 *@
 }
+@helper NodeLink(INode node)
+{ @NodeLink(node, null)}
+@helper NodeLink(INode node, string additionalClasses)
+{
+    @NodeLink(node, additionalClasses, @<text>@node.DisplayName</text>)
+}
+@helper NodeLink(INode node, string additionalClasses, Func<dynamic, HelperResult> innerHtml)
+{
+    <a class="node-link @(additionalClasses ?? "") @(node.DisplayName)" href="@node.Url">@innerHtml(null)</a>
+}
+
 @helper NodeMethodLink(IInvokeable method)
 { @NodeMethodLink(method, null)}
 @helper NodeMethodLink(IInvokeable method, string additionalClasses)

@@ -67,6 +67,9 @@ namespace Noodles.Example.Domain
             Items = new List<Organisation>();
         }
 
+        [Show]
+        public string SomeSimpleThing { get { return "Hello there"; } }
+
         [Children("Name")]
         public IList<Organisation> Items { get; private set; }
     }
@@ -83,7 +86,7 @@ namespace Noodles.Example.Domain
         [Show][Required]
         public string Name { get; set; }
 
-        [ShowCollection]
+        [Children("Name")]
         public List<Project> Projects { get; set; }
 
         [Show][Description("This description was added using a [Description] attribute")]

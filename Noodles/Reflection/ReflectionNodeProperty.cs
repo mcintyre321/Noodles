@@ -13,12 +13,11 @@ namespace Noodles.Models
     {
         private readonly object _target;
         private readonly PropertyInfo _info;
-
+        
         public ReflectionNodeProperty(INode parent, object target, PropertyInfo info)
         {
             _target = target;
             _info = info;
-            Value = info.GetValue(target, null);
             ValueType = info.PropertyType;
             Name = info.Name;
             DisplayName = GetDisplayName(info);
@@ -50,7 +49,11 @@ namespace Noodles.Models
         public string DisplayName { get; private set; }
 
        
-        public object Value { get; private set; }
+        public object Value
+        {
+            get { return _info.GetValue(_target); }
+            private set { _info.SetValue(_target, value); }
+        }
 
         IEnumerable IInvokeableParameter.Choices
         {

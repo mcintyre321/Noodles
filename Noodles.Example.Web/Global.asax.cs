@@ -6,6 +6,7 @@ using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Routing;
 using System.Web.Security;
+using FormFactory.AspMvc.ModelBinders;
 using Munq;
 using Noodles.AspMvc;
 using Noodles.AspMvc.DataTables;
@@ -54,7 +55,7 @@ namespace Noodles.Example
         protected void Application_Start()
         {
             AreaRegistration.RegisterAllAreas();
-
+            ModelBinders.Binders.DefaultBinder = new PolymorphicModelBinder();
             RegisterGlobalFilters(GlobalFilters.Filters);
             RegisterRoutes(RouteTable.Routes);
             Munq.MVC3.MunqDependencyResolver.Container.Register<Domain.Application, Domain.Application>().AsContainerSingleton();
