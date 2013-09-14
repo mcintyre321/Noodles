@@ -7,7 +7,7 @@ namespace Noodles.AspMvc.RequestHandling.Transforms
 {
     public class SelectFragmentTransform : IDocumentTransform
     {
-        public void Register(ControllerContext cc, INode resource)
+        public void Register(ControllerContext cc, INode parent)
         {
             var fragmentSelector = cc.RequestContext.HttpContext.Request["fragment-selector"];
             if (fragmentSelector != null)

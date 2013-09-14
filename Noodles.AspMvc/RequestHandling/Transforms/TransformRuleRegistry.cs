@@ -40,7 +40,7 @@ namespace Noodles.AspMvc.RequestHandling.Transforms
 
     public class ApplyButtonClass : IDocumentTransform
     {
-        public void Register(ControllerContext cc, INode resource)
+        public void Register(ControllerContext cc, INode parent)
         {
             cc.HttpContext.Items.AddTransform(cq =>
             {
