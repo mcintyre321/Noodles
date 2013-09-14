@@ -40,7 +40,7 @@ namespace Noodles.AspMvc.Helpers
                 "/Scripts/Noodles/Noodles.js"
             };
 
-            contextItems.AddTransform(cq =>
+            contextItems.AddDocTransform(cq =>
             {
                 var head = cq.Find("head");
                 foreach (var item in styles)

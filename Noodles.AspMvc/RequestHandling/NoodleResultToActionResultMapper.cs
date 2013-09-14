@@ -43,25 +43,6 @@ namespace Noodles.AspMvc.RequestHandling
                 context.Controller.ViewData.ModelState.AddModelError(error.Key, error.Value);
             }
             return BuildActionResult(context, (INode) result.Invokeable);
-            //var res = new System.Web.Mvc.ViewResult();
-            //var targetResource = result.Invokeable as INode;
-            //if (targetResource != null)
-            //{
-            //    var ffContext = (FormFactory.IViewFinder)new FormFactoryContext(context);
-            //    var viewname = ViewFinderExtensions.BestViewName(ffContext, targetResource.ValueType, "Noodles/Node.")
-            //                   ?? "Noodles/Node.Object";
-
-
-            //    res.ViewName = viewname;
-            //    context.Controller.ViewBag.NoodleTarget = targetResource;
-            //    ruleRegistry.RegisterTransformations(context, targetResource);
-            //}
-            //res.ViewData.Model = result.Invokeable;
-            //if (context.HttpContext.Request.IsAjaxRequest())
-            //{
-            //    res.MasterName = "Noodles/_AjaxLayout";
-            //}
-            //return res;
         }
 
         public override ActionResult Map(ControllerContext context, ViewResult result)

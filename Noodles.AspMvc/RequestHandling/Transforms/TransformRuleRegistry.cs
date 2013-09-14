@@ -8,7 +8,7 @@ namespace Noodles.AspMvc.RequestHandling.Transforms
 {
     public class TransformRuleRegistry
     {
-        public List<IDocumentTransform> Transforms { get; private set; }
+        public List<ITransformContext> Transforms { get; private set; }
         public static TransformRuleRegistry Default { get; private set; }
         static TransformRuleRegistry()
         {
@@ -17,32 +17,32 @@ namespace Noodles.AspMvc.RequestHandling.Transforms
                 Transforms =
                 {
                     new ApplyButtonClass(),
-                    new ApplyAttributeTransforms(),
-                    new SelectFragmentTransform()
+                    new ApplyAttributeTransformsContext(),
+                    new SelectFragmentTransformContext()
                 }
             };
         }
 
         public TransformRuleRegistry()
         {
-            Transforms = new List<IDocumentTransform>();
+            Transforms = new List<ITransformContext>();
         }
 
         public void RegisterTransformations(ControllerContext cc, INode resource)
         {
             foreach (var documentTransform in Transforms)
             {
-                documentTransform.Register(cc, resource);
+                documentTransform.TransformContext(cc, resource);
             }
         }
 
     }
 
-    public class ApplyButtonClass : IDocumentTransform
+    public class ApplyButtonClass : ITransformContext
     {
-        public void Register(ControllerContext cc, INode parent)
+        public void TransformContext(ControllerContext cc, INode parent)
         {
-            cc.HttpContext.Items.AddTransform(cq =>
+            cc.HttpContext.Items.AddDocTransform(cq =>
             {
                 cq[" input[type=submit]"].AddClass("btn").AddClass("btn-primary");
                 cq[".node-component.node-method > a"].AddClass("btn").AddClass("btn-default");

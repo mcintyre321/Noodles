@@ -66,39 +66,5 @@ namespace Noodles.AspMvc.RequestHandling
             var transformer = new NoodleResultToActionResultMapper(_ruleRegistry);
             return transformer.Map(cc, noodleResponse);
         }
-
-        //private static ActionResult ProcessGet(ControllerContext nodeLink, object node)
-        //{
-        //    if (node is ActionResult) return (ActionResult) node;
-        //    if (nodeLink.RequestContext.HttpContext.Request.HttpMethod == "GET")
-        //    {
-        //        using (Profiler.Step("Returning view"))
-        //        {
-        //            var viewname = typeof(NodeMethod).IsAssignableFrom(node.NodeType())
-        //                               ? "Noodles/NodeMethod"
-        //                               : typeof(NodeMethodsReflectionLogic).IsAssignableFrom(node.NodeType())
-        //                                     ? "Noodles/NodeMethods"
-        //                                     : FormFactory.FormHelperExtension.BestViewName(nodeLink, node.NodeType());
-
-        //            var vr = new NoodleViewResult { ViewName = viewname, ViewData = nodeLink.Controller.ViewData };
-        //            if (nodeLink.HttpContext.Request.IsAjaxRequest())
-        //            {
-        //                vr.MasterName = "Noodles/_AjaxLayout";
-        //            }
-
-        //            vr.ViewData.Model = node;
-        //            if (nodeLink.HttpContext.Request.UrlReferrer != null)
-        //            {
-        //                vr.ViewData["nodeMethodReturnUrl"] = nodeLink.HttpContext.Request.UrlReferrer.AbsolutePath;
-        //            }
-        //            return vr;
-        //        }
-        //    }
-        //    return null;
-        //}
-
-
-
-
     }
 }

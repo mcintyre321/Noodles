@@ -4,30 +4,21 @@ using Noodles.Models;
 
 namespace Noodles.AspMvc.RequestHandling.Transforms
 {
-    public class ApplyAttributeTransforms : IDocumentTransform
+    public class ApplyAttributeTransformsContext : ITransformContext
     {
-        public void Register(ControllerContext cc, INode parent)
+        public void TransformContext(ControllerContext cc, INode parent)
         {
-            foreach (var att in parent.Attributes.OfType<INodeDocumentTransform>())
+            foreach (var transform in parent.Attributes.OfType<ITransformContext>())
             {
-                att.Transform(cc, parent);
+                transform.TransformContext(cc, parent);
             }
             foreach (var child in parent.ChildNodes.OfType<INode>())
             {
-                foreach (var att in child.Attributes.OfType<IChildNodeDocumentTransform>())
+                foreach (var att in child.Attributes.OfType<ITransformContextUsingChildNode>())
                 {
                     att.Transform(cc, child);
                 }
             }
         }
-    }
-
-    public interface INodeDocumentTransform
-    {
-        void Transform(ControllerContext cc, INode node);
-    }
-    public interface IChildNodeDocumentTransform
-    {
-        void Transform(ControllerContext cc, INode child);
     }
 }

@@ -65,7 +65,7 @@ namespace Noodles.AspMvc.Infrastructure
 
     public static class DocumentResultMods
     {
-        public static void AddTransform(this IDictionary items, Action<CQ> transform)
+        public static void AddDocTransform(this IDictionary items, Action<CQ> transform)
         {
             var transforms = DocTransforms(items);
             transforms.Add(cq =>
@@ -74,7 +74,7 @@ namespace Noodles.AspMvc.Infrastructure
                 return cq;
             });
         }
-        public static void AddTransform(this IDictionary items, Func<CQ, CQ> transform)
+        public static void AddDocTransform(this IDictionary items, Func<CQ, CQ> transform)
         {
             DocTransforms(items).Add(transform);
         }

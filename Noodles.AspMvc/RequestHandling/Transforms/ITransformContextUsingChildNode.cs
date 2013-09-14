@@ -3,8 +3,8 @@ using Noodles.Models;
 
 namespace Noodles.AspMvc.RequestHandling.Transforms
 {
-    public interface IDocumentTransform
+    public interface ITransformContextUsingChildNode
     {
-        void Register(ControllerContext cc, INode parent);
+        void Transform(ControllerContext cc, INode child);
     }
 }
