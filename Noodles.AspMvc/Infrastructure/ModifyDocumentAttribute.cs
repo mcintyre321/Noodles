@@ -49,8 +49,7 @@ namespace Noodles.AspMvc.Infrastructure
                 {
                     foreach (var transform in filterContext.HttpContext.Items.DocTransforms())
                     {
-                        doc = transform(doc);
-                        doc = new CQ(doc.Document);
+                        transform(doc);
                     }
                     output.Write(doc.Render());
                 }
