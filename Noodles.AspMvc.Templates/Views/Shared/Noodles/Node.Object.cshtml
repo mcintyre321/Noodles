@@ -81,7 +81,7 @@
                         if (descriptionAttribute != null)
                         {
                             <div class="noodles-callout noodles-callout-info">
-                                @descriptionAttribute.Description
+                                @Html.Raw(descriptionAttribute.Description)
                             </div>
                         }
                     }
