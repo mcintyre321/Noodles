@@ -119,6 +119,11 @@ namespace Noodles.Models
             Value = value;
         }
 
+        public Resource GetResource()
+        {
+            return ResourceFactory.Instance.Create(Value, this, Name);
+        }
+
         public string TypeName { get { return "NodeProperty"; } }
 
         public object Invoke(IDictionary<string, object> parameterDictionary)

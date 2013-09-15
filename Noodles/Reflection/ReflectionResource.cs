@@ -146,13 +146,10 @@ namespace Noodles.Models
                    .SingleOrDefault(np => np.Name.ToLowerInvariant() == name.ToLowerInvariant());
             if (childResource != null) return childResource;
 
-            var property = this.ChildNodes.OfType<NodeProperty>()
-                               .SingleOrDefault(np => np.Name.ToLowerInvariant() == name.ToLowerInvariant());
-            if (property  != null) return ResourceFactory.Instance.Create(property.Value, this, property.Name);
-
-
-
-            return null;
+            return this.ChildNodes.OfType<NodeProperty>()
+                       .Where(np => np.Name.ToLowerInvariant() == name.ToLowerInvariant())
+                       .Select(np => np.GetResource())
+                       .SingleOrDefault();
         }
 
         
