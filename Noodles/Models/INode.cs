@@ -24,7 +24,7 @@ namespace Noodles.Models
         private readonly MemberInfo _mi;
         private Func<IQueryable> _getGetQueryable;
         private IQueryable _queryable;
-        private INode _parent;
+        private readonly INode _parent;
 
         public IQueryable Queryable
         {

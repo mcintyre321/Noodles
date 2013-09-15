@@ -121,7 +121,7 @@ namespace Noodles.Models
 
         public Resource GetResource()
         {
-            return ResourceFactory.Instance.Create(Value, this, Name);
+            return ResourceFactory.Instance.Create(Value, this.Parent, Name);
         }
 
         public string TypeName { get { return "NodeProperty"; } }
