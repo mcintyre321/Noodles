@@ -20,6 +20,10 @@ namespace Noodles.AspMvc.Infrastructure
 
         public override void OnActionExecuted(ActionExecutedContext filterContext)
         {
+            if (filterContext.HttpContext.Items.SuppressDocTransforms())
+            {
+                return;
+            }
             if (filterContext.Exception == null)
             {
                 sb = new StringBuilder();
@@ -33,6 +37,10 @@ namespace Noodles.AspMvc.Infrastructure
 
         public override void OnResultExecuted(ResultExecutedContext filterContext)
         {
+            if (filterContext.HttpContext.Items.SuppressDocTransforms())
+            {
+                return;
+            }
             if (filterContext.Exception != null)
             {
                 filterContext.RequestContext.HttpContext.Response.Output = output;
@@ -85,7 +93,17 @@ namespace Noodles.AspMvc.Infrastructure
             {
                 items["DocTransforms"] = new List<Func<CQ, CQ>>();
             }
-            return (List<Func<CQ, CQ>>) items["DocTransforms"];
+            return (List<Func<CQ, CQ>>)items["DocTransforms"];
         }
+        public static bool SuppressDocTransforms(this IDictionary items, bool? value = null)
+        {
+            if (value == null)
+            {
+                return items["DocTransforms"] as bool? ?? false;
+            }
+            items["DocTransforms"] = value;
+            return value.Value;
+        }
+
     }
 }

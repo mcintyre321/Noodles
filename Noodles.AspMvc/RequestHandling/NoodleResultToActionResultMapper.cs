@@ -75,10 +75,17 @@ namespace Noodles.AspMvc.RequestHandling
 
         public override ActionResult Map(ControllerContext context, InvokeSuccessResult result)
         {
-            if (result.Result is ActionResult)
+            var redirectResult = result.Result as RedirectResult;
+            if (redirectResult != null && context.RequestContext.HttpContext.Request.IsAjaxRequest())
             {
                 return new AjaxRedirectRewritingActionResult((ActionResult) result.Result);
             }
+            var actionResult = result.Result as ActionResult;
+            if (actionResult != null)
+            {
+                return actionResult;
+            }
+
             var targetResource = result.Invokeable as INode;
             return BuildActionResult(context, targetResource);
         }
