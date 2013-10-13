@@ -97,6 +97,16 @@ namespace Noodles.Example.Domain
 
         [Show]
         public OrganisationSettings Settings { get; private set; }
+
+        [Show]
+        public void MethodWithTupleChoices(string someValue)
+        {
+        }
+        public IEnumerable<Tuple<string, string>> MethodWithTupleChoices_someValue_choices()
+        {
+            yield return Tuple.Create("Some option", "option1");
+            yield return Tuple.Create("Some other option", "option2");
+        }
     }
 
     public class OrganisationSettings

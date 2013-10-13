@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -108,7 +109,7 @@ namespace Noodles.RequestHandling
         {
             if (binding.Parameter.Choices != null)
             {
-                if (!binding.Parameter.Choices.Cast<object>().Contains(binding.Value))
+                if (!binding.Parameter.Choices.GetChoiceValues().Contains(binding.Value))
                 {
                     yield return "Not a valid choice";
                 }
@@ -117,7 +118,7 @@ namespace Noodles.RequestHandling
             if (queryChoices != null)
             {
                 var queryResult = (IEnumerable<string>) queryChoices.Invoke(new Dictionary<string, object>(){ {"query", binding.Value}});
-                if (queryResult.Contains(binding.Value) == false)
+                if (queryResult.GetChoiceValues().Contains(binding.Value) == false)
                 {
                     yield return "Not a valid choice";
                 }
@@ -132,5 +133,20 @@ namespace Noodles.RequestHandling
 
          
 
+    }
+
+    public static class ChoicesExtension
+    {
+        public static IEnumerable<object> GetChoiceValues(this IEnumerable choices)
+        {
+            return choices.Cast<object>().Select(c =>
+            {
+                if (c.GetType().IsGenericType && c.GetType().GetGenericTypeDefinition() == typeof (Tuple<,>))
+                {
+                    return ((dynamic) c).Item2;
+                }
+                return c;
+            });
+        }
     }
 }

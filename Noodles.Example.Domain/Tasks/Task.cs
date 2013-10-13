@@ -28,5 +28,7 @@ namespace Noodles.Example.Domain.Tasks
         [Show]
         public TaskType Type { get; set; }
 
+      
+
     }
 }
