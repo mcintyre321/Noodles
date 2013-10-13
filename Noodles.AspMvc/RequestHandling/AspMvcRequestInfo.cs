@@ -42,56 +42,61 @@ namespace Noodles.AspMvc.RequestHandling
             }
         }
 
-        public override async Task<IEnumerable<Tuple<string, object>>> GetArguments(IInvokeable method)
+        public override async Task<ArgumentBinding[]> GetArgumentBindings(IInvokeable method)
         {
             var invokeableParameters = method.Parameters;
-            var boundValues = new List<Tuple<string, object>>();
+            var boundValues = new List<ArgumentBinding>();
             foreach (var invokeableParameter in invokeableParameters)
             {
-                var parameterObject = BindObject(_cc, invokeableParameter.ValueType, invokeableParameter.Name,  method.InvokeDisplayName);
-                boundValues.Add(Tuple.Create(invokeableParameter.Name, parameterObject));
+                var parameterObject = BindObject(_cc, invokeableParameter,  method.InvokeDisplayName);
+                boundValues.Add(parameterObject);
             }
 
-            return await Task.FromResult(boundValues);
+            return await Task.FromResult(boundValues.ToArray());
         }
 
-        private static object BindObject(ControllerContext cc, Type desiredType, string name,  string displayName)
+        private static ArgumentBinding BindObject(ControllerContext cc, IInvokeableParameter parameter,  string displayName)
         {
-            var attributes =  desiredType.GetCustomAttributes(true).Cast<Attribute>().ToArray();
-            displayName = displayName ?? name.Sentencise(true);
+            var attributes =  parameter.ValueType.GetCustomAttributes(true).Cast<Attribute>().ToArray();
+            displayName = displayName ?? parameter.Name.Sentencise(true);
 
             cc.HttpContext.Request.InputStream.Position = 0; //reset as Json binder will have already read it once
 
             var valueProvider = ValueProviderFactories.Factories.GetValueProvider(cc);
 
-            var metadata = ModelMetadataProviders.Current.GetMetadataForType(null, desiredType);
+            var metadata = ModelMetadataProviders.Current.GetMetadataForType(null, parameter.ValueType);
             metadata.DisplayName = displayName;
             ApplyAttributeMetaData(metadata, attributes);
             var bindingContext = new ModelBindingContext
             {
-                ModelName = name,
+                ModelName = parameter.Name,
                 ValueProvider = valueProvider,
                 ModelMetadata = metadata,
                 ModelState = cc.Controller.ViewData.ModelState
             };
 
-            var binder = ModelBinders.Binders.GetBinder(desiredType, true);
+            var binder = ModelBinders.Binders.GetBinder(parameter.ValueType, true);
             var output = binder.BindModel(cc, bindingContext);
+
+            var errors = new List<string>();
 
             foreach (var va in attributes.OfType<ValidationAttribute>())
             {
                 if (!va.IsValid(output))
                 {
-                    bindingContext.ModelState.AddModelError(name, va.FormatErrorMessage(displayName));
+                    var formatErrorMessage = va.FormatErrorMessage(displayName);
+                    errors.Add(formatErrorMessage);
+                    bindingContext.ModelState.AddModelError(parameter.Name, formatErrorMessage);
                 }
             }
 
-            if (!bindingContext.ModelState.IsValid)
+            var argumentBinding = new ArgumentBinding()
             {
-                throw new AspMvcArgumentBindingException(bindingContext.ModelState);
-            }
-
-            return output;
+                Parameter = parameter,
+                Value = output,
+                Errors = errors
+            };
+            return argumentBinding;
         }
 
 

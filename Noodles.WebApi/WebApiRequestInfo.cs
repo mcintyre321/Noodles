@@ -34,10 +34,10 @@ namespace Noodles.WebApi
             get { return _rootUrl; }
         }
 
-        public override async Task<IEnumerable<Tuple<string, object>>> GetArguments(IInvokeable method)
+        public override Task<ArgumentBinding[]> GetArgumentBindings(IInvokeable method)
         {
             var binder = new PostParameterBinder();
-            return await binder.BindParameters(method, _request, _ct);
+            return binder.BindParameters(method, _request, _ct);
         }
     }
 }

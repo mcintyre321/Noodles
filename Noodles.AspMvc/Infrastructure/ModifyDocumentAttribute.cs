@@ -20,11 +20,9 @@ namespace Noodles.AspMvc.Infrastructure
 
         public override void OnActionExecuted(ActionExecutedContext filterContext)
         {
-            if (filterContext.HttpContext.Items.SuppressDocTransforms())
-            {
-                return;
-            }
-            if (filterContext.Exception == null)
+            if (!filterContext.HttpContext.Items.SuppressDocTransforms()
+            && filterContext.Result is ViewResult
+            && filterContext.Exception == null)
             {
                 sb = new StringBuilder();
                 sw = new StringWriter(sb);
@@ -37,7 +35,7 @@ namespace Noodles.AspMvc.Infrastructure
 
         public override void OnResultExecuted(ResultExecutedContext filterContext)
         {
-            if (filterContext.HttpContext.Items.SuppressDocTransforms())
+            if (sb == null)
             {
                 return;
             }

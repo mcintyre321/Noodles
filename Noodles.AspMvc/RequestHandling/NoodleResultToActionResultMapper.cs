@@ -78,14 +78,22 @@ namespace Noodles.AspMvc.RequestHandling
             var redirectResult = result.Result as RedirectResult;
             if (redirectResult != null && context.RequestContext.HttpContext.Request.IsAjaxRequest())
             {
+                context.HttpContext.Items.SuppressDocTransforms();
                 return new AjaxRedirectRewritingActionResult((ActionResult) result.Result);
             }
             var actionResult = result.Result as ActionResult;
             if (actionResult != null)
             {
+                context.HttpContext.Items.SuppressDocTransforms();
                 return actionResult;
             }
 
+            if (context.HttpContext.Request.AcceptTypes.Contains("application/json"))
+            {
+                context.HttpContext.Items.SuppressDocTransforms();
+                return new JsonResult() { Data = result.Result };
+            }
+    
             var targetResource = result.Invokeable as INode;
             return BuildActionResult(context, targetResource);
         }

@@ -31,6 +31,8 @@ namespace Noodles.AspMvc.Helpers
                 "/Scripts/jquery-migrate-1.1.1.js",
                 "/Scripts/jquery-ui-1.10.2.min.js",
                 "/Scripts/bootstrap.js",
+                "/Scripts/bootstrap3-typeahead.js",
+                "/Scripts/bootstrap3-typeahead.unobtrusive.js",
                 "/Scripts/jquery.validate.js",
                 "/Scripts/jquery.validate.unobtrusive.js",
                 "/Scripts/jquery.unobtrusive-ajax.js",

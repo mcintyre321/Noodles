@@ -177,6 +177,10 @@ namespace Noodles
 
         public bool Locked { get; set; }
         public bool Readonly { get { return false; } }
+        public IEnumerable<string> GetValidationErrorsForValue(object value)
+        {
+            yield break;
+        }
 
         public IEnumerable<object> ChildNodes { get{ yield break;} }
 

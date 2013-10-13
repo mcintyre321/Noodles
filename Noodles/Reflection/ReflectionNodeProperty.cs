@@ -55,7 +55,7 @@ namespace Noodles.Models
             private set { _info.SetValue(_target, value); }
         }
 
-        IEnumerable IInvokeableParameter.Choices
+        public IEnumerable Choices
         {
             get
             {
@@ -151,6 +151,11 @@ namespace Noodles.Models
         }
 
         public bool Readonly { get { return Setter == null; } }
+        public IEnumerable<string> GetValidationErrorsForValue(object value)
+        {
+            if (Choices != null && Choices.Cast<object>().Contains(value) == false)
+                yield return "Was not a valid choice";
+        }
 
         public IEnumerable<object> ChildNodes { get { yield break; } }
 

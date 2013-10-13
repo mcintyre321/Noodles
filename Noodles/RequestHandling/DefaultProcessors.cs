@@ -13,12 +13,18 @@ namespace Noodles.RequestHandling
         public static async Task<Result> Read(TContext context1, RequestInfo requestInfo, INode node, Func<IInvokeable, IDictionary<string, object>, object> doinvoke)
         {
             var result = MapResultToNoodleResult(node);
-            if (result != null) return await Task.Factory.StartNew(() => result);
+            if (result != null) return result;
             if (node is IInvokeable && !requestInfo.IsInvoke((IInvokeable) node))
             {
-                return await Task.Factory.StartNew<Result>(() => new ViewResult(node));
+                return new ViewResult(node);
             }
-            return await Task.Factory.StartNew<Result>(() => null);
+            return null;
+        }
+
+        private static Result MapResultToNoodleResult(INode node)
+        {
+
+            return new ViewResult(node);
         }
 
         static Task<Result> NullTask()
@@ -43,7 +49,8 @@ namespace Noodles.RequestHandling
             };
         }
 
-        public static async Task<Result> ProcessInvoke(TContext context1, RequestInfo requestInfo, INode node, Func<IInvokeable, IDictionary<string, object>, object> doInvoke)
+        public static async Task<Result> ProcessInvoke(TContext context1, RequestInfo requestInfo, INode node,
+                                                       Func<IInvokeable, IDictionary<string, object>, object> doInvoke)
         {
             doInvoke = doInvoke ?? DoInvoke;
             var invokeable = node as IInvokeable;
@@ -53,27 +60,23 @@ namespace Noodles.RequestHandling
             if (!isInvoke) return null;
 
             IDictionary<string, object> parameters = null;
-            try
+            var argumentBindings = await requestInfo.GetArgumentBindings(invokeable);
+            var errors = from binding in argumentBindings
+                         let allErrors = binding.Errors.Concat(GetValidationErrorsForValue(binding))
+                         from e in allErrors
+                         select new KeyValuePair<string, string>(binding.Parameter.Name, e);
+            var errorsArray = errors as KeyValuePair<string, string>[] ?? errors.ToArray();
+            if (errorsArray.Any())
             {
-                var tuples = await requestInfo.GetArguments(invokeable);
-                parameters = tuples.ToDictionary(t => t.Item1, t => t.Item2);
+                return new ValidationErrorResult(invokeable){ errorsArray };
             }
-            catch (ArgumentBindingException ex)
-            {
-                return new ValidationErrorResult(invokeable)
-                {
-                    ex.Errors
-                };
-            }
+            parameters = argumentBindings.ToDictionary(t => t.Parameter.Name, t => t.Value);
             object result = null;
-            var errors = new List<object>();
-         
+
             Logger.Trace("ModelBinding successful");
             try
             {
                 result = doInvoke(invokeable, parameters);
-                var noodlesResult = MapResultToNoodleResult(result);
-                if (noodlesResult != null) return noodlesResult;
             }
             catch (Exception ex)
             {
@@ -95,26 +98,39 @@ namespace Noodles.RequestHandling
                 }
             }
 
+            return new InvokeSuccessResult(invokeable)
             {
-                return new InvokeSuccessResult(invokeable)
-                    {
-                        Result = result
-                    };
+                Result = result
+            };
+        }
+
+        private static IEnumerable<string> GetValidationErrorsForValue(ArgumentBinding binding)
+        {
+            if (binding.Parameter.Choices != null)
+            {
+                if (!binding.Parameter.Choices.Cast<object>().Contains(binding.Value))
+                {
+                    yield return "Not a valid choice";
+                }
+            }
+            var queryChoices = binding.Parameter.QueryChoices();
+            if (queryChoices != null)
+            {
+                var queryResult = (IEnumerable<string>) queryChoices.Invoke(new Dictionary<string, object>(){ {"query", binding.Value}});
+                if (queryResult.Contains(binding.Value) == false)
+                {
+                    yield return "Not a valid choice";
+                }
             }
         }
 
-       
+
         private static object DoInvoke(IInvokeable invokeable, IDictionary<string, object> args)
         {
             return invokeable.Invoke(args);
         }
 
-        private static Result MapResultToNoodleResult(object result)
-        {
-            if (result is INode) return new ViewResult((INode) result);
-            return null;
-        }
-
+         
 
     }
 }

@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web.Mvc;
 using FormFactory;
+using FormFactory.Attributes;
 using Noodles.Models;
 
 namespace Noodles.AspMvc.Helpers
@@ -13,6 +14,13 @@ namespace Noodles.AspMvc.Helpers
         public static PropertyVm ToPropertyVm(this IInvokeableParameter parameter)
         {
             var customAtts = new List<object>();
+            var querySuggestionsNodeMethod = parameter.QuerySuggestions()
+                                             ?? parameter.QueryChoices();
+            if (querySuggestionsNodeMethod != null)
+            {
+                customAtts.Add(new SuggestionsUrlAttribute(querySuggestionsNodeMethod.Url.ToString()));
+            }
+
             var vm = new PropertyVm(parameter.ValueType, parameter.Name);
 
             {
@@ -21,6 +29,7 @@ namespace Noodles.AspMvc.Helpers
                 vm.Readonly = parameter.Readonly;
                 vm.IsHidden = parameter.Attributes.OfType<DataTypeAttribute>().Any(x => x.CustomDataType == "Hidden");
                 vm.Value = parameter.Value;
+                vm.NotOptional = (parameter.Choices != null || parameter.QueryChoices() != null) ? true : null as bool?;
                 vm.Choices = parameter.Choices;
                 vm.Suggestions = parameter.Suggestions;
                 vm.Source = parameter;

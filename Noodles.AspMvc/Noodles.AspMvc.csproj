@@ -56,13 +56,13 @@
     <Reference Include="CsQuery">
       <HintPath>..\packages\CsQuery.1.3.4\lib\net40\CsQuery.dll</HintPath>
     </Reference>
-    <Reference Include="FormFactory">
-      <HintPath>..\packages\FormFactory.1.2.289\lib\net40\FormFactory.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="FormFactory.AspMvc, Version=1.2.289.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="FormFactory, Version=1.2.290.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\FormFactory.AspMvc.1.2.289\lib\net40\FormFactory.AspMvc.dll</HintPath>
+      <HintPath>..\packages\FormFactory.1.2.290\lib\net40\FormFactory.dll</HintPath>
+    </Reference>
+    <Reference Include="FormFactory.AspMvc, Version=1.2.290.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\FormFactory.AspMvc.1.2.290\lib\net40\FormFactory.AspMvc.dll</HintPath>
     </Reference>
     <Reference Include="Harden">
       <HintPath>..\packages\Harden.1.2.7\lib\net40\Harden.dll</HintPath>
