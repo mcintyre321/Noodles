@@ -1,9 +1,0 @@
-﻿@using Noodles.AspMvc.Models.Layout
-@using Noodles.Models
-@using Noodles.RequestHandling
-<!-- begin /Layout/Topbar.LeftItems.cshtml -->
-    @foreach (var item in Html.LayoutVm().TopBar.LeftItems)
-    {
-         <li class="navbar-left @Html.Raw(item.Active ? "active": "")" > @Html.Raw(item.Html) </li>
-    }
-<!-- end /Layout/Topbar.LeftItems.cshtml -->

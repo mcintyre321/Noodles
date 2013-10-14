@@ -147,7 +147,11 @@
     <Compile Include="App_Start\RegisterWebNoodle.cs" />
     <Compile Include="Extras\AuthenticatedAttribute.cs" />
     <Compile Include="Extras\RequireRoleAttribute.cs" />
-    <Compile Include="Helpers\BootstrapHelper.generated.cs" />
+    <Compile Include="Helpers\BootstrapHelper1.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>BootstrapHelper.cshtml</DependentUpon>
+    </Compile>
     <Compile Include="Infrastructure\ModifyDocumentAttribute.cs" />
     <Compile Include="RequestHandling\AjaxRedirectRewritingActionResult.cs" />
     <Compile Include="RequestHandling\AspMvcArgumentBindingException.cs" />
@@ -203,33 +207,6 @@
     <EmbeddedResource Include="Content\font\fontawesome-webfont.ttf" />
     <EmbeddedResource Include="Content\font\fontawesome-webfont.eot" />
     <EmbeddedResource Include="Content\font\FontAwesome.otf" />
-    <EmbeddedResource Include="..\Noodles.AspMvc.Templates\Views\Shared\Layout\Body.Bottom.cshtml">
-      <Link>Views\Shared\Layout\Body.Bottom.cshtml</Link>
-    </EmbeddedResource>
-    <EmbeddedResource Include="..\Noodles.AspMvc.Templates\Views\Shared\Layout\Body.Top.cshtml">
-      <Link>Views\Shared\Layout\Body.Top.cshtml</Link>
-    </EmbeddedResource>
-    <EmbeddedResource Include="..\Noodles.AspMvc.Templates\Views\Shared\Layout\Footer.cshtml">
-      <Link>Views\Shared\Layout\Footer.cshtml</Link>
-    </EmbeddedResource>
-    <EmbeddedResource Include="..\Noodles.AspMvc.Templates\Views\Shared\Layout\Head.Bottom.cshtml">
-      <Link>Views\Shared\Layout\Head.Bottom.cshtml</Link>
-    </EmbeddedResource>
-    <EmbeddedResource Include="..\Noodles.AspMvc.Templates\Views\Shared\Layout\Head.Top.cshtml">
-      <Link>Views\Shared\Layout\Head.Top.cshtml</Link>
-    </EmbeddedResource>
-    <EmbeddedResource Include="..\Noodles.AspMvc.Templates\Views\Shared\Layout\Topbar.Brand.cshtml">
-      <Link>Views\Shared\Layout\Topbar.Brand.cshtml</Link>
-    </EmbeddedResource>
-    <EmbeddedResource Include="..\Noodles.AspMvc.Templates\Views\Shared\Layout\TopBar.cshtml">
-      <Link>Views\Shared\Layout\TopBar.cshtml</Link>
-    </EmbeddedResource>
-    <EmbeddedResource Include="..\Noodles.AspMvc.Templates\Views\Shared\Layout\Topbar.LeftItems.cshtml">
-      <Link>Views\Shared\Layout\Topbar.LeftItems.cshtml</Link>
-    </EmbeddedResource>
-    <EmbeddedResource Include="..\Noodles.AspMvc.Templates\Views\Shared\Layout\Topbar.RightItems.cshtml">
-      <Link>Views\Shared\Layout\Topbar.RightItems.cshtml</Link>
-    </EmbeddedResource>
     <EmbeddedResource Include="Content\bootstrap\bootstrap-theme.css" />
     <EmbeddedResource Include="Content\bootstrap\bootstrap-theme.min.css" />
     <EmbeddedResource Include="Content\bootstrap\bootstrap.css" />
@@ -285,6 +262,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="..\Noodles.AspMvc.Templates\Views\Shared\Noodles\_NodeContainer.NodeMethod.cshtml">
       <Link>Views\Shared\Noodles\_NodeContainer.NodeMethod.cshtml</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\Noodles.AspMvc.Templates\Views\Shared\Noodles\Breadcrumb.cshtml">
+      <Link>Views\Shared\Noodles\Breadcrumb.cshtml</Link>
     </EmbeddedResource>
     <None Include="UiAttributes\Icons\IconNames.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
@@ -395,9 +375,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Helpers\BootstrapHelper.cshtml">
+    <None Include="Helpers\BootstrapHelper.cshtml">
       <Generator>RazorGenerator</Generator>
-    </Content>
+      <LastGenOutput>BootstrapHelper1.generated.cs</LastGenOutput>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <None Include="Helpers\NoodlesHelper.cshtml">

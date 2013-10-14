@@ -1,16 +1,12 @@
 ﻿@* Generator: MvcHelper *@
-@using System.Collections
+@using System.ComponentModel
 @using System.Web.Mvc
 @using System.Web.Mvc.Html
 @using Noodles
 @using Noodles.AspMvc
 @using Noodles.AspMvc.Helpers
 @using Noodles.AspMvc.UiAttributes
-@using Noodles.Helpers
-@using Noodles.AspMvc.Helpers
-@using FormFactory
 @using Noodles.Models
-@using Noodles.RequestHandling
 @helper NodeMethodsDropdown(Resource obj)
 { @NodeMethodsDropdown(obj, null) }
 @helper NodeMethodsDropdown(Resource obj, string additionalClasses)
@@ -43,11 +39,11 @@
 
     if (viewAtt != null)
     {
-        @viewAtt.Render(html, node)
+    @viewAtt.Render(html, node)
     }
     else
     {
-        <a class="node-link @(additionalClasses ?? "") @(node.DisplayName)" href="@node.Url">@innerHtml(null)</a>
+    <a class="node-link @(additionalClasses ?? "") @(node.DisplayName)" href="@node.Url">@innerHtml(null)</a>
     }
 }
 
@@ -64,48 +60,6 @@
     <a class="nodeMethodLink @(additionalClasses ?? "") @(method.Target.NodeType().Name.ToClassName())" href="@method.InvokeUrl">@innerHtml(null)</a>
     }
 }
-@helper NodeMethodForm(System.Web.Mvc.HtmlHelper html, IInvokeable method, string formClass)
-{
-    if (method != null)
-    {
-    @html.Partial("Noodles/NodeMethod", method, new ViewDataDictionary { { "FormClass", formClass ?? "" } })
-    }
-}
-@helper NodeMethodForm(System.Web.Mvc.HtmlHelper html, IInvokeable method, string formClass, ViewDataDictionary dict)
-{
-    if (method != null)
-    {
-        dict = dict ?? new ViewDataDictionary();
-        dict["FormClass"] = formClass;
-    @NodeMethodForm(html, method, dict)
-    }
-}
-@helper NodeMethodForm(System.Web.Mvc.HtmlHelper html, IInvokeable method, ViewDataDictionary dict)
-{
-    if (method != null)
-    {
-        dict = dict ?? new ViewDataDictionary();
-    <div class="nodeMethod">
-        @html.Partial("Noodles/NodeMethod", method, dict)
-    </div>
-    }
-}
-@helper NodeMethodFormInline(System.Web.Mvc.HtmlHelper html, NodeMethod method)
-{
-    if (method != null)
-    {
-    @NodeMethodFormInline(html, method, new ViewDataDictionary())
-    }
-}
-@helper NodeMethodFormInline(System.Web.Mvc.HtmlHelper html, NodeMethod method, ViewDataDictionary viewData)
-{
-    if (method != null)
-    {
-        viewData = viewData ?? new ViewDataDictionary();
-        viewData.Add("Inline", true);
-    @NodeMethodForm(html, method, "form-inline", viewData)
-    }
-}
 
 @helper Form(HtmlHelper html, INode node)
 {
@@ -120,27 +74,41 @@
     var fields = fieldsToDisplay as IInvokeableParameter[] ?? fieldsToDisplay.ToArray();
     if (isNodeMethod || fields.Any())
     {
-        <form class="node-form" action="@node.Url" method="POST">
-            @if (html.ViewData.ModelState.SelectMany(ms => ms.Value.Errors).Any())
-            {
-                <div class="noodles-callout noodles-callout-danger">
-                    Please correct the issues below:
-                    @html.ValidationSummary(true)
-                </div>
-            }
-            @foreach (var field in fields)
-            {
-                var parameter = field;
-                var vm = parameter.ToPropertyVm();
-                @html.Partial("FormFactory/Form.Property", vm)
-            }
-            <input type="submit" value="@(isNodeMethod ? node.DisplayName : "Update")" />
-
-        </form>
+    <form class="node-form" action="@node.Url" method="POST">
+        @{
+        var descriptionAttribute = node.Attributes.OfType<DescriptionAttribute>().SingleOrDefault();
+        if (descriptionAttribute != null)
+        {
+            <div class="noodles-callout noodles-callout-info">
+                @html.Raw(descriptionAttribute.Description)
+            </div>
+        }
+        }
+        @if (html.ViewData.ModelState.SelectMany(ms => ms.Value.Errors).Any())
+        {
+            <div class="noodles-callout noodles-callout-danger">
+                Please correct the issues below:
+                                                                      @html.ValidationSummary(true)
+            </div>
+        }
+        @foreach (var field in fields)
+        {
+            var parameter = field;
+            var vm = parameter.ToPropertyVm();
+            @html.Partial("FormFactory/Form.Property", vm)
+        }
+        <input type="submit" value="@(isNodeMethod ? node.DisplayName : "Update")" />
+    </form>
 
     }
 }
 
+@helper DropdownNode(HtmlHelper Html, INode node, string additionalClasses)
+{
+    @BootstrapHelper.DropdownLinksButton(node.DisplayName, @<li style="margin: 20px; width: 400px;" class="keep-open">
+                                                                @NoodlesHelper.Form(Html, node)
+                                                            </li>, additionalClasses)
+}
 
 @helper Property(HtmlHelper html, NodeProperty property)
 {

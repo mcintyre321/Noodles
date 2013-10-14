@@ -1,22 +1,6 @@
 ﻿@using Noodles.AspMvc.Helpers
 @using Noodles.Models
 @model Noodles.Models.Resource
-<pre>
-    This is the default generated view. Please create a file called 'Noodles/Node.@(Model.ValueType.Name).cshtml' to override.
-    You can base it off <a href="https://github.com/mcintyre321/Noodles/blob/master/Noodles.AspMvc.Templates/Views/Shared/Noodles/Node.Object.cshtml"> template</a>
-</pre>
- 
-<div class="row">
-    <div class="col-md-12">
-        <ol class="breadcrumb" style="margin-bottom: 5px;">
-            @foreach (var item in Model.Ancestors().Reverse())
-            {
-                <li><a href="@item.Url">@item.DisplayName</a></li>
-            }
-            <li class="active">@Model.DisplayName</li>
-        </ol>
-    </div>
-</div>
 <div class="row">
     @{
         var nodeMethods = Model.ChildNodes.OfType<NodeMethod>();
@@ -73,13 +57,7 @@
                         {
                             <h3 class="page-header">Update</h3>
                         }
-                        var descriptionAttribute = Model.Attributes.OfType<System.ComponentModel.DescriptionAttribute>().SingleOrDefault();
-                        if (descriptionAttribute != null)
-                        {
-                            <div class="noodles-callout noodles-callout-info">
-                                @Html.Raw(descriptionAttribute.Description)
-                            </div>
-                        }
+                        
                     }
                     @NoodlesHelper.Form(Html, Model, parameters)
                 </div>

@@ -1,9 +1,0 @@
-﻿@using Noodles.AspMvc.Models.Layout
-
-<!-- being /Layout/Topbar.RightItems.cshtml -->
-    @foreach (var item in Html.LayoutVm().TopBar.RightItems)
-    {
-         <li class="navbar-right @Html.Raw(item.Active ? "active": "")" > @Html.Raw(item.Html) </li>
-    }
-
-<!-- end /Layout/Topbar.RightItems.cshtml -->

@@ -3,8 +3,8 @@
 @helper DropdownLinksButton(string buttonTitle, Func<MvcHtmlString, HelperResult> links) { @DropdownLinksButton(buttonTitle, links, null)}
 @helper DropdownLinksButton(string buttonTitle, Func<MvcHtmlString, HelperResult> links, string additionalClasses)
 {
-    <div class="btn-group">
-        <a class="btn dropdown-toggle @(additionalClasses ?? "")" data-toggle="dropdown" href="#">@buttonTitle <span class="caret"></span></a>
+    <div class="btn-group @(additionalClasses ?? "")">
+        <a class="btn btn-default dropdown-toggle" data-toggle="dropdown" href="#">@buttonTitle <span class="caret"></span></a>
         <ul class="dropdown-menu">
             @links(null)
         </ul>

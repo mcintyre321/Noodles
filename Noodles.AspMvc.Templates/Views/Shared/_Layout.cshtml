@@ -1,24 +1,17 @@
-﻿@using System.Web.Mvc.Html
+﻿@using System.Web.Mvc
 @using Noodles.AspMvc.Helpers
 @using Noodles.AspMvc.Models.Layout
 <!DOCTYPE html>
 <html>
 <head>
-    @Html.Partial("Layout/Head.Top")
         <meta charset="utf-8" />
     <script type="text/javascript" src="/scripts/turbolinks.js"></script>
-    @Html.Partial("Layout/Head.Bottom")
+    @Html.Raw(Html.LayoutVm().HeadBundle.Render())
 </head>
-<body@* @Html.Raw(Html.LayoutVm().TopBar.Fixed ? "style=\"margin-top: 60px\"" : "")*@>
-    @Html.Partial("Layout/Body.Top")
-       @* @Html.Partial("Layout/TopBar")*@
-        <div class="container">
-            @RenderBody()
-        </div>
-    <footer>
-        @Html.Partial("Layout/Footer")
-    </footer>
-    @Html.Partial("Layout/Body.Bottom")
-        
+<body>
+    <div class="container">
+        @Html.Partial("Noodles/Breadcrumb", (object) ViewBag.NoodleTarget)
+        @RenderBody()
+    </div>
 </body>
 </html>

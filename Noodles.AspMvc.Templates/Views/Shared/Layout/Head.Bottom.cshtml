@@ -1,9 +1,0 @@
-﻿@using Noodles.AspMvc.Models.Layout
-@using Noodles.AspMvc.Models.Layout
-@using System.Web.Mvc;
-@{
-    var layoutVm = Html.LayoutVm();
-    var head = layoutVm.HeadBundle;
-}
-<title>@(layoutVm.Title)</title>
-@Html.Raw(layoutVm.HeadBundle.Render())

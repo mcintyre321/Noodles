@@ -1,0 +1,13 @@
+﻿@using Noodles.Models
+@model Noodles.Models.Resource
+<div class="row">
+    <div class="col-md-12"> 
+        <ol class="breadcrumb" style="margin-bottom: 5px;">
+            @foreach (var item in Model.Ancestors().Reverse())
+            {
+                <li><a href="@item.Url">@item.DisplayName</a></li>
+            }
+            <li class="active">@Model.DisplayName</li>
+        </ol>
+    </div>
+</div>
