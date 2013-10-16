@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using FormFactory.Attributes;
 using Noodles.AspMvc.RequestHandling.Transforms;
+using Noodles.AspMvc.UiAttributes;
 
 namespace Noodles.Example.Domain
 {
@@ -14,7 +15,7 @@ namespace Noodles.Example.Domain
         {
         }
 
-        [Show]
+        [Show][Dropdown]
         [Description("You can enter any email/password combo - this is just an example!")]
         public RedirectResult SignIn([Required] [Placeholder("Enter any email address")]string email, [DataType(DataType.Password)][Required]  string password)
         {

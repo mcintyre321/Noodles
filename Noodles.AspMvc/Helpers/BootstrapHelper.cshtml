@@ -1,18 +1,21 @@
 ﻿@* Generator: MvcHelper *@
 @using System.Web.Mvc
-@helper DropdownLinksButton(string buttonTitle, Func<MvcHtmlString, HelperResult> links) { @DropdownLinksButton(buttonTitle, links, null)}
+@helper DropdownLinksButton(string buttonTitle, IHtmlString links)
+{ @DropdownLinksButton(buttonTitle, @<text>@links</text>, null)}
+@helper DropdownLinksButton(string buttonTitle, Func<MvcHtmlString, HelperResult> links)
+{ @DropdownLinksButton(buttonTitle, links, null)}
 @helper DropdownLinksButton(string buttonTitle, Func<MvcHtmlString, HelperResult> links, string additionalClasses)
 {
-    <div class="btn-group @(additionalClasses ?? "")">
-        <a class="btn btn-default dropdown-toggle" data-toggle="dropdown" href="#">@buttonTitle <span class="caret"></span></a>
-        <ul class="dropdown-menu">
+    <div class="dropdown @(additionalClasses ?? "")">
+        <a data-toggle="dropdown" href="#">@buttonTitle</a>
+        <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
             @links(null)
         </ul>
     </div>
 }
 
 @helper Modal(string header, Func<MvcHtmlString, HelperResult> body, Func<MvcHtmlString, HelperResult> footer)
-    {
+{
     <div class="modal">
         <div class="modal-header">
             <a class="close" data-dismiss="modal">×</a>

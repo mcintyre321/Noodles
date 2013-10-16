@@ -160,6 +160,7 @@
     <Compile Include="RequestHandling\Transforms\ITransformContext.cs" />
     <Compile Include="RequestHandling\Transforms\SelectFragmentTransform.cs" />
     <Compile Include="RequestHandling\Transforms\TransformRuleRegistry.cs" />
+    <Compile Include="UiAttributes\DropdownAttribute.cs" />
     <Compile Include="UiAttributes\FfAttribute.cs" />
     <Compile Include="HelperExtensions.cs" />
     <Compile Include="UiAttributes\Icons\IconNames.cs">

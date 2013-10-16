@@ -68,3 +68,9 @@ td > div[data-node-getter] input[readonly] {
   background-color: #f0f7fd;
   border-color: #d0e3f0;
 }
+
+
+/* dropdown forms*/
+.dropdown-menu > li > form {
+    margin: 20px;
+}
