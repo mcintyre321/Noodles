@@ -161,13 +161,14 @@
     <Compile Include="RequestHandling\Transforms\SelectFragmentTransform.cs" />
     <Compile Include="RequestHandling\Transforms\TransformRuleRegistry.cs" />
     <Compile Include="UiAttributes\DropdownAttribute.cs" />
-    <Compile Include="UiAttributes\FfAttribute.cs" />
+    <Compile Include="UiAttributes\RenderViewAttribute.cs" />
     <Compile Include="HelperExtensions.cs" />
     <Compile Include="UiAttributes\Icons\IconNames.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>IconNames.tt</DependentUpon>
     </Compile>
+    <Compile Include="UiAttributes\IRenderHtml.cs" />
     <Compile Include="UiAttributes\NoContainerAttribute.cs" />
     <Compile Include="Helpers\IncludesHelper.cs" />
     <Compile Include="Helpers\NoodlesHelper1.generated.cs">
@@ -192,6 +193,7 @@
     <Compile Include="Infrastructure\ModelStateTempDataTransferAttribute.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Models\Layout\TopBarVm.cs" />
+    <Compile Include="UiAttributes\RenderFfAttribute.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="..\Noodles.AspMvc.Templates\Scripts\Noodles\Noodles.js">

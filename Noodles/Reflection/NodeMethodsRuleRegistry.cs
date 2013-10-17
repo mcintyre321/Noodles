@@ -42,13 +42,6 @@ namespace Noodles
         public static List<ShowMethodRule> ShowMethodRules { get; private set; }
 
 
-        /// <returns>
-        /// true if the method should defs be auto-submitted
-        /// false if the method should defs not be auto-submitted
-        /// null when not sure
-        /// </returns>
-        public delegate bool? AutoSubmitRule(MethodInfo methodInfo);
-
         static NodeMethodsRuleRegistry()
         {
             ShowMethodRules = new List<ShowMethodRule>()

@@ -7,26 +7,7 @@
 @using Noodles.AspMvc.Helpers
 @using Noodles.AspMvc.UiAttributes
 @using Noodles.Models
-@helper NodeMethodsDropdown(Resource obj)
-{ @NodeMethodsDropdown(obj, null) }
-@helper NodeMethodsDropdown(Resource obj, string additionalClasses)
-{ @NodeMethodsDropdown(obj, null, null) }
-@helper NodeMethodsDropdown(Resource obj, string additionalClasses, string excludedMethodNamesCsv)
-{ @*
-    var excludedMethodNames = (excludedMethodNamesCsv ?? "").Split(',');
-    var filteredNodeMethods = obj.NodeMethods.ExceptNamed(excludedMethodNames);
-    if (filteredNodeMethods.Cast<object>().Any())
-    {
-    @BootstrapHelper.DropdownLinksButton("Actions", @<text>
-    @foreach (var method in filteredNodeMethods)
-    {
-        <li>@NodeMethodLink(method)</li>
-    
 
-    </text>, additionalClasses)
-    }
-*@
-}
 @helper NodeLink(HtmlHelper html, INode node)
 { @NodeLink(html, node, null)}
 @helper NodeLink(HtmlHelper html, INode node, string additionalClasses)
@@ -39,11 +20,11 @@
 
     if (viewAtt != null)
     {
-    @viewAtt.Render(html, node)
+        @viewAtt.Render(html, node, @<a class="node-link @(additionalClasses ?? "") @(node.DisplayName)" href="@node.Url">@innerHtml(null)</a>)
     }
     else
     {
-    <a class="node-link @(additionalClasses ?? "") @(node.DisplayName)" href="@node.Url">@innerHtml(null)</a>
+        <a class="node-link @(additionalClasses ?? "")" href="@node.Url">@innerHtml(null)</a>
     }
 }
 

@@ -205,3 +205,8 @@
         return false;
     });
 })();
+
+$(document).on("click", "a.auto-submit", function(e) {
+    $("<form>").attr("method", "post").attr("action", $(this).attr("href")).appendTo($("body"))[0].submit();
+    e.preventDefault();
+});

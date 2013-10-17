@@ -39,7 +39,7 @@ namespace Noodles.Example.Domain
             return !AuthService.RequestHasAuthToken();
         }
 
-        [Show()]
+        [Show()][AutoSubmit]
         public RedirectResult SignOut()
         {
             AuthService.ClearAuthToken();
