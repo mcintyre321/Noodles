@@ -79,22 +79,20 @@ namespace Noodles.AspMvc.RequestHandling
             var request = context.RequestContext.HttpContext.Request;
             if (redirectResult != null && request.IsAjaxRequest())
             {
-                context.HttpContext.Items.SuppressDocTransforms();
                 return new AjaxRedirectRewritingActionResult((ActionResult) result.Result);
             }
             var actionResult = result.Result as ActionResult;
             if (actionResult != null)
             {
-                context.HttpContext.Items.SuppressDocTransforms();
                 return actionResult;
             }
 
             if (request.AcceptTypes.Contains("application/json"))
             {
-                context.HttpContext.Items.SuppressDocTransforms();
                 return new JsonResult() { Data = result.Result };
             }
-    
+
+            context.HttpContext.Items.SetDocTransformsEnabled(true);
             if (!request.IsAjaxRequest() && request.UrlReferrer != null)
             {
                 return new RedirectResult(request.UrlReferrer.ToString());
