@@ -84,13 +84,13 @@ namespace Noodles.AspMvc.RequestHandling
             var actionResult = result.Result as ActionResult;
             if (actionResult != null)
             {
-                context.HttpContext.Items.SuppressDocTransforms();
+                context.HttpContext.Items.SuppressDocTransforms(true);
                 return actionResult;
             }
 
             if (context.HttpContext.Request.AcceptTypes.Contains("application/json"))
             {
-                context.HttpContext.Items.SuppressDocTransforms();
+                context.HttpContext.Items.SuppressDocTransforms(true);
                 return new JsonResult() { Data = result.Result };
             }
     
