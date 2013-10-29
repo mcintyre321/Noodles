@@ -16,15 +16,18 @@
 }
 @helper NodeLink(HtmlHelper html, INode node, string additionalClasses, Func<dynamic, HelperResult> innerHtml)
 {
-    var viewAtt = node.Attributes.OfType<IRenderHtml>().SingleOrDefault();
+    if (node != null)
+    {
+        var viewAtt = node.Attributes.OfType<IRenderHtml>().SingleOrDefault();
 
-    if (viewAtt != null)
-    {
-        @viewAtt.Render(html, node, @<a class="node-link @(additionalClasses ?? "") @(node.DisplayName)" href="@node.Url">@innerHtml(null)</a>)
-    }
-    else
-    {
-        <a class="node-link @(additionalClasses ?? "")" href="@node.Url">@innerHtml(null)</a>
+        if (viewAtt != null)
+        {
+            @viewAtt.Render(html, node, @<a class="node-link @(additionalClasses ?? "") @(node.DisplayName)" href="@node.Url">@innerHtml(null)</a>)
+        }
+        else
+        {
+            <a class="node-link @(additionalClasses ?? "")" href="@node.Url">@innerHtml(null)</a>
+        }
     }
 }
 
@@ -68,8 +71,7 @@
         @if (html.ViewData.ModelState.SelectMany(ms => ms.Value.Errors).Any())
         {
             <div class="noodles-callout noodles-callout-danger">
-                Please correct the issues below:
-                                                                      @html.ValidationSummary(true)
+                Please correct the issues below: @html.ValidationSummary(true)
             </div>
         }
         @foreach (var field in fields)

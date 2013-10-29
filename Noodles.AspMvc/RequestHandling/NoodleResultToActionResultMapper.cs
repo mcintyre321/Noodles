@@ -76,7 +76,8 @@ namespace Noodles.AspMvc.RequestHandling
         public override ActionResult Map(ControllerContext context, InvokeSuccessResult result)
         {
             var redirectResult = result.Result as RedirectResult;
-            if (redirectResult != null && context.RequestContext.HttpContext.Request.IsAjaxRequest())
+            var request = context.RequestContext.HttpContext.Request;
+            if (redirectResult != null && request.IsAjaxRequest())
             {
                 context.HttpContext.Items.SuppressDocTransforms();
                 return new AjaxRedirectRewritingActionResult((ActionResult) result.Result);
@@ -88,12 +89,16 @@ namespace Noodles.AspMvc.RequestHandling
                 return actionResult;
             }
 
-            if (context.HttpContext.Request.AcceptTypes.Contains("application/json"))
+            if (request.AcceptTypes.Contains("application/json"))
             {
                 context.HttpContext.Items.SuppressDocTransforms();
                 return new JsonResult() { Data = result.Result };
             }
     
+            if (!request.IsAjaxRequest() && request.UrlReferrer != null)
+            {
+                return new RedirectResult(request.UrlReferrer.ToString());
+            }
             var targetResource = result.Invokeable as INode;
             return BuildActionResult(context, targetResource);
         }
