@@ -20,9 +20,9 @@ namespace Noodles.AspMvc.Infrastructure
 
         public override void OnActionExecuted(ActionExecutedContext filterContext)
         {
-            if (!filterContext.HttpContext.Items.SuppressDocTransforms()
-            && filterContext.Result is ViewResult
-            && filterContext.Exception == null)
+            if (!filterContext.HttpContext.Items.GetDocTransformsEnabled()
+                && filterContext.Result is ViewResult
+                && filterContext.Exception == null)
             {
                 sb = new StringBuilder();
                 sw = new StringWriter(sb);
@@ -93,14 +93,13 @@ namespace Noodles.AspMvc.Infrastructure
             }
             return (List<Func<CQ, CQ>>)items["DocTransforms"];
         }
-        public static bool SuppressDocTransforms(this IDictionary items, bool? value = null)
+        public static bool GetDocTransformsEnabled(this IDictionary items)
         {
-            if (value == null)
-            {
-                return items["DocTransforms"] as bool? ?? false;
-            }
-            items["DocTransforms"] = value;
-            return value.Value;
+            return items["DocTransforms"] as bool? ?? false;
+        }
+        public static void SetDocTransformsEnabled(this IDictionary items, bool enabled)
+        {
+            items["DocTransforms"] = enabled;
         }
 
     }
