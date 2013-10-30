@@ -80,6 +80,7 @@
     <Compile Include="Models\IHasNodeMethods.cs" />
     <Compile Include="Models\Resource.cs" />
     <Compile Include="Attributes\NodePropertiesAttribute.cs" />
+    <Compile Include="Attributes\DefaultAttribute.cs" />
     <Compile Include="Reflection\ReflectionNodeMethod.cs" />
     <Compile Include="Name.cs" />
     <Compile Include="Reflection\NodeMethodExtensions.cs" />
@@ -117,9 +118,6 @@
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Dynamic Expressions.html" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

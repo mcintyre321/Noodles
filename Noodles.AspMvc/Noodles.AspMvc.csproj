@@ -152,6 +152,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>BootstrapHelper.cshtml</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\CqHelperExtensions.cs" />
     <Compile Include="Infrastructure\ModifyDocumentAttribute.cs" />
     <Compile Include="RequestHandling\AjaxRedirectRewritingActionResult.cs" />
     <Compile Include="RequestHandling\AspMvcArgumentBindingException.cs" />

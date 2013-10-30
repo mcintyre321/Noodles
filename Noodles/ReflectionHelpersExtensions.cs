@@ -28,6 +28,7 @@ namespace Noodles
     {
         static ConcurrentDictionary<Type, IEnumerable<Attribute>> typeLookup = new ConcurrentDictionary<Type, IEnumerable<Attribute>>();
         static ConcurrentDictionary<PropertyInfo, IEnumerable<Attribute>> piLookup = new ConcurrentDictionary<PropertyInfo, IEnumerable<Attribute>>();
+        static ConcurrentDictionary<ParameterInfo, IEnumerable<Attribute>> paramLookup = new ConcurrentDictionary<ParameterInfo, IEnumerable<Attribute>>();
         static ConcurrentDictionary<MethodInfo, IEnumerable<Attribute>> miLookup = new ConcurrentDictionary<MethodInfo, IEnumerable<Attribute>>();
         static ConcurrentDictionary<FieldInfo, IEnumerable<Attribute>> fiLookup = new ConcurrentDictionary<FieldInfo, IEnumerable<Attribute>>();
         static ConcurrentDictionary<MemberInfo, IEnumerable<Attribute>> memberiLookup = new ConcurrentDictionary<MemberInfo, IEnumerable<Attribute>>();
@@ -35,7 +36,12 @@ namespace Noodles
         {
             return o.GetType().Attributes();
         }
-      
+
+        public static IEnumerable<Attribute> Attributes(this ParameterInfo parameterInfo)
+        {
+            return paramLookup.GetOrAdd(parameterInfo, p => p.GetCustomAttributes(true).Cast<Attribute>());
+        }
+        
         public static IEnumerable<Attribute> Attributes(this PropertyInfo propertyInfo)
         {
             return piLookup.GetOrAdd(propertyInfo, p => p.GetCustomAttributes(true).Cast<Attribute>());

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Reflection;
+using Noodles.Attributes;
 using Noodles.Models;
 
 namespace Noodles
@@ -12,17 +13,17 @@ namespace Noodles
     {
         private readonly NodeMethod _nodeMethod;
         private readonly MethodInfo _mi;
-        private readonly ParameterInfo _parameter;
+        private readonly ParameterInfo _parameterInfo;
 
         private BindingFlags looseBindingFlags = BindingFlags.IgnoreCase | BindingFlags.FlattenHierarchy | BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic;
 
         private object _value;
 
-        internal NodeMethodParameter(NodeMethod nodeMethod, MethodInfo mi, ParameterInfo parameter, int order)
+        internal NodeMethodParameter(NodeMethod nodeMethod, MethodInfo mi, ParameterInfo parameterInfo, int order)
         {
             _nodeMethod = nodeMethod;
             _mi = mi;
-            _parameter = parameter;
+            _parameterInfo = parameterInfo;
             Parent = nodeMethod;
             Order = order;
         }
@@ -31,13 +32,13 @@ namespace Noodles
         {
             get
             {
-                return _parameter.ParameterType;
+                return _parameterInfo.ParameterType;
             }
         }
 
         public bool IsOptional
         {
-            get { return _parameter.IsOptional; }
+            get { return _parameterInfo.IsOptional; }
         }
 
         public Type Type { get { return this.GetType(); } }
@@ -56,7 +57,7 @@ namespace Noodles
         {
             get
             {
-                return _parameter.Name;
+                return _parameterInfo.Name;
             }
         }
 
@@ -71,10 +72,18 @@ namespace Noodles
                     var getter = property.GetGetMethod(true);
                     return getter.Invoke(_nodeMethod.Target, null);
                 }
-                var getDefault = _mi.DeclaringType.GetMethod(_mi.Name + "_" + _parameter.Name + "_default");
+                var getDefault = _mi.DeclaringType.GetMethod(_mi.Name + "_" + _parameterInfo.Name + "_default");
                 if (getDefault != null)
                 {
                     return getDefault.Invoke(_nodeMethod.Target, null);
+                }
+                else
+                {
+                    var defaultAttribute = _parameterInfo.Attributes().OfType<DefaultAttribute>().SingleOrDefault();
+                    if (defaultAttribute != null)
+                    {
+                        return defaultAttribute.GetValue(_nodeMethod.Target);
+                    }
                 }
                 return null;
             }
@@ -122,7 +131,7 @@ namespace Noodles
 
         string GetDisplayName()
         {
-            var att = this._parameter.GetCustomAttributes(typeof(System.ComponentModel.DisplayNameAttribute), true).OfType<System.ComponentModel.DisplayNameAttribute>().FirstOrDefault();
+            var att = this._parameterInfo.GetCustomAttributes(typeof(System.ComponentModel.DisplayNameAttribute), true).OfType<System.ComponentModel.DisplayNameAttribute>().FirstOrDefault();
             if (att == null)
             {
                 return Name.Replace("_", "").Sentencise();
@@ -152,9 +161,9 @@ namespace Noodles
 
         public IEnumerable<string> ErrorMessages { get; private set; }
 
-        internal ParameterInfo ParameterInfo
+        internal ParameterInfo ParameterInfoInfo
         {
-            get { return this._parameter; }
+            get { return this._parameterInfo; }
         }
 
         public NodeMethod NodeMethod { get { return _nodeMethod; } }
@@ -163,7 +172,7 @@ namespace Noodles
         {
             get
             {
-                var parameterAtts = this._parameter.GetCustomAttributes(false).Cast<Attribute>();
+                var parameterAtts = this._parameterInfo.GetCustomAttributes(false).Cast<Attribute>();
                 if (_mi.Name.StartsWith("set_"))
                 {
                     var propertyAtts = _mi.DeclaringType.GetProperty(_mi.Name.Substring(4))
