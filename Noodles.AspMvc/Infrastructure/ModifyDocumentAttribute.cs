@@ -95,11 +95,11 @@ namespace Noodles.AspMvc.Infrastructure
         }
         public static bool GetDocTransformsEnabled(this IDictionary items)
         {
-            return items["DocTransforms"] as bool? ?? false;
+            return items["DocTransformsEnabled"] as bool? ?? false;
         }
         public static void SetDocTransformsEnabled(this IDictionary items, bool enabled)
         {
-            items["DocTransforms"] = enabled;
+            items["DocTransformsEnabled"] = enabled;
         }
 
     }

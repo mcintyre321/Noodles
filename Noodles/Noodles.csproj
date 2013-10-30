@@ -119,7 +119,7 @@
     <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Dynamic Expressions.html" />
+    <None Include="Dynamic Expressions.html" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
