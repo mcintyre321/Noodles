@@ -16,7 +16,7 @@ namespace Noodles.AspMvc.Helpers
             return html;
         }
 
-        private static HtmlString Transform(this string htmlString, Action<CQ> transform)
+        public static HtmlString Transform(this string htmlString, Action<CQ> transform)
         {
             var cq = CsQuery.CQ.Create(htmlString);
             transform(cq);

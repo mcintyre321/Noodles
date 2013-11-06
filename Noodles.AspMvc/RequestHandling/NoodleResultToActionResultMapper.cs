@@ -65,6 +65,11 @@ namespace Noodles.AspMvc.RequestHandling
                 ruleRegistry.RegisterTransformations(context, targetResource);
             }
             res.ViewData.ModelState.Merge(context.Controller.ViewData.ModelState);
+            if (!res.ViewData.ModelState.IsValid)
+            {
+                context.HttpContext.Response.TrySkipIisCustomErrors = true;
+                context.HttpContext.Response.StatusCode = 400;
+            }
             res.ViewData.Model = targetResource;
             if (context.HttpContext.Request.IsAjaxRequest())
             {

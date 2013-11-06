@@ -69,7 +69,7 @@ namespace Noodles.Example.Domain
             Items = new List<Organisation>();
         }
 
-        [Show][RenderFf]
+        [Show][TransformFf]
         public string SomeSimpleThing { get { return "Hello there"; } }
 
         [Children("Name")]

@@ -121,21 +121,20 @@
         }
 
     };
-    $(document).on("submit", "form.node-form", function(e) {
-        var $submitButton = $(this).find("> input[type=submit]");
-        //if (!submitButton[0]) {
-        //    submitButton = $(this).parents('div.nodeMethod').find('.submitMethod');
-        //}
+    //$(document).on("submit", "form.node-form", function(e) {
+    //    var $submitButton = $(this).find("> input[type=submit]");
+    //    //if (!submitButton[0]) {
+    //    //    submitButton = $(this).parents('div.nodeMethod').find('.submitMethod');
+    //    //}
         
 
-        if (!$(this).valid()) {
-            e.preventDefault();
-            //$submitButton.trigger("click");
-        }
-    });
-    $(document).on("click", "form.node-form > input[type=submit]", function (e) {
-        var $container = $(this).closest(".form.node-form");
-        var $form = $container.is("form") ? $container : $container.find("form");
+    //    if (!$(this).valid()) {
+    //        e.preventDefault();
+    //        //$submitButton.trigger("click");
+    //    }
+    //});
+    $(document).on("submit", "form.ajax-form", function (e) {
+        var $form = $(this);
         if (!$form.valid()) return false;
         var formdata = false;
         if (window.FormData) {
@@ -169,17 +168,8 @@
             error: function (jqXhr, textStatus, errorThrown) {
                 if (errorThrown == "Bad Request") {
                     var $html = $(jqXhr.responseText);
-                    if ($container.hasClass("modal")) {
-                        var $buttons = $html.find("button").remove();
-                        $container.find(".modal-footer").empty().append($buttons);
-                    } else if ($form.hasClass("form-inline")) {
-                        $html.find("div.controls").css("display", "inline");
-                        $html.find("div.control-group").css("display", "inline");
-                        $html.addClass("form-inline");
-                    }
-                    $form.replaceWith($html);
+                    $form.replaceWith($html.find("form"));
                     $.validator.unobtrusive.parseDynamicContent($form);
-
                 }
             },
             complete: function () {

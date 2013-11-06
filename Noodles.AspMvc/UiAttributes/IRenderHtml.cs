@@ -6,8 +6,8 @@ using Noodles.Models;
 
 namespace Noodles.AspMvc.UiAttributes
 {
-    public interface IRenderHtml
+    public interface ITransformHtml
     {
-        IHtmlString Render(HtmlHelper html, INode node, Func<dynamic, HelperResult> renderNodeLink);
+        IHtmlString Transform(HtmlHelper htmlHelper, INode node, string html);
     }
 }
