@@ -1,126 +1,126 @@
 ﻿(function () { 
     
-    $(document).on("click", ".show-setter", function (e) {
-        var $property = $(this).closest("[data-node-property]");
-        var $setter = $property.find("> [data-node-setter]");
-        var $getter = $property.find("> [data-node-getter]");
-        $getter.fadeOut(function () {
-            $setter.fadeIn(function () {
-                $setter.find('input,textarea,select').filter(':enabled:visible:not([readonly="readonly"]):not([type="hidden"])').first().focus();
+    //$(document).on("click", ".show-setter", function (e) {
+    //    var $property = $(this).closest("[data-node-property]");
+    //    var $setter = $property.find("> [data-node-setter]");
+    //    var $getter = $property.find("> [data-node-getter]");
+    //    $getter.fadeOut(function () {
+    //        $setter.fadeIn(function () {
+    //            $setter.find('input,textarea,select').filter(':enabled:visible:not([readonly="readonly"]):not([type="hidden"])').first().focus();
 
-                $.validator.unobtrusive.parseDynamicContent($setter);
-            });
-        });
-        e.preventDefault();
-        return false;
-    });
-    $(document).on("click", ".hide-setter", function (e) {
-        var $property = $(this).closest("[data-node-property]");
-        var $setter = $property.find("> [data-node-setter]");
-        var $getter = $property.find("> [data-node-getter]");
-        $setter.fadeOut(function () {
-            $getter.fadeIn();
-        });
+    //            $.validator.unobtrusive.parseDynamicContent($setter);
+    //        });
+    //    });
+    //    e.preventDefault();
+    //    return false;
+    //});
+    //$(document).on("click", ".hide-setter", function (e) {
+    //    var $property = $(this).closest("[data-node-property]");
+    //    var $setter = $property.find("> [data-node-setter]");
+    //    var $getter = $property.find("> [data-node-getter]");
+    //    $setter.fadeOut(function () {
+    //        $getter.fadeIn();
+    //    });
 
-        e.preventDefault();
-        return false;
-    });
+    //    e.preventDefault();
+    //    return false;
+    //});
 
-    $(document).on("click", ".popover .close", function (e) { $(this).closest(".popover").hide(); });
+    //$(document).on("click", ".popover .close", function (e) { $(this).closest(".popover").hide(); });
 
-    $(document).on("click", ".nodeMethodsMenuLink", function (e) {
-        var $link = $(this);
-        if (e.target != this) return false;
-        var methodsPanelId = "methods-" + $link.attr("href").replace(/\//g, "_");
-        if ($("#" + methodsPanelId).length == false) {
-            ensureLazyElement(
-                methodsPanelId,
-                $link.attr("href"),
-                function () { showMethodsMenu($link); }
-            );
-        }
-        return false;
-    });
+    //$(document).on("click", ".nodeMethodsMenuLink", function (e) {
+    //    var $link = $(this);
+    //    if (e.target != this) return false;
+    //    var methodsPanelId = "methods-" + $link.attr("href").replace(/\//g, "_");
+    //    if ($("#" + methodsPanelId).length == false) {
+    //        ensureLazyElement(
+    //            methodsPanelId,
+    //            $link.attr("href"),
+    //            function () { showMethodsMenu($link); }
+    //        );
+    //    }
+    //    return false;
+    //});
 
-    function modalHtml() {
-        return '<div class="modal nodeMethod" id="myModal"><div class="modal-header"><a class="close" data-dismiss="modal">×</a><h3 class="title"></h3></div><div class="modal-body"></div><div class="modal-footer"></div></div>';
-    }
+    //function modalHtml() {
+    //    return '<div class="modal nodeMethod" id="myModal"><div class="modal-header"><a class="close" data-dismiss="modal">×</a><h3 class="title"></h3></div><div class="modal-body"></div><div class="modal-footer"></div></div>';
+    //}
 
-    var showMethodsMenu = function ($link) {
-        var methodsNodeId = "methods-" + $link.attr("href").replace(/\//g, "_");
-        $link.attr("data-content", $("#" + methodsNodeId).html());
-        $link.popover({
-            trigger: "manual",
-            placement: ($link.offset().left > ($(window).width() / 2)) ? "left" : "right",
-            offset: 0,
-            html: true,
-            delayOut: 500,
-            title: function () { return "Actions<a class='close' href='#'>×</a>"; }
-        }).click(function () {
-            $(".popover").hide();
-            $link.popover('show');
-        }).click();
-    };
+    //var showMethodsMenu = function ($link) {
+    //    var methodsNodeId = "methods-" + $link.attr("href").replace(/\//g, "_");
+    //    $link.attr("data-content", $("#" + methodsNodeId).html());
+    //    $link.popover({
+    //        trigger: "manual",
+    //        placement: ($link.offset().left > ($(window).width() / 2)) ? "left" : "right",
+    //        offset: 0,
+    //        html: true,
+    //        delayOut: 500,
+    //        title: function () { return "Actions<a class='close' href='#'>×</a>"; }
+    //    }).click(function () {
+    //        $(".popover").hide();
+    //        $link.popover('show');
+    //    }).click();
+    //};
 
-    function ensureLazyElement(id, path, callback, transform) {
-        if ($("#" + id).length) {
-            callback();
-            return true;
-        }
-        $.get(path, {}, function (html) {
-            var $html;
-            if (transform) {
-                $html = transform(html);
-            } else {
-                $html = $(html);
-            }
-            $('<div>').attr("id", id).css("display", "none").append($html).appendTo($("body"));
-            callback();
-        });
-        return true;
-    }
+    //function ensureLazyElement(id, path, callback, transform) {
+    //    if ($("#" + id).length) {
+    //        callback();
+    //        return true;
+    //    }
+    //    $.get(path, {}, function (html) {
+    //        var $html;
+    //        if (transform) {
+    //            $html = transform(html);
+    //        } else {
+    //            $html = $(html);
+    //        }
+    //        $('<div>').attr("id", id).css("display", "none").append($html).appendTo($("body"));
+    //        callback();
+    //    });
+    //    return true;
+    //}
 
-    $(document).on('click', ".noodles-popup", function (e) {
-        e.preventDefault();
-        var $link = $(this);
-        if ($link.attr("data-custom-method-handler")) {
-            return false;
-        }
-        $link.closest(".popover").hide();
+    //$(document).on('click', ".noodles-popup", function (e) {
+    //    e.preventDefault();
+    //    var $link = $(this);
+    //    if ($link.attr("data-custom-method-handler")) {
+    //        return false;
+    //    }
+    //    $link.closest(".popover").hide();
 
 
-        var methodsPanelId = "method-" + $link.attr("href").replace(/\//g, "_");
-        if ($("#" + methodsPanelId).length == false) {
-            ensureLazyElement(
-                methodsPanelId,
-                $link.attr("href"),
-                function() { showMethodForm($link); },
-                function(body) {
-                    var $formHtml = $(body);
-                    var $modal = $(modalHtml());
-                    $modal.find(".title").append($link.html());
-                    $modal.find(".modal-footer").append($formHtml.find("button").remove());
-                    $modal.find(".modal-body").append($formHtml);
-                    return $modal;
-                });
-        } else {
-            showMethodForm($link);
-        }
-        return false;
-    });
-    var showMethodForm = function ($link) {
-        var methodsPanelId = "method-" + $link.attr("href").replace(/\//g, "_");
-        var $method = $("#" + methodsPanelId);
-        if ($link.hasClass("auto-submit")) {
-            $method.find("form").submit();
-        } else {
-            $method.modal({ show: true, backdrop: true });
-            $method.find(":input:visible:enabled:first").focus();
+    //    var methodsPanelId = "method-" + $link.attr("href").replace(/\//g, "_");
+    //    if ($("#" + methodsPanelId).length == false) {
+    //        ensureLazyElement(
+    //            methodsPanelId,
+    //            $link.attr("href"),
+    //            function() { showMethodForm($link); },
+    //            function(body) {
+    //                var $formHtml = $(body);
+    //                var $modal = $(modalHtml());
+    //                $modal.find(".title").append($link.html());
+    //                $modal.find(".modal-footer").append($formHtml.find("button").remove());
+    //                $modal.find(".modal-body").append($formHtml);
+    //                return $modal;
+    //            });
+    //    } else {
+    //        showMethodForm($link);
+    //    }
+    //    return false;
+    //});
+    //var showMethodForm = function ($link) {
+    //    var methodsPanelId = "method-" + $link.attr("href").replace(/\//g, "_");
+    //    var $method = $("#" + methodsPanelId);
+    //    if ($link.hasClass("auto-submit")) {
+    //        $method.find("form").submit();
+    //    } else {
+    //        $method.modal({ show: true, backdrop: true });
+    //        $method.find(":input:visible:enabled:first").focus();
 
-            $.validator.unobtrusive.parseDynamicContent($method.find("form"));
-        }
+    //        $.validator.unobtrusive.parseDynamicContent($method.find("form"));
+    //    }
 
-    };
+    //};
     //$(document).on("submit", "form.node-form", function(e) {
     //    var $submitButton = $(this).find("> input[type=submit]");
     //    //if (!submitButton[0]) {
@@ -180,23 +180,37 @@
         return false;
     });
 
-    $(document).on("click", "a[data-modal=true]", function(e) {
-        var $link = $(this);
-        $.ajax($link.attr("href"), {
-            success: function(data, textStatus) {
-                var $modal = $(modalHtml());
-                $modal.find(".title").append($link.html());
-                //$modal.find(".modal-footer").append($formHtml.find("button").remove());
-                $modal.find(".modal-body").append($(data));
-                $modal.appendTo($("body")).modal();
-            }
-        });
+    //$(document).on("click", "a[data-modal=true]", function(e) {
+    //    var $link = $(this);
+    //    $.ajax($link.attr("href"), {
+    //        success: function(data, textStatus) {
+    //            var $modal = $(modalHtml());
+    //            $modal.find(".title").append($link.html());
+    //            //$modal.find(".modal-footer").append($formHtml.find("button").remove());
+    //            $modal.find(".modal-body").append($(data));
+    //            $modal.appendTo($("body")).modal();
+    //        }
+    //    });
 
-        return false;
+    //    return false;
+    //});
+
+    //make autosubmit links do a form post
+    $(document).on("click", "a.auto-submit", function (e) {
+        $("<form>").attr("method", "post").attr("action", $(this).attr("href")).appendTo($("body"))[0].submit();
+        e.preventDefault();
     });
+
+    //focus first input in dropdown
+    $(document).on('shown.bs.dropdown', function (e) {
+        window.setTimeout(function () {
+            $(e.target)
+                .find('input,textarea,select')
+                .filter(':enabled:visible:not([readonly="readonly"]):not([type="hidden"])')
+                .first()
+                .focus();
+        }, 0);
+    });
+    
 })();
 
-$(document).on("click", "a.auto-submit", function(e) {
-    $("<form>").attr("method", "post").attr("action", $(this).attr("href")).appendTo($("body"))[0].submit();
-    e.preventDefault();
-});
