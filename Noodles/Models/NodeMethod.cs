@@ -5,6 +5,7 @@ namespace Noodles.Models
 {
     public interface NodeMethod : Resource
     {
+        object TargetObject { get; set; }
     }
 
     public class NotEnoughParametersForNodeMethodException : Exception

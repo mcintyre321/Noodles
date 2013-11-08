@@ -68,21 +68,21 @@ namespace Noodles
                 if (_value != null) return _value;
                 if (_mi.Name.StartsWith("set_") && !_mi.Name.EndsWith("_callback"))
                 {
-                    var property = _nodeMethod.Target.GetType().GetProperty(_mi.Name.Substring(4), looseBindingFlags);
+                    var property = _nodeMethod.TargetObject.GetType().GetProperty(_mi.Name.Substring(4), looseBindingFlags);
                     var getter = property.GetGetMethod(true);
-                    return getter.Invoke(_nodeMethod.Target, null);
+                    return getter.Invoke(_nodeMethod.TargetObject, null);
                 }
                 var getDefault = _mi.DeclaringType.GetMethod(_mi.Name + "_" + _parameterInfo.Name + "_default");
                 if (getDefault != null)
                 {
-                    return getDefault.Invoke(_nodeMethod.Target, null);
+                    return getDefault.Invoke(_nodeMethod.TargetObject, null);
                 }
                 else
                 {
                     var defaultAttribute = _parameterInfo.Attributes().OfType<DefaultAttribute>().SingleOrDefault();
                     if (defaultAttribute != null)
                     {
-                        return defaultAttribute.GetValue(_nodeMethod.Target);
+                        return defaultAttribute.GetValue(_nodeMethod.TargetObject);
                     }
                 }
                 return null;
@@ -101,11 +101,11 @@ namespace Noodles
                 }
 
                 methodName = methodName + Name + "_choices";
-                var choices = _nodeMethod.Target.GetType().GetMethod(methodName, looseBindingFlags)
-                    ?? _nodeMethod.Target.GetType().GetMethod("get_" + methodName, looseBindingFlags);
+                var choices = _nodeMethod.TargetObject.GetType().GetMethod(methodName, looseBindingFlags)
+                    ?? _nodeMethod.TargetObject.GetType().GetMethod("get_" + methodName, looseBindingFlags);
                 if (choices != null)
                 {
-                    return  (IEnumerable)choices.Invoke(_nodeMethod.Target, null);
+                    return (IEnumerable)choices.Invoke(_nodeMethod.TargetObject, null);
                 }
                 return null;
             }
@@ -149,11 +149,11 @@ namespace Noodles
                     methodName = _nodeMethod.Name + "_";
                 }
                 methodName = methodName + Name + "_suggestions";
-                var suggestions = _nodeMethod.Target.GetType().GetMethod(methodName, looseBindingFlags)
-                    ?? _nodeMethod.Target.GetType().GetMethod("get_" + methodName, looseBindingFlags);
+                var suggestions = _nodeMethod.TargetObject.GetType().GetMethod(methodName, looseBindingFlags)
+                    ?? _nodeMethod.TargetObject.GetType().GetMethod("get_" + methodName, looseBindingFlags);
                 if (suggestions != null)
                 {
-                    return (IEnumerable)suggestions.Invoke(_nodeMethod.Target, null);
+                    return (IEnumerable)suggestions.Invoke(_nodeMethod.TargetObject, null);
                 }
                 return null;
             }

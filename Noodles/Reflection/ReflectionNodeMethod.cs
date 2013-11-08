@@ -23,11 +23,15 @@ namespace Noodles.Models
             _methodInfo = methodInfo;
             Order = int.MaxValue;
             Parent = parent;
-            Target = target;
+            TargetObject = target;
+            Target = Tuple.Create(TargetObject, _methodInfo);
         }
 
+        public object Target { get; set; }
+
+        public object TargetObject { get; set; }
+
         public Uri InvokeUrl { get { return Url; } }
-        public object Target { get; private set; }
 
         private BindingFlags looseBindingFlags = BindingFlags.IgnoreCase | BindingFlags.FlattenHierarchy | BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic;
 
@@ -67,11 +71,11 @@ namespace Noodles.Models
                 {
                     // TODO: if a set property?
                     string messageMethodName = Name + "_message";
-                    var messageMethod = this.Target.GetType().GetMethod(messageMethodName, looseBindingFlags)
-                                        ?? this.Target.GetType().GetMethod("get_" + messageMethodName, looseBindingFlags);
+                    var messageMethod = this.TargetObject.GetType().GetMethod(messageMethodName, looseBindingFlags)
+                                        ?? this.TargetObject.GetType().GetMethod("get_" + messageMethodName, looseBindingFlags);
                     if (messageMethod != null)
                     {
-                        _message = (string)messageMethod.Invoke(this.Target, null);
+                        _message = (string)messageMethod.Invoke(this.TargetObject, null);
                     }
                     else
                     {
@@ -208,7 +212,7 @@ namespace Noodles.Models
                 parameterValues[index] = resolvedParameterValue;
             }
 
-            return _methodInfo.Invoke(Target, parameterValues);
+            return _methodInfo.Invoke(TargetObject, parameterValues);
         }
     }
 }

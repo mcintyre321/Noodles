@@ -33,7 +33,6 @@ namespace Noodles.RequestHandling
         {
             var rootResource = ResourceFactory.Instance.Create(root, null, null);
             NoodlesContext.SetValue("Resource-" + root.GetHashCode(), rootResource);
-            NoodlesContext.SetValue("Slug-" + root.GetHashCode(), requestInfo.RootUrl);
             var node = rootResource;
             foreach (var fragment in path)
             {
@@ -41,7 +40,6 @@ namespace Noodles.RequestHandling
                 node = node.GetChild(fragment);
                 if (node == null || !Handler.AllowGet(node)) return new NotFoundResult(prev, fragment);
                 NoodlesContext.SetValue("Resource-" + node.Target.GetHashCode(), node);
-                NoodlesContext.SetValue("Slug-" + node.Target.GetHashCode(), fragment);
             }
 
             foreach (var processor in CustomProcessors.Concat(DefaultProcessors))
