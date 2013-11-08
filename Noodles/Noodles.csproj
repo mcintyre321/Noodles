@@ -63,6 +63,9 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Data.Entity" />
     <Reference Include="System.Xml" />
+    <Reference Include="Walkies">
+      <HintPath>..\packages\Walkies.1.2.38\lib\net40\Walkies.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ReflectionHelpersExtensions.cs" />
@@ -101,6 +104,7 @@
     <Compile Include="Helpers\SentenciseTextExtensions.cs" />
     <Compile Include="Reflection\ShowAttribute.cs" />
     <Compile Include="RequestHandling\ArgumentBindingException.cs" />
+    <Compile Include="RequestHandling\NoodlesContext.cs" />
     <Compile Include="RequestHandling\ResultTypes\BadRequestResult.cs" />
     <Compile Include="RequestHandling\DefaultProcessors.cs" />
     <Compile Include="RequestHandling\Handler.cs" />
