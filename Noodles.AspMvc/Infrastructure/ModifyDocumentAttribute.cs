@@ -20,7 +20,7 @@ namespace Noodles.AspMvc.Infrastructure
 
         public override void OnActionExecuted(ActionExecutedContext filterContext)
         {
-            if (!filterContext.HttpContext.Items.GetDocTransformsEnabled()
+            if (filterContext.HttpContext.Items.GetDocTransformsEnabled()
                 && filterContext.Result is ViewResult
                 && filterContext.Exception == null)
             {
@@ -37,6 +37,7 @@ namespace Noodles.AspMvc.Infrastructure
         {
             if (sb == null)
             {
+                base.OnResultExecuted(filterContext);
                 return;
             }
             if (filterContext.Exception != null)

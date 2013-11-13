@@ -59,6 +59,7 @@ namespace Noodles.AspMvc.RequestHandling
                 var viewname = ViewFinderExtensions.BestViewName(ffContext, targetResource.ValueType, "Noodles/Node.")
                                ?? "Noodles/Node.Object";
 
+                context.HttpContext.Items.SetDocTransformsEnabled(true);
 
                 res.ViewName = viewname;
                 context.Controller.ViewBag.NoodleTarget = targetResource;
@@ -97,7 +98,6 @@ namespace Noodles.AspMvc.RequestHandling
                 return new JsonResult() { Data = result.Result };
             }
 
-            context.HttpContext.Items.SetDocTransformsEnabled(true);
             if (!request.IsAjaxRequest() && request.UrlReferrer != null)
             {
                 return new RedirectResult(request.UrlReferrer.ToString());
