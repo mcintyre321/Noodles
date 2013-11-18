@@ -153,6 +153,7 @@
       <DependentUpon>BootstrapHelper.cshtml</DependentUpon>
     </Compile>
     <Compile Include="Helpers\StringExtensions.cs" />
+    <Compile Include="Helpers\CqHelperExtensions.cs" />
     <Compile Include="Infrastructure\ModifyDocumentAttribute.cs" />
     <Compile Include="RequestHandling\AjaxRedirectRewritingActionResult.cs" />
     <Compile Include="RequestHandling\AspMvcArgumentBindingException.cs" />
@@ -162,7 +163,12 @@
     <Compile Include="RequestHandling\Transforms\ITransformContext.cs" />
     <Compile Include="RequestHandling\Transforms\SelectFragmentTransform.cs" />
     <Compile Include="RequestHandling\Transforms\TransformRuleRegistry.cs" />
+    <Compile Include="UiAttributes\AjaxFormAttribute.cs" />
+    <Compile Include="UiAttributes\AutoSubmitAttribute.cs" />
+    <Compile Include="UiAttributes\DropdownAjaxFormAttribute.cs" />
     <Compile Include="UiAttributes\DropdownAttribute.cs" />
+    <Compile Include="UiAttributes\FormAttribute.cs" />
+    <Compile Include="UiAttributes\NotInFormHelperAttribute.cs" />
     <Compile Include="UiAttributes\RenderViewAttribute.cs" />
     <Compile Include="HelperExtensions.cs" />
     <Compile Include="UiAttributes\Icons\IconNames.cs">
@@ -423,7 +429,7 @@
         <WebProjectProperties>
           <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>52095</DevelopmentServerPort>
+          <DevelopmentServerPort>54668</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>
           </IISUrl>

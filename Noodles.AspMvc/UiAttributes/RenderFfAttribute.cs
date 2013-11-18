@@ -9,12 +9,13 @@ using Noodles.Models;
 
 namespace Noodles.AspMvc.UiAttributes
 {
-    public class RenderFfAttribute : Attribute, IRenderHtml
+    public class TransformFfAttribute : Attribute, ITransformHtml
     {
-        public IHtmlString Render(HtmlHelper html, INode node, Func<dynamic, HelperResult> renderNodeLink)
+        public IHtmlString Transform(HtmlHelper htmlHelper, INode node, string html)
         {
             var propertyVm = node.ToPropertyVm();
-            return html.Partial(html.BestViewName(propertyVm.Type, "FormFactory/Property."), propertyVm);
+            var partialViewName = htmlHelper.BestViewName(propertyVm.Type, "FormFactory/Property.");
+            return htmlHelper.Partial(partialViewName, propertyVm);
         }
     }
 }

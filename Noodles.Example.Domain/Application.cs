@@ -14,6 +14,7 @@ using Newtonsoft.Json;
 using Noodles.AspMvc.RequestHandling.Transforms;
 using Noodles.AspMvc.UiAttributes;
 using Noodles.AspMvc.UiAttributes.Icons;
+using Noodles.Attributes;
 using Noodles.Example.Domain.Tasks;
 using Noodles.Models;
 
@@ -38,6 +39,7 @@ namespace Noodles.Example.Domain
             Organisations = new Organisations();
             
         }
+
 
         [Show]
         public Organisations Organisations { get; private set; }
@@ -67,7 +69,7 @@ namespace Noodles.Example.Domain
             Items = new List<Organisation>();
         }
 
-        [Show][RenderFf]
+        [Show][TransformFf]
         public string SomeSimpleThing { get { return "Hello there"; } }
 
         [Children("Name")]
@@ -80,11 +82,21 @@ namespace Noodles.Example.Domain
         public Organisation(string name)
         {
             Name = name;
+            About = "About the organisation";
             Projects = new List<Project>();
             Settings = new OrganisationSettings();
         }
-        [Show][Required]
-        public string Name { get; set; }
+
+
+        public string Name { [Show] get; set; }
+        public string About { [Show] get; set; }
+        
+        [Show]
+        public void SetDetails([Default("{Name}")][Required] string name, [Default("{About}"), Required, StringLength(100)] string about)
+        {
+            Name = name;
+            About = about;
+        }
 
         [Children("Name")]
         public List<Project> Projects { get; set; }

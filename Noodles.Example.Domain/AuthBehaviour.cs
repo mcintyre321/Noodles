@@ -15,7 +15,8 @@ namespace Noodles.Example.Domain
         {
         }
 
-        [Show][Dropdown]
+        [Show]
+        [DropdownAjaxForm]
         [Description("You can enter any email/password combo - this is just an example!")]
         public RedirectResult SignIn([Required] [Placeholder("Enter any email address")]string email, [DataType(DataType.Password)][Required]  string password)
         {

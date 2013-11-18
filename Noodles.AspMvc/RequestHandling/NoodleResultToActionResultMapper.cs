@@ -74,11 +74,17 @@ namespace Noodles.AspMvc.RequestHandling
                 var viewname = ViewFinderExtensions.BestViewName(ffContext, targetResource.ValueType, "Noodles/Node.")
                                 ?? "Noodles/Node.Object";
 
+                context.HttpContext.Items.SetDocTransformsEnabled(true);
                 res.ViewName = viewname;
                 context.Controller.ViewBag.NoodleTarget = targetResource;
                 ruleRegistry.RegisterTransformations(context, targetResource);
             }
             res.ViewData.ModelState.Merge(context.Controller.ViewData.ModelState);
+            if (!res.ViewData.ModelState.IsValid)
+            {
+                context.HttpContext.Response.TrySkipIisCustomErrors = true;
+                context.HttpContext.Response.StatusCode = 400;
+            }
             res.ViewData.Model = targetResource;
             if (context.HttpContext.Request.IsAjaxRequest())
             {
@@ -90,7 +96,8 @@ namespace Noodles.AspMvc.RequestHandling
         public override ActionResult Map(ControllerContext context, InvokeSuccessResult result)
         {
             var redirectResult = result.Result as RedirectResult;
-            if (redirectResult != null && context.RequestContext.HttpContext.Request.IsAjaxRequest())
+            var request = context.RequestContext.HttpContext.Request;
+            if (redirectResult != null && request.IsAjaxRequest())
             {
                 return new AjaxRedirectRewritingActionResult((ActionResult) result.Result);
             }
@@ -100,12 +107,15 @@ namespace Noodles.AspMvc.RequestHandling
                 return actionResult;
             }
 
-            if (context.HttpContext.Request.AcceptTypes.Contains("application/json"))
+            if (request.AcceptTypes.Contains("application/json"))
             {
                 return new JsonResult() { Data = result.Result };
             }
 
-            context.HttpContext.Items.SetDocTransformsEnabled(true);
+            if (!request.IsAjaxRequest() && request.UrlReferrer != null)
+            {
+                return new RedirectResult(request.UrlReferrer.ToString());
+            }
             var targetResource = result.Invokeable as INode;
             return BuildActionResult(context, targetResource);
         }

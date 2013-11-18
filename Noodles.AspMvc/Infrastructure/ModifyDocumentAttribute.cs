@@ -20,7 +20,7 @@ namespace Noodles.AspMvc.Infrastructure
 
         public override void OnActionExecuted(ActionExecutedContext filterContext)
         {
-            if (!filterContext.HttpContext.Items.GetDocTransformsEnabled()
+            if (filterContext.HttpContext.Items.GetDocTransformsEnabled()
                 && filterContext.Result is ViewResult
                 && filterContext.Exception == null)
             {
@@ -37,6 +37,7 @@ namespace Noodles.AspMvc.Infrastructure
         {
             if (sb == null)
             {
+                base.OnResultExecuted(filterContext);
                 return;
             }
             if (filterContext.Exception != null)
@@ -95,11 +96,11 @@ namespace Noodles.AspMvc.Infrastructure
         }
         public static bool GetDocTransformsEnabled(this IDictionary items)
         {
-            return items["DocTransforms"] as bool? ?? false;
+            return items["DocTransformsEnabled"] as bool? ?? false;
         }
         public static void SetDocTransformsEnabled(this IDictionary items, bool enabled)
         {
-            items["DocTransforms"] = enabled;
+            items["DocTransformsEnabled"] = enabled;
         }
 
     }

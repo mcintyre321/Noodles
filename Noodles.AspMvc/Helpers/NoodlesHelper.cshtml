@@ -1,5 +1,6 @@
 ﻿@* Generator: MvcHelper *@
 @using System.ComponentModel
+@using System.Reflection
 @using System.Web.Mvc
 @using System.Web.Mvc.Html
 @using Noodles
@@ -14,17 +15,17 @@
 {
     @NodeLink(html, node, additionalClasses, @<text>@node.DisplayName</text>)
 }
-@helper NodeLink(HtmlHelper html, INode node, string additionalClasses, Func<dynamic, HelperResult> innerHtml)
+@helper NodeLink(HtmlHelper htmlHelper, INode node, string additionalClasses, Func<dynamic, HelperResult> innerHtml)
 {
-    var viewAtt = node.Attributes.OfType<IRenderHtml>().SingleOrDefault();
-
-    if (viewAtt != null)
+    if (node != null)
     {
-        @viewAtt.Render(html, node, @<a class="node-link @(additionalClasses ?? "") @(node.DisplayName)" href="@node.Url">@innerHtml(null)</a>)
-    }
-    else
-    {
-        <a class="node-link @(additionalClasses ?? "")" href="@node.Url">@innerHtml(null)</a>
+        Func<dynamic, HelperResult> initHtml = (@<a class="node-link @(additionalClasses ?? "") @(node.Name)" href="@node.Url">@innerHtml(null)</a>);
+        var html = initHtml(null).ToHtmlString();
+        foreach (var transformAtt in node.Attributes.OfType<ITransformHtml>())
+        {
+            html = transformAtt.Transform(htmlHelper, node, html).ToHtmlString();
+        }
+    @htmlHelper.Raw(html)
     }
 }
 
@@ -48,47 +49,58 @@
     @Form(html, node, settableProperties)
 }
 
-@helper Form(HtmlHelper html, INode node, IEnumerable<IInvokeableParameter> fieldsToDisplay)
+@helper Form(HtmlHelper htmlHelper, INode node, IEnumerable<IInvokeableParameter> fieldsToDisplay)
 {
-
-    var isNodeMethod = node is NodeMethod;
-    var fields = fieldsToDisplay as IInvokeableParameter[] ?? fieldsToDisplay.ToArray();
-    if (isNodeMethod || fields.Any())
+    if (node != null)
     {
-    <form class="node-form" action="@node.Url" method="POST">
-        @{
-        var descriptionAttribute = node.Attributes.OfType<DescriptionAttribute>().SingleOrDefault();
-        if (descriptionAttribute != null)
+        Func<dynamic, HelperResult> initHtml = (@<text>
+    @{
+        var isNodeMethod = node is NodeMethod;
+        var fields = fieldsToDisplay as IInvokeableParameter[] ?? fieldsToDisplay.ToArray();
+        if (isNodeMethod || fields.Any())
         {
-            <div class="noodles-callout noodles-callout-info">
-                @html.Raw(descriptionAttribute.Description)
-            </div>
+        <form class="node-form" action="@node.Url" method="POST">
+            @{
+            var descriptionAttribute = node.Attributes.OfType<DescriptionAttribute>().SingleOrDefault();
+            if (descriptionAttribute != null)
+            {
+                <div class="noodles-callout noodles-callout-info">
+                    @htmlHelper.Raw(descriptionAttribute.Description)
+                </div>
+            }
+            }
+            @if (htmlHelper.ViewData.ModelState.SelectMany(ms => ms.Value.Errors).Any())
+            {
+                <div class="noodles-callout noodles-callout-danger">
+                    Please correct the issues below: @htmlHelper.ValidationSummary(true)
+                </div>
+            }
+            @foreach (var field in fields)
+            {
+                var parameter = field;
+                var vm = parameter.ToPropertyVm();
+                @htmlHelper.Partial("FormFactory/Form.Property", vm)
+            }
+            <input type="submit" value="@(isNodeMethod ? node.DisplayName : "Update")" />
+        </form>
         }
-        }
-        @if (html.ViewData.ModelState.SelectMany(ms => ms.Value.Errors).Any())
-        {
-            <div class="noodles-callout noodles-callout-danger">
-                Please correct the issues below:
-                                                                      @html.ValidationSummary(true)
-            </div>
-        }
-        @foreach (var field in fields)
-        {
-            var parameter = field;
-            var vm = parameter.ToPropertyVm();
-            @html.Partial("FormFactory/Form.Property", vm)
-        }
-        <input type="submit" value="@(isNodeMethod ? node.DisplayName : "Update")" />
-    </form>
 
+    }
+    </text>);
+        var html = initHtml(null).ToHtmlString();
+        foreach (var transformAtt in node.Attributes.OfType<ITransformHtml>().Where(a => a.GetType().GetCustomAttribute<NotInFormHelperAttribute>() == null))
+        {
+            html = transformAtt.Transform(htmlHelper, node, html).ToHtmlString();
+        }
+    @htmlHelper.Raw(html)
     }
 }
 
 @helper DropdownNode(HtmlHelper Html, INode node, string additionalClasses)
 {
     @BootstrapHelper.DropdownLinksButton(node.DisplayName, @<li style="margin: 20px; width: 400px;" class="keep-open">
-                                                                @NoodlesHelper.Form(Html, node)
-                                                            </li>, additionalClasses)
+        @NoodlesHelper.Form(Html, node)
+    </li>, additionalClasses)
 }
 
 @helper Property(HtmlHelper html, NodeProperty property)

@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Web;
 using System.Web.Mvc;
 using FormFactory;
 using FormFactory.AspMvc.ModelBinders;
@@ -16,8 +17,8 @@ namespace Noodles.AspMvc.RequestHandling
     public class AspMvcNoodleHandler : Handler<ControllerContext>
     {
         public static List<Func<ControllerContext, object, ActionResult>> Processors = new List<Func<ControllerContext, object, ActionResult>>();
-        static List<Func<Exception, ControllerContext, Action>> ModelStateExceptionHandlers = new List<Func<Exception, ControllerContext, Action>>();
-        private TransformRuleRegistry _ruleRegistry;
+        static readonly List<Func<Exception, ControllerContext, Action>> ModelStateExceptionHandlers = new List<Func<Exception, ControllerContext, Action>>();
+        private readonly TransformRuleRegistry _ruleRegistry;
 
         public static void AddExceptionHandler<TEx>(Action<TEx, ControllerContext> action) where TEx : Exception
         {
@@ -27,10 +28,14 @@ namespace Noodles.AspMvc.RequestHandling
 
         static AspMvcNoodleHandler()
         {
-            //AddExceptionHandler<UserException>((e, nodeLink) => nodeLink.Controller.ViewData.ModelState.AddModelError("", e));
-            var propertyVms = VmHelper.GetPropertyVms;
-            VmHelper.GetPropertyVms = (h, o, a) => GetPropertyVms(new Encoder(), o, a, propertyVms);
+            VmHelper.GetPropertyVms = (h, o, a) => GetPropertyVms(new Encoder(), o, a, VmHelper.GetPropertyVms);
+
+            NoodlesContext.GetValue = key => HttpContext.Current.Items[key];
+            NoodlesContext.SetValue = (key, obj) => HttpContext.Current.Items[key] = obj;
+
         }
+
+
 
         public AspMvcNoodleHandler(TransformRuleRegistry ruleRegistry)
         {
