@@ -16,6 +16,13 @@ namespace Noodles.Attributes
         {
             if (Value is string)
             {
+                var stringValue = Value as string;
+                if (stringValue.StartsWith("{") && stringValue.EndsWith("}"))
+                {
+                    return target.GetType()
+                        .GetProperty(stringValue.Substring(1, stringValue.Length - 2))
+                        .GetValue(target);
+                }
                 return target.ToString((string) Value);
             }
             return Value;
