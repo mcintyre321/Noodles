@@ -152,10 +152,12 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>BootstrapHelper.cshtml</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\StringExtensions.cs" />
     <Compile Include="Helpers\CqHelperExtensions.cs" />
     <Compile Include="Infrastructure\ModifyDocumentAttribute.cs" />
     <Compile Include="RequestHandling\AjaxRedirectRewritingActionResult.cs" />
     <Compile Include="RequestHandling\AspMvcArgumentBindingException.cs" />
+    <Compile Include="ContentConverters.cs" />
     <Compile Include="RequestHandling\Transforms\ApplyAttributeTransforms.cs" />
     <Compile Include="RequestHandling\Transforms\ITransformContextUsingChildNode.cs" />
     <Compile Include="RequestHandling\Transforms\ITransformContext.cs" />

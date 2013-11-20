@@ -3,6 +3,7 @@ using System.Net;
 using System.Web.Mvc;
 using FormFactory;
 using FormFactory.AspMvc.Wrappers;
+using Noodles.AspMvc.Helpers;
 using Noodles.AspMvc.Infrastructure;
 using Noodles.AspMvc.RequestHandling.Transforms;
 using Noodles.Models;
@@ -50,17 +51,30 @@ namespace Noodles.AspMvc.RequestHandling
             return BuildActionResult(context, result.Target);
         }
 
-        private ActionResult BuildActionResult(ControllerContext context,  INode targetResource)
+        private ActionResult BuildActionResult(ControllerContext context, INode targetResource)
         {
             var res = new System.Web.Mvc.ViewResult();
             if (targetResource != null)
             {
+                var jsonTypeHeader = context.HttpContext.Request.AcceptTypes.FirstOrDefault(x => x.EndsWith("json"));
+                if (jsonTypeHeader != null)
+                {
+                    // eg application/vnd.mycompany.mydtotype-v1+json
+                    jsonTypeHeader = jsonTypeHeader.RemoveFromStart("application/", true).RemoveFromEnd("+json", true);
+                    var converter = ContentConverters.Get(jsonTypeHeader);
+                    if (converter != null)
+                    {
+                        var convertedTarget = converter(targetResource);
+                        return new JsonResult { Data = convertedTarget };
+                    }
+                }
+             
+
                 var ffContext = (FormFactory.IViewFinder) new FormFactoryContext(context);
                 var viewname = ViewFinderExtensions.BestViewName(ffContext, targetResource.ValueType, "Noodles/Node.")
-                               ?? "Noodles/Node.Object";
+                                ?? "Noodles/Node.Object";
 
                 context.HttpContext.Items.SetDocTransformsEnabled(true);
-
                 res.ViewName = viewname;
                 context.Controller.ViewBag.NoodleTarget = targetResource;
                 ruleRegistry.RegisterTransformations(context, targetResource);
