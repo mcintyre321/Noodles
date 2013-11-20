@@ -57,7 +57,7 @@ namespace Noodles.AspMvc.RequestHandling
 
         private static ArgumentBinding BindObject(ControllerContext cc, IInvokeableParameter parameter,  string displayName)
         {
-            var attributes =  parameter.ValueType.GetCustomAttributes(true).Cast<Attribute>().ToArray();
+            var attributes =  parameter.Attributes.ToArray();
             displayName = displayName ?? parameter.Name.Sentencise(true);
 
             cc.HttpContext.Request.InputStream.Position = 0; //reset as Json binder will have already read it once
@@ -82,11 +82,13 @@ namespace Noodles.AspMvc.RequestHandling
 
             foreach (var va in attributes.OfType<ValidationAttribute>())
             {
-                if (!va.IsValid(output))
+                var result = va.GetValidationResult(output,
+                    new ValidationContext(parameter.Parent, null, null) {MemberName = parameter.Name});
+                if (result != ValidationResult.Success)
                 {
-                    var formatErrorMessage = va.FormatErrorMessage(displayName);
+                    var formatErrorMessage = va.FormatErrorMessage(parameter.DisplayName);
                     errors.Add(formatErrorMessage);
-                    bindingContext.ModelState.AddModelError(parameter.Name, formatErrorMessage);
+                    //bindingContext.ModelState.AddModelError(parameter.Name, formatErrorMessage);
                 }
             }
 

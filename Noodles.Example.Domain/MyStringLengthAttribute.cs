@@ -13,14 +13,18 @@ namespace Noodles.Example.Domain
             _max = max;
         }
 
-        public override bool IsValid(object value)
+        protected override ValidationResult IsValid(object value, ValidationContext validationContext)
         {
             if (value as string != null)
             {
-                return value.ToString().Length > _min && value.ToString().Length < _max;
+                if (value.ToString().Length < _min || value.ToString().Length > _max)
+                {
+                    return new ValidationResult(this.FormatErrorMessage(validationContext.DisplayName));
+                }
             }
-            return false;
+            return ValidationResult.Success;
         }
+
         public override string FormatErrorMessage(string name)
         {
             return "" + name + " needs to be between " + _min + " and " + _max + " in length";

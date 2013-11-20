@@ -12,12 +12,12 @@ namespace Noodles.AspMvc.Infrastructure
             if (!ms.IsValid)
             {
                 var userErrors = (
-                                     from m in ms
-                                     from e in m.Value.Errors
+                                     from modelStateItem in ms
+                                     from e in modelStateItem.Value.Errors
                                      where e.Exception != null
                                      let ex = (e.Exception.InnerException ?? e.Exception) as UserException
                                      where string.IsNullOrEmpty(e.ErrorMessage) && ex != null
-                                     select new { m, e, ex }).ToArray();
+                                     select new { m = modelStateItem, e, ex }).ToArray();
 
                 foreach (var error in userErrors)
                 {
@@ -25,7 +25,8 @@ namespace Noodles.AspMvc.Infrastructure
                 }
                 foreach (var error in userErrors)
                 {
-                    ms.AddModelError(error.m.Key, error.ex.Message);
+                    var key = (string.IsNullOrWhiteSpace(error.m.Key) ? error.ex.MemberName ?? "" : error.m.Key);
+                    ms.AddModelError(key, error.ex.Message);
                 }
             }
         }

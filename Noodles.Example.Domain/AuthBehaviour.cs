@@ -1,3 +1,4 @@
+using System;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Reflection;
@@ -18,13 +19,17 @@ namespace Noodles.Example.Domain
         [Show]
         [DropdownAjaxForm]
         [Description("You can enter any email/password combo - this is just an example!")]
-        public RedirectResult SignIn([Required] [Placeholder("Enter any email address")]string email, [DataType(DataType.Password)][Required]  string password)
+        public RedirectResult SignIn([Required][MyStringLength(2, 50)] [Placeholder("Enter any email address")]string email, [DataType(DataType.Password)][Required]  string password)
         {
             if (string.IsNullOrEmpty(email) || string.IsNullOrEmpty(password))
             {
                 throw new UserException("Please enter any username or password");
             }
-            if(password == "error") throw new UserException("An error occurred");
+            if (password == "error")
+            {
+                throw new UserException("An error occurred", "password");
+            }
+            if (password == "exception") throw new Exception("An exception occurred");
             //check username and password here
             AuthService.SetAuthToken(email);
             return new RedirectResult(HttpContext.Current.Request["ReturnUrl"] ?? "../");
