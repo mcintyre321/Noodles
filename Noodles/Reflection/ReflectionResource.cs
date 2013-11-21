@@ -138,7 +138,7 @@ namespace Noodles.Models
 
         public Resource GetChild(string name)
         {
-            var resolvedChild = new[]{this}.Concat(ChildNodes).OfType<IResolveChild>()
+            var resolvedChild = new[]{this.Value}.Concat(ChildNodes).OfType<IResolveChild>()
                 .Select(c => c.ResolveChild(name))
                 .Where(o => o != null)
                 .Select(o => ResourceFactory.Instance.Create(o, this, name))
