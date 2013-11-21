@@ -125,17 +125,20 @@ namespace Noodles.Models
         }
 
 
-        public IEnumerable<object> ChildNodes { get
+        public IEnumerable<object> ChildNodes
         {
-            return this.Value.GetNodeMethods(this).Cast<object>()
-                       .Concat(this.Value.GetNodeProperties(this))
-                       .Concat(new[] {QueryableChild.GetChildCollection(this, this.Value)})
-                       .Where(o => o != null);
-        } }
+            get
+            {
+                return this.Value.GetNodeMethods(this).Cast<object>()
+                    .Concat(this.Value.GetNodeProperties(this))
+                    .Concat(new[] {QueryableChild.GetChildCollection(this, this.Value)})
+                    .Where(o => o != null);
+            }
+        }
 
         public Resource GetChild(string name)
         {
-            var resolvedChild = ChildNodes.OfType<IResolveChild>()
+            var resolvedChild = new[]{this}.Concat(ChildNodes).OfType<IResolveChild>()
                 .Select(c => c.ResolveChild(name))
                 .Where(o => o != null)
                 .Select(o => ResourceFactory.Instance.Create(o, this, name))
@@ -152,18 +155,13 @@ namespace Noodles.Models
                        .SingleOrDefault();
         }
 
-        
-
-
-        private Uri _url;
-
 
         public string DisplayName { get { return Value.GetDisplayName(); } }
 
         public Uri Url
         {
             get { return Parent == null ? new Uri("/", UriKind.Relative) : (new Uri(Parent.Url.ToString() + Name + "/", UriKind.Relative)); }
-            set { _url = value; }
+            set { }
         }
 
         Type IInvokeable.ParameterType
@@ -206,7 +204,7 @@ namespace Noodles.Models
             get { return ""; }
         }
 
-        public Uri RootUrl { set { _url = value; }}
+        public Uri RootUrl { set { }}
         public IEnumerable<Attribute> Attributes { get { return this.Value.Attributes(); } }
     }
 

@@ -39,7 +39,7 @@ namespace Noodles.Models
             }
         }
 
-        public ChildrenAttribute Attribute { get { return _mi.Attributes().OfType<ChildrenAttribute>().SingleOrDefault(); } }
+        ChildrenAttribute Attribute { get { return _mi.Attributes().OfType<ChildrenAttribute>().SingleOrDefault(); } }
         public QueryableChild(Func<IQueryable> getQueryable, MemberInfo mi, INode parent)
         {
             _mi = mi;
