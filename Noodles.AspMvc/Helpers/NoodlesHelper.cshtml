@@ -59,7 +59,7 @@
         var fields = fieldsToDisplay as IInvokeableParameter[] ?? fieldsToDisplay.ToArray();
         if (isNodeMethod || fields.Any())
         {
-        <form class="node-form" action="@node.Url" method="POST">
+        <form class="node-form" action="@node.Url" method="POST" enctype="multipart/formdata">
             @{
             var descriptionAttribute = node.Attributes.OfType<DescriptionAttribute>().SingleOrDefault();
             if (descriptionAttribute != null)
