@@ -46,7 +46,7 @@ namespace Noodles.RequestHandling
             if (uEx == null) return null;
             return () => new ValidationErrorResult(invokeable)
             {
-                {"", ex.Message}
+                {uEx.MemberName ?? "", ex.Message}
             };
         }
 
