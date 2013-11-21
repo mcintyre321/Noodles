@@ -473,7 +473,7 @@ WebViewPage.WriteTo(@__razor_template_writer, node.Url);
 #line default
 #line hidden
 
-WebViewPage.WriteLiteralTo(@__razor_template_writer, "\" method=\"POST\" enctype=\"multipart/formdata\">\r\n");
+WebViewPage.WriteLiteralTo(@__razor_template_writer, "\" method=\"POST\" enctype=\"multipart/form-data\">\r\n");
 
 
 
