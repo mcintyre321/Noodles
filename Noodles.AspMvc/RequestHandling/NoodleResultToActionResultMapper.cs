@@ -65,7 +65,11 @@ namespace Noodles.AspMvc.RequestHandling
                     if (converter != null)
                     {
                         var convertedTarget = converter(targetResource);
-                        return new JsonResult { Data = convertedTarget };
+                        return new JsonResult
+                            {
+                                Data = convertedTarget,
+                                JsonRequestBehavior = JsonRequestBehavior.AllowGet
+                            };
                     }
                 }
              
