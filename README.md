@@ -81,3 +81,7 @@ thanks - Harry McIntyre @mcintyre321
   [10]: http://formfactory.apphb.com/
   
   [![githalytics.com alpha](https://cruel-carlota.pagodabox.com/caba06ced732280266dfe94e5b4de886 "githalytics.com")](http://githalytics.com/mcintyre321/Noodles)
+
+
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/mcintyre321/noodles/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+
